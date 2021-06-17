@@ -36,7 +36,7 @@ export class FormPerfilComponent implements OnInit {
   ngOnInit(): void {
   }
   guardarPerfil(){
-    
+    console.log("Cambio ñaño");
     this.perfilService.savePerfil(this.perfil)
     .subscribe(ok =>{
       
