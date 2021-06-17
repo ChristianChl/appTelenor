@@ -1,0 +1,243 @@
+<nz-modal nzWidth = 720px
+  [(nzVisible)]="isVisibleUsuario"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancelUsuario()"
+
+  (nzAfterOpen) = "ngOnInit()">
+  
+  <ng-template #modalTitle> {{(idUsuario)? 'Editar': 'Agregar'}} Usuario</ng-template>
+
+  <ng-template #modalContent>
+    <form autocomplete="off" [formGroup]="formUsuarios">
+      <div class="row">
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label>Apellidos</nz-form-label>
+            <br />
+            <nz-form-control nzHasFeedback>
+              <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                <input [(ngModel)]="usuarios.us_apellidos" type="text" formControlName="us_apellidos" nz-input
+                  placeholder="Apellidos del Usuario" name="nombre" required />
+              </nz-input-group>
+              <span class="from-text text-danger" *ngIf="campoEsValido('us_apellidos')">Debe ingresar los Apellidos*</span>
+              <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Obligatorio"
+                  [nzType]="'exclamation-circle'"></i></ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label>Nombres</nz-form-label>
+            <br />
+            <nz-form-control nzHasFeedback>
+              <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                <input [(ngModel)]="usuarios.us_nombres" type="text" formControlName="us_nombres" nz-input
+                  placeholder="Nombres del Usuario" name="nombre" required />
+              </nz-input-group>
+              <span class="from-text text-danger" *ngIf="campoEsValido('us_nombres')">Debe ingresar los Nombres*</span>
+
+              <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Obligatorio"
+                  [nzType]="'exclamation-circle'"></i></ng-template>
+
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label> Dirección </nz-form-label>
+            <br />
+            <nz-form-control>
+              <nz-input-group>
+                <input [(ngModel)]="usuarios.us_direccion" type="text" formControlName="us_direccion" nz-input
+                  placeholder="Dirección del Usuario" name="nombre" />
+              </nz-input-group>
+              <ng-template #suffixTemplateInfo></ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="row" style="--bs-gutter-x: 0.6rem; ">
+            <label>Tipo Documento: </label>
+            <br>
+            <div class="col-7">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback>
+                  <nz-select [nzSuffixIcon]="'exclamation-circle'" nzShowSearch formControlName="us_tipoDocumento"
+                    name="tipoDocumento" nzAllowClear nzPlaceHolder="Seleccione Documentos"
+                    [(ngModel)]="usuarios.fk_id_tipoDocumento" required>
+                    <nz-option *ngFor="let option of tipoDocumentos" [nzLabel]="option.tipodoc_descripcion"
+                      [nzValue]="option.id_tipoDocumento"></nz-option>
+                  </nz-select>
+                  <span class="from-text text-danger" *ngIf="campoEsValido('us_tipoDocumento')">Debe ingresar el tipo documento*</span>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="col-5">
+              <button nz-button nzType="primary" (click)="showModalTipoDocumento()"><i style="vertical-align:0px; " nz-icon nzType="plus-circle"
+                  nzTheme="fill"></i>Documento</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-control nzHasFeedback>
+              <label> N° Documento: </label>
+              <br>
+              <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                <input [(ngModel)]="usuarios.us_numeroDocumento" type="text" formControlName="us_numeroDocumento"
+                  nz-input placeholder="Número de Documento" name="nombre" />
+              </nz-input-group>
+              <span class="from-text text-danger" *ngIf="campoEsValido('us_numeroDocumento')">Debe ingresar el número documento*</span>
+              <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Obligatorio"
+                  [nzType]="'exclamation-circle'"></i></ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label> Email </nz-form-label>
+            <br />
+            <nz-form-control nzHasFeedback>
+              <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                <input [(ngModel)]="usuarios.us_email" type="text" formControlName="us_email" nz-input
+                  placeholder="Email" name="nombre" />
+              </nz-input-group>
+              <span class="from-text text-danger" *ngIf="campoEsValido('us_email')">Debe ingresar email*</span>
+              <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Obligatorio"
+                  [nzType]="'exclamation-circle'"></i></ng-template>
+
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label> Teléfono </nz-form-label>
+            <br />
+            <nz-form-control>
+              <nz-input-group>
+                <input [(ngModel)]="usuarios.us_telefono" type="text" formControlName="us_telefono" nz-input
+                  placeholder="Teléfono" name="nombre" />
+              </nz-input-group>
+              <ng-template #suffixTemplateInfo></ng-template>
+
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label> Usuario </nz-form-label>
+            <br />
+            <nz-form-control nzHasFeedback>
+              <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                <input [(ngModel)]="usuarios.us_login" type="text" formControlName="us_login" nz-input
+                  placeholder="Login del Usuario" name="nombre" />
+              </nz-input-group>
+              <span class="from-text text-danger" *ngIf="campoEsValido('us_login')">Debe ingresar usuario*</span>
+              <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Obligatorio"
+                  [nzType]="'exclamation-circle'"></i></ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label> Contraseña </nz-form-label>
+            <br />
+            <nz-form-control nzHasFeedback>
+              <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                <input [(ngModel)]="usuarios.us_clave" type="password" formControlName="us_clave" nz-input
+                  placeholder="Clave del Usuario" name="nombre" />
+              </nz-input-group>
+              <span class="from-text text-danger" *ngIf="campoEsValido('us_clave')">Contraseña mínimo 6 de carateres*</span>
+              <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Obligatorio"
+                  [nzType]="'exclamation-circle'"></i></ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="row" style="--bs-gutter-x: 1.7rem; ">
+            <label>Perfil: </label>
+            <div class="col-8">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback>
+                  <nz-select [nzSuffixIcon]="'exclamation-circle'" nzShowSearch formControlName="us_perfil"
+                    name="perfil" nzAllowClear nzPlaceHolder="Seleccione Perfil" [(ngModel)]="usuarios.fk_id_perfil"
+                    required>
+                    <nz-option *ngFor="let option of perfil" [nzLabel]="option.perf_nombre"
+                      [nzValue]="option.id_perfil">
+                    </nz-option>
+                  </nz-select>
+                  <span class="from-text text-danger" *ngIf="campoEsValido('us_perfil')">Debe ingresar el perfil*</span>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="col-4">
+              <button nz-button nzType="primary" (click)="showModalPerfil()"><i style="vertical-align:0px;" nz-icon nzType="plus-circle"
+                  nzTheme="fill"></i>Perfil</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-control>
+              <label> Fecha Registro: </label>
+              <nz-input-group>
+                <input [(ngModel)]="usuarios.us_fechaRegistro" type="date" formControlName="us_fechaRegistro" nz-input
+                  placeholder="Fecha Registro" name="nombre" />
+              </nz-input-group>
+              <ng-template #suffixTemplateInfo></ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <p> Activo <nz-switch formControlName="us_activo" name="activo" [(ngModel)]="usuarios.us_activo"
+                nzCheckedChildren="Si" nzUnCheckedChildren="No" required></nz-switch>
+            </p>
+            <span class="from-text text-danger" *ngIf="campoEsValido('us_activo')">Debe ingresar el estado del usuario*</span>
+
+          </nz-form-item>
+
+        </div>
+      </div>
+    </form>
+
+
+      <div class="row" style="margin-top: 0px;">
+        <div class="col-6">
+          <div style="border: solid #F78181 1px; border-radius: 3px; text-align: center; background-color:#F5A9A9 ;">
+            <i nz-icon style="vertical-align: 0; position: relative; bottom:2px; margin-left: 5px; "  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#DF0101'"></i><label for="" style="margin-left: 6px; margin-top: 4px; margin-right: 6px; color: #FE2E2E;">Campos Obligatorios </label>
+          </div>
+        </div>
+      </div>
+      
+  </ng-template>
+  
+
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancelUsuario()">Cancelar</button>
+    <button nz-button nzType="primary" (click)=" edit? updateUsuario() : guardarUsuario()" >Guardar</button>
+  </ng-template>
+</nz-modal>
+<app-form-tipo-documento [isVisibleTipoDocumento]="isVisibleTipoDocumento" (newVisibleTipoDocumento)="nuevoDatoDocumento()"></app-form-tipo-documento>
+<app-form-perfil [isVisiblePerfil]="isVisiblePerfil" (newVisiblePerfil)="nuevoDatoPerfil()"></app-form-perfil>

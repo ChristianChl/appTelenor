@@ -1,0 +1,82 @@
+.button{
+    margin-right: 10px;
+}
+
+
+#botonNuevo{
+    margin-bottom: 10px;
+    transform: scale(0.8);
+}
+
+.button {
+    transition-duration: 0.4s;
+    background: red;
+  }
+  
+  .button:hover {
+    background-color: white; /* Green */
+    color: white;
+  }
+
+#inactivo{
+  border: crimson solid 1px;
+  color: crimson;
+  padding: 3px;
+  font-size: 0.7vw;
+}
+
+#activo{
+  border: green solid 1px;
+  color: green;
+  padding: 3px;
+  font-size: 0.7vw;
+}
+
+
+#label{
+  margin: 2px;
+  font-size: 1vw;
+  white-space:pre;
+}
+
+.miteahd{
+  border: solid 100px black;
+  overflow: auto;
+  transform: scale(1);
+ }
+ .miTabla{
+  transform: scale(1);
+  overflow: auto;
+ }
+ .campos{
+
+  font-size: 0.7vw;
+  width: 15%;
+  height: 15%;
+  vertical-align:middle;
+  border-collapse: collapse;
+  text-align: center;
+ }
+ .campos1{
+  font-size: 0.7vw;
+  white-space:pre-line;
+  width: 15%;
+  height: 15%;
+  vertical-align:middle;
+  border-collapse: collapse;
+ }
+ .mitr{
+  
+  transform: scale(1);
+
+ }
+ #delete{
+
+  transform: scale(0.7);
+
+ }
+ #edit{
+  transform: scale(0.7);
+ }
+
+ 

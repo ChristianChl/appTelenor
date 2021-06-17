@@ -1,0 +1,109 @@
+<div fxLayoutAlign="center center" fxLayout="row wrap" fxLayout.xs="column">
+  <mat-toolbar color="warn" class="example-toolbar">
+    <button mat-icon-button (click)="isExpanded = !isExpanded">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="example-app-name">TELENOR PERÚ S.R.L</h1>
+    <div class="miUsuario" fxLayoutAlign="end" fxLayout="row wrap" fxLayout.xs="column">
+      <button mat-icon-button class="miBotonUsuario">
+        <mat-icon class="miBotonUsuario">person</mat-icon>
+      </button>
+      <h1 class="miUsuario"> Bienvenido: {{usuario.name}}</h1>
+    </div>
+  </mat-toolbar>
+</div>
+<mat-sidenav-container class="example-container" autosize style="position: fixed; width: 100%;">
+  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
+    (mouseleave)="mouseleave()" style="background: rgb(59, 55, 55);">
+    <mat-nav-list>
+      <mat-list-item class="separator">
+        <span class="full-width1" *ngIf="isExpanded || isShowing">{{usuario.surnames}} <br>
+          {{usuario.name}}
+        </span>
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <mat-icon class="menu-button">
+        </mat-icon>
+      </mat-list-item>
+      <mat-list-item class="parent" routerLink="/dashboard">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Home</span>
+        <mat-icon mat-list-icon>home</mat-icon>
+        <mat-icon class="menu-button">
+        </mat-icon>
+      </mat-list-item>
+      <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Configuración</span>
+        <mat-icon mat-list-icon>manage_accounts</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+        <a class="full-width" mat-list-item href="...">Perfiles
+          <mat-icon mat-list-icon>switch_account</mat-icon>
+        </a>
+        <a class="full-width" mat-list-item routerLink="/dashboard/listaUsuarios">Usuarios
+          <mat-icon mat-list-icon>group</mat-icon>
+        </a>
+      </div>
+      <mat-list-item (click)="showSubmenu1 = !showSubmenu1" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Almacen</span>
+        <mat-icon mat-list-icon>storage</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu1}" *ngIf="isExpanded || isShowing">expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu1}" *ngIf="isShowing || isExpanded">
+        <a class="full-width" mat-list-item href="...">Inventario</a>
+        <a class="full-width" mat-list-item href="...">Kardex</a>
+      </div>
+      <mat-list-item (click)="showSubmenu2 = !showSubmenu2" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Ventas</span>
+        <mat-icon mat-list-icon>shopping_cart</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu2}" *ngIf="isExpanded || isShowing">expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu2}" *ngIf="isShowing || isExpanded">
+        <a class="full-width" mat-list-item href="...">Registrar Venta</a>
+        <a class="full-width" mat-list-item href="...">Detalle Ventas</a>
+      </div>
+      <mat-list-item (click)="showSubmenu3 = !showSubmenu3" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Precios</span>
+        <mat-icon mat-list-icon>list</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu3}" *ngIf="isExpanded || isShowing">expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu3}" *ngIf="isShowing || isExpanded">
+        <a class="full-width" mat-list-item href="...">Precios Venta</a>
+      </div>
+      <mat-list-item (click)="showSubmenu4 = !showSubmenu4" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Client-Prov.</span>
+        <mat-icon mat-list-icon>groups</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu4}" *ngIf="isExpanded || isShowing">expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu4}" *ngIf="isShowing || isExpanded">
+        <a class="full-width" mat-list-item href="...">Clientes</a>
+        <a class="full-width" mat-list-item href="...">Proveedores</a>
+      </div>
+      <mat-list-item (click)="showSubmenu5 = !showSubmenu5" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Reportes</span>
+        <mat-icon mat-list-icon>assessment</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu5}" *ngIf="isExpanded || isShowing">expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu5}" *ngIf="isShowing || isExpanded">
+        <a class="full-width" mat-list-item href="...">Reporte Ven.</a>
+        <a class="full-width" mat-list-item href="...">Reporte Inv.</a>
+      </div>
+      <mat-list-item class="parent" (click)="logout()">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Logout</span>
+        <mat-icon mat-list-icon>power_settings_new</mat-icon>
+        <mat-icon class="menu-button">
+        </mat-icon>
+      </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list>
+    </mat-nav-list>
+  </mat-sidenav>
+  <div class="idElemento">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>

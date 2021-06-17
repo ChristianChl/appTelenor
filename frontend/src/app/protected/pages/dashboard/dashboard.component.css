@@ -1,0 +1,71 @@
+.example-container {
+    height: 90%;
+    /* position:fixed; */
+    /* border: 2px solid rgba(0, 0, 0, 0.5);  */
+  }
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .example-sidenav {
+     user-select: none;
+  }
+  .full-width {
+    width: 100%;
+    font-size: 1vw;
+    color: rgb(253, 253, 253) !important;
+  }
+  .full-width1 {
+    width:50%;
+    white-space:pre;
+    text-align: center;
+    font-size: 1vw;
+    color: rgb(253, 253, 253) !important;
+    /* text-indent: 1em; */
+    padding-left: 20px;
+    
+  }
+  .separator{
+    border-bottom: 3px dashed rgb(255, 255, 255);
+  }
+  .menu-button {
+    transition: 300ms ease-in-out;
+    transform: rotate(0deg);
+  }
+  .menu-button.rotated {
+    transform: rotate(180deg);
+  }
+  .submenu {
+    overflow-y: hidden;
+    transition: transform 300ms ease;
+    transform: scaleY(0);
+    transform-origin: top;
+    padding-left: 30px;
+    display: none;
+  }
+  .submenu.expanded {
+    transform: scaleY(1);
+    display: block;
+  }
+  .mat-icon{
+    transform: scale(0.8);
+    color: rgb(253, 253, 253) !important;
+  }
+  .miUsuario{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    order: 2;
+    font-size: 1vw;
+    color: rgb(253, 253, 253) !important;
+  }
+  .miBotonUsuario{
+    color: rgb(12, 150, 181) !important;
+    transform: scale(0.9);
+  }
+  .example-app-name{
+    color: rgb(253, 253, 253) !important;
+  }

@@ -1,0 +1,42 @@
+<form autocomplete="off" [formGroup]="miFormulario" (ngSubmit)="login()">
+
+    <mat-card>
+        <mat-card-header fxLayoutAlign="center">
+            <mat-card-title>
+                <h1><strong>Login</strong></h1>
+            </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <mat-card-content>
+                <h3> Usuario <mat-icon matSuffix style="float: left; position: relative;">perm_identity</mat-icon></h3>
+                <mat-form-field fxFlexFill color="warn">
+                    <mat-label>Ingrese su usuario</mat-label>
+                    <input matInput type="text" formControlName="us_login" required>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card-content>
+
+        <mat-card-content>
+            <mat-card-content>
+                <h3>Password <mat-icon matSuffix style="float: left; position: relative;">fingerprint</mat-icon></h3>
+                <mat-form-field fxFlexFill color="warn">
+                    <mat-label>Ingrese su contraseña</mat-label>
+                    <input matInput type="password" formControlName="us_clave" required>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card-content>
+
+        <mat-card-actions fxLayoutAlign="center">
+            <button mat-raised-button color="warn" fxFlex="80" type="submit" [disabled]="miFormulario.invalid">
+                <mat-icon>lock_open</mat-icon>
+                LOGIN
+            </button>
+        </mat-card-actions>
+
+        <mat-card-subtitle fxLayoutAlign="center">¿No tienes cuenta?</mat-card-subtitle>
+        <mat-card-subtitle fxLayoutAlign="center">Contacte con el administrador</mat-card-subtitle>
+
+    </mat-card>
+
+</form>  
