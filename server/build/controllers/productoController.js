@@ -85,6 +85,16 @@ exports.getProducto = getProducto;
 const postProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
+        const existeProducto = yield producto_1.default.findOne({
+            where: {
+                prod_modelo: body.prod_modelo
+            }
+        });
+        if (existeProducto) {
+            return res.status(400).json({
+                msg: 'Ya existe un Producto con el modelo ' + body.prod_modelo
+            });
+        }
         const producto = producto_1.default.build(body);
         yield producto.save();
         return res.status(201).json({

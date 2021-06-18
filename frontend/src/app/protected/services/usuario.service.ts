@@ -36,6 +36,7 @@ export class UsuarioService {
       map(resp => resp.ok),
       catchError(err => {
         if(err.error?.msg){
+          
           return of(err.error.msg)
         }
         if(err.error.errors.us_nombres?.msg){

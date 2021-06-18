@@ -1,0 +1,61 @@
+<nz-modal
+  [(nzVisible)]="isVisibleCategoria"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancelCategoria()"
+
+  (nzAfterOpen) = "ngOnInit()"
+
+  
+>
+  <ng-template #modalTitle style="width: 800px;">Agregar Categoria Modal</ng-template>
+
+  <ng-template #modalContent style="width: 800px;">
+      <div [formGroup]="formCategoria" style="margin-bottom: 0px;">
+        <nz-form-item>
+          <nz-form-label>Nombre Categoria</nz-form-label>
+          <br />
+
+          <nz-form-control nzHasFeedback>
+            <nz-input-group [nzSuffix]="suffixTemplateInfo">
+              <input [(ngModel)]="categoria.cat_nombre" type="text" formControlName="firstName" nz-input placeholder="Nombre Categoria" name="nombre"  />
+            </nz-input-group>
+            
+            <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+            
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <label>Decripcion: </label>
+              <textarea [(ngModel)]="categoria.cat_descripcion" formControlName="descripcionCategoria" rows="4" name="descripcion"  nz-input ></textarea>
+        </nz-form-item>
+        <nz-form-item style="margin-bottom: 0px;">
+          <p> Activo <nz-switch formControlName="activoCategoria" name="activo" [(ngModel)]="categoria.cat_activo" nzCheckedChildren="Si" nzUnCheckedChildren="No" ></nz-switch></p>
+        </nz-form-item>
+      </div>
+      <div class="row" style="margin-top: 0px;">
+        <div class="col-6">
+          <div style="border: solid #F78181 1px; border-radius: 3px; text-align: center; background-color:#F5A9A9 ;">
+            <i nz-icon style="vertical-align: 0; position: relative; bottom:2px; margin-left: 5px; "  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#DF0101'"></i><label for="" style="margin-left: 6px; margin-top: 4px; margin-right: 6px; color: #FE2E2E;">Campos Obligatorios </label>
+          </div>
+        </div>
+      </div>
+      
+  </ng-template>
+  
+
+  <ng-template #modalFooter style="width: 800px;">
+    <button nz-button nzType="default" (click)="handleCancelCategoria()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="edit ? updateCategoria() : handleOkCategoria()" >Guardar</button>
+  </ng-template>
+</nz-modal>
+
+
+
+
+
+
+
+  
+  

@@ -17,6 +17,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
 
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -39,7 +42,9 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzCheckboxModule,
     NzDropDownModule,
     NzSelectModule,
-    NzModalModule
+    NzModalModule,
+    NzImageModule,
+    NzSpaceModule
 
   ]
 })

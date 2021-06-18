@@ -1,0 +1,46 @@
+<nz-modal
+  [(nzVisible)]="isVisibleMedida"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancelMedida()"
+  (nzAfterOpen) = "ngOnInit()"
+
+  
+>
+  <ng-template #modalTitle style="width: 800px;">Agregar Unidad de Medida </ng-template>
+
+  <ng-template #modalContent style="width: 800px;">
+
+    <form [formGroup]="formMedida"  >
+        <nz-form-item>
+          <nz-form-label>Nombre Unidad Medida</nz-form-label>
+          <br />
+          <nz-form-control nzHasFeedback [nzSpan]="12" >
+            <input  [(ngModel)]="medida.med_unidad"  formControlName="nombreMedida" nz-input placeholder="Nombre Medida" name="nombre" required />
+          </nz-form-control>
+          <div *ngIf="formMedida.controls['nombreMedida']?.errors && formMedida.controls['nombreMedida']?.touched">
+            <p *ngIf="formMedida.controls['nombreMedida']?.hasError('required')" style="color: red;">
+              Es un campo requerido
+            </p>
+        </div>
+        </nz-form-item>
+        
+    </form>
+
+      <div class="row" style="margin-top: 0px;">
+        <div class="col-6">
+          <div style="border: solid #F78181 1px; border-radius: 3px; text-align: center; background-color:#F5A9A9 ;">
+            <i nz-icon style="vertical-align: 0; position: relative; bottom:2px; margin-left: 5px; "  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#DF0101'"></i><label for="" style="margin-left: 6px; margin-top: 4px; margin-right: 6px; color: #FE2E2E;">Campos Obligatorios </label>
+          </div>
+        </div>
+      </div>
+      
+  </ng-template>
+  
+
+  <ng-template #modalFooter style="width: 800px;">
+    <button nz-button nzType="default" (click)="handleCancelMedida()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="edit ? updateMedida() : saveNewMedida()" >Guardar</button>
+  </ng-template>
+</nz-modal>

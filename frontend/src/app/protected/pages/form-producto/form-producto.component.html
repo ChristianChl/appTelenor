@@ -1,0 +1,228 @@
+<nz-modal
+  [(nzVisible)]="isVisibleProducto"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancelProducto()"
+  (nzAfterOpen) = "ngOnInit()"
+  nzWidth = 720px
+  
+>
+  <ng-template #modalTitle >{{(idProducto)? 'Editar' : 'Agregar'}} Producto</ng-template>
+
+  <ng-template #modalContent >
+    
+      <form nz-form [formGroup]="formProducto" (ngSubmit)="submitForm()">
+        <div class="row">
+          <div class="col-12" style="margin-bottom: 10px;">
+            <nz-form-item style="margin-bottom: 0px;">
+              <nz-form-label>Modelo Producto</nz-form-label>
+              <br />
+              <nz-form-control nzHasFeedback>
+                <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                  <input [(ngModel)]="producto.prod_modelo"  type="text" formControlName="modeloProducto" nz-input placeholder="Modelo de Producto" name="nombre" required />
+                </nz-input-group>
+                <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+              </nz-form-control>
+              
+            </nz-form-item>
+            <span style="margin-left: 120px;" class="form-text text-danger" *ngIf="validarCampo('modeloProducto')">
+              Es un campo requerido*
+            </span>
+          
+          </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-12" >
+            
+            <label> Descripcion </label>
+            <nz-form-item style="margin-bottom: 0px">
+              <nz-form-control nzHasFeedback>
+                <nz-input-group [nzSuffix]="suffixTemplateInfo" nzHasFeedback>
+                  <input  [(ngModel)]="producto.prod_descripcion" type="text" formControlName="descripcionProducto" nz-input placeholder="Descripcion de Producto" name="nombre" required />
+                </nz-input-group>
+                <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+              </nz-form-control>
+              
+            </nz-form-item>
+            
+          </div>
+          <span  class="form-text text-danger" style="margin-bottom: 5px;" *ngIf="validarCampo('descripcionProducto')">
+            Es un campo requerido*
+          </span>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <nz-form-item>
+              <label>Caracteristica: </label>
+              <textarea [(ngModel)]="producto.prod_caracteristica" formControlName="caracteristicaProducto" rows="3" name="caracteristica"  nz-input ></textarea>
+            </nz-form-item>
+            
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-7">
+            <label>Categoria: </label>
+            <br />
+            <div class="row">
+              <div class="col-8" > 
+                <nz-form-item style="margin-bottom: 4px;">
+                  <nz-form-control nzHasFeedback>
+                    <nz-select [nzSuffixIcon]="'exclamation-circle'"  nzShowSearch formControlName="categoriaProducto" name="categoria" nzAllowClear nzPlaceHolder="Seleccione a Categoria" [(ngModel)]="producto.fk_id_categoria" required>
+                      <nz-option *ngFor="let option of categoria" [nzLabel]="option.cat_nombre" [nzValue]="option.id_categoria" ></nz-option>
+                    </nz-select>
+                  
+                  </nz-form-control>
+                  
+                </nz-form-item>
+                <span  class="form-text text-danger" *ngIf="validarCampo('categoriaProducto')">
+                  Es un campo requerido*
+                </span>
+              </div>
+              <div class="col-4">
+                <button (click)="showModalCategoria()" nz-button nzType="primary"><i style="vertical-align:0px;" nz-icon nzType="plus-circle" nzTheme="fill"></i>Categoria</button>
+              </div>
+              
+            </div>
+            
+          </div>
+
+          <div class="col-5">
+            <label>Marca: </label>
+            <br />
+            <div class="row" style="--bs-gutter-x: 1.2rem; ">
+              <div class="col-8">
+                <nz-form-item style="margin-bottom: 4px;">
+                  <nz-form-control nzHasFeedback>
+                    <nz-select   [nzSuffixIcon]="'exclamation-circle'" nzShowSearch nzAllowClear formControlName="marcaProducto" name="marca"  nzPlaceHolder="Seleccione a Marca"  [(ngModel)]="producto.fk_id_marca" required>
+                      <nz-option *ngFor="let option of marca" [nzLabel]="option.mar_nombre"  [nzValue]="option.id_marca" ></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+                <span  class="form-text text-danger" *ngIf="validarCampo('marcaProducto')">
+                  Es un campo requerido*
+                </span>
+              </div>
+              <div class="col-4" >
+                <button (click)="showModalMarca()" style="padding: 4px;" nz-button nzType="primary"><i style="vertical-align:0px; " nz-icon nzType="plus-circle" nzTheme="fill"></i>Marca</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        
+
+        <div class="row" style="margin-top: 12px;">
+          <div class="col-6">
+            <label>U.Medida: </label>
+            <br />
+            <nz-form-item style="margin-bottom: 4px;">
+              <nz-form-control nzHasFeedback>
+                <nz-select [nzSuffixIcon]="'exclamation-circle'" nzShowSearch formControlName="medidaProducto" name="medida" nzAllowClear nzPlaceHolder="Seleccione una U.Medida" [(ngModel)]="producto.fk_id_medida" required>
+                  <nz-option *ngFor="let option of medida" [nzLabel]="option.med_unidad" [nzValue]="option.id_medida" ></nz-option>
+                </nz-select>
+              </nz-form-control>
+              
+            </nz-form-item>
+            <span  class="form-text text-danger" *ngIf="validarCampo('medidaProducto')">
+              Es un campo requerido*
+            </span>
+            <br />
+            <label style="margin-top: 5px;">Tipo: </label >
+            <br />
+                <nz-form-item  style="margin-bottom: 4px;">
+                  <nz-form-control nzHasFeedback>
+                    <nz-select [nzSuffixIcon]="'exclamation-circle'" nzShowSearch formControlName="tipoProducto" name="tipo" nzAllowClear nzPlaceHolder="Seleccione un Tipo" [(ngModel)]="producto.fk_id_tipo" >
+                      <nz-option *ngFor="let option of tipoProducto" [nzLabel]="option.tip_nombre" [nzValue]="option.id_tipo" ></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+                <span  class="form-text text-danger" *ngIf="validarCampo('tipoProducto')">
+                  Es un campo requerido*
+                </span>
+            
+            <div class="row"  style="margin-top: 20px;">
+              <div class="col-12">
+                <nz-form-item>
+                  <p> Activo <nz-switch formControlName="activoProducto" name="activo" [(ngModel)]="producto.prod_activo" nzCheckedChildren="Si" nzUnCheckedChildren="No" ></nz-switch></p>
+                </nz-form-item>
+                
+                </div>
+            </div>
+          </div>
+          <div class="col-6"  >
+              <br />
+
+              <div style="text-align: center;">
+                <img  width="202px" height="202px" [src]="producto.prod_imagen == '' ? img :  producto.prod_imagen"/>
+              </div>
+              
+              
+          </div>
+
+        </div>
+        
+
+        <div class="row">
+          <div class="col-6">
+            <label>Precio de Compra</label>
+                <nz-form-item style="margin-bottom: 4px;">
+                  <nz-form-control nzHasFeedback>
+                    <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                      <input  type="text" formControlName="precioProducto" nz-input placeholder="Precio de Producto" name="precio"  />
+                    </nz-input-group>
+                    
+                    <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#DF0101'"></i></ng-template>
+                    
+                  </nz-form-control>
+                </nz-form-item>
+                <span  class="form-text text-danger" *ngIf="validarCampo('precioProducto')">
+                  Es un campo requerido*
+                </span>
+          </div>
+          <div class="col-6">
+            <label></label>
+              <nz-form-item>
+                <nz-form-control nzHasFeedback>
+                  
+                    <nz-input-group >
+                      <input [(ngModel)]="producto.prod_imagen "  formControlName="imgProducto" nz-input placeholder="Url Producto" name="img"  />
+                    </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+          </div>
+        </div>
+      </form>
+
+
+
+
+      <div class="row" style="margin-top: 0px;">
+        <div class="col-6">
+          <div style="border: solid #F78181 1px; border-radius: 3px; text-align: center; background-color:#F5A9A9 ;">
+            <i nz-icon style="vertical-align: 0; position: relative; bottom:2px; margin-left: 5px; "  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#DF0101'"></i><label for="" style="margin-left: 6px; margin-top: 4px; margin-right: 6px; color: #FE2E2E;">Campos Obligatorios </label>
+          </div>
+        </div>
+      </div>
+      
+  </ng-template>
+  
+
+  <ng-template #modalFooter >
+    <button nz-button nzType="default" (click)="handleCancelProducto()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="edit ? updateProducto() : saveNewProducto()" >Guardar</button>
+  </ng-template>
+</nz-modal>
+
+<app-form-categoria   [isVisibleCategoria]="isVisibleCategoria" [idCategoria]="idCategoria" (newVisibleCategoria)="nuevoDatoCategoria()" ></app-form-categoria>
+<app-form-marca  [isVisibleMarca]="isVisibleMarca" [idMarca]="idMarca" (newVisibleMarca)="nuevoDatoMarca()"></app-form-marca>
+
+
+
+
+
+

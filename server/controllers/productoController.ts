@@ -85,6 +85,16 @@ export const postProducto  = async (req:Request, res:Response) =>{
 
     try {
         
+        const existeProducto = await Producto.findOne({
+            where: {
+                prod_modelo: body.prod_modelo
+            }
+        });
+        if (existeProducto) {
+            return res.status(400).json({
+                msg: 'Ya existe un Producto con el modelo ' + body.prod_modelo
+            });
+        }
         
         const producto: any =  Producto.build(body);
 

@@ -1,0 +1,55 @@
+<nz-modal
+  [(nzVisible)]="isVisibleMarca"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancelMarca()"
+  (nzAfterOpen) = "ngOnInit()"
+
+  
+>
+  <ng-template #modalTitle >Agregar Categoria Modal</ng-template>
+
+  <ng-template #modalContent >
+
+    <form [formGroup]="formMarca"  >
+      <nz-form-item>
+        <nz-form-label>Nombre Marca</nz-form-label>
+        <br />
+        <nz-form-control nzHasFeedback [nzSpan]="12" >
+          <input  [(ngModel)]="marca.mar_nombre"  formControlName="nombreMarca" nz-input placeholder="Nombre Marca" name="nombre" required />
+        </nz-form-control>
+        <div *ngIf="formMarca.controls['nombreMarca']?.errors && formMarca.controls['nombreMarca']?.touched">
+          <p *ngIf="formMarca.controls['nombreMarca']?.hasError('required')" style="color: red;">
+            Es un campo requerido
+          </p>
+      </div>
+      </nz-form-item>
+      <nz-form-item>
+        <label>Decripcion: </label>
+            <textarea [(ngModel)]="marca.mar_descripcion" formControlName="descripcionMarca" rows="4" name="descripcion"  nz-input ></textarea>
+      </nz-form-item>
+    </form>
+    
+    <section class="example-section" [formGroup]="toppings">
+      
+      <p> Activo <nz-switch [(ngModel)]="marca.mar_activo" formControlName="pepperoni"  nzCheckedChildren="Si" nzUnCheckedChildren="No" ></nz-switch></p>
+        
+    </section>
+
+      <div class="row" style="margin-top: 0px;">
+        <div class="col-6">
+          <div style="border: solid #F78181 1px; border-radius: 3px; text-align: center; background-color:#F5A9A9 ;">
+            <i nz-icon style="vertical-align: 0; position: relative; bottom:2px; margin-left: 5px; "  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#DF0101'"></i><label for="" style="margin-left: 6px; margin-top: 4px; margin-right: 6px; color: #FE2E2E;">Campos Obligatorios </label>
+          </div>
+        </div>
+      </div>
+      
+  </ng-template>
+  
+
+  <ng-template #modalFooter >
+    <button nz-button nzType="default" (click)="handleCancelMarca()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="edit ? updateMarca() : saveNewMarca()" >Guardar</button>
+  </ng-template>
+</nz-modal>

@@ -7,12 +7,23 @@ const router = Router();
 router.get('/',         getProductos);
 router.get('/:id',      getProducto);
 router.post('/',   [
-    check('prod_caracteristica', 'La caracteristica del producto es obligatorio').not().isEmpty(),
     check('prod_modelo', 'El modelo del producto es obligatorio').not().isEmpty(),
-    check('prod_stock', 'El stock del producto es obligatorio').not().isEmpty(),
+    check('prod_descripcion', 'La descripcion del producto es obligatorio').not().isEmpty(),
+    check('fk_id_categoria', 'La Categoria del producto es obligatorio').not().isEmpty(),
+    check('fk_id_marca', 'La Marca del producto es obligatorio').not().isEmpty(),
+    check('fk_id_medida', 'La Medida del producto es obligatorio').not().isEmpty(),
+    check('fk_id_tipo', 'El Tipo del producto es obligatorio').not().isEmpty(),
     validarCampos
 ],  postProducto);
-router.put('/:id',      putProducto);
+router.put('/:id',  [
+    check('prod_modelo', 'El modelo del producto es obligatorio').not().isEmpty(),
+    check('prod_descripcion', 'La descripcion del producto es obligatorio').not().isEmpty(),
+    check('fk_id_categoria', 'La Categoria del producto es obligatorio').not().isEmpty(),
+    check('fk_id_marca', 'La Marca del producto es obligatorio').not().isEmpty(),
+    check('fk_id_medida', 'La Medida del producto es obligatorio').not().isEmpty(),
+    check('fk_id_tipo', 'El Tipo del producto es obligatorio').not().isEmpty(),
+    validarCampos
+],     putProducto);
 router.delete('/:id',      deleteProducto);
 
 export default router;

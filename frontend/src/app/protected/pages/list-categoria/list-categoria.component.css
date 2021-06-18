@@ -1,0 +1,48 @@
+*{
+  font-size: 12px;
+}
+
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
+  padding: 5px;
+}
+
+
+button{
+    margin-right: 10px;
+}
+
+
+#botonNuevo{
+    margin-bottom: 10px;
+}
+
+.button {
+    transition-duration: 0.4s;
+    background: red;
+  }
+  
+  .button:hover {
+    background-color: white; /* Green */
+    color: white;
+  }
+
+#inactivo{
+  border: crimson solid 1px;
+  color: crimson;
+  padding: 3px;
+}
+
+#activo{
+  border: green solid 1px;
+  color: green;
+  padding: 3px;
+}
+
+
+#label{
+  margin: 2px;
+}
+
+thead{
+  border: solid 2px black;
+ }
