@@ -1,0 +1,61 @@
+<button id="botonNuevo"  (click)="openModalProveedor()"  nz-button nzType="primary">Nuevo</button>
+
+<nz-table nzBordered #basicTable [nzData]="persona">
+    <thead>
+      <tr>
+        <th style="text-align: center;"><strong style="text-align: center;">#</strong> </th>
+        <th style="text-align: center;"><strong>Tipo Doc</strong></th>
+        <th style="text-align: center;"><strong>Nro. Doc</strong></th>
+        <th style="text-align: center;"><strong>Razon Social</strong></th>
+        <th style="text-align: center;"><strong >Email</strong></th>
+        <th style="text-align: center;"><strong>Celular</strong></th>
+        <th style="text-align: center;"><strong>Estado</strong></th>
+        <th style="text-align: center;"><strong>Acciones</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; let indice = index">
+        <td>{{ indice+1}}</td>
+        <td>{{ data.TipoDocumentos.tipodoc_descripcion }}</td>
+        <td>{{ data.per_numeroDocumento }}</td>
+        <td>{{ data.per_razonSocial }}</td>
+        <td>{{ data.per_email}}</td>
+        <td>{{ data.per_celular}}</td>
+        <td> 
+          <div id="label">
+            <label id="activo" *ngIf="data.per_activo" for=""> Activo </label>
+            <label id="inactivo" *ngIf="!data.per_activo" for=""> Inactivo </label>
+          </div>
+        </td>
+
+        <td style="text-align: center;">
+            <nz-button-group>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                  <i nz-icon nzType="user"></i>
+                </button>
+            </nz-button-group>
+            <nz-dropdown-menu #menu2="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteProveedor(data.id_persona)" >
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                      </button>
+                      
+                  </li>
+                  <li nz-menu-item>
+                    <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning" (click)="modalEditProveedor(data.id_persona)" >
+                        <i nz-icon nzType="edit" nzTheme="outline"></i>                                                          
+                    </button>
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+           
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <app-form-proveedor [isVisibleProveedor]="isVisibleProveedor" [idProveedor]="idProveedor" (newVisibleProveedor)="nuevoDatoProveedor()"></app-form-proveedor>
+  
+  
+
+

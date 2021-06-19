@@ -21,6 +21,8 @@ import { ListTipoProductoComponent } from './pages/list-tipo-producto/list-tipo-
 import { FormTipoProductoComponent } from './pages/form-tipo-producto/form-tipo-producto.component';
 import { ListProductoComponent } from './pages/list-producto/list-producto.component';
 import { FormProductoComponent } from './pages/form-producto/form-producto.component';
+import { ListProveedorComponent } from './pages/list-proveedor/list-proveedor.component';
+import { FormProveedorComponent } from './pages/form-proveedor/form-proveedor.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { FormProductoComponent } from './pages/form-producto/form-producto.compo
     ListTipoProductoComponent,
     FormTipoProductoComponent,
     ListProductoComponent,
-    FormProductoComponent
+    FormProductoComponent,
+    ListProveedorComponent,
+    FormProveedorComponent
   ],
   imports: [
     CommonModule,

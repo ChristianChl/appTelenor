@@ -6,6 +6,7 @@ import { ListCategoriaComponent } from './pages/list-categoria/list-categoria.co
 import { ListMarcaComponent } from './pages/list-marca/list-marca.component';
 import { ListMedidaComponent } from './pages/list-medida/list-medida.component';
 import { ListProductoComponent } from './pages/list-producto/list-producto.component';
+import { ListProveedorComponent } from './pages/list-proveedor/list-proveedor.component';
 import { ListTipoProductoComponent } from './pages/list-tipo-producto/list-tipo-producto.component';
 import { UsuariosComponent } from './pages/list-usuarios/usuarios.component';
 
@@ -45,6 +46,10 @@ const routes: Routes = [
       {
         path: 'listaProducto',
         component: ListProductoComponent
+      },
+      {
+        path: 'listaProveedor',
+        component: ListProveedorComponent
       },
       {
         path: '**',
