@@ -46,14 +46,32 @@
       </div>
       <mat-list-item (click)="showSubmenu1 = !showSubmenu1" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Almacen</span>
-        <mat-icon mat-list-icon>storage</mat-icon>
+        <mat-icon mat-list-icon>view_module</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu1}" *ngIf="isExpanded || isShowing">expand_more
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu1}" *ngIf="isShowing || isExpanded">
+        <a class="full-width" routerLink="/dashboard/listaProducto" mat-list-item href="...">
+          <mat-icon mat-list-icon>inventory_2</mat-icon>Productos</a>
         <a class="full-width" mat-list-item href="...">Inventario</a>
         <a class="full-width" mat-list-item href="...">Kardex</a>
       </div>
+
+      <!--Nuevo sub menu - Maestro -->
+      <mat-list-item (click)="showSubmenuMaestro = !showSubmenuMaestro" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Maestro</span>
+        <mat-icon mat-list-icon>storage</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenuMaestro}" *ngIf="isExpanded || isShowing">expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenuMaestro}" *ngIf="isShowing || isExpanded">
+        
+        <a class="full-width" routerLink="/dashboard/listaMarca" mat-list-item href="..."><mat-icon mat-list-icon>label</mat-icon>Marca</a>
+        <a class="full-width" routerLink="/dashboard/listaCategoria" mat-list-item href="..."><mat-icon mat-list-icon>bookmark_border</mat-icon>Categoria</a>
+        <a class="full-width" routerLink="/dashboard/listaMedida" mat-list-item href="..."><mat-icon mat-list-icon>local_library</mat-icon>Unidad Medida</a>
+      </div>
+
+
       <mat-list-item (click)="showSubmenu2 = !showSubmenu2" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Ventas</span>
         <mat-icon mat-list-icon>shopping_cart</mat-icon>
@@ -80,8 +98,11 @@
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu4}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" mat-list-item href="...">Clientes</a>
-        <a class="full-width" mat-list-item href="...">Proveedores</a>
+        
+        <a class="full-width" mat-list-item href="...">
+          <mat-icon mat-list-icon>perm_identity</mat-icon>Clientes</a>
+        <a class="full-width" routerLink="/dashboard/listaProveedor"  mat-list-item href="...">
+          <mat-icon mat-list-icon>portrait</mat-icon>Proveedores</a>
       </div>
       <mat-list-item (click)="showSubmenu5 = !showSubmenu5" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Reportes</span>

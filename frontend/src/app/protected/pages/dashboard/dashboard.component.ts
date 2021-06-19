@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
   isShowing = false;
   showSubSubMenu: boolean = false;
   showSubmenu1: boolean = false;
+  showSubmenuMaestro: boolean = false;
   showSubmenu2: boolean = false;
   showSubmenu3: boolean = false;
   showSubmenu4: boolean = false;
