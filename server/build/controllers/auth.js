@@ -27,14 +27,14 @@ const loginUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         console.log(usuario);
         if (!usuario) {
             return res.status(400).json({
-                msg: 'El correo no existe ' + body.us_login
+                msg: 'El usuario no existe ' + body.us_login
             });
         }
         const validPassword = bcrypt_1.default.compareSync(body.us_clave, usuario.us_clave);
         if (!validPassword) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El password No es valido'
+                msg: 'El password no es valido'
             });
         }
         const token = yield jwt_1.generarJwt(usuario.id_usuario, usuario.us_nombres);

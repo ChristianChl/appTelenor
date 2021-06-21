@@ -6,7 +6,9 @@
         <th class="campos"><strong class="campos">#</strong> </th>
         <th class="campos"><strong class="campos" >Apellidos</strong></th>
         <th class="campos"><strong  class="campos">Nombres</strong>
-          <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNombre" name="filterNombre">
+          <nz-input-group class="filterButton" nzAddOnBeforeIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNombre" name="filterNombre">
+          </nz-input-group>
         </th>
         <th class="campos"><strong class="campos">N° Documento</strong></th>
         <!-- <th class="campos"><strong class="campos">Direccion</strong></th> -->

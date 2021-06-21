@@ -17,7 +17,7 @@ export const loginUsuario = async (req: Request, res: Response) => {
         console.log(usuario);
         if (!usuario) {
             return res.status(400).json({
-                msg: 'El correo no existe ' + body.us_login
+                msg: 'El usuario no existe ' + body.us_login
             });
 
         }
@@ -27,7 +27,7 @@ export const loginUsuario = async (req: Request, res: Response) => {
         if (!validPassword) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El password No es valido'
+                msg: 'El password no es valido'
             });
         }
 

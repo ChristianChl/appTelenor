@@ -1,5 +1,5 @@
 <button id="botonNuevo"  (click)="openModalProveedor()"  nz-button nzType="primary">Nuevo</button>
-
+<input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterEmail" name="filterEmail">
 <nz-table nzBordered #basicTable [nzData]="persona">
     <thead>
       <tr>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data; let indice = index">
+      <tr *ngFor="let data of basicTable.data|filterProveedor:filterEmail; let indice = index">
         <td>{{ indice+1}}</td>
         <td>{{ data.TipoDocumentos.tipodoc_descripcion }}</td>
         <td>{{ data.per_numeroDocumento }}</td>

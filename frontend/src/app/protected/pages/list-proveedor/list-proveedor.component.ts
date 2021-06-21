@@ -10,6 +10,7 @@ export class ListProveedorComponent implements OnInit {
 
   persona:any = [];
   proveedor:any = [];
+  filterEmail = "";
 
   isVisibleProveedor = false;
 

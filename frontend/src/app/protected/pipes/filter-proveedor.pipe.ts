@@ -1,0 +1,18 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'filterProveedor'
+})
+export class FilterProveedorPipe implements PipeTransform {
+
+  transform(value: any, arg: any): any {
+    const resultProveedor = [];
+    for(const data of value){
+      if(data.per_email.toLowerCase().indexOf(arg.toLowerCase()) > -1 ){
+        resultProveedor.push(data);
+      };
+    };
+    return resultProveedor;
+  }
+
+}
