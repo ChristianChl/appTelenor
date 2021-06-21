@@ -12,6 +12,7 @@ export class UsuariosComponent implements OnInit {
 
   isVisibleUsuario = false
   idUsuario = "";
+  filterPost =  "";
   usuarios:any = [];
 
   constructor(private usuariosService: UsuarioService) { }

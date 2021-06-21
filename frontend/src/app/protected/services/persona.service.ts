@@ -25,9 +25,9 @@ export class PersonaService {
     return this.http.delete(`${this.baseUrl}/persona/${id}`);
 }
 
-  savePersona(producto: Persona):Observable<any>{
+  savePersona(persona: Persona):Observable<any>{
 
-    return this.http.post<Persona>(`${this.baseUrl}/persona`, producto)
+    return this.http.post<Persona>(`${this.baseUrl}/persona`, persona)
     .pipe(
       tap(resp => {
         if(resp.ok){

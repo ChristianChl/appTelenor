@@ -31,6 +31,9 @@ const Persona = connection_1.default.define('Persona', {
     per_email: {
         type: sequelize_1.DataTypes.INTEGER
     },
+    per_activo: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
     fk_id_tipoDocumento: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {

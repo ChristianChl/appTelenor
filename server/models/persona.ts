@@ -33,6 +33,9 @@ const Persona = db.define('Persona', {
     per_email: {
         type: DataTypes.INTEGER
     },
+    per_activo: {
+        type: DataTypes.BOOLEAN
+    },
     fk_id_tipoDocumento: {
         type: DataTypes.INTEGER,
         references: {

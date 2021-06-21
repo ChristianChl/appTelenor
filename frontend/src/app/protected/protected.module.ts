@@ -23,6 +23,7 @@ import { ListProductoComponent } from './pages/list-producto/list-producto.compo
 import { FormProductoComponent } from './pages/form-producto/form-producto.component';
 import { ListProveedorComponent } from './pages/list-proveedor/list-proveedor.component';
 import { FormProveedorComponent } from './pages/form-proveedor/form-proveedor.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { FormProveedorComponent } from './pages/form-proveedor/form-proveedor.co
     ListProductoComponent,
     FormProductoComponent,
     ListProveedorComponent,
-    FormProveedorComponent
+    FormProveedorComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
