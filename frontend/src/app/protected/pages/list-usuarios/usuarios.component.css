@@ -22,20 +22,17 @@
   border: crimson solid 1px;
   color: crimson;
   padding: 3px;
-  font-size: 0.7vw;
 }
 
 #activo{
   border: green solid 1px;
   color: green;
   padding: 3px;
-  font-size: 0.7vw;
 }
 
 
 #label{
   margin: 2px;
-  font-size: 1vw;
   white-space:pre;
 }
 
@@ -49,8 +46,6 @@
   overflow: auto;
  }
  .campos{
-
-  font-size: 0.7vw;
   width: 15%;
   height: 15%;
   vertical-align:middle;
@@ -58,7 +53,6 @@
   text-align: center;
  }
  .campos1{
-  font-size: 0.7vw;
   white-space:pre-line;
   width: 15%;
   height: 15%;
@@ -72,11 +66,20 @@
  }
  #delete{
 
-  transform: scale(0.7);
+  transform: scale(1);
 
  }
  #edit{
-  transform: scale(0.7);
+  transform: scale(1);
  }
+
+ .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
+  padding: 5px;
+  text-align: center;
+}
+*{
+  font-size: 11px;
+
+}
 
  

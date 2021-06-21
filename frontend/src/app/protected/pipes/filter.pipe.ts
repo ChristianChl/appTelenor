@@ -8,8 +8,9 @@ export class FilterPipe implements PipeTransform {
   transform(value: any, arg: any): any {
     const resultPosts = [];
     for(const data of value){
-      if(data.us_login.indexOf(arg) > -1){
+      if(data.us_login.toLowerCase().indexOf(arg.toLowerCase()) > -1 || data.us_nombres.toLowerCase().indexOf(arg.toLowerCase()) > -1){
         resultPosts.push(data);
+        
       };
     };
     return resultPosts;
