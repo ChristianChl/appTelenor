@@ -30,3 +30,4 @@ registerLocaleData(es);
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
