@@ -25,6 +25,7 @@ import { ListProveedorComponent } from './pages/list-proveedor/list-proveedor.co
 import { FormProveedorComponent } from './pages/form-proveedor/form-proveedor.component';
 
 
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -43,7 +44,7 @@ import { FormProveedorComponent } from './pages/form-proveedor/form-proveedor.co
     ListProductoComponent,
     FormProductoComponent,
     ListProveedorComponent,
-    FormProveedorComponent
+    FormProveedorComponent,
   ],
   imports: [
     CommonModule,
