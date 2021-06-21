@@ -46,10 +46,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     FormProductoComponent,
     ListProveedorComponent,
     FormProveedorComponent,
-<<<<<<< HEAD
     FilterPipe
-=======
->>>>>>> 34119429e15c6fd1fdb11720df55489fb0026cfb
   ],
   imports: [
     CommonModule,
