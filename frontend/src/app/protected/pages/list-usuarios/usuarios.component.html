@@ -1,47 +1,67 @@
 <br>
 <button id="botonNuevo" (click)="showModalUsuario()" nz-button nzType="primary">Nuevo</button>
-<nz-table class="miTabla" nzBordered #basicTable [nzData]="usuarios">
+<nz-table class="miTabla" nzBordered #basicTable [nzData]="usuarios" nzTableLayout="fixed" >
     <thead class="miteahd">
       <tr class="mitr">
         <th class="campos"><strong class="campos">#</strong> </th>
-        <th class="campos"><strong class="campos" >Apellidos</strong></th>
+        <th class="campos"><strong class="campos" >Apellidos</strong>
+          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterApellido" name="filterApellido">
+          </nz-input-group>
+        </th>
         <th class="campos"><strong  class="campos">Nombres</strong>
-          <nz-input-group class="filterButton" nzAddOnBeforeIcon="filter">
+          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNombre" name="filterNombre">
           </nz-input-group>
         </th>
-        <th class="campos"><strong class="campos">N° Documento</strong></th>
-        <!-- <th class="campos"><strong class="campos">Direccion</strong></th> -->
-        <th class="campos"><strong class="campos">Telefono</strong></th>
-        <th class="campos"><strong class="campos">Email</strong></th>
-        <!-- <th class="campos"><strong class="campos">Fecha Registro</strong></th> -->
-        <th class="campos"><strong class="campos">Usuario</strong>
-          <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterPost" name="filterPost">
+        <th class="campos"><strong class="campos">Tipo Documento</strong>
+          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterDocumento" name="filterDocumento">
+          </nz-input-group>
         </th>
-        <th class="campos"><strong class="campos">Perfil</strong></th>
-        <th class="campos"><strong class="campos">Tipo Documento</strong></th>
-        <th class="campos"><strong class="campos">Estado</strong></th>
+        <th class="campos"><strong class="campos">N° Documento</strong>
+          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNumero" name="filterNumero">
+          </nz-input-group>
+        </th>
+        <th class="campos"><strong class="campos">Telefono</strong>
+          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterTelefono" name="filterTelefono">
+          </nz-input-group>
+        </th>
+        <th class="campos"><strong class="campos">Usuario</strong>
+          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterUsuario" name="filterUsuario">
+          </nz-input-group>
+        </th>
+        <th class="campos"><strong class="campos">Perfil</strong>
+          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterPerfil" name="filterPerfil">
+          </nz-input-group>
+        </th>
+        <th class="campos"><strong class="campos">Estado</strong>
+          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterEstado" name="filterEstado">
+          </nz-input-group>
+        </th>
         <th class="campos"><strong class="campos">Acciones</strong></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data|filter:filterPost|filter:filterNombre; let indice = index">
+      <tr *ngFor="let data of basicTable.data|filter:filterUsuario|filter:filterNombre|filter:filterApellido|filter:filterEstado|filter:filterDocumento|filter:filterNumero|filter:filterTelefono|filter:filterPerfil; let indice = index">
         <td class="campos1">{{ indice+1}}</td>
         <td class="campos1">{{ data.us_apellidos }}</td>
         <td class="campos1">{{ data.us_nombres }}</td>
+        <td class="campos1">{{ data.TipoDocumentos.tipodoc_descripcion}}</td>
         <td class="campos1">{{ data.us_numeroDocumento }}</td>
-        <!-- <td class="campos1">{{ data.us_direccion}}</td> -->
         <td class="campos1">{{ data.us_telefono}}</td>
-        <td class="campos1">{{ data.us_email}}</td>
-        <!-- <td class="campos1">{{ data.us_fechaRegistro| date: 'dd/MM/yyyy'}}</td> -->
         <td class="campos1">{{ data.us_login}}</td>
         <td class="campos1">{{ data.Perfils.perf_nombre}}</td>
-        <td class="campos1">{{ data.TipoDocumentos.tipodoc_descripcion}}</td>
         <td> 
           <div id="label">
             <label id="activo" *ngIf="data.us_activo" for=""> Activo </label>
             <label id="inactivo" *ngIf="!data.us_activo" for=""> Inactivo </label>
-        </div>
+          </div>
 
         </td>
         <td style="text-align: center;">

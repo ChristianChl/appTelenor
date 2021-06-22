@@ -12,9 +12,16 @@ export class UsuariosComponent implements OnInit {
 
   isVisibleUsuario = false
   idUsuario = "";
-  filterPost =  "";
-  filterNombre = "";
   usuarios:any = [];
+
+  filterUsuario =  "";
+  filterNombre = "";
+  filterApellido = "";
+  filterEstado  = "";
+  filterDocumento = "";
+  filterNumero = "";
+  filterTelefono = "";
+  filterPerfil = "";
 
   constructor(private usuariosService: UsuarioService) { }
 
@@ -57,6 +64,5 @@ export class UsuariosComponent implements OnInit {
     this.ngOnInit();
     this.isVisibleUsuario = false;
   }
-
-
+  
 }
