@@ -14,27 +14,42 @@
     
       <form nz-form [formGroup]="formProveedor" >
         
-        <div class="row">
-            <div class="col-6">
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col-6" >
                 <label for="">Tipo Doc.</label>
                 <br />
-                <nz-form-item style="margin-bottom: 4px;">
-                    <nz-form-control nzHasFeedback>
+                <nz-form-item style="margin-bottom: 0px;">
+                    <nz-form-control [nzErrorTip]="tipoDocErrorTpl" nzHasFeedback>
                       <nz-select [(ngModel)]="proveedor.fk_id_tipoDocumento" [nzSuffixIcon]="'exclamation-circle'"  nzShowSearch formControlName="tipoDocProveedor" name="tipoDoc" nzAllowClear nzPlaceHolder="Seleccionar ..." required>
                         <nz-option *ngFor="let option of tipoDocumento" [nzLabel]="option.tipodoc_descripcion" [nzValue]="option.id_tipoDocumento" ></nz-option>
                       </nz-select>
+
+                      <ng-template #tipoDocErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                          Por favor seleccion una opción!
+                        </ng-container>
+                      </ng-template>
+
                     </nz-form-control>
                 </nz-form-item>
+                
             </div>
             <div class="col-6">
                 <label for="">Nro. Doc.</label>
                 <br />
-                <nz-form-item>
-                    <nz-form-control nzHasFeedback>
+                <nz-form-item style="margin-bottom: 0px; ">
+                    <nz-form-control [nzErrorTip]="numDocErrorTpl" nzHasFeedback>
                       <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="credit-card">
-                        <input [(ngModel)]="proveedor.per_numeroDocumento"  type="text" formControlName="numDocProveedor" nz-input placeholder="Modelo de Producto" name="nombre" required />
+                        <input [(ngModel)]="proveedor.per_numeroDocumento"  type="number" formControlName="numDocProveedor" nz-input placeholder="Modelo de Producto" name="nombre" required />
                       </nz-input-group>
                       <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                      
+                      <ng-template #numDocErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                          Por favor ingrese el numero de documento!
+                        </ng-container>
+                      </ng-template>
+
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -45,11 +60,17 @@
                 <label for="">Razón Social</label>
                 <br />
                 <nz-form-item>
-                    <nz-form-control nzHasFeedback>
+                    <nz-form-control [nzErrorTip]="razonErrorTpl" nzHasFeedback>
                       <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="container">
                         <input  [(ngModel)]="proveedor.per_razonSocial" type="text" formControlName="razonSocialProveedor" nz-input placeholder="Ingresar el nombre de la empresa o la persona ..." name="Razon Social" required />
                       </nz-input-group>
                       <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                      
+                      <ng-template #razonErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                          Por favor ingrese datos al campo!
+                        </ng-container>
+                      </ng-template>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -60,11 +81,17 @@
                 <label for="">Direccion</label>
                 <br />
                 <nz-form-item>
-                    <nz-form-control nzHasFeedback>
+                    <nz-form-control [nzErrorTip]="direccionErrorTpl" nzHasFeedback>
                       <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="environment">
                         <input [(ngModel)]="proveedor.per_direccion"  type="text" formControlName="direccionProveedor" nz-input placeholder="Ingresar direccion de la empresa o la persona ..." name="Direccion" required />
                       </nz-input-group>
                       <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                      
+                      <ng-template #direccionErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                          Por favor ingrese la dirección!
+                        </ng-container>
+                      </ng-template>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -75,11 +102,21 @@
                 <label for="">Correo Electronico</label>
                 <br />
                 <nz-form-item>
-                    <nz-form-control nzHasFeedback>
-                      <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="mail">
-                        <input  [(ngModel)]="proveedor.per_email" type="text" formControlName="correoProveedor" nz-input placeholder="Ingresar correo de la empresa o la persona ..." name="Correo Electronico" required />
+                    <nz-form-control [nzErrorTip]="emailErrorTpl" nzHasFeedback>
+                      <nz-input-group  [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="mail">
+                        <input  [(ngModel)]="proveedor.per_email" type="email" formControlName="correoProveedor" nz-input placeholder="Ingresar correo de la empresa o la persona ..." name="Correo Electronico" required />
                       </nz-input-group>
                       <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                    
+                      <ng-template #emailErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('email')">
+                          El correo es invalido!
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('required')">
+                          Por favor ingrese su correo!
+                        </ng-container>
+                      </ng-template>
+                      
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -87,11 +124,17 @@
                 <label for="">Telefono Celular</label>
                 <br />
                 <nz-form-item>
-                    <nz-form-control nzHasFeedback>
+                    <nz-form-control [nzErrorTip]="celularErrorTpl" nzHasFeedback>
                       <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="container">
-                        <input [(ngModel)]="proveedor.per_celular"  type="text" formControlName="celularProveedor" nz-input placeholder="Ingresar numero celular de la empresa o la persona ..." name="Razon Social" required />
+                        <input [(ngModel)]="proveedor.per_celular"  type="number" formControlName="celularProveedor" nz-input placeholder="Ingresar numero celular de la empresa o la persona ..." name="Razon Social" required />
                       </nz-input-group>
                       <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                      
+                      <ng-template #celularErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                          Por favor ingrese el numero de celular!
+                        </ng-container>
+                      </ng-template>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -103,10 +146,10 @@
                 <br />
                 <nz-form-item>
                     <nz-form-control nzHasFeedback>
-                      <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="phone">
-                        <input [(ngModel)]="proveedor.per_telefonoFijo" type="text" formControlName="telefonoFijoProveedor" nz-input placeholder="Ingresar numero celular de la empresa o la persona ..." name="Razon Social" required />
+                      <nz-input-group  nzAddOnBeforeIcon="phone">
+                        <input [(ngModel)]="proveedor.per_telefonoFijo" type="text" formControlName="telefonoFijoProveedor" nz-input placeholder="Ingresar numero celular de la empresa o la persona ..." name="Razon Social"  />
                       </nz-input-group>
-                      <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                      
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -131,6 +174,6 @@
   
   <ng-template #modalFooter >
     <button nz-button nzType="default" (click)="handleCancelProveedor()"><i style="vertical-align:0px;" nz-icon nzType="close-circle"></i>Cancelar</button>
-    <button nz-button nzType="primary" (click)="edit ? updateProveedor() : saveNewProveedor()" ><i style="vertical-align:0px;" nz-icon nzType="save"></i>Guardar</button>
+    <button [disabled]="!formProveedor.valid" nz-button nzType="primary" (click)="edit ? updateProveedor() : saveNewProveedor()" ><i style="vertical-align:0px;" nz-icon nzType="save"></i>Guardar</button>
   </ng-template>
 </nz-modal>

@@ -21,7 +21,7 @@ export class FormProveedorComponent implements OnInit {
   edit: boolean = false;
 
   proveedor: Persona = {
-    id_persona: 0,
+    id_Persona: 0,
     per_razonSocial: "",
     per_numeroDocumento: "",
     per_direccion: "",
@@ -61,9 +61,9 @@ export class FormProveedorComponent implements OnInit {
       razonSocialProveedor: ['' , [Validators.required]],
       direccionProveedor: ['' , [Validators.required]],
       celularProveedor: ['' , [Validators.required]],
-      activoProveedor: ['', [Validators.required]],
-      telefonoFijoProveedor : ['', [Validators.required]],
-      correoProveedor : ['', [Validators.required]]
+      activoProveedor: ['', []],
+      telefonoFijoProveedor : ['', []],
+      correoProveedor : ['', [Validators.required, Validators.email]]
       
     });
 
@@ -95,14 +95,19 @@ export class FormProveedorComponent implements OnInit {
     }
     else{
     
-      this.proveedor.id_persona = 0;
+      
+      this.proveedor.id_Persona = 0;
       this.proveedor.per_razonSocial = "";
       this.proveedor.per_numeroDocumento = "";
       this.proveedor.per_direccion = "";
       this.proveedor.per_telefonoFijo = "";
       this.proveedor.per_email = "";
       this.proveedor.per_celular = "";
+      this.proveedor.fk_id_tipoDocumento = "",
+      
+      
       this.proveedor.per_activo = "true";
+      
       
     }
       
@@ -111,22 +116,22 @@ export class FormProveedorComponent implements OnInit {
     this.getTipoDocumento();
   }
 
+  validarCampo(campo : string){
+    return this.formProveedor.controls[campo].errors && this.formProveedor.controls[campo].touched 
+          ; 
+  }
+
   saveNewProveedor(){
 
-    if(this.formProveedor.valid){
-      console.log(this.idTipoPersona);
-      this.proveedor.fk_id_tipoPersona = this.idTipoPersona;
-
-      console.log("el id en guardar despues: " + this.proveedor.id_persona);
-      const value = this.formProveedor.value;
-      console.log("El value: ");
-      console.log(value);
-      console.log("El producto: ");
+      this.proveedor.id_Persona = 0;
+      console.log(this.proveedor.id_Persona);
       console.log(this.proveedor);
+      this.proveedor.fk_id_tipoPersona = this.idTipoPersona;
+      const value = this.formProveedor.value;
       
-      console.log("el id en guardar despues: " + this.proveedor.id_persona);
       this.personaService.savePersona(this.proveedor)
       .subscribe(ok => {
+        if(ok == true && this.formProveedor.valid){
           console.log(ok)
             console.log("Entro a guardar");
             Swal.fire({
@@ -140,14 +145,16 @@ export class FormProveedorComponent implements OnInit {
             this.ngOnInit();
             this.isVisibleProveedor = false;
             this.newVisibleProveedor.emit(this.isVisibleProveedor);
-        },
-        err => console.log(err)
-      )
-    }
-    else {
-      console.log("error");
-      this.formProveedor.markAllAsTouched();
-    }
+        
+        }
+        else{
+          this.formProveedor.markAllAsTouched();
+          Swal.fire('Error', ok, 'error');
+          console.log(ok);
+        }
+
+          });
+    
 
   }
 
@@ -175,7 +182,7 @@ export class FormProveedorComponent implements OnInit {
   handleCancelProveedor(){
     this.isVisibleProveedor = false;
     this.newVisibleProveedor.emit(this.isVisibleProveedor);
-
+    this.formProveedor.reset();
     
   }
 

@@ -55,3 +55,11 @@
    nz-input-group{
     margin-top: 10px;
    }
+
+   nz-select{
+     font-size: 12px;
+   }
+
+   nz-option-item{
+    font-size: 12px;
+  }

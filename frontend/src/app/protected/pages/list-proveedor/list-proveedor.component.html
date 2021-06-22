@@ -1,4 +1,4 @@
-<button id="botonNuevo"  (click)="openModalProveedor()"  nz-button nzType="primary">Nuevo</button>
+<button id="botonNuevo"  (click)="openModalProveedor()"  nz-button nzType="primary"><i nz-icon nzType="user-add" nzTheme="outline"></i>Nuevo</button>
 <nz-table nzBordered #basicTable style="margin-left: 10px; margin-right: 10px;"  [nzData]="persona">
     <thead>
       <tr>
@@ -28,9 +28,9 @@
           </nz-input-group>
         </th>
         <th style="text-align: center;"><strong>Estado</strong>
-          <nz-input-group  nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterEstado" name="filterEstado">
-          </nz-input-group>
+          <nz-select  [(ngModel)]="filterEstado" name="filterEstado"  style="margin-top: 10px;  font-size: 12px;">
+            <nz-option  style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+          </nz-select>
         </th>
         <th style="text-align: center;"><strong>Acciones</strong>
         </th>
@@ -54,7 +54,7 @@
         <td style="text-align: center;">
             <nz-button-group>
                 <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-                  <i nz-icon nzType="user"></i>
+                  <i nz-icon nzType="setting"></i>
                 </button>
             </nz-button-group>
             <nz-dropdown-menu #menu2="nzDropdownMenu">

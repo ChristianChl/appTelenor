@@ -240,7 +240,7 @@ export class FormProductoComponent implements OnInit {
       
       if( ok == true && this.formProducto.valid ) {
         
-        Swal.fire('Success', 'Usuario creado exitosamente!', 'success');
+        Swal.fire('Success', 'Producto creado exitosamente!', 'success');
         this.formProducto.reset();
         this.router.navigateByUrl('/dashboard/listaProducto');
         this.handleCancelProducto();

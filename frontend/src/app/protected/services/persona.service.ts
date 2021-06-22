@@ -36,12 +36,14 @@ export class PersonaService {
       }),
       map(resp => resp.ok),
       catchError(err =>{
-          if(err.error.errors.per_razonSocial?.msg){
-            return of(err.error.errors.per_razonSocial.msg);
-          }
+        
           if(err.error.errors.per_numeroDocumento?.msg){
             return of(err.error.errors.per_numeroDocumento.msg);
           }
+          if(err.error.errors.per_razonSocial?.msg){
+            return of(err.error.errors.per_razonSocial.msg);
+          }
+          
           if(err.error.errors.per_direccion?.msg){
             return of(err.error.errors.per_direccion.msg);
           }
@@ -51,6 +53,7 @@ export class PersonaService {
           if(err.error.errors.per_email?.msg){
             return of(err.error.errors.per_email.msg);
           }
+          
           console.log('Hable con el administrador dfdf')
           return of('Hable con el administrador')
           

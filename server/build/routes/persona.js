@@ -13,6 +13,7 @@ router.post('/', [
     express_validator_1.check('per_direccion', 'La direccion es obligatorio').not().isEmpty(),
     express_validator_1.check('per_celular', 'El celular es obligatorio').not().isEmpty(),
     express_validator_1.check('per_email', 'El email es obligatorio').not().isEmpty(),
+    express_validator_1.check('fk_id_tipoDocumento', 'El Tipo de Documento es obligatorio').not().isEmpty(),
     validar_campos_1.validarCampos
 ], personaController_1.postPersona);
 router.put('/:id', personaController_1.putPersona);

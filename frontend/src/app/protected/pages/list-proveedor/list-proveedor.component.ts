@@ -20,6 +20,13 @@ export class ListProveedorComponent implements OnInit {
   filterCelular="";
   filterEstado="";
 
+
+  select: any = [
+    {text:"Activos", value:"true"},
+    {text:"Inactivos", value:"false"},
+    {text:"Resetear", value:""}
+  ];
+
   isVisibleProveedor = false;
 
   constructor(private personaService:PersonaService) { }

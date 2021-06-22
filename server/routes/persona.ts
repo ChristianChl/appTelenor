@@ -12,6 +12,7 @@ router.post('/',  [
     check('per_direccion','La direccion es obligatorio').not().isEmpty(),
     check('per_celular','El celular es obligatorio').not().isEmpty(),
     check('per_email','El email es obligatorio').not().isEmpty(),
+    check('fk_id_tipoDocumento','El Tipo de Documento es obligatorio').not().isEmpty(),
     validarCampos
 ] ,  postPersona);
 router.put('/:id',      putPersona);

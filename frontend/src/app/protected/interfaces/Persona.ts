@@ -1,5 +1,5 @@
 export interface Persona{
-    id_persona?: number;
+    id_Persona?: number;
     per_razonSocial?: string;
     per_numeroDocumento?: string;
     per_direccion?: string;

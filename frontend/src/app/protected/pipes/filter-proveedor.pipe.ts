@@ -12,7 +12,8 @@ export class FilterProveedorPipe implements PipeTransform {
       data.per_razonSocial.toLowerCase().indexOf(arg.toLowerCase()) > -1 ||
       data.TipoDocumentos.tipodoc_descripcion.toLowerCase().indexOf(arg.toLowerCase()) > -1 ||
       data.per_numeroDocumento.toLowerCase().indexOf(arg.toLowerCase()) > -1||
-      data.per_celular.toLowerCase().indexOf(arg.toLowerCase()) > -1){
+      data.per_celular.toLowerCase().indexOf(arg.toLowerCase()) > -1 ||
+      data.per_activo.toString().toLowerCase().indexOf(arg.toLowerCase()) > -1 ){
         resultProveedor.push(data);
       };
     };
