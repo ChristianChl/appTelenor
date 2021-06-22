@@ -37,7 +37,7 @@
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" mat-list-item href="...">Perfiles
+        <a class="full-width" mat-list-item routerLink="/dashboard/listaPerfil">Perfiles
           <mat-icon mat-list-icon>switch_account</mat-icon>
         </a>
         <a class="full-width" mat-list-item routerLink="/dashboard/listaUsuarios">Usuarios

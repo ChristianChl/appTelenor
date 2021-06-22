@@ -41,8 +41,8 @@
         </th>
         <th class="campos"><strong class="campos">Estado</strong><br/>
           
-            <nz-select [(ngModel)]="filterEstado" name="filterEstado">
-              <nz-option *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+            <nz-select class="filterButton" [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado">
+              <nz-option class="forms-control" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
             </nz-select>
         </th>
         <th class="campos"><strong class="campos">Acciones</strong></th>

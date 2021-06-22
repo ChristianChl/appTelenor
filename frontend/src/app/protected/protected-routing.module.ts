@@ -5,6 +5,7 @@ import { FormUsuarioComponent } from './pages/form-usuarios/form-usuario.compone
 import { ListCategoriaComponent } from './pages/list-categoria/list-categoria.component';
 import { ListMarcaComponent } from './pages/list-marca/list-marca.component';
 import { ListMedidaComponent } from './pages/list-medida/list-medida.component';
+import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
 import { ListProductoComponent } from './pages/list-producto/list-producto.component';
 import { ListProveedorComponent } from './pages/list-proveedor/list-proveedor.component';
 import { ListTipoProductoComponent } from './pages/list-tipo-producto/list-tipo-producto.component';
@@ -20,12 +21,8 @@ const routes: Routes = [
         component: UsuariosComponent,
       },
       {
-        path: 'agregarUsuarios',
-        component: FormUsuarioComponent,
-      },
-      {
-        path: 'editarUsuarios',
-        component: FormUsuarioComponent,
+        path: 'listaPerfil',
+        component: ListPerfilComponent
       },
       {
         path: 'listaCategoria',

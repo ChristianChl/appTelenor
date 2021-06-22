@@ -1,6 +1,6 @@
 <nz-modal [(nzVisible)]="isVisiblePerfil" [nzTitle]="modalTitle" [nzContent]="modalContent"
     [nzFooter]="modalFooter" (nzOnCancel)="handleCancelPerfil()" (nzAfterOpen)="ngOnInit()">
-    <ng-template #modalTitle> Agregar Perfil</ng-template>
+    <ng-template #modalTitle>{{(idPerfil)? 'Editar': 'Agregar'}} Perfil</ng-template>
     <ng-template #modalContent>
         <form autocomplete="off" [formGroup]="formPerfil" >
             <div class="row" style="display: flex; align-items: center; justify-content: center;">
@@ -9,7 +9,7 @@
                         <nz-form-label>Nombre</nz-form-label>
                         <br />
                         <nz-form-control nzHasFeedback>
-                            <nz-input-group [nzSuffix]="suffixTemplateInfo" >
+                            <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="container">
                                 <input [(ngModel)]="perfil.perf_nombre" type="text" formControlName="perf_nombre" nz-input placeholder="Nombre del Perfil" name="nombre" required />
                             </nz-input-group>
                             <span class="from-text text-danger" *ngIf="campoEsValido('perf_nombre')">Debe ingresar el nombre del perfil*</span>
@@ -24,8 +24,8 @@
                   <nz-form-item>
                     <nz-form-label> Descripción </nz-form-label>
                     <br />
-                    <nz-form-control>
-                      <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                    <nz-form-control nzHasFeedback>
+                      <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="form">
                         <input [(ngModel)]="perfil.perf_descripcion" type="text" formControlName="perf_descripcion" nz-input
                           placeholder="Descripción del Perfil" name="nombre" />
                       </nz-input-group>
@@ -52,7 +52,7 @@
         </div>
     </ng-template>
     <ng-template #modalFooter>
-        <button nz-button nzType="default" (click)="handleCancelPerfil()">Cancelar</button>
-        <button nz-button nzType="primary" (click)="guardarPerfil()">Guardar</button>
+        <button nz-button nzType="default" (click)="handleCancelPerfil()"><i style="vertical-align:0px;" nz-icon nzType="close-circle"></i>Cancelar</button>
+        <button nz-button nzType="primary" (click)=" edit? updatePerfil() : guardarPerfil()"><i style="vertical-align:0px;" nz-icon nzType="save"></i>Guardar</button>
     </ng-template>
 </nz-modal>

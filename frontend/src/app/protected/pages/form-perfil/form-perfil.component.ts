@@ -1,6 +1,6 @@
 import { EventEmitter, Output } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Perfil } from '../../interfaces/Perfil';
@@ -23,6 +23,7 @@ export class FormPerfilComponent implements OnInit {
   }
   edit: boolean = false;
 
+  
   formPerfil: FormGroup = this.fb.group({
     perf_nombre: [, [Validators.required]],
     perf_descripcion: [, [Validators.required]],
@@ -34,6 +35,27 @@ export class FormPerfilComponent implements OnInit {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    const params = this.activatedRoute.snapshot.params;
+    this.edit = false;
+    console.log(this.idPerfil);
+    if(this.idPerfil != ""){
+      this.edit = true;
+      this.perfilService.getPerfil(this.idPerfil)
+      .subscribe(
+        res => {
+          this.perfil = res;
+          
+        },
+        err => console.log(err)
+
+      )
+    }else{
+
+      this.perfil.id_perfil = 0;
+      this.perfil.perf_nombre = "";
+      this.perfil.perf_descripcion = "";
+
+    }
   }
   guardarPerfil(){
     this.perfilService.savePerfil(this.perfil)
@@ -43,7 +65,6 @@ export class FormPerfilComponent implements OnInit {
         
         Swal.fire('Success', 'Perfil creado exitosamente!', 'success');
         this.formPerfil.reset();
-        this.router.navigateByUrl('/dashboard/listaUsuarios');
         this.handleCancelPerfil();
 
       }else{
@@ -52,6 +73,22 @@ export class FormPerfilComponent implements OnInit {
         console.log(ok);
       }
       
+    });
+  }
+  updatePerfil(){
+    const params = this.activatedRoute.snapshot.params;
+    this.perfilService.updatePerfil(this.idPerfil, this.perfil)
+    .subscribe(ok =>{
+      if(this.formPerfil.valid){
+        Swal.fire('Success', 'Perfil actualizado exitosamente!', 'success');
+        console.log(ok);
+        this.formPerfil.reset();
+        this.handleCancelPerfil();
+      }else{
+        this.formPerfil.markAllAsTouched();
+        // Swal.fire('Error', ok, 'error');
+        console.log(ok);
+      }
     });
   }
 

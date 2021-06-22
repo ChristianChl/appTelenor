@@ -25,7 +25,8 @@ export class UsuariosComponent implements OnInit {
 
   select: any = [
     {text:"Activos", value:"true"},
-    {text:"Inactivos", value:"false"}
+    {text:"Inactivos", value:"false"},
+    {text: "Resetear", value: ""}
   ];
 
 
@@ -65,13 +66,11 @@ export class UsuariosComponent implements OnInit {
     console.log(this.isVisibleUsuario);
     this.idUsuario ="";
     this.isVisibleUsuario = true;  
-    
   }
   showModalUsuarioEdit(id: string): void {
     console.log(this.isVisibleUsuario);
     this.isVisibleUsuario = true;
     this.idUsuario = id;  
-    
   }
   nuevoDato(){
     this.ngOnInit();
