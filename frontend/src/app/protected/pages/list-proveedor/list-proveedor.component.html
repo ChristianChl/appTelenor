@@ -1,20 +1,43 @@
 <button id="botonNuevo"  (click)="openModalProveedor()"  nz-button nzType="primary">Nuevo</button>
-<input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterEmail" name="filterEmail">
-<nz-table nzBordered #basicTable [nzData]="persona">
+<nz-table nzBordered #basicTable style="margin-left: 10px; margin-right: 10px;"  [nzData]="persona">
     <thead>
       <tr>
         <th style="text-align: center;"><strong style="text-align: center;">#</strong> </th>
-        <th style="text-align: center;"><strong>Tipo Doc</strong></th>
-        <th style="text-align: center;"><strong>Nro. Doc</strong></th>
-        <th style="text-align: center;"><strong>Razon Social</strong></th>
-        <th style="text-align: center;"><strong >Email</strong></th>
-        <th style="text-align: center;"><strong>Celular</strong></th>
-        <th style="text-align: center;"><strong>Estado</strong></th>
-        <th style="text-align: center;"><strong>Acciones</strong></th>
+        <th style="text-align: center;"><strong  >Tipo Doc</strong>
+            <nz-input-group  nzAddOnAfterIcon="filter">
+              <input nz-input type="text"  class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterTipoDoc" name="filterTipoDoc">
+            </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Nro. Doc</strong>
+          <nz-input-group  nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNumDoc" name="filterNumDoc">
+          </nz-input-group></th>
+        <th style="text-align: center;"><strong>Razon Social</strong>
+          <nz-input-group  nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterRazon" name="filterRazon">
+          </nz-input-group></th>
+        <th style="text-align: center;"><strong >Email</strong>
+          <nz-input-group  nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterEmail" name="filterEmail">
+          </nz-input-group>
+          </th>
+        
+        <th style="text-align: center;"><strong>Celular</strong>
+          <nz-input-group  nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterCelular" name="filterCelular">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Estado</strong>
+          <nz-input-group  nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterEstado" name="filterEstado">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Acciones</strong>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data|filterProveedor:filterEmail; let indice = index">
+      <tr *ngFor="let data of basicTable.data|filterProveedor:filterEmail|filterProveedor:filterRazon|filterProveedor:filterTipoDoc|filterProveedor:filterNumDoc|filterProveedor:filterCelular|filterProveedor:filterEstado; let indice = index">
         <td>{{ indice+1}}</td>
         <td>{{ data.TipoDocumentos.tipodoc_descripcion }}</td>
         <td>{{ data.per_numeroDocumento }}</td>
@@ -37,13 +60,13 @@
             <nz-dropdown-menu #menu2="nzDropdownMenu">
                 <ul nz-menu>
                   <li nz-menu-item>
-                    <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteProveedor(data.id_persona)" >
+                    <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteProveedor(data.id_Persona)" >
                         <i nz-icon nzType="delete" nzTheme="outline"></i>
                       </button>
                       
                   </li>
                   <li nz-menu-item>
-                    <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning" (click)="modalEditProveedor(data.id_persona)" >
+                    <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning" (click)="modalEditProveedor(data.id_Persona)" >
                         <i nz-icon nzType="edit" nzTheme="outline"></i>                                                          
                     </button>
                   </li>

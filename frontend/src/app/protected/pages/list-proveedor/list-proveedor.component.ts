@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 import { PersonaService } from '../../services/persona.service';
 
 @Component({
@@ -11,10 +14,22 @@ export class ListProveedorComponent implements OnInit {
   persona:any = [];
   proveedor:any = [];
   filterEmail = "";
+  filterRazon = "";
+  filterTipoDoc="";
+  filterNumDoc="";
+  filterCelular="";
+  filterEstado="";
 
   isVisibleProveedor = false;
 
   constructor(private personaService:PersonaService) { }
+
+  formPrueba = new FormGroup({
+    filterTipoDoc: new FormControl()
+  });
+
+  
+
 
   ngOnInit(): void {
       this.getProveedor();
@@ -65,11 +80,18 @@ export class ListProveedorComponent implements OnInit {
     this.personaService.deletePersona(id).subscribe(
       res=> {
         console.log(res)
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Se Elimino el Proveedor con Exito',
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.getProveedor();
       },
       err => console.log(err)
     );
   }
-
+  
 
 }

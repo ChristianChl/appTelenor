@@ -48,6 +48,7 @@ export class FormProveedorComponent implements OnInit {
     numDocProveedor : new FormControl(),
     razonSocialProveedor : new FormControl(),
     direccionProveedor : new FormControl(),
+    celularProveedor : new FormControl(),
     activoProveedor : new FormControl(),
     telefonoFijoProveedor : new FormControl(),
     correoProveedor : new FormControl()
@@ -59,6 +60,7 @@ export class FormProveedorComponent implements OnInit {
       numDocProveedor: ['' , [Validators.required]],
       razonSocialProveedor: ['' , [Validators.required]],
       direccionProveedor: ['' , [Validators.required]],
+      celularProveedor: ['' , [Validators.required]],
       activoProveedor: ['', [Validators.required]],
       telefonoFijoProveedor : ['', [Validators.required]],
       correoProveedor : ['', [Validators.required]]
@@ -92,8 +94,15 @@ export class FormProveedorComponent implements OnInit {
       )
     }
     else{
-      console.log("prueba de oninit");
-      this.edit = false;
+    
+      this.proveedor.id_persona = 0;
+      this.proveedor.per_razonSocial = "";
+      this.proveedor.per_numeroDocumento = "";
+      this.proveedor.per_direccion = "";
+      this.proveedor.per_telefonoFijo = "";
+      this.proveedor.per_email = "";
+      this.proveedor.per_celular = "";
+      this.proveedor.per_activo = "true";
       
     }
       
@@ -143,12 +152,31 @@ export class FormProveedorComponent implements OnInit {
   }
 
   updateProveedor(){
-
+    console.log("Entro a editar");
+    this.personaService.updatePersona(this.idProveedor, this.proveedor)
+      .subscribe(
+        res => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Se Edito   con Exito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.formProveedor.reset();
+          this.ngOnInit();
+          this.isVisibleProveedor = false;
+          this.newVisibleProveedor.emit(this.isVisibleProveedor);
+        },
+        err => console.log(err)
+      )
   }
 
   handleCancelProveedor(){
     this.isVisibleProveedor = false;
     this.newVisibleProveedor.emit(this.isVisibleProveedor);
+
+    
   }
 
   tipoPersona:any = [];

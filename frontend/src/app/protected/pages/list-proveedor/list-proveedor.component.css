@@ -52,3 +52,6 @@
   thead{
     border: solid 2px black;
    }
+   nz-input-group{
+    margin-top: 10px;
+   }
