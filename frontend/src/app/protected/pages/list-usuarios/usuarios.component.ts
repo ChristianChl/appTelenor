@@ -23,10 +23,23 @@ export class UsuariosComponent implements OnInit {
   filterTelefono = "";
   filterPerfil = "";
 
+  select: any = [
+    {text:"Activos", value:"true"},
+    {text:"Inactivos", value:"false"}
+  ];
+
+
+  
+  
+
+
   constructor(private usuariosService: UsuarioService) { }
 
   ngOnInit(): void {
+    
       this.getUsuarios();
+      console.log("Prueba"+this.select);
+      
   }
 
   getUsuarios(){

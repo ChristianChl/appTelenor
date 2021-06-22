@@ -39,10 +39,11 @@
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterPerfil" name="filterPerfil">
           </nz-input-group>
         </th>
-        <th class="campos"><strong class="campos">Estado</strong>
-          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterEstado" name="filterEstado">
-          </nz-input-group>
+        <th class="campos"><strong class="campos">Estado</strong><br/>
+          
+            <nz-select [(ngModel)]="filterEstado" name="filterEstado">
+              <nz-option *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+            </nz-select>
         </th>
         <th class="campos"><strong class="campos">Acciones</strong></th>
       </tr>
