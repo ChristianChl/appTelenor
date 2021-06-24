@@ -35,6 +35,16 @@ exports.getMedida = getMedida;
 const postMedida = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
+        const existeMedida = yield medida_1.default.findOne({
+            where: {
+                med_unidad: body.med_unidad
+            }
+        });
+        if (existeMedida) {
+            return res.status(400).json({
+                msg: 'Ya existe una Unidad Medida con el nombre ' + body.med_unidad
+            });
+        }
         const medida = medida_1.default.build(body);
         yield medida.save();
         return res.status(201).json({

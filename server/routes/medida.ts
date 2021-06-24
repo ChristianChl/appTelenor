@@ -10,7 +10,10 @@ router.post('/', [
     check('med_unidad','La unidad de medida es obligatorio').not().isEmpty(),
     validarCampos
 ],  postMedida);
-router.put('/:id',      putMedida);
+router.put('/:id', [
+    check('med_unidad','La unidad de medida es obligatorio').not().isEmpty(),
+    validarCampos
+],     putMedida);
 router.delete('/:id',      deleteMedida);
 
 export default router;

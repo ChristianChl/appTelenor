@@ -85,57 +85,59 @@ export class FormMedidaComponent implements OnInit {
   }
 
   saveNewMedida(){
-
-    console.log("nuevo");
-    if (this.formMedida.valid) {
-      const value = this.formMedida.value;
-      console.log(value);
-        this.medidaService.saveMedida(this.medida)
+      this.medidaService.saveMedida(this.medida)
       .subscribe(
-        res=>{
-          console.log(res);
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se guardo con Exito',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.formMedida.reset();
-          this.isVisibleMedida = false;
-          this.newVisibleMedida.emit(this.isVisibleMedida);
-        },
-        err => console.log(err)
-      )
-    } 
-    else {
-      console.log("error");
-      this.formMedida.markAllAsTouched();
-    }
+        ok=>{
+          if (ok==true && this.formMedida.valid) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se guardo con Exito',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.formMedida.reset();
+            this.isVisibleMedida = false;
+            this.newVisibleMedida.emit(this.isVisibleMedida);
+          }
+          else{
+            this.formMedida.markAllAsTouched();
+            Swal.fire('Error', ok, 'error');
+            console.log(ok);
+          }
+        });
+    
   }
 
   updateMedida(){
-    const params = this.activatedRoute.snapshot.params;
-    console.log(this.idMedida);
+
     this.medidaService.updateMedida(this.idMedida, this.medida)
       .subscribe(
-        res => {
-          console.log(res);
-          console.log(this.medida);
-          console.log(res);
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se guardo con Exito',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.formMedida.reset();
-          this.isVisibleMedida = false;
-          this.newVisibleMedida.emit(this.isVisibleMedida);
-        },
-        err => console.log(err)
-        )
+        ok => {
+          if (this.formMedida.valid) {
+            console.log(this.medida);
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se guardo con Exito',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.formMedida.reset();
+            this.isVisibleMedida = false;
+            this.newVisibleMedida.emit(this.isVisibleMedida);
+          }
+          else{
+            this.formMedida.markAllAsTouched();
+            Swal.fire('Error', ok, 'error');
+            console.log(ok);
+          }
+         
+        });
+    }
+
+    campoEsValido(campo: string){
+      return this.formMedida.controls[campo].errors && this.formMedida.controls[campo].touched;
     }
 
 }

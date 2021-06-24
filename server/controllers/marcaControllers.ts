@@ -39,7 +39,7 @@ export const postMarca  = async (req:Request, res:Response) =>{
         });
         if (existeMarca) {
             return res.status(400).json({
-                msg: 'Ya existe una marca con el nombre ' + body.mar_nombre
+                msg: 'Ya existe una Marca con el nombre ' + body.mar_nombre
             });
         }
         

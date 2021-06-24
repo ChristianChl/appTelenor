@@ -29,6 +29,16 @@ export const postMedida  = async (req:Request, res:Response) =>{
 
     try {
         
+        const existeMedida = await Medida.findOne({
+            where: {
+                med_unidad: body.med_unidad
+            }
+        });
+        if (existeMedida) {
+            return res.status(400).json({
+                msg: 'Ya existe una Unidad Medida con el nombre ' + body.med_unidad
+            });
+        }
         
         const medida: any =  Medida.build(body);
 

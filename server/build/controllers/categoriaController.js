@@ -38,12 +38,12 @@ const postCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const existeCategoria = yield categoria_1.default.findOne({
             where: {
-                mar_nombre: body.mar_nombre
+                cat_nombre: body.cat_nombre
             }
         });
         if (existeCategoria) {
             return res.status(400).json({
-                msg: 'Ya existe una Categoria con el nombre ' + body.mar_nombre
+                msg: 'Ya existe una Categoria con el nombre ' + body.cat_nombre
             });
         }
         const categoria = categoria_1.default.build(body);

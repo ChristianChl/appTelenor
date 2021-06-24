@@ -32,12 +32,12 @@ export const postCategoria = async (req:Request, res:Response) =>{
         
         const existeCategoria = await Categoria.findOne({
             where: {
-                mar_nombre: body.mar_nombre
+                cat_nombre: body.cat_nombre
             }
         });
         if (existeCategoria) {
             return res.status(400).json({
-                msg: 'Ya existe una Categoria con el nombre ' + body.mar_nombre
+                msg: 'Ya existe una Categoria con el nombre ' + body.cat_nombre
             });
         }
         
