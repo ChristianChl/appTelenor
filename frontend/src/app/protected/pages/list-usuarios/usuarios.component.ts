@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 import { UsuarioService } from '../../services/usuario.service';
 import { FormUsuarioComponent } from '../form-usuarios/form-usuario.component';
 
@@ -56,6 +57,13 @@ export class UsuariosComponent implements OnInit {
   deleteUsuario(id: string){
     this.usuariosService.deleteUsuario(id).subscribe(
       res=> {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Se Elimino el Usuario con Exito!',
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.getUsuarios();
       },
       err => console.log(err)

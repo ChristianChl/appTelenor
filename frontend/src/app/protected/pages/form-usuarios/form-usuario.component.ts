@@ -112,8 +112,13 @@ export class FormUsuarioComponent implements OnInit {
     .subscribe(ok =>{
       
       if( ok == true && this.formUsuarios.valid ) {
-        
-        Swal.fire('Success', 'Usuario creado exitosamente!', 'success');
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Usuario Creado Exitosamente!',
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.formUsuarios.reset();
         this.router.navigateByUrl('/dashboard/listaUsuarios');
         this.handleCancelUsuario();
@@ -132,8 +137,13 @@ export class FormUsuarioComponent implements OnInit {
     this.usuarioService.updateUsuario(this.idUsuario, this.usuarios)
     .subscribe(ok =>{
       if(this.formUsuarios.valid ) {
-        
-        Swal.fire('Success', 'Usuario actualizado exitosamente!', 'success');
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Usuario Actualizado Exitosamente!',
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.router.navigateByUrl('/dashboard/listaUsuarios');
         this.formUsuarios.reset();
         this.handleCancelUsuario();

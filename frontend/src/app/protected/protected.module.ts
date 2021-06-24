@@ -26,6 +26,9 @@ import { FormProveedorComponent } from './pages/form-proveedor/form-proveedor.co
 import { FilterPipe } from './pipes/filter-usuario.pipe';
 import { FilterProveedorPipe } from './pipes/filter-proveedor.pipe';
 import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
+import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
+import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
+import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
 
 
 
@@ -50,7 +53,10 @@ import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
     FormProveedorComponent,
     FilterPipe,
     FilterProveedorPipe,
-    ListPerfilComponent
+    ListPerfilComponent,
+    FilterPerfilPipe,
+    ListTipoDocumentoComponent,
+    FilterTipoDocumentoPipe
   ],
   imports: [
     CommonModule,

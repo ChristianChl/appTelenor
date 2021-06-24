@@ -11,7 +11,10 @@ router.post('/', [
     express_validator_1.check('tipodoc_descripcion', 'el tipo de documento es obligatorio').not().isEmpty(),
     validar_campos_1.validarCampos
 ], tipoDocumentoController_1.postTiposDocumentos);
-router.put('/:id', tipoDocumentoController_1.putTiposDocumentos);
+router.put('/:id', [
+    express_validator_1.check('tipodoc_descripcion', 'el tipo de documento es obligatorio').not().isEmpty(),
+    validar_campos_1.validarCampos
+], tipoDocumentoController_1.putTiposDocumentos);
 router.delete('/:id', tipoDocumentoController_1.deleteTiposDocumentos);
 exports.default = router;
 //# sourceMappingURL=tipoDocumento.js.map

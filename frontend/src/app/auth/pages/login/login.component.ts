@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
   styles: [
   ]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   miFormulario: FormGroup = this.fb.group({
     us_login: ['', [Validators.required]],
@@ -20,6 +20,10 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
               private router: Router,
               private authService: AuthService) { }
+  
+  ngOnInit(): void {
+    this.authService.logout();
+  }
 
   login(){
 

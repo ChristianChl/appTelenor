@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 import { PerfilService } from '../../services/perfil.service';
 
 @Component({
@@ -34,6 +35,13 @@ export class ListPerfilComponent implements OnInit {
   deletePerfil(id: string){
     this.perfilService.deletePerfil(id).subscribe(
       res=>{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Se Elimino el Perfil con Exito!',
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.getPerfil();
       },
       err => console.log(err)

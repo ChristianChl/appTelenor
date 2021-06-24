@@ -1,16 +1,10 @@
 <br>
-<button id="botonNuevo" (click)="openModalPerfil()" nz-button nzType="primary">Nuevo</button>
-<nz-table nzBordered #basicTable style="margin-left: 10px; margin-right: 10px;" [nzData]="perfil">
+<button id="botonNuevo" (click)="openModalDocumento()" nz-button nzType="primary">Nuevo</button>
+<nz-table nzBordered #basicTable style="margin-left: 10px; margin-right: 10px;" [nzData]="documento">
   <thead>
     <tr>
       <th style="text-align: center;"><strong style="text-align: center;">#</strong> </th>
-      <th style="text-align: center;"><strong>Nombre Perfil</strong>
-        <nz-input-group nzAddOnAfterIcon="filter">
-          <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterNombre"
-            name="filterNombre">
-        </nz-input-group>
-      </th>
-      <th style="text-align: center;"><strong>Descripción Perfil</strong>
+      <th style="text-align: center;"><strong>Tipo Documento</strong>
         <nz-input-group nzAddOnAfterIcon="filter">
           <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterDescripcion"
             name="filterDescripcion">
@@ -21,10 +15,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of basicTable.data|filterPerfil:filterNombre|filterPerfil:filterDescripcion; let indice = index">
+    <tr *ngFor="let data of basicTable.data|filterTipoDocumento:filterDescripcion; let indice = index">
       <td>{{ indice+1}}</td>
-      <td>{{ data.perf_nombre }}</td>
-      <td>{{ data.perf_descripcion }}</td>
+      <td>{{ data.tipodoc_descripcion }}</td>
 
       <td style="text-align: center;">
         <nz-button-group>
@@ -36,14 +29,14 @@
           <ul nz-menu>
             <li nz-menu-item>
               <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip id="delete" ntype="button"
-                class="btn btn-danger" (click)="deletePerfil(data.id_perfil)">
+                class="btn btn-danger" (click)="deleteDocumento(data.id_tipoDocumento)">
                 <i nz-icon nzType="delete" nzTheme="outline"></i>
               </button>
 
             </li>
             <li nz-menu-item>
               <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip
-                class="btn btn-warning" (click)="showModalPerfilEdit(data.id_perfil)">
+                class="btn btn-warning" (click)="showModalDocumentoEdit(data.id_tipoDocumento)">
                 <i nz-icon nzType="edit" nzTheme="outline"></i>
               </button>
             </li>
@@ -53,5 +46,4 @@
     </tr>
   </tbody>
 </nz-table>
-<app-form-perfil [isVisiblePerfil]="isVisiblePerfil" [idPerfil]="idPerfil" (newVisiblePerfil)="nuevoDatoPerfil()" ></app-form-perfil>
-
+<app-form-tipo-documento [isVisibleTipoDocumento]="isVisibleDocumento" [idTipoDocumento]="idTipoDocumento" (newVisibleTipoDocumento)="nuevoDatoDocumento()"></app-form-tipo-documento>
