@@ -2,9 +2,12 @@
   font-size: 12px;
 }
 
+
 .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
   padding: 5px;
+  text-align: center;
 }
+
 
 
 button{
@@ -13,7 +16,10 @@ button{
 
 
 #botonNuevo{
+    margin-top: 15px;
     margin-bottom: 10px;
+    margin-left: 10px;
+  margin-right: 10px;
 }
 
 .button {
@@ -46,3 +52,14 @@ button{
 thead{
   border: solid 2px black;
  }
+ nz-input-group{
+  margin-top: 10px;
+ }
+
+ nz-select{
+   font-size: 12px;
+ }
+
+ nz-option-item{
+  font-size: 12px;
+}

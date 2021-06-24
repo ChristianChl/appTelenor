@@ -14,21 +14,21 @@
   <ng-template #modalContent style="width: 800px;">
       <div [formGroup]="formCategoria" style="margin-bottom: 0px;">
         <nz-form-item>
-          <nz-form-label>Nombre Categoria</nz-form-label>
+          <nz-form-label>Nombre Categoria </nz-form-label>
           <br />
 
-          <nz-form-control nzHasFeedback>
-            <nz-input-group [nzSuffix]="suffixTemplateInfo">
+          <nz-form-control nzHasFeedback >
+            <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="tag">
               <input [(ngModel)]="categoria.cat_nombre" type="text" formControlName="firstName" nz-input placeholder="Nombre Categoria" name="nombre"  />
             </nz-input-group>
-            
             <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
-            
           </nz-form-control>
+          <span style="margin-left: 130px;" class="from-text text-danger" *ngIf="campoEsValido('firstName')">Debe ingresar el nombre*</span>
         </nz-form-item>
+
         <nz-form-item>
           <label>Decripcion: </label>
-              <textarea [(ngModel)]="categoria.cat_descripcion" formControlName="descripcionCategoria" rows="4" name="descripcion"  nz-input ></textarea>
+              <textarea [(ngModel)]="categoria.cat_descripcion" formControlName="descripcionCategoria" rows="3" name="descripcion"  nz-input ></textarea>
         </nz-form-item>
         <nz-form-item style="margin-bottom: 0px;">
           <p> Activo <nz-switch formControlName="activoCategoria" name="activo" [(ngModel)]="categoria.cat_activo" nzCheckedChildren="Si" nzUnCheckedChildren="No" ></nz-switch></p>
@@ -46,8 +46,8 @@
   
 
   <ng-template #modalFooter style="width: 800px;">
-    <button nz-button nzType="default" (click)="handleCancelCategoria()">Cancelar</button>
-    <button nz-button nzType="primary" (click)="edit ? updateCategoria() : handleOkCategoria()" >Guardar</button>
+    <button style="padding-left: 5px; padding-right: 5px;" nz-button nzType="default" (click)="handleCancelCategoria()"><i style="vertical-align:1px; " nz-icon nzType="close-circle"></i><span >Cancelar</span> </button>
+    <button style="padding-left: 5px; padding-right: 5px;" nz-button nzType="primary" (click)="edit ? updateCategoria() : handleOkCategoria()" ><i style="vertical-align:1px; " nz-icon nzType="save"></i>Guardar</button>
   </ng-template>
 </nz-modal>
 

@@ -106,40 +106,32 @@ export class FormCategoriaComponent implements OnInit {
   }
 
   handleOkCategoria(){
-
-    if (this.formCategoria.valid) {
-      console.log("agreando");
-      const value = this.formCategoria.value;
-      console.log(value);
-      console.log(this.categoria);
       this.categoriaService.saveCategoria(this.categoria)
       .subscribe(
-        res=>{
-          console.log(res);
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se guardo con Exito',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.formCategoria.reset();
-          this.ngOnInit();
-          this.isVisibleCategoria = false;
-          this.newVisibleCategoria.emit(this.isVisibleCategoria);
-        },
-        err => console.log(err)
-      )
-    } 
-    else {
-      console.log("error");
-      this.formCategoria.markAllAsTouched();
-    }
+        ok=>{
+          if (ok == true && this.formCategoria.valid) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se guardo con Exito',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.formCategoria.reset();
+            this.ngOnInit();
+            this.isVisibleCategoria = false;
+            this.newVisibleCategoria.emit(this.isVisibleCategoria);
+          }
+          else{
+            this.formCategoria.markAllAsTouched();
+            Swal.fire('Error', ok, 'error');
+            console.log(ok);
+          }
+        });
   }
 
   updateCategoria(){
-    console.log("Actualizando");
-    const params = this.activatedRoute.snapshot.params;
+    
     this.categoriaService.updateCategoria(this.idCategoria, this.categoria)
       .subscribe(
         res => {
@@ -159,6 +151,10 @@ export class FormCategoriaComponent implements OnInit {
         },
         err => console.log(err)
       )
+  }
+
+  campoEsValido(campo: string){
+    return this.formCategoria.controls[campo].errors && this.formCategoria.controls[campo].touched;
   }
 
 

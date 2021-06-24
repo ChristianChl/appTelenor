@@ -1,4 +1,4 @@
-<button id="botonNuevo"  (click)="showModalCategoria()"  nz-button nzType="primary">Nuevo</button>
+<button id="botonNuevo"  (click)="showModalCategoria()"  nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
 
 <nz-table nzBordered #basicTable [nzData]="categorias" style="margin-left: 10px; margin-right: 10px;">
     <thead>
@@ -27,7 +27,7 @@
         <td style="text-align: center;">
           <nz-button-group>
               <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-                <i nz-icon nzType="user"></i>
+                <i nz-icon nzType="setting"></i>
               </button>
           </nz-button-group>
           <nz-dropdown-menu #menu2="nzDropdownMenu">

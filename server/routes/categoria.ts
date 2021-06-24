@@ -9,11 +9,12 @@ router.get('/',         getCategorias);
 router.get('/:id',      getCategoria);
 router.post('/', [
     check('cat_nombre', 'El nombre del producto es obligatorio').not().isEmpty(),
-    check('cat_descripcion', 'La descripción del producto es obligatorio').not().isEmpty(),
-    check('cat_activo', 'El estado del producto es obligatorio').not().isEmpty(),
     validarCampos
 ], postCategoria);
-router.put('/:id',      putCategoria);
+router.put('/:id',[
+    check('cat_nombre', 'El nombre del producto es obligatorio').not().isEmpty(),
+    validarCampos
+],      putCategoria);
 router.delete('/:id',   deleteCategoria);
 
 export default router;
