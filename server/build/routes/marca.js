@@ -9,11 +9,12 @@ router.get('/', marcaControllers_1.getMarcas);
 router.get('/:id', marcaControllers_1.getMarca);
 router.post('/', [
     express_validator_1.check('mar_nombre', 'El nombre de la marca es obligatorio').not().isEmpty(),
-    express_validator_1.check('mar_descripcion', 'La descripción de la marca es obligatorio').not().isEmpty(),
-    express_validator_1.check('mar_activo', 'El estado de la marca es obligatorio').not().isEmpty(),
     validar_campos_1.validarCampos
 ], marcaControllers_1.postMarca);
-router.put('/:id', marcaControllers_1.putMarca);
+router.put('/:id', [
+    express_validator_1.check('mar_nombre', 'El nombre de la marca es obligatorio').not().isEmpty(),
+    validar_campos_1.validarCampos
+], marcaControllers_1.putMarca);
 router.delete('/:id', marcaControllers_1.deleteMarca);
 exports.default = router;
 //# sourceMappingURL=marca.js.map

@@ -32,6 +32,16 @@ export const postMarca  = async (req:Request, res:Response) =>{
 
     try {
         
+        const existeMarca = await Marca.findOne({
+            where: {
+                mar_nombre: body.mar_nombre
+            }
+        });
+        if (existeMarca) {
+            return res.status(400).json({
+                msg: 'Ya existe una marca con el nombre ' + body.mar_nombre
+            });
+        }
         
         const marca: any =  Marca.build(body);
 

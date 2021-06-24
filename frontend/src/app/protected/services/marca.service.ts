@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Marca } from '../interfaces/Marca';
 
@@ -24,12 +25,44 @@ export class MarcaService {
     return this.http.delete(`${this.baseUrl}/marca/${id}`);
 }
 
-  saveMarca(marca: Marca){
+  saveMarca(marca: Marca):Observable<any>{
 
-    return this.http.post(`${this.baseUrl}/marca`, marca);
+    return this.http.post<Marca>(`${this.baseUrl}/marca`, marca).pipe(
+      tap(resp =>{
+        if(resp.ok){
+          console.log('Categoria Guardado')
+        }
+      }),
+      map(resp => resp.ok),
+      catchError(err => {
+        if(err.error?.msg){
+          return of(err.error.msg)
+        }
+        if(err.error.errors.mar_nombre?.msg){
+          return of(err.error.errors.mar_nombre.msg)
+        }
+        return of('Hable con el Administrador') 
+      })
+    );
   }
 
-  updateMarca(id: string|number, updatedMarca: Marca): Observable<Marca> {
-    return this.http.put(`${this.baseUrl}/marca/${id}`, updatedMarca);
+  updateMarca(id: string|number, updatedMarca: Marca): Observable<any> {
+    return this.http.put<Marca>(`${this.baseUrl}/marca/${updatedMarca.id_marca}`, updatedMarca).pipe(
+      tap(resp => {
+        if(resp.ok){
+          console.log("se guardo")
+        }
+      }),
+      map(resp => resp.ok),
+      catchError(err =>{
+        if(err.error?.msg){
+          return of(err.error.msg)
+        }
+        if(err.error.errors.mar_nombre?.msg){
+          return of(err.error.errors.mar_nombre.msg)
+        }
+        return of('Hable con el Administrador') 
+      })
+    );
   }
 }

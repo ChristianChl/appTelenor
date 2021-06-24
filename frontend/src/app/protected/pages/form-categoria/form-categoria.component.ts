@@ -131,26 +131,31 @@ export class FormCategoriaComponent implements OnInit {
   }
 
   updateCategoria(){
-    
+
     this.categoriaService.updateCategoria(this.idCategoria, this.categoria)
       .subscribe(
-        res => {
-          console.log(res);
-          console.log(this.categoria);
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se guardo con Exito',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          this.formCategoria.reset();
-          this.ngOnInit();
-          this.isVisibleCategoria = false;
-          this.newVisibleCategoria.emit(this.isVisibleCategoria);
-        },
-        err => console.log(err)
-      )
+        ok => {
+          console.log("dfdf");
+          if (this.formCategoria.valid) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se guardo con Exito',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.formCategoria.reset();
+            this.ngOnInit();
+            this.isVisibleCategoria = false;
+            this.newVisibleCategoria.emit(this.isVisibleCategoria);
+          }
+          else{
+            this.formCategoria.markAllAsTouched();
+            Swal.fire('Error', ok, 'error');
+            console.log(ok);
+          }
+          
+        });
   }
 
   campoEsValido(campo: string){

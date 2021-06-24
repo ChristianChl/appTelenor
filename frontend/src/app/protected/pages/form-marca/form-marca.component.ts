@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import Swal from 'sweetalert2';
@@ -18,7 +18,12 @@ export class FormMarcaComponent implements OnInit {
   @Output() newVisibleMarca : EventEmitter<boolean>  = new EventEmitter<boolean>(); 
   
 
-  formMarca!: FormGroup;
+  formMarca = new FormGroup({
+    nombreMarca: new FormControl(),
+    descripcionMarca: new FormControl(),
+    pepperoni : new FormControl() 
+  });
+
   inputValue?: string;
   edit: boolean = false;
   switchValue = false;
@@ -43,12 +48,6 @@ export class FormMarcaComponent implements OnInit {
   }
 
   
-  handleCancelMarca(): void {
-    console.log('Button cancel clicked!');
-    this.isVisibleMarca = false;
-    this.newVisibleMarca.emit(this.isVisibleMarca);
-  }
-
   ngOnInit(): void {
     const params = this.activatedRoute.snapshot.params;
     this.marca.mar_activo = "true";
@@ -76,11 +75,20 @@ export class FormMarcaComponent implements OnInit {
     }
   }
 
+  handleCancelMarca(): void {
+    console.log('Button cancel clicked!');
+    this.isVisibleMarca = false;
+    this.newVisibleMarca.emit(this.isVisibleMarca);
+  }
+
+  
+
   
   private buildForm() {
     this.formMarca = this.formBuilder.group({
       nombreMarca: ['', [Validators.required]],
       descripcionMarca: ['', []],
+      pepperoni: ['', []],
     });
 
 
@@ -96,56 +104,63 @@ export class FormMarcaComponent implements OnInit {
   saveNewMarca(){
 
     console.log("nuevo");
-    if (this.formMarca.valid) {
+    
       const value = this.formMarca.value;
       console.log(value);
         this.marcaService.saveMarca(this.marca)
       .subscribe(
-        res=>{
-          console.log(res);
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se guardo con Exito',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.formMarca.reset();
-          this.isVisibleMarca = false;
-          this.newVisibleMarca.emit(this.isVisibleMarca);
-        },
-        err => console.log(err)
-      )
-    } 
-    else {
-      console.log("error");
-      this.formMarca.markAllAsTouched();
-    }
+        ok=>{
+          if (ok== true && this.formMarca.valid) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se guardo con Exito',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.formMarca.reset();
+            this.isVisibleMarca = false;
+            this.newVisibleMarca.emit(this.isVisibleMarca);
+          }
+          else{
+            this.formMarca.markAllAsTouched();
+            Swal.fire('Error', ok, 'error');
+            console.log(ok);
+          }
+        });
+    
   }
 
   updateMarca(){
-    const params = this.activatedRoute.snapshot.params;
+
     this.marcaService.updateMarca(this.idMarca, this.marca)
       .subscribe(
-        res => {
-          console.log(res);
-          console.log(this.marca);
-
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se guardo con Exito',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.formMarca.reset();
-          this.isVisibleMarca = false;
-          this.newVisibleMarca.emit(this.isVisibleMarca);
-
-        },
-        err => console.log(err)
-      )
+        ok => {
+          console.log("dfdf");
+          if (this.formMarca.valid) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se guardo con Exito',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.formMarca.reset();
+            this.ngOnInit();
+            this.isVisibleMarca = false;
+            this.newVisibleMarca.emit(this.isVisibleMarca);
+          }
+          else{
+            this.formMarca.markAllAsTouched();
+            Swal.fire('Error', ok, 'error');
+            console.log(ok);
+          }
+          
+        });
   }
 
+  campoEsValido(campo: string){
+    return this.formMarca.controls[campo].errors && this.formMarca.controls[campo].touched;
+  }
 
 }

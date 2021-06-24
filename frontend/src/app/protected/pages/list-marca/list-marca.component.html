@@ -1,13 +1,13 @@
-<button id="botonNuevo" (click)="showModalMarca()" nz-button nzType="primary">Nuevo</button>
+<button id="botonNuevo" (click)="showModalMarca()" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
 
-<nz-table nzBordered #basicTable [nzData]="marca">
+<nz-table nzBordered #basicTable [nzData]="marca" style="margin-left: 10px; margin-right: 10px;">
     <thead>
       <tr>
-        <th><strong>#</strong> </th>
-        <th><strong>Nombre</strong></th>
-        <th><strong>Descripcion</strong></th>
-        <th><strong>Activo</strong></th>
-        <th><strong>Acciones</strong></th>
+        <th style="text-align: center;"><strong>#</strong> </th>
+        <th style="text-align: center;"><strong>Nombre</strong></th>
+        <th style="text-align: center;"><strong>Descripcion</strong></th>
+        <th style="text-align: center;"><strong>Activo</strong></th>
+        <th style="text-align: center;"><strong>Acciones</strong></th>
 
       </tr>
     </thead>
@@ -23,14 +23,31 @@
         </div>
 
         </td>
-        <td>
-            <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteMarca(data.id_marca)" >
-              <i nz-icon nzType="delete" nzTheme="outline"></i>
-            </button>
-            <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="showModalEditarMarca(data.id_marca)">
-                <i nz-icon nzType="edit" nzTheme="outline"></i>
-            </button>
+
+        <td style="text-align: center;">
+          <nz-button-group>
+              <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                <i nz-icon nzType="setting"></i>
+              </button>
+          </nz-button-group>
+          <nz-dropdown-menu #menu2="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item>
+                  <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteMarca(data.id_marca)" >
+                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                  </button>
+                    
+                </li>
+                <li nz-menu-item>
+                  <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="showModalEditarMarca(data.id_marca)">
+                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+                  </button>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
         </td>
+
+        
         
       </tr>
     </tbody>

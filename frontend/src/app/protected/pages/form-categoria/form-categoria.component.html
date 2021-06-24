@@ -9,7 +9,7 @@
 
   
 >
-  <ng-template #modalTitle style="width: 800px;">Agregar Categoria Modal</ng-template>
+  <ng-template #modalTitle style="width: 800px;">{{(idCategoria)? 'Editar' : 'Agregar'}} Categoria</ng-template>
 
   <ng-template #modalContent style="width: 800px;">
       <div [formGroup]="formCategoria" style="margin-bottom: 0px;">

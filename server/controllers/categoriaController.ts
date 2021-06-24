@@ -30,6 +30,16 @@ export const postCategoria = async (req:Request, res:Response) =>{
 
     try {
         
+        const existeCategoria = await Categoria.findOne({
+            where: {
+                mar_nombre: body.mar_nombre
+            }
+        });
+        if (existeCategoria) {
+            return res.status(400).json({
+                msg: 'Ya existe una Categoria con el nombre ' + body.mar_nombre
+            });
+        }
         
         const categoria: any =  Categoria.build(body);
 
@@ -57,6 +67,8 @@ export const putCategoria  = async(req:Request, res:Response) =>{
 
     try {
         
+
+
         const categoria = await Categoria.findByPk(id);
         if(!categoria){
             return res.status(404).json({

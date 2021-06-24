@@ -8,11 +8,12 @@ router.get('/',         getMarcas);
 router.get('/:id',      getMarca);
 router.post('/',  [
     check('mar_nombre', 'El nombre de la marca es obligatorio').not().isEmpty(),
-    check('mar_descripcion', 'La descripción de la marca es obligatorio').not().isEmpty(),
-    check('mar_activo', 'El estado de la marca es obligatorio').not().isEmpty(),
     validarCampos
 ],  postMarca);
-router.put('/:id',      putMarca);
+router.put('/:id',[
+    check('mar_nombre', 'El nombre de la marca es obligatorio').not().isEmpty(),
+    validarCampos
+],      putMarca);
 router.delete('/:id',      deleteMarca);
 
 export default router;

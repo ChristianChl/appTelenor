@@ -35,6 +35,16 @@ exports.getMarca = getMarca;
 const postMarca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
+        const existeMarca = yield marca_1.default.findOne({
+            where: {
+                mar_nombre: body.mar_nombre
+            }
+        });
+        if (existeMarca) {
+            return res.status(400).json({
+                msg: 'Ya existe una marca con el nombre ' + body.mar_nombre
+            });
+        }
         const marca = marca_1.default.build(body);
         yield marca.save();
         return res.status(201).json({
