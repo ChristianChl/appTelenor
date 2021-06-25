@@ -9,7 +9,7 @@
                         <nz-form-label>Tipo Documento</nz-form-label>
                         <br />
                         <nz-form-control nzHasFeedback>
-                            <nz-input-group [nzSuffix]="suffixTemplateInfo" >
+                            <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="idcard" >
                                 <input [(ngModel)]="tipoDocumento.tipodoc_descripcion" type="text" formControlName="tipodoc_descripcion" nz-input placeholder="Tipo de documento" name="nombre" required />
                             </nz-input-group>
                             <span class="from-text text-danger" *ngIf="campoEsValido('tipodoc_descripcion')">Debe ingresar el tipo documento*</span>

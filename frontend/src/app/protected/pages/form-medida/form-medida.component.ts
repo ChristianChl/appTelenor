@@ -119,7 +119,7 @@ export class FormMedidaComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Se guardo con Exito',
+              title: 'Se Actualizo con Exito',
               showConfirmButton: false,
               timer: 1500
             })

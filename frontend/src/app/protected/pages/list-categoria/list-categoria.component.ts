@@ -18,6 +18,16 @@ export class ListCategoriaComponent implements OnInit {
   switchValue = false;
   checked = true;
 
+  filterNombre = "";
+  filterDescripcion = "";
+  filterEstado = "";
+
+  select: any = [
+    {text:"Activos", value:"true"},
+    {text:"Inactivos", value:"false"},
+    {text:"Resetear", value:""}
+  ];
+
   categoria: Categoria = {
     id_categoria: 0,
     cat_nombre: '',
