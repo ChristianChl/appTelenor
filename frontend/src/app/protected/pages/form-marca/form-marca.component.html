@@ -32,12 +32,13 @@
         <label>Decripcion: </label>
             <textarea [(ngModel)]="marca.mar_descripcion" formControlName="descripcionMarca" rows="4" name="descripcion"  nz-input ></textarea>
       </nz-form-item>
+
+      <nz-form-item style="margin-bottom: 0px;">
+        <p> Activo <nz-switch [(ngModel)]="marca.mar_activo" formControlName="pepperoni"  nzCheckedChildren="Si" nzUnCheckedChildren="No" ></nz-switch></p>
+      </nz-form-item>
     </form>
     
-    <nz-form-item style="margin-bottom: 0px;">
-      <p> Activo <nz-switch [(ngModel)]="marca.mar_activo" formControlName="pepperoni"  nzCheckedChildren="Si" nzUnCheckedChildren="No" ></nz-switch></p>
-      
-    </nz-form-item>
+    
       
         
     

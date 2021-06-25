@@ -59,6 +59,16 @@ export const postPersona  = async (req:Request, res:Response) =>{
 
     try {
         
+        const existePersona = await Persona.findOne({
+            where: {
+                perf_nombre: body.perf_nombre
+            }
+        });
+        if (existePersona) {
+            return res.status(400).json({
+                msg: 'Ya existe un perfil con el nombre ' + body.perf_nombre
+            });
+        }
         
         const persona: any =  Persona.build(body);
 
@@ -94,7 +104,13 @@ export const putPersona  = async(req:Request, res:Response) =>{
         }
 
         await persona.update(body);
-        res.json(persona);
+
+        return res.status(201).json({
+            ok:true,
+            persona
+        });
+
+        
         //res.json(usuario);
         // res.json(token);
 

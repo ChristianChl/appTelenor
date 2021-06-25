@@ -1,0 +1,157 @@
+<nz-modal
+  [(nzVisible)]="isVisibleCliente"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancelCliente()"
+  (nzAfterOpen) = "ngOnInit()"
+  nzWidth = 920px
+  style="top: 50px;"
+>
+  <ng-template #modalTitle >{{(idCliente)? 'Editar' : 'Agregar'}} Cliente</ng-template>
+
+  <ng-template #modalContent >
+    
+      <form nz-form [formGroup]="formCliente" >
+        
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col-6" >
+              <label>Tipo Doc.</label>
+              <nz-form-item style="margin-bottom: 4px;">
+                
+                <br />
+                <nz-form-control nzHasFeedback>
+                  <nz-select [(ngModel)]="cliente.fk_id_tipoDocumento" [nzSuffixIcon]="'exclamation-circle'"  nzShowSearch formControlName="tipoDocCliente" name="tipoDoc" nzAllowClear nzPlaceHolder="Seleccionar ..." required>
+                    <nz-option *ngFor="let option of tipoDocumento" [nzLabel]="option.tipodoc_descripcion" [nzValue]="option.id_tipoDocumento" ></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+              <span  class="form-text text-danger" *ngIf="validarCampo('tipoDocCliente')">
+                Es un campo requerido*
+              </span>
+            </div>
+
+            <div class="col-6" >
+              <label>Nro. Doc.</label>
+              <nz-form-item style="margin-bottom: 4px;">
+                <br />
+                <nz-form-control  nzHasFeedback>
+                  <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="credit-card">
+                    <input [(ngModel)]="cliente.per_numeroDocumento"  type="number" formControlName="numDocCliente" nz-input placeholder="Modelo de Producto" name="nombre" required />
+                  </nz-input-group>
+                  <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                </nz-form-control>
+            </nz-form-item>
+              <span  class="form-text text-danger" *ngIf="validarCampo('numDocCliente')">
+                Es un campo requerido*
+              </span>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 15px;" >
+          <div class="col-12">
+              <label for="">Razón Social</label>
+              <br />
+              <nz-form-item style="margin-bottom: 4px;">
+                  <nz-form-control  nzHasFeedback>
+                    <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="container">
+                      <input  [(ngModel)]="cliente.per_razonSocial" type="text" formControlName="razonSocialCliente" nz-input placeholder="Ingresar el nombre de la empresa o la persona ..." name="Razon Social" required />
+                    </nz-input-group>
+                    <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                  </nz-form-control>
+              </nz-form-item>
+              <span  class="form-text text-danger" *ngIf="validarCampo('razonSocialCliente')">
+                Es un campo requerido*
+              </span>
+          </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 15px;">
+          <div class="col-12">
+              <label for="">Direccion</label>
+              <br />
+              <nz-form-item style="margin-bottom: 4px;">
+                  <nz-form-control  nzHasFeedback>
+                    <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="environment">
+                      <input [(ngModel)]="cliente.per_direccion"  type="text" formControlName="direccionCliente" nz-input placeholder="Ingresar direccion de la empresa o la persona ..." name="Direccion" required />
+                    </nz-input-group>
+                    <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                    
+                  </nz-form-control>
+              </nz-form-item>
+              <span  class="form-text text-danger" *ngIf="validarCampo('direccionCliente')">
+                Es un campo requerido*
+              </span>
+          </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 15px;">
+          <div class="col-6">
+              <label for="">Correo Electronico</label>
+              <br />
+              <nz-form-item style="margin-bottom: 4px;">
+                  <nz-form-control nzHasFeedback>
+                    <nz-input-group  [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="mail">
+                      <input  [(ngModel)]="cliente.per_email" type="email" formControlName="correoCliente" nz-input placeholder="Ingresar correo de la empresa o la persona ..." name="Correo Electronico" required />
+                    </nz-input-group>
+                    <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                  </nz-form-control>
+              </nz-form-item>
+              <span  class="form-text text-danger" *ngIf="validarCampo('correoCliente')">
+                Es un campo requerido*
+              </span>
+          </div>
+          <div class="col-6">
+              <label for="">Telefono Celular</label>
+              <br />
+              <nz-form-item style="margin-bottom: 4px;">
+                  <nz-form-control nzHasFeedback>
+                    <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="container">
+                      <input [(ngModel)]="cliente.per_celular"  type="number" formControlName="celularCliente" nz-input placeholder="Ingresar numero celular de la empresa o la persona ..." name="Razon Social" required />
+                    </nz-input-group>
+                    <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                  </nz-form-control>
+              </nz-form-item>
+              <span  class="form-text text-danger" *ngIf="validarCampo('celularCliente')">
+                Es un campo requerido*
+              </span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+              <label for="">Telefono Fijo</label>
+              <br />
+              <nz-form-item>
+                  <nz-form-control nzHasFeedback>
+                    <nz-input-group  nzAddOnBeforeIcon="phone">
+                      <input [(ngModel)]="cliente.per_telefonoFijo" type="text" formControlName="telefonoFijoCliente" nz-input placeholder="Ingresar numero celular de la empresa o la persona ..." name="Razon Social"  />
+                    </nz-input-group>
+                  </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div class="col-6">
+              <label for="">Activo</label>
+              <br />
+              <nz-form-item style="margin-top: 2px;">
+                  <p>  <nz-switch [(ngModel)]="cliente.per_activo" formControlName="activoCliente" name="activo"  nzCheckedChildren="Si" nzUnCheckedChildren="No" ></nz-switch></p>
+                </nz-form-item>
+          </div>
+        </div>
+      </form>
+
+      <div class="row" style="margin-top: 0px;">
+        <div class="col-3">
+          <div style="border: solid #F78181 1px; border-radius: 3px; text-align: center; background-color:#F5A9A9 ;">
+            <i nz-icon style="vertical-align: 0; position: relative; bottom:2px; margin-left: 5px; "  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#DF0101'"></i><label for="" style="margin-left: 6px; margin-top: 4px; margin-right: 6px; color: #FE2E2E;">Campos Obligatorios </label>
+          </div>
+        </div>
+      </div>
+  </ng-template>
+  
+  
+  <ng-template #modalFooter >
+    <button nz-button nzType="default" (click)="handleCancelCliente()"><i style="vertical-align:0px;" nz-icon nzType="close-circle"></i>Cancelar</button>
+    <button nz-button nzType="primary" (click)="edit ? updateCliente() : saveNewCliente()" ><i style="vertical-align:0px;" nz-icon nzType="save"></i>Guardar</button>
+  </ng-template>
+</nz-modal>
