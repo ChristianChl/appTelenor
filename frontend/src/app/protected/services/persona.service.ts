@@ -36,7 +36,9 @@ export class PersonaService {
       }),
       map(resp => resp.ok),
       catchError(err =>{
-        
+          if(err.error.errors.fk_id_tipoDocumento?.msg){
+            return of(err.error.errors.fk_id_tipoDocumento.msg);
+          }
           if(err.error.errors.per_numeroDocumento?.msg){
             return of(err.error.errors.per_numeroDocumento.msg);
           }
@@ -62,7 +64,39 @@ export class PersonaService {
 
   }
 
-  updatePersona(id: string|number, updatedPersona: Persona): Observable<Persona> {
-    return this.http.put(`${this.baseUrl}/Persona/${id}`, updatedPersona);
+  updatePersona(id: string|number, updatedPersona: Persona): Observable<any> {
+    return this.http.put<Persona>(`${this.baseUrl}/Persona/${id}`, updatedPersona).pipe(
+      tap(resp => {
+        if(resp.ok){
+          console.log('Persona Guardado')
+        }
+      }),
+      map(resp => resp.ok),
+      catchError(err =>{
+          if(err.error.errors.fk_id_tipoDocumento?.msg){
+            return of(err.error.errors.fk_id_tipoDocumento.msg);
+          }
+          if(err.error.errors.per_numeroDocumento?.msg){
+            return of(err.error.errors.per_numeroDocumento.msg);
+          }
+          if(err.error.errors.per_razonSocial?.msg){
+            return of(err.error.errors.per_razonSocial.msg);
+          }
+          
+          if(err.error.errors.per_direccion?.msg){
+            return of(err.error.errors.per_direccion.msg);
+          }
+          if(err.error.errors.per_celular?.msg){
+            return of(err.error.errors.per_celular.msg);
+          }
+          if(err.error.errors.per_email?.msg){
+            return of(err.error.errors.per_email.msg);
+          }
+          
+          console.log('Hable con el administrador dfdf')
+          return of('Hable con el administrador')
+          
+      })
+    );
   }
 }

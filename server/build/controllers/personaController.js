@@ -63,6 +63,16 @@ exports.getPersona = getPersona;
 const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
+        const existePersona = yield persona_1.default.findOne({
+            where: {
+                perf_nombre: body.perf_nombre
+            }
+        });
+        if (existePersona) {
+            return res.status(400).json({
+                msg: 'Ya existe un perfil con el nombre ' + body.perf_nombre
+            });
+        }
         const persona = persona_1.default.build(body);
         yield persona.save();
         return res.status(201).json({
@@ -91,7 +101,10 @@ const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         yield persona.update(body);
-        res.json(persona);
+        return res.status(201).json({
+            ok: true,
+            persona
+        });
         //res.json(usuario);
         // res.json(token);
     }

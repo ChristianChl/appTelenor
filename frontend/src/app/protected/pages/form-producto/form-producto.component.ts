@@ -260,21 +260,27 @@ export class FormProductoComponent implements OnInit {
     const params = this.activatedRoute.snapshot.params;
     this.productoService.updateProducto(this.idProducto, this.producto)
       .subscribe(
-        res => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se guardo con Exito',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          this.formProducto.reset();
-          this.ngOnInit();
-          this.isVisibleProducto = false;
-          this.newVisibleProducto.emit(this.isVisibleProducto);
-        },
-        err => console.log(err)
-      )
+        ok => {
+          if (this.formProducto.valid) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se guardo con Exito',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.formProducto.reset();
+            this.ngOnInit();
+            this.isVisibleProducto = false;
+            this.newVisibleProducto.emit(this.isVisibleProducto);
+          }
+          else{
+            this.formProducto.markAllAsTouched();
+            Swal.fire('Error', ok, 'error');
+            console.log(ok);
+          }
+          
+        });
   }
 
   

@@ -26,8 +26,6 @@ export class ProductoService {
   }
 
   saveProducto(producto: Producto):Observable<any>{
-    console.log("Ver producto" + producto);
-    console.log("Ver producto -----");
     return this.http.post<Producto>(`${this.baseUrl}/producto`, producto)
     .pipe(
       tap(resp => {
@@ -67,7 +65,7 @@ export class ProductoService {
 
   }
 
-  updateProducto(id: string|number, updatedProducto: Producto): Observable<Producto> {
+  updateProducto(id: string|number, updatedProducto: Producto): Observable<any> {
     return this.http.put<Producto>(`${this.baseUrl}/producto/${id}`, updatedProducto)
     .pipe(
       tap(resp => {
