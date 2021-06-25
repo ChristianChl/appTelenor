@@ -9,6 +9,18 @@ import { MarcaService } from '../../services/marca.service';
 export class ListMarcaComponent implements OnInit {
 
   marca:any = [];
+
+  filterNombre = "";
+  filterDescripcion = "";
+  filterEstado = "";
+
+  select: any = [
+    {text:"Activos", value:"true"},
+    {text:"Inactivos", value:"false"},
+    {text:"Resetear", value:""}
+  ];
+
+
   constructor(private marcaService:MarcaService) { }
 
   ngOnInit(): void {

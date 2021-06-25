@@ -9,6 +9,10 @@ import { UnidadMedidaService } from '../../services/unidad-medida.service';
 export class ListMedidaComponent implements OnInit {
 
   medida:any = [];
+
+  filterNombre = "";
+
+  
   constructor(private medidaService:UnidadMedidaService) { }
 
   ngOnInit(): void {

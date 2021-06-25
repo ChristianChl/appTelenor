@@ -29,6 +29,9 @@ import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
 import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
 import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
+import { FilterMarcaPipe } from './pipes/filter-marca.pipe';
+import { FilterMedidaPipe } from './pipes/filter-medida.pipe';
+import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
 
 
 
@@ -56,7 +59,10 @@ import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
     ListPerfilComponent,
     FilterPerfilPipe,
     ListTipoDocumentoComponent,
-    FilterTipoDocumentoPipe
+    FilterTipoDocumentoPipe,
+    FilterMarcaPipe,
+    FilterMedidaPipe,
+    FilterCategoriaPipe
   ],
   imports: [
     CommonModule,

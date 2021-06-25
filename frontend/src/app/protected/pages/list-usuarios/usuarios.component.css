@@ -1,11 +1,25 @@
-.button{
+*{
+  font-size: 12px;
+}
+
+
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
+  padding: 5px;
+  text-align: center;
+}
+
+
+
+button{
     margin-right: 10px;
 }
 
 
 #botonNuevo{
+    margin-top: 15px;
     margin-bottom: 10px;
-    transform: scale(0.8);
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .button {
@@ -33,61 +47,22 @@
 
 #label{
   margin: 2px;
-  white-space:pre;
 }
 
-.miteahd{
-  border: solid 100px black;
-  overflow: auto;
-  transform: scale(1);
+thead{
+  border: solid 2px black;
  }
- .miTabla{
-  transform: scale(1);
-  overflow: auto;
- }
- .campos{
-  width: 15%;
-  height: 15%;
-  vertical-align:middle;
-  border-collapse: collapse;
-  text-align: center;
- }
- .campos1{
-  white-space:pre-line;
-  width: 15%;
-  height: 15%;
-  vertical-align:middle;
-  border-collapse: collapse;
- }
- .mitr{
-  
-  transform: scale(1);
-
- }
- #delete{
-
-  transform: scale(1);
-
- }
- #edit{
-  transform: scale(1);
+ nz-input-group{
+  margin-top: 10px;
  }
 
- .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td{
-  padding: 5px;
-  text-align: center;
+ nz-select{
+   font-size: 12px;
+ }
+
+ nz-option-item{
+  font-size: 12px;
 }
-*{
-  font-size: 11px;
 
-}
-.filterButton .forms-control{
-  width: 55px;
-  
-}
-.filterButton{
-  
-  margin-top: 5px;
-}
 
  

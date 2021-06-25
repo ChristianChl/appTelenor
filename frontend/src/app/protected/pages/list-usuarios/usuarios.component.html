@@ -1,51 +1,50 @@
-<br>
 <button id="botonNuevo" (click)="showModalUsuario()" nz-button nzType="primary"><i nz-icon nzType="user-add" nzTheme="outline"></i>Nuevo</button>
-<nz-table class="miTabla" nzBordered #basicTable [nzData]="usuarios" nzTableLayout="fixed" >
-    <thead class="miteahd">
-      <tr class="mitr">
-        <th class="campos"><strong class="campos">#</strong> </th>
-        <th class="campos"><strong class="campos" >Apellidos</strong>
-          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+<nz-table nzBordered #basicTable [nzData]="usuarios" style="margin-left: 10px; margin-right: 10px;" >
+    <thead >
+      <tr>
+        <th style="text-align: center;"><strong class="campos">#</strong> </th>
+        <th style="text-align: center;"><strong class="campos" >Apellidos</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterApellido" name="filterApellido">
           </nz-input-group>
         </th>
-        <th class="campos"><strong  class="campos">Nombres</strong>
-          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+        <th style="text-align: center;"><strong  class="campos">Nombres</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNombre" name="filterNombre">
           </nz-input-group>
         </th>
-        <th class="campos"><strong class="campos">Tipo Documento</strong>
-          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+        <th style="text-align: center;"><strong class="campos">Tipo Documento</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterDocumento" name="filterDocumento">
           </nz-input-group>
         </th>
-        <th class="campos"><strong class="campos">N° Documento</strong>
-          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+        <th style="text-align: center;"><strong class="campos">N° Documento</strong>
+          <nz-input-group  nzAddOnAfterIcon="filter">
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNumero" name="filterNumero">
           </nz-input-group>
         </th>
-        <th class="campos"><strong class="campos">Telefono</strong>
-          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+        <th style="text-align: center;"><strong class="campos">Telefono</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterTelefono" name="filterTelefono">
           </nz-input-group>
         </th>
-        <th class="campos"><strong class="campos">Usuario</strong>
-          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+        <th style="text-align: center;"><strong class="campos">Usuario</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterUsuario" name="filterUsuario">
           </nz-input-group>
         </th>
-        <th class="campos"><strong class="campos">Perfil</strong>
-          <nz-input-group class="filterButton" nzAddOnAfterIcon="filter">
+        <th style="text-align: center;"><strong class="campos">Perfil</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterPerfil" name="filterPerfil">
           </nz-input-group>
         </th>
-        <th class="campos"><strong class="campos">Estado</strong><br/>
+        <th style="text-align: center;"><strong class="campos">Estado</strong><br/>
           
-            <nz-select class="filterButton" [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado">
-              <nz-option class="forms-control" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+            <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
+              <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
             </nz-select>
         </th>
-        <th class="campos"><strong class="campos">Acciones</strong></th>
+        <th style="text-align: center;"><strong class="campos">Acciones</strong></th>
       </tr>
     </thead>
     <tbody>

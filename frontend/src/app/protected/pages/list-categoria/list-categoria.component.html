@@ -4,16 +4,28 @@
     <thead>
       <tr>
         <th style="text-align: center;"><strong>#</strong> </th>
-        <th style="text-align: center;"><strong>Nombre</strong></th>
-        <th style="text-align: center;"><strong>Descripcion</strong></th>
-        <th style="text-align: center;"><strong>Activo</strong></th>
+        <th style="text-align: center;"><strong>Nombre</strong>
+          <nz-input-group  nzAddOnAfterIcon="filter">
+            <input nz-input type="text"  class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNombre" name="filterNombre">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Descripcion</strong>
+          <nz-input-group  nzAddOnAfterIcon="filter">
+            <input nz-input type="text"  class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterDescripcion" name="filterDescripcion">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Estado</strong><br>
+          <nz-select  [(ngModel)]="filterEstado" name="filterEstado"  style="margin-top: 10px;  font-size: 12px;">
+            <nz-option  style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+          </nz-select>
+        </th>
         <th style="text-align: center;"><strong>Acciones</strong></th>
 
         
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data; let indice = index">
+      <tr *ngFor="let data of basicTable.data|filterCategoria:filterNombre|filterCategoria:filterDescripcion|filterCategoria:filterEstado; let indice = index">
         <td>{{ indice+1}}</td> 
         <td>{{ data.cat_nombre }}</td>
         <td>{{ data.cat_descripcion }}</td>
