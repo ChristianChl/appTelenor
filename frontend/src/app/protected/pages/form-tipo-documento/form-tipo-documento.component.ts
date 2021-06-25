@@ -31,6 +31,23 @@ export class FormTipoDocumentoComponent implements OnInit {
               private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
+    this.edit = false;
+    const params = this.activatedRoute.snapshot.params;
+    if(this.idTipoDocumento!=""){
+      this.tipoDocumentoService.getDocumento(this.idTipoDocumento)
+      .subscribe(
+        res=>{
+          this.tipoDocumento = res;
+          this.edit = true;
+          
+        },
+        err => console.log(err)
+      )
+    }else{
+      this.edit = false;
+      this.tipoDocumento.id_tipoDocumento = 0;
+      this.tipoDocumento.tipodoc_descripcion = "";
+    }
   }
 
   guardarTipoDocumento(){
@@ -39,10 +56,14 @@ export class FormTipoDocumentoComponent implements OnInit {
     .subscribe(ok =>{
       
       if( ok == true && this.formTipoDocumento.valid ) {
-        
-        Swal.fire('Success', 'Tipo Documento creado exitosamente!', 'success');
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Tipo Documento Creado Exitosamente!',
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.formTipoDocumento.reset();
-        this.router.navigateByUrl('/dashboard/listaUsuarios');
         this.handleCancelTipoDocumento();
 
       }else{
@@ -52,12 +73,31 @@ export class FormTipoDocumentoComponent implements OnInit {
       
     });
 
-
-
   }
+  updateDocumento(){
+    const params = this.activatedRoute.snapshot.params;
+    this.tipoDocumentoService.updateDocumento(this.idTipoDocumento, this.tipoDocumento)
+    .subscribe(ok => {
+      if(ok == true || this.formTipoDocumento.valid){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Tipo Documento Actualizado Exitosamente!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.formTipoDocumento.reset();
+        this.ngOnInit();
+        this.handleCancelTipoDocumento();
+      }else{
+        this.formTipoDocumento.markAllAsTouched();
+        Swal.fire('Error', ok, 'error');
+      }
+    });
+  }
+
   handleCancelTipoDocumento(): void{
     this.isVisibleTipoDocumento = false;
-    this.formTipoDocumento.reset();
     this.newVisibleTipoDocumento.emit(this.isVisibleTipoDocumento);
 
   }

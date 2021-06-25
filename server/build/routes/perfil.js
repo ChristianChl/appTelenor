@@ -12,7 +12,11 @@ router.post('/', [
     express_validator_1.check('perf_descripcion', 'La descripción del perfil es obligatorio').not().isEmpty(),
     validar_campos_1.validarCampos
 ], perfilController_1.postPerfil);
-router.put('/:id', perfilController_1.putPerfil);
+router.put('/:id', [
+    express_validator_1.check('perf_nombre', 'el nombre del perfil es obligatorio').not().isEmpty(),
+    express_validator_1.check('perf_descripcion', 'La descripción del perfil es obligatorio').not().isEmpty(),
+    validar_campos_1.validarCampos
+], perfilController_1.putPerfil);
 router.delete('/:id', perfilController_1.deletePerfil);
 exports.default = router;
 //# sourceMappingURL=perfil.js.map

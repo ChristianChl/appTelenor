@@ -12,6 +12,7 @@ import { ListProveedorComponent } from './pages/list-proveedor/list-proveedor.co
 
 import { ListTipoProductoComponent } from './pages/list-tipo-producto/list-tipo-producto.component';
 import { UsuariosComponent } from './pages/list-usuarios/usuarios.component';
+import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'listaPerfil',
         component: ListPerfilComponent
+      },
+      {
+        path: 'listaTipoDocumento',
+        component: ListTipoDocumentoComponent
       },
       {
         path: 'listaCategoria',

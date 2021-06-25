@@ -16,17 +16,19 @@ export class FormPerfilComponent implements OnInit {
   @Input() idPerfil: any;
   @Output() newVisiblePerfil : EventEmitter<boolean>  = new EventEmitter<boolean>();
 
+
+
   perfil: Perfil = {
     id_perfil: 0,
     perf_nombre: "",
     perf_descripcion: ""
-  }
+  };
   edit: boolean = false;
 
   
   formPerfil: FormGroup = this.fb.group({
-    perf_nombre: [, [Validators.required]],
-    perf_descripcion: [, [Validators.required]],
+    perf_nombre: ['', [Validators.required]],
+    perf_descripcion: ['', [Validators.required]],
   });
 
   constructor(private fb: FormBuilder,
@@ -35,42 +37,44 @@ export class FormPerfilComponent implements OnInit {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const params = this.activatedRoute.snapshot.params;
     this.edit = false;
-    console.log(this.idPerfil);
-    if(this.idPerfil != ""){
-      this.edit = true;
+    const params = this.activatedRoute.snapshot.params;
+    if(this.idPerfil!=""){
       this.perfilService.getPerfil(this.idPerfil)
       .subscribe(
         res => {
           this.perfil = res;
+          this.edit = true;
           
         },
         err => console.log(err)
 
       )
     }else{
-
+      this.edit=false;
       this.perfil.id_perfil = 0;
       this.perfil.perf_nombre = "";
       this.perfil.perf_descripcion = "";
-
     }
   }
   guardarPerfil(){
     this.perfilService.savePerfil(this.perfil)
     .subscribe(ok =>{
       
-      if( ok == true && this.formPerfil.valid ) {
-        
-        Swal.fire('Success', 'Perfil creado exitosamente!', 'success');
+      if( ok == true && this.formPerfil.valid) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Perfil Creado Exitosamente!',
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.formPerfil.reset();
         this.handleCancelPerfil();
 
       }else{
         this.formPerfil.markAllAsTouched();
         Swal.fire('Error', ok, 'error');
-        console.log(ok);
       }
       
     });
@@ -79,26 +83,29 @@ export class FormPerfilComponent implements OnInit {
     const params = this.activatedRoute.snapshot.params;
     this.perfilService.updatePerfil(this.idPerfil, this.perfil)
     .subscribe(ok =>{
-      if(this.formPerfil.valid){
-        Swal.fire('Success', 'Perfil actualizado exitosamente!', 'success');
-        console.log(ok);
+      if(ok == true || this.formPerfil.valid){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Perfil Actualizado Exitosamente!',
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.formPerfil.reset();
+        this.ngOnInit();
         this.handleCancelPerfil();
       }else{
         this.formPerfil.markAllAsTouched();
-        // Swal.fire('Error', ok, 'error');
-        console.log(ok);
+        Swal.fire('Error', ok, 'error');
       }
     });
   }
 
   handleCancelPerfil(): void{
     this.isVisiblePerfil = false;
-    this.formPerfil.reset();
     this.newVisiblePerfil.emit(this.isVisiblePerfil);
 
   }
-
   campoEsValido(campo: string){
     return this.formPerfil.controls[campo].errors && this.formPerfil.controls[campo].touched;
   }

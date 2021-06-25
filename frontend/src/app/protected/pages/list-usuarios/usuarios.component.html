@@ -1,5 +1,5 @@
 <br>
-<button id="botonNuevo" (click)="showModalUsuario()" nz-button nzType="primary">Nuevo</button>
+<button id="botonNuevo" (click)="showModalUsuario()" nz-button nzType="primary"><i nz-icon nzType="user-add" nzTheme="outline"></i>Nuevo</button>
 <nz-table class="miTabla" nzBordered #basicTable [nzData]="usuarios" nzTableLayout="fixed" >
     <thead class="miteahd">
       <tr class="mitr">
@@ -68,7 +68,7 @@
         <td style="text-align: center;">
           <nz-button-group>
               <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-                <i nz-icon nzType="user"></i>
+                <i nz-icon nzType="setting"></i>
               </button>
           </nz-button-group>
           <nz-dropdown-menu #menu2="nzDropdownMenu">

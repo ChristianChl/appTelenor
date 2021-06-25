@@ -11,7 +11,11 @@ router.post('/',  [
     check('perf_descripcion', 'La descripción del perfil es obligatorio').not().isEmpty(),
     validarCampos
 ], postPerfil);
-router.put('/:id',      putPerfil);
+router.put('/:id',  [
+    check('perf_nombre', 'el nombre del perfil es obligatorio').not().isEmpty(),
+    check('perf_descripcion', 'La descripción del perfil es obligatorio').not().isEmpty(),
+    validarCampos
+],  putPerfil);
 router.delete('/:id',      deletePerfil);
 
 export default router;

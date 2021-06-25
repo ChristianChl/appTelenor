@@ -10,7 +10,10 @@ router.post('/', [
     check('tipodoc_descripcion','el tipo de documento es obligatorio').not().isEmpty(),
     validarCampos
 ],  postTiposDocumentos);
-router.put('/:id',      putTiposDocumentos);
+router.put('/:id', [
+    check('tipodoc_descripcion','el tipo de documento es obligatorio').not().isEmpty(),
+    validarCampos
+] , putTiposDocumentos);
 router.delete('/:id',      deleteTiposDocumentos);
 
 export default router;

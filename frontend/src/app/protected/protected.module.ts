@@ -26,8 +26,14 @@ import { FormProveedorComponent } from './pages/form-proveedor/form-proveedor.co
 import { FilterPipe } from './pipes/filter-usuario.pipe';
 import { FilterProveedorPipe } from './pipes/filter-proveedor.pipe';
 import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
+<<<<<<< HEAD
 import { ListClienteComponent } from './pages/list-cliente/list-cliente.component';
 import { FormClienteComponent } from './pages/form-cliente/form-cliente.component';
+=======
+import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
+import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
+import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
+>>>>>>> 78c8c7329817a1ee3b2a1a1f8be199d57b1481fa
 
 
 
@@ -53,8 +59,14 @@ import { FormClienteComponent } from './pages/form-cliente/form-cliente.componen
     FilterPipe,
     FilterProveedorPipe,
     ListPerfilComponent,
+<<<<<<< HEAD
     ListClienteComponent,
     FormClienteComponent
+=======
+    FilterPerfilPipe,
+    ListTipoDocumentoComponent,
+    FilterTipoDocumentoPipe
+>>>>>>> 78c8c7329817a1ee3b2a1a1f8be199d57b1481fa
   ],
   imports: [
     CommonModule,

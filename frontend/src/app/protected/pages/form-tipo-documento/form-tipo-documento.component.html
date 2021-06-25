@@ -1,6 +1,6 @@
 <nz-modal [(nzVisible)]="isVisibleTipoDocumento" [nzTitle]="modalTitle" [nzContent]="modalContent"
     [nzFooter]="modalFooter" (nzOnCancel)="handleCancelTipoDocumento()" (nzAfterOpen)="ngOnInit()">
-    <ng-template #modalTitle> Agregar Tipo Documento</ng-template>
+    <ng-template #modalTitle> {{(idTipoDocumento)? 'Editar': 'Agregar'}} Tipo Documento</ng-template>
     <ng-template #modalContent>
         <form autocomplete="off" [formGroup]="formTipoDocumento" >
             <div class="row" style="display: flex; align-items: center; justify-content: center;">
@@ -34,7 +34,7 @@
         </div>
     </ng-template>
     <ng-template #modalFooter>
-        <button nz-button nzType="default" (click)="handleCancelTipoDocumento()">Cancelar</button>
-        <button nz-button nzType="primary" (click)="guardarTipoDocumento()">Guardar</button>
+        <button nz-button nzType="default" (click)="handleCancelTipoDocumento()"><i style="vertical-align:0px;" nz-icon nzType="close-circle"></i>Cancelar</button>
+        <button nz-button nzType="primary" (click)="edit? updateDocumento() : guardarTipoDocumento()"><i style="vertical-align:0px;" nz-icon nzType="save"></i>Guardar</button>
     </ng-template>
 </nz-modal>
