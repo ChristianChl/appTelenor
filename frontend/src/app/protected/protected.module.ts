@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -26,24 +25,15 @@ import { FormProveedorComponent } from './pages/form-proveedor/form-proveedor.co
 import { FilterPipe } from './pipes/filter-usuario.pipe';
 import { FilterProveedorPipe } from './pipes/filter-proveedor.pipe';
 import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
-
 import { ListClienteComponent } from './pages/list-cliente/list-cliente.component';
 import { FormClienteComponent } from './pages/form-cliente/form-cliente.component';
-
-
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
 import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
-<<<<<<< HEAD
 import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
-=======
-<<<<<<< HEAD
 import { FilterMarcaPipe } from './pipes/filter-marca.pipe';
 import { FilterMedidaPipe } from './pipes/filter-medida.pipe';
 import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
-=======
->>>>>>> 78c8c7329817a1ee3b2a1a1f8be199d57b1481fa
->>>>>>> ed8ee1ec5becde462d2014496726bc2cf702eaf4
->>>>>>> 6a35a1500b124532bec49bc6b6084767ff7f9f9d
+
 
 
 
@@ -75,19 +65,13 @@ import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
 
     FilterPerfilPipe,
     ListTipoDocumentoComponent,
-<<<<<<< HEAD
+
     FilterTipoDocumentoPipe,
     FilterMarcaPipe,
     FilterMedidaPipe,
-    FilterCategoriaPipe
-=======
+    FilterCategoriaPipe,
     FilterTipoDocumentoPipe
-<<<<<<< HEAD
 
-=======
->>>>>>> 78c8c7329817a1ee3b2a1a1f8be199d57b1481fa
->>>>>>> ed8ee1ec5becde462d2014496726bc2cf702eaf4
->>>>>>> 6a35a1500b124532bec49bc6b6084767ff7f9f9d
   ],
   imports: [
     CommonModule,
