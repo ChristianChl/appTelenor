@@ -25,6 +25,20 @@ import { FormProveedorComponent } from './pages/form-proveedor/form-proveedor.co
 import { FilterPipe } from './pipes/filter-usuario.pipe';
 import { FilterProveedorPipe } from './pipes/filter-proveedor.pipe';
 import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+import { ListClienteComponent } from './pages/list-cliente/list-cliente.component';
+import { FormClienteComponent } from './pages/form-cliente/form-cliente.component';
+import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
+import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
+import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
+import { FilterMarcaPipe } from './pipes/filter-marca.pipe';
+import { FilterMedidaPipe } from './pipes/filter-medida.pipe';
+import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
+=======
+
+>>>>>>> bd1979b983334ec32edf40fde80a4d9ef1edea16
 import { ListClienteComponent } from './pages/list-cliente/list-cliente.component';
 import { FormClienteComponent } from './pages/form-cliente/form-cliente.component';
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
@@ -33,7 +47,15 @@ import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
 import { FilterMarcaPipe } from './pipes/filter-marca.pipe';
 import { FilterMedidaPipe } from './pipes/filter-medida.pipe';
 import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> 78c8c7329817a1ee3b2a1a1f8be199d57b1481fa
+>>>>>>> ed8ee1ec5becde462d2014496726bc2cf702eaf4
+>>>>>>> 6a35a1500b124532bec49bc6b6084767ff7f9f9d
+>>>>>>> 20b44da666aeb0668fa84c479c126c8074dad70e
+>>>>>>> bd1979b983334ec32edf40fde80a4d9ef1edea16
 
 
 
@@ -59,19 +81,39 @@ import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
     FilterPipe,
     FilterProveedorPipe,
     ListPerfilComponent,
+<<<<<<< HEAD
+    ListClienteComponent,
+    FormClienteComponent,
+=======
 
     ListClienteComponent,
     FormClienteComponent,
 
+>>>>>>> 20b44da666aeb0668fa84c479c126c8074dad70e
     FilterPerfilPipe,
     ListTipoDocumentoComponent,
+<<<<<<< HEAD
 
+=======
+>>>>>>> bd1979b983334ec32edf40fde80a4d9ef1edea16
     FilterTipoDocumentoPipe,
     FilterMarcaPipe,
     FilterMedidaPipe,
     FilterCategoriaPipe,
     FilterTipoDocumentoPipe
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 78c8c7329817a1ee3b2a1a1f8be199d57b1481fa
+>>>>>>> ed8ee1ec5becde462d2014496726bc2cf702eaf4
+>>>>>>> 6a35a1500b124532bec49bc6b6084767ff7f9f9d
+>>>>>>> 20b44da666aeb0668fa84c479c126c8074dad70e
+>>>>>>> bd1979b983334ec32edf40fde80a4d9ef1edea16
   ],
   imports: [
     CommonModule,
