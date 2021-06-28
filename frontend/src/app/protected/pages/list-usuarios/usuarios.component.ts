@@ -12,6 +12,7 @@ import { FormUsuarioComponent } from '../form-usuarios/form-usuario.component';
 export class UsuariosComponent implements OnInit {
 
   isVisibleUsuario = false
+  isVisbleResumenUsuario = false
   idUsuario = "";
   usuarios:any = [];
 
@@ -40,7 +41,6 @@ export class UsuariosComponent implements OnInit {
   ngOnInit(): void {
     
       this.getUsuarios();
-      console.log("Prueba"+this.select);
       
   }
 
@@ -71,18 +71,25 @@ export class UsuariosComponent implements OnInit {
   }
 
   showModalUsuario(): void {
-    console.log(this.isVisibleUsuario);
     this.idUsuario ="";
     this.isVisibleUsuario = true;  
   }
   showModalUsuarioEdit(id: string): void {
-    console.log(this.isVisibleUsuario);
     this.isVisibleUsuario = true;
     this.idUsuario = id;  
   }
   nuevoDato(){
     this.ngOnInit();
     this.isVisibleUsuario = false;
+  }
+
+  modalResumenUsuario(id: string): void {
+    this.idUsuario =id;
+    this.isVisbleResumenUsuario = true;  
+  }
+  nuevoDatoResumenDato(){
+    this.ngOnInit();
+    this.isVisbleResumenUsuario = false;
   }
   
 }

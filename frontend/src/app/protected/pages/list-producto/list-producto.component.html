@@ -3,18 +3,42 @@
 <nz-table nzBordered #basicTable [nzData]="producto" style=" margin-left: 10px; margin-right: 10px;">
     <thead>
       <tr>
-        <th><strong>#</strong> </th>
-        <th><strong>Modelo</strong></th>
-        <th><strong>Caracteristica</strong></th>
-        <th><strong>Tipo</strong></th>
-        <th><strong>Categoria</strong></th>
-        <th><strong>U.Medida</strong></th>
-        <th><strong>Estado</strong></th>
-        <th><strong>Acciones</strong></th>
+        <th style="text-align: center;"><strong>#</strong> </th>
+        <th  style="text-align: center;"><strong>Modelo</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterModelo" name="filterModelo">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Caracteristica</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterCaracteristica" name="filterCaracteristica">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Tipo</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterTipo" name="filterTipo">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Categoria</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterCategoria" name="filterCategoria">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>U.Medida</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterMedida" name="filterMedida">
+          </nz-input-group>
+        </th>
+        <th  style="text-align: center;"><strong>Estado</strong>
+          <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
+            <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+          </nz-select>
+        </th>
+        <th style="text-align: center;"><strong>Acciones</strong></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data; let indice = index">
+      <tr *ngFor="let data of basicTable.data|filterProducto:filterModelo|filterProducto:filterCaracteristica|filterProducto:filterTipo|filterProducto:filterCategoria|filterProducto:filterMedida|filterProducto:filterEstado; let indice = index">
         <td>{{ indice+1}}</td>
         <td>{{ data.prod_modelo }}</td>
         <td>{{ data.prod_caracteristica }}</td>

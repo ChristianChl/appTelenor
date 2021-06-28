@@ -57,17 +57,7 @@ const Usuario = connection_1.default.define('Usuario', {
             key: 'id_tipoDocumento'
         }
     },
-    // createdAt: {
-    //     type: DataTypes.DATE
-    // },
-    // updatedAt: {
-    //     type: DataTypes.DATE
-    // }
 });
-// Usuario.hasMany(Perfil);
-// Usuario.belongsTo(Perfil, {
-//     foreignKey: 'fk_id_perfil'
-// });
 Usuario.belongsTo(perfil_1.default, {
     as: 'Perfils',
     foreignKey: "fk_id_perfil"

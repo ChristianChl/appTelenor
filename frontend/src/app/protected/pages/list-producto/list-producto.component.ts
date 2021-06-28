@@ -12,6 +12,19 @@ export class ListProductoComponent implements OnInit {
   isVisibleProducto = false;
   isVisibleCategoria = false;
 
+  filterModelo = "";
+  filterCaracteristica = "";
+  filterTipo = "";
+  filterCategoria = "";
+  filterMedida = "";
+  filterEstado = "";
+
+  select: any = [
+    {text:"Activos", value:"true"},
+    {text:"Inactivos", value:"false"},
+    {text: "Resetear", value: ""}
+  ];
+
   producto:any = [];
   categoria:any = [];
   tipos:any = [];

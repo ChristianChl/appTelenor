@@ -66,19 +66,7 @@ const Usuario = db.define('Usuario', {
         }
     },
 
-    // createdAt: {
-    //     type: DataTypes.DATE
-    // },
-
-    // updatedAt: {
-    //     type: DataTypes.DATE
-    // }
-
 });
-// Usuario.hasMany(Perfil);
-// Usuario.belongsTo(Perfil, {
-//     foreignKey: 'fk_id_perfil'
-// });
 
 Usuario.belongsTo(Perfil, {
     as: 'Perfils',
