@@ -13,6 +13,7 @@ import { ListProveedorComponent } from './pages/list-proveedor/list-proveedor.co
 import { ListTipoProductoComponent } from './pages/list-tipo-producto/list-tipo-producto.component';
 import { UsuariosComponent } from './pages/list-usuarios/usuarios.component';
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
+import { FormIngresoComponent } from './pages/form-ingreso/form-ingreso.component'
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
       {
         path: 'listaCliente',
         component: ListClienteComponent
+      },
+      {
+        path: 'agregarIngreso',
+        component: FormIngresoComponent
       },
       {
         path: '**',

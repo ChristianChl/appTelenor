@@ -1,5 +1,6 @@
 import { Request } from "express";
 import { Response } from "express";
+import sequelize from "sequelize/types/lib/sequelize";
 //import bcrypt from "bcrypt";
 import DetalleIngreso from "../models/detalleIngreso";
 import Ingreso from "../models/ingreso";
@@ -57,11 +58,12 @@ export const getDetalleIngreso =  async (req:Request, res:Response) =>{
 }
 export const postDetalleIngreso = async (req:Request, res:Response) =>{
     const{body} = req;
-
+    
     try {
         
-        
         const detalleIngreso: any =  DetalleIngreso.build(body);
+
+       
 
         await detalleIngreso.save();
 

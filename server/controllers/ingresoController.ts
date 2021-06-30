@@ -59,7 +59,6 @@ export const postIngreso  = async (req:Request, res:Response) =>{
 
     try {
         
-        
         const ingreso: any =  Ingreso.build(body);
 
         await ingreso.save();
