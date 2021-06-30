@@ -34,6 +34,15 @@ const Ingreso = connection_1.default.define('Ingreso', {
     ing_estado: {
         type: sequelize_1.DataTypes.STRING
     },
+    ing_guiaRemitente: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    ing_ordenCompra: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    ing_observacion: {
+        type: sequelize_1.DataTypes.STRING
+    },
     fk_id_persona: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {

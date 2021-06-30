@@ -12,9 +12,7 @@ router.post('/', [
     express_validator_1.check('ing_serieComprobante', 'La serie de comprobante es obligatorio').not().isEmpty(),
     express_validator_1.check('ing_numeroComprobante', 'El numero de comprobante es obligatorio').not().isEmpty(),
     express_validator_1.check('ing_fechaHora', 'La fecha es obligatorio').not().isEmpty(),
-    express_validator_1.check('ing_impuesto', 'El impuesto es obligatorio').not().isEmpty(),
-    express_validator_1.check('ing_totalCompra', 'El total de la compra es obligatorio').not().isEmpty(),
-    express_validator_1.check('ing_estado', 'El estado de la compra es obligatorio').not().isEmpty(),
+    express_validator_1.check('fk_id_persona', 'El Proveedor es obligatorio').not().isEmpty(),
     validar_campos_1.validarCampos
 ], ingresoController_1.postIngreso);
 router.put('/:id', ingresoController_1.putIngreso);

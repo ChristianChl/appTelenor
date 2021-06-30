@@ -36,6 +36,15 @@ const Ingreso = db.define('Ingreso', {
     ing_estado: {
         type: DataTypes.STRING
     },
+    ing_guiaRemitente: {
+        type: DataTypes.STRING
+    },
+    ing_ordenCompra: {
+        type: DataTypes.STRING
+    },
+    ing_observacion:{
+        type: DataTypes.STRING
+    },
     fk_id_persona: {
         type: DataTypes.INTEGER,
         references: {
