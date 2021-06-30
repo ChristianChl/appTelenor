@@ -46,3 +46,17 @@
    #botonNuevo{
     margin-bottom: 10px;
 }
+.ant-table-tbody>tr:hover:not(.ant-table-expanded-row)>td {
+  background-color: rgba(172, 168, 167, 0.967) !important;
+  color: #ffffff;
+}
+
+.ant-table-body .ant-table-row-hover {
+  background: rgba(172, 168, 167, 0.967) !important;
+  color: #ffffff;
+}
+
+.ant-table-body .ant-table-row-hover>td {
+  background: rgba(172, 168, 167, 0.967) !important;
+  color: #ffffff;
+}

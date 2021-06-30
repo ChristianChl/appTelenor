@@ -35,6 +35,7 @@ import { FilterMedidaPipe } from './pipes/filter-medida.pipe';
 import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
 import { FilterProductoPipe } from './pipes/filter-producto.pipe';
 import { ResumUsuarioComponent } from './pages/resum-usuario/resum-usuario.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 
@@ -81,6 +82,7 @@ import { ResumUsuarioComponent } from './pages/resum-usuario/resum-usuario.compo
     ZorroModule,
     ReactiveFormsModule,
     FormsModule,
+    ClipboardModule,
     ProtectedRoutingModule
   ],
   entryComponents: [

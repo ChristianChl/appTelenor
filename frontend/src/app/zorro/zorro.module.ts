@@ -20,6 +20,9 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 
+import { NzMessageModule } from 'ng-zorro-antd/message';
+
+
 @NgModule({
   declarations: [],
   imports: [
@@ -44,6 +47,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
     NzSelectModule,
     NzModalModule,
     NzImageModule,
+    NzMessageModule,
     NzSpaceModule
 
   ]
