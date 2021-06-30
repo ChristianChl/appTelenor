@@ -23,6 +23,10 @@ export class FormUsuarioComponent implements OnInit {
   isVisibleTipoDocumento = false;
   isVisiblePerfil = false;
 
+  idTipoDocumento = "";
+  idPerfil =  "";
+  
+
   usuarios: Usuarios = {
     id_usuario: 0,
     us_apellidos: "",
@@ -65,7 +69,7 @@ export class FormUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     const params = this.activatedRoute.snapshot.params;
-
+    this.edit = false;
     if(this.idUsuario){
 
       this.usuarioService.getUsuario(this.idUsuario)
@@ -88,7 +92,6 @@ export class FormUsuarioComponent implements OnInit {
     this.perfilService.getPerfiles()
     .subscribe(resp =>{
       this.perfil = resp;
-      console.log(this.perfil);
       this.perfil = this.perfil.perfil;
     },
     err => console.error(err)
@@ -98,7 +101,6 @@ export class FormUsuarioComponent implements OnInit {
     this.tipoDocumentoService.getDocumentos()
     .subscribe(resp =>{
       this.tipoDocumentos = resp;
-      console.log(this.tipoDocumentos);
       this.tipoDocumentos = this.tipoDocumentos.tiposDocumentos;
     },
     err => console.error(err)
@@ -182,20 +184,24 @@ export class FormUsuarioComponent implements OnInit {
 
   showModalTipoDocumento(): void {
     console.log(this.isVisibleTipoDocumento);
-    this.isVisibleTipoDocumento = true;  
+    this.isVisibleTipoDocumento = true; 
+    this.idTipoDocumento = ""; 
   }
   nuevoDatoDocumento(){
     this.ngOnInit();
     this.isVisibleTipoDocumento = false;
+    
   }
-
+  
   showModalPerfil(): void {
     console.log(this.isVisiblePerfil);
-    this.isVisiblePerfil = true;  
+    this.isVisiblePerfil = true;
+    this.idPerfil = "";  
   }
   nuevoDatoPerfil(){
     this.ngOnInit();
     this.isVisiblePerfil = false;
+    
   }
 
 

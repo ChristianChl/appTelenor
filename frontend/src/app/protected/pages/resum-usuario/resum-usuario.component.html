@@ -1,0 +1,55 @@
+<nz-modal [(nzVisible)]="isVisbleResumenUsuario" [nzTitle]="modalTitle" [nzContent]="modalContent"
+    [nzFooter]="modalFooter" (nzOnCancel)="handleCancelResumen()" (nzAfterOpen)="ngOnInit()">
+    <ng-template #modalTitle> Resumen </ng-template>
+    <ng-template #modalContent>
+        <form autocomplete="off" >
+            <div class="row" style="display: flex; align-items: center; justify-content: center;">
+                <div class="col-12" >
+                    <nz-form-item>
+                        <nz-form-label>Nombre</nz-form-label>
+                        <br />
+                        <nz-form-control nzHasFeedback>
+                            <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="container">
+                                <input type="text" formControlName="perf_nombre" nz-input placeholder="Nombre del Perfil" name="nombre" required />
+                            </nz-input-group>
+                            <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Obligatorio"
+                                    [nzType]="'exclamation-circle'"></i></ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                  <nz-form-item>
+                    <nz-form-label> Descripción </nz-form-label>
+                    <br />
+                    <nz-form-control nzHasFeedback>
+                      <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="form">
+                        <input type="text" formControlName="perf_descripcion" nz-input
+                          placeholder="Descripción del Perfil" name="nombre" />
+                      </nz-input-group>
+                      <ng-template #suffixTemplateInfo><i nz-icon nz-tooltip nzTooltipTitle="Obligatorio"
+                        [nzType]="'exclamation-circle'"></i></ng-template>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+
+        </form>
+        <div class="row" style="margin-top: 0px;">
+            <div class="col-6">
+                <div
+                    style="border: solid #F78181 1px; border-radius: 3px; text-align: center; background-color:#F5A9A9 ;">
+                    <i nz-icon style="vertical-align: 0; position: relative; bottom:2px; margin-left: 5px; " nz-tooltip
+                        nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'"
+                        [nzTwotoneColor]="'#DF0101'"></i><label for=""
+                        style="margin-left: 6px; margin-top: 4px; margin-right: 6px; color: #FE2E2E;">Campos
+                        Obligatorios </label>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="handleCancelResumen()"><i style="vertical-align:0px;" nz-icon nzType="close-circle"></i>Cancelar</button>
+      </ng-template>
+</nz-modal>

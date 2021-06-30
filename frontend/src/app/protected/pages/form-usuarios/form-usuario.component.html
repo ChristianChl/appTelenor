@@ -239,5 +239,5 @@
     <button nz-button nzType="primary" (click)=" edit? updateUsuario() : guardarUsuario()" ><i style="vertical-align:0px;" nz-icon nzType="save"></i>Guardar</button>
   </ng-template>
 </nz-modal>
-<app-form-tipo-documento [isVisibleTipoDocumento]="isVisibleTipoDocumento" (newVisibleTipoDocumento)="nuevoDatoDocumento()"></app-form-tipo-documento>
-<app-form-perfil [isVisiblePerfil]="isVisiblePerfil" (newVisiblePerfil)="nuevoDatoPerfil()"></app-form-perfil>
+<app-form-tipo-documento [isVisibleTipoDocumento]="isVisibleTipoDocumento" [idTipoDocumento] = "idTipoDocumento" (newVisibleTipoDocumento)="nuevoDatoDocumento()"></app-form-tipo-documento>
+<app-form-perfil [isVisiblePerfil]="isVisiblePerfil" [idPerfil] = "idPerfil" (newVisiblePerfil)="nuevoDatoPerfil()"></app-form-perfil>
