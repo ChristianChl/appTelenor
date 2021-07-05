@@ -68,6 +68,7 @@ const routes: Routes = [
       {
         path: 'listaIngreso',
         component: ListIngresoComponent
+        
       },
 
       {

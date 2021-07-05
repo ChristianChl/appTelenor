@@ -46,6 +46,7 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
 
 @NgModule({
   declarations: [
+    
     DashboardComponent,
     UsuariosComponent,
     FormUsuarioComponent,

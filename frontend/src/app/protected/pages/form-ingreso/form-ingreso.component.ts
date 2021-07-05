@@ -105,6 +105,10 @@ export class FormIngresoComponent implements OnInit{
         this.producto = res;
         this.producto = this.producto.producto;
         
+        this.producto = this.producto.filter(function(ele: any){
+          return ele.prod_activo == true;
+        });
+
         console.log(this.producto);
         console.log("this.producto.producto");
       },
@@ -355,14 +359,17 @@ export class FormIngresoComponent implements OnInit{
   }
 
   getProveedor(){
+
     this.personaService.getPersonas().subscribe(
       res => {
         this.persona = res;
         this.persona = this.persona.persona;
        
          this.persona = this.persona.filter(function(ele: any){
-          return ele.TipoPersonas.tipoper_descripcion == 'Proveedor';
-        });
+          return ele.TipoPersonas.tipoper_descripcion == 'Proveedor' && ele.per_activo == true;
+          });
+          console.log("Primero de persona" + this.persona);
+          
         console.log(this.persona);
       },
       err => console.error(err)
