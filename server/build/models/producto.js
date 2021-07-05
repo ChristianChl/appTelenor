@@ -36,7 +36,7 @@ const Producto = connection_1.default.define('Producto', {
     prod_activo: {
         type: sequelize_1.DataTypes.BOOLEAN
     },
-    prod_precioCompra: {
+    prod_precioVenta: {
         type: sequelize_1.DataTypes.FLOAT
     },
     fk_id_categoria: {

@@ -38,7 +38,7 @@ const Producto = db.define('Producto', {
     prod_activo: {
         type: DataTypes.BOOLEAN
     },
-    prod_precioCompra: {
+    prod_precioVenta: {
         type: DataTypes.FLOAT
     },
 

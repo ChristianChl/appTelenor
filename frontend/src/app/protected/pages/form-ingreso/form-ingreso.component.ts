@@ -9,7 +9,9 @@ import { ProductoService } from '../../services/producto.service';
 import { IngresoService } from '../../services/ingreso.service';
 import { DetalleIngresoService } from '../../services/detalle-ingreso.service';
 
+
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-ingreso',
@@ -23,6 +25,7 @@ export class FormIngresoComponent implements OnInit{
   
   persona:any = [];
   producto:any = [];
+  productoActualizar:any = [];
 
   prueba = "15";
 
@@ -81,7 +84,8 @@ export class FormIngresoComponent implements OnInit{
     private ingresoService: IngresoService,
     private detalleIngresoService:DetalleIngresoService,
     private authService: AuthService,
-    private fb:FormBuilder) {
+    private fb:FormBuilder,
+    private router: Router,) {
  
     this.skillsForm = this.fb.group({
       skills: this.fb.array([]) ,
@@ -108,8 +112,28 @@ export class FormIngresoComponent implements OnInit{
     );
   }
   
-  numComprobante: number | undefined;
+  getProductoIndividual(arrayProductos:any, id:any){
+    let filterProducto = []
+    for(let i=0; i<arrayProductos.length; i++){
 
+        if(arrayProductos[i].id_Producto == id){
+          filterProducto.push(arrayProductos[i]);
+        }
+    }
+    return filterProducto
+  }
+
+  actualizaProducto(id:any, productoActualizar:any){
+    this.prductoService.updateProducto(id, productoActualizar)
+    .subscribe(
+      ok => {
+        console.log("verifique stock catualizado");
+      });
+
+  }
+
+  numComprobante: number | undefined;
+  id = 0;
   guardarDatos(){
     console.log("pureba de ingreso");
     
@@ -122,19 +146,17 @@ export class FormIngresoComponent implements OnInit{
     console.log(this.skillsForm.value.skills);
     const arrayProductos = this.skillsForm.value.skills;
 
-    /*
-    this.ingresoService.saveIngreso(this.ingreso)
-    .subscribe(
+    if(this.formDatosIngreso.valid)
+    {
+      if(this.skillsForm.valid){
+
+      this.ingresoService.saveIngreso(this.ingreso)
+      .subscribe(
       ok=>{
-        if (ok== true && this.formDatosIngreso.valid && this.formDatosIngreso.valid) {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se guardo con Exito',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.formDatosIngreso.reset();
+        if (ok== true && this.formDatosIngreso.valid && this.skillsForm.valid) {
+          
+              console.log("Los datos del ingreso de guardaron correctamente");
+              this.formDatosIngreso.reset();
         }
         else{
           this.formDatosIngreso.markAllAsTouched();
@@ -142,8 +164,8 @@ export class FormIngresoComponent implements OnInit{
           console.log(ok);
         }
       });
-      */
-     if(this.skillsForm.valid){
+      
+     
 
         for(let i=0; i<arrayProductos.length; i++){
           console.log("vuelta" +  i);
@@ -155,7 +177,20 @@ export class FormIngresoComponent implements OnInit{
           this.detalleIngreso.deti_precioVenta = 0.00;
           this.detalleIngreso.fk_id_producto = Number(arrayProductos[i].producto);
           this.detalleIngreso.fk_id_ingreso = Number(this.numComprobante.toString());
+          this.id = Number(this.detalleIngreso.fk_id_producto)
+          //Obtener el producto
 
+          console.log(this.producto);
+
+          const productoIndi =  this.getProductoIndividual(this.producto,  this.id);
+
+          const cantidadIngresada = Number(arrayProductos[i].num1);
+
+          productoIndi[0].prod_stock = productoIndi[0].prod_stock + cantidadIngresada;
+          
+
+          this.actualizaProducto(this.id, productoIndi[0]);
+          //
           this.detalleIngresoService.saveIngreso(this.detalleIngreso)
           .subscribe(
             ok=>{
@@ -163,11 +198,13 @@ export class FormIngresoComponent implements OnInit{
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
-                  title: 'Se guardo con Exito',
+                  title: 'Se guardo con Exito el producto',
                   showConfirmButton: false,
                   timer: 1500
                 })
-                this.formDatosIngreso.reset();
+                this.skillsForm.reset();
+                this.router.navigateByUrl('/dashboard/listaIngreso');
+
               }
               else{
                 this.formDatosIngreso.markAllAsTouched();
@@ -180,9 +217,16 @@ export class FormIngresoComponent implements OnInit{
      else{
       Swal.fire('Error', "Complete los datos de los productos", 'error');
      }
-      
+    }
 
+    else{
 
+      this.formDatosIngreso.markAllAsTouched();
+      Swal.fire('Error', 'Por favor complete los campos obligatorios', 'error');
+
+    }
+    
+    
   }
   
 
@@ -202,6 +246,7 @@ export class FormIngresoComponent implements OnInit{
   }
 
   addSkills() {
+    this.subTotal = 0;
     this.skills.push(this.newSkill());
   }
 
@@ -233,7 +278,10 @@ export class FormIngresoComponent implements OnInit{
     });
   }
 
+  
+  
   totalFinal = 0;
+  subTotal = 0;
   onKeyUp(indice:any){
     console.log(indice)
 
@@ -241,7 +289,8 @@ export class FormIngresoComponent implements OnInit{
     this.skillsForm.controls.skills.value[indice].subTotal = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2);
     this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2);
     
-   
+    this.subTotal = this.skillsForm.controls.skills.value[indice].subTotal;
+
     console.log(this.skillsForm.value.skills);
     this.info = this.skillsForm.value;
 

@@ -29,6 +29,11 @@
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterMedida" name="filterMedida">
           </nz-input-group>
         </th>
+        <th  style="text-align: center;"><strong>Stock</strong>
+          <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
+            <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+          </nz-select>
+        </th>
         <th  style="text-align: center;"><strong>Estado</strong>
           <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
             <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
@@ -45,6 +50,7 @@
         <td>{{ data.Tipos.tip_nombre }}</td>
         <td>{{ data.Categorias.cat_nombre }}</td>
         <td>{{ data.Medidas.med_unidad}}</td>
+        <td>{{ data.prod_stock}}</td>
         <td> 
           <div id="label">
             <label id="activo" *ngIf="data.prod_activo" for=""> Activo </label>

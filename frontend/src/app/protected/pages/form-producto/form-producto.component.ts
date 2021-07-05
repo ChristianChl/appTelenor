@@ -32,6 +32,7 @@ export class FormProductoComponent implements OnInit {
     tipoProducto : new FormControl(),
     activoProducto : new FormControl(),
     precioProducto : new FormControl(),
+    stockProducto : new FormControl(),
     imgProducto : new FormControl()
   });
 
@@ -45,9 +46,10 @@ export class FormProductoComponent implements OnInit {
     prod_modelo: "",
     prod_descripcion: "",
     prod_caracteristica: "",
-    prod_stock: "",
+    prod_stock: 0,
     prod_imagen: "",
     prod_activo: "",
+    prod_precioVenta: 0,
     fk_id_categoria: "",
     fk_id_marca: "",
     fk_id_medida: "",
@@ -212,6 +214,7 @@ export class FormProductoComponent implements OnInit {
       medidaProducto: ['', [Validators.required]],
       tipoProducto: ['', [Validators.required]],
       precioProducto: ['', [Validators.required]],
+      stockProducto: ['', [Validators.required]],
       activoProducto: ['', [Validators.required]],
       imgProducto: ['', []],
     });
@@ -295,7 +298,7 @@ export class FormProductoComponent implements OnInit {
     this.producto.prod_modelo = "";
     this.producto.prod_descripcion = "";
     this.producto.prod_caracteristica = "";
-    this.producto.prod_stock = "";
+    this.producto.prod_stock = 0;
     this.producto.prod_imagen = "";
     this.producto.fk_id_categoria = "";
     this.producto.fk_id_marca = "";

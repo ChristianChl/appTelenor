@@ -168,7 +168,7 @@
              <div class="col-3">
                <nz-form-item >
                  <nz-form-control nzHasFeedback>
-                   <nz-select nzSize='small' style="margin-top: 1px;" [nzSuffixIcon]="'exclamation-circle'" [attr.for]="'producto'+i" class="form-control" nzShowSearch formControlName="producto" name="producto" nzAllowClear required>
+                   <nz-select    nzSize='small' style="margin-top: 1px;" [nzSuffixIcon]="'exclamation-circle'" [attr.for]="'producto'+i" class="form-control" nzShowSearch formControlName="producto" name="producto" nzAllowClear required>
                      <nz-option nzSize='small'  *ngFor="let option of producto" [nzLabel]="option.prod_modelo" [nzValue]="option.id_Producto" ></nz-option>
                    </nz-select>
                  </nz-form-control>
@@ -187,7 +187,7 @@
                <nz-form-item>            
                  <nz-form-control nzHasFeedback>
                    <nz-input-group [nzSuffix]="suffixTemplateInfo">
-                     <input type="num" formControlName="num1" nz-input>
+                     <input type="num" formControlName="num1" nz-input required>
                    </nz-input-group>
                    <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
                  </nz-form-control>
@@ -197,7 +197,7 @@
                <nz-form-item>            
                  <nz-form-control nzHasFeedback>
                    <nz-input-group [nzSuffix]="suffixTemplateInfo">
-                     <input type="num" (keyup)="onKeyUp(i)" formControlName="num2" nz-input>
+                     <input type="num" (keyup)="onKeyUp(i)" formControlName="num2" nz-input required>
                    </nz-input-group>
                    <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
                  </nz-form-control>
@@ -207,8 +207,9 @@
              <div class="col">
                <nz-form-item>            
                  <nz-form-control >
-                   <nz-input-group >
-                     <input type="text"  [disabled]="true" formControlName="subTotal" nz-input>
+                   <nz-input-group  >
+                     <input  type="text" formControlName="subTotal" nz-input readonly>
+                     
                    </nz-input-group>
                    
                  </nz-form-control>
@@ -218,7 +219,7 @@
                <nz-form-item>            
                  <nz-form-control >
                    <nz-input-group >
-                     <input type="text" formControlName="total" nz-input [disabled]='true' >
+                     <input type="text" formControlName="total" nz-input readonly aria-disabled="true">
                      
                    </nz-input-group>
                  </nz-form-control>
@@ -255,7 +256,7 @@
             <label for="">Gravada</label>
           </div>
           <div class="col-9">
-            <input type="text" nz-input>
+            <input type="text" nz-input readonly>
           </div>
       </div>
       <div class="row" style="margin-top: 8px;">
@@ -263,7 +264,7 @@
           <label for="">IGV</label>
         </div>
         <div class="col-9">
-          <input type="text" nz-input>
+          <input type="text" nz-input readonly>
         </div>
 
         <hr style="margin-top: 10px;">
@@ -273,7 +274,7 @@
           <label for="">Total</label>
         </div>
         <div class="col-9">
-          <input type="text" nz-input [(ngModel)]="ingreso.ing_totalCompra">
+          <input type="text" nz-input [(ngModel)]="ingreso.ing_totalCompra" readonly>
         </div>
     </div>
     </nz-card>
@@ -294,7 +295,7 @@
   
   <div class="col-6"style="margin-bottom: 10px;margin-top: 10px;">
     <button style="float: right; margin-right: 10px;" nz-button nzType="primary" (click)="guardarDatos()"><i style="vertical-align:1px; " nz-icon nzType="save"></i>Grabar</button>
-  
+    <button style="float: right; margin-right: 10px;" nz-button nzType="default" routerLink="/dashboard/listaIngreso"><i style="vertical-align:1px; " nz-icon nzType="close-circle"></i>Cancelar</button>
   </div>
     
 </div>
