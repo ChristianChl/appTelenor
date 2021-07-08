@@ -27,15 +27,7 @@ import { FilterProveedorPipe } from './pipes/filter-proveedor.pipe';
 import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
 import { ListClienteComponent } from './pages/list-cliente/list-cliente.component';
 import { FormClienteComponent } from './pages/form-cliente/form-cliente.component';
-<<<<<<< HEAD
-import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
-import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
-import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
-import { FilterMarcaPipe } from './pipes/filter-marca.pipe';
-import { FilterMedidaPipe } from './pipes/filter-medida.pipe';
-import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
 import { FormIngresoComponent } from './pages/form-ingreso/form-ingreso.component';
-=======
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
 import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
 import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
@@ -44,11 +36,9 @@ import { FilterMedidaPipe } from './pipes/filter-medida.pipe';
 import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
 import { FilterProductoPipe } from './pipes/filter-producto.pipe';
 import { ResumUsuarioComponent } from './pages/resum-usuario/resum-usuario.component';
-<<<<<<< HEAD
 import { ClipboardModule } from '@angular/cdk/clipboard';
-=======
->>>>>>> 3543f2328df39d9eddb9c2d96a9bb7463c0f2ea8
->>>>>>> 56b59924be4b952747fa75e4a900437030c43913
+import { ListPermisoComponent } from './pages/list-permiso/list-permiso.component';
+import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
 
 
 
@@ -76,26 +66,22 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     ListPerfilComponent,
     ListClienteComponent,
     FormClienteComponent,
-<<<<<<< HEAD
     FilterPerfilPipe,
     ListTipoDocumentoComponent,
-=======
     ListClienteComponent,
     FormClienteComponent,
     FilterPerfilPipe,
     ListTipoDocumentoComponent,
     FilterTipoDocumentoPipe,
->>>>>>> 3543f2328df39d9eddb9c2d96a9bb7463c0f2ea8
     FilterMarcaPipe,
     FilterMedidaPipe,
     FilterCategoriaPipe,
     FilterTipoDocumentoPipe,
-<<<<<<< HEAD
-    FormIngresoComponent
-=======
+    FormIngresoComponent,
     FilterProductoPipe,
-    ResumUsuarioComponent
->>>>>>> 3543f2328df39d9eddb9c2d96a9bb7463c0f2ea8
+    ResumUsuarioComponent,
+    ListPermisoComponent,
+    FilterPermisoPipe
   ],
   imports: [
     CommonModule,

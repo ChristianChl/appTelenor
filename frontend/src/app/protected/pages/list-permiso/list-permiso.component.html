@@ -1,0 +1,20 @@
+<br><br>
+<nz-table nzBordered #basicTable style="margin-left: 10px; margin-right: 10px;" [nzData]="permiso">
+    <thead>
+        <tr>
+            <th style="text-align: center;"><strong style="text-align: center;">#</strong> </th>
+            <th style="text-align: center;"><strong>Nombre</strong>
+                <nz-input-group nzAddOnAfterIcon="filter">
+                    <input nz-input type="text" class="forms-control" placeholder="Buscar..."
+                        [(ngModel)]="filterNombre" name="filterNombre">
+                </nz-input-group>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data|filterPermiso:filterNombre; let indice = index">
+            <td>{{ indice+1}}</td>
+            <td>{{ data.perm_nombre }}</td>
+        </tr>
+    </tbody>
+</nz-table>

@@ -31,7 +31,7 @@ class Server {
         tipoProducto: '/api/tipoProducto',
         producto: '/api/producto',
         perfil: '/api/perfil',
-        permiso: 'api/permiso',
+        permiso: '/api/permiso',
         tipoDocumento: '/api/tipoDocumento',
         tipoPersona: '/api/tipoPersona',
         persona: '/api/persona',

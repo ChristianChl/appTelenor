@@ -14,6 +14,7 @@ import { ListTipoProductoComponent } from './pages/list-tipo-producto/list-tipo-
 import { UsuariosComponent } from './pages/list-usuarios/usuarios.component';
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
 import { FormIngresoComponent } from './pages/form-ingreso/form-ingreso.component'
+import { ListPermisoComponent } from './pages/list-permiso/list-permiso.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'listaPerfil',
         component: ListPerfilComponent
+      },
+      {
+        path: 'listaPermiso',
+        component: ListPermisoComponent
       },
       {
         path: 'listaTipoDocumento',

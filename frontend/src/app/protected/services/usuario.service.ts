@@ -33,7 +33,7 @@ export class UsuarioService {
           console.log('Usuario Guardado')
         }
       }),
-      map(resp => resp.ok),
+      map(resp => resp),
       catchError(err => {
         if(err.error?.msg){
           
@@ -81,7 +81,7 @@ export class UsuarioService {
           console.log('Usuario actualizado')
         }
       }),
-      map(resp => resp.ok),
+      map(resp => resp),
       catchError(err => {
         if(err.error.errors.us_nombres?.msg){
           return of(err.error.errors.us_nombres.msg)
