@@ -168,7 +168,7 @@
              <div class="col-3">
                <nz-form-item >
                  <nz-form-control nzHasFeedback>
-                   <nz-select    nzSize='small' style="margin-top: 1px;" [nzSuffixIcon]="'exclamation-circle'" [attr.for]="'producto'+i" class="form-control" nzShowSearch formControlName="producto" name="producto" nzAllowClear required>
+                   <nz-select  [disabled]="true"  nzSize='small' style="margin-top: 1px;" [nzSuffixIcon]="'exclamation-circle'" [attr.for]="'producto'+i" class="form-control" nzShowSearch formControlName="producto" name="producto" nzAllowClear required>
                      <nz-option nzSize='small'  *ngFor="let option of producto" [nzLabel]="option.prod_modelo" [nzValue]="option.id_Producto" ></nz-option>
                    </nz-select>
                  </nz-form-control>
@@ -177,8 +177,8 @@
              <div class="col">
                <nz-form-item >
                  <nz-form-control nzHasFeedback>
-                   <nz-select nzSize='small' style="margin-top: 1px;" [nzSuffixIcon]="'exclamation-circle'" [attr.for]="'igv'+i" class="form-control" nzShowSearch formControlName="igv" name="igv" nzAllowClear required>
-                     <nz-option nzSize='small'  *ngFor="let option of igv" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+                   <nz-select [nzDisabled]="true"  nzSize='small' style="margin-top: 1px;" [nzSuffixIcon]="'exclamation-circle'" [attr.for]="'igv'+i" class="form-control" nzShowSearch formControlName="igv" name="igv" nzAllowClear required>
+                     <nz-option  nzSize='small'  *ngFor="let option of igv" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
                    </nz-select>
                  </nz-form-control>
                </nz-form-item>
@@ -187,7 +187,7 @@
                <nz-form-item>            
                  <nz-form-control nzHasFeedback>
                    <nz-input-group [nzSuffix]="suffixTemplateInfo">
-                     <input type="num" formControlName="num1" nz-input required>
+                     <input type="num" (keyup)="onKeyUp(i)" formControlName="num1" nz-input required>
                    </nz-input-group>
                    <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
                  </nz-form-control>
@@ -219,7 +219,7 @@
                <nz-form-item>            
                  <nz-form-control >
                    <nz-input-group >
-                     <input type="text" formControlName="total" nz-input readonly aria-disabled="true">
+                     <input type="text" [disabled]="true" formControlName="total" nz-input readonly aria-disabled="true">
                      
                    </nz-input-group>
                  </nz-form-control>
@@ -256,7 +256,7 @@
             <label for="">Gravada</label>
           </div>
           <div class="col-9">
-            <input type="text" nz-input readonly>
+            <input type="text" nz-input [(ngModel)]="ingreso.ing_gravada" readonly>
           </div>
       </div>
       <div class="row" style="margin-top: 8px;">
@@ -264,7 +264,7 @@
           <label for="">IGV</label>
         </div>
         <div class="col-9">
-          <input type="text" nz-input readonly>
+          <input type="text" [(ngModel)]="ingreso.ing_igv"  nz-input readonly>
         </div>
 
         <hr style="margin-top: 10px;">

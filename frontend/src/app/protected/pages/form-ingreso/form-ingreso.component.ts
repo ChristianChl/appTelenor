@@ -51,6 +51,8 @@ export class FormIngresoComponent implements OnInit{
     ing_estado	: "",
     ing_guiaRemitente:"",
     ing_observacion:"",
+    ing_gravada : "",
+    ing_igv : "",
     ing_ordenCompra:"",
     fk_id_persona:"" ,
     fk_id_usuario: ""
@@ -61,6 +63,8 @@ export class FormIngresoComponent implements OnInit{
     deti_cantidad: 0,
     deti_precioCompra: 0,
     deti_precioVenta: 0,
+    deti_subTotal: 0,
+    deti_total: 0,
     fk_id_producto: 0,
     fk_id_ingreso: 0
   }
@@ -77,6 +81,9 @@ export class FormIngresoComponent implements OnInit{
     {text:"Si", value:"1"},
     {text:"No", value:"2"},
   ];
+
+  igvtotal= 0;
+  gravada = 0;
 
   constructor(
     private prductoService:ProductoService,
@@ -179,6 +186,8 @@ export class FormIngresoComponent implements OnInit{
           this.detalleIngreso.deti_cantidad= Number(arrayProductos[i].num1);
           this.detalleIngreso.deti_precioCompra=Number(arrayProductos[i].num2);
           this.detalleIngreso.deti_precioVenta = 0.00;
+          this.detalleIngreso.deti_subTotal=Number(arrayProductos[i].subTotal);
+          this.detalleIngreso.deti_total=Number(arrayProductos[i].total);
           this.detalleIngreso.fk_id_producto = Number(arrayProductos[i].producto);
           this.detalleIngreso.fk_id_ingreso = Number(this.numComprobante.toString());
           this.id = Number(this.detalleIngreso.fk_id_producto)
@@ -241,7 +250,7 @@ export class FormIngresoComponent implements OnInit{
   newSkill(): FormGroup {
     return this.fb.group({
       producto: '',
-      igv: '',
+      igv: '1',
       num1: '',
       num2: '',
       subTotal:'',
@@ -282,20 +291,56 @@ export class FormIngresoComponent implements OnInit{
     });
   }
 
+  prueba2(){
+    console.log("Pruebaaa")
   
-  
+  }
+  probar : boolean = false;
+
+  cambioIgv(indice:any, validacion:boolean){
+      if(this.skillsForm.controls.skills.value[indice].igv == "" || this.skillsForm.controls.skills.value[indice].igv == "2"){
+        this.skillsForm.controls.skills.value[indice].subTotal  = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
+        console.log(this.skillsForm.controls.skills.value[indice].subTotal);
+      }
+      else{
+        this.skillsForm.controls.skills.value[indice].subTotal  = ((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)-((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)*0.18)).toFixed(2);
+        
+      }
+
+      console.log(validacion)
+      this.info = this.skillsForm.value;
+
+      const linesFormArray = this.skillsForm.get("skills") as FormArray;
+      this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+       
+        linesFormArray.at(index).setValue(a);
+        
+     });
+  }
+
   totalFinal = 0;
   subTotal = 0;
   onKeyUp(indice:any){
     console.log(indice)
 
-   
-    this.skillsForm.controls.skills.value[indice].subTotal = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2);
-    this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2);
+    this.probar = false;
+    // Sub-Total
+    if(this.skillsForm.controls.skills.value[indice].igv == "" || this.skillsForm.controls.skills.value[indice].igv == "2"){
+      this.skillsForm.controls.skills.value[indice].subTotal  = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
+      console.log(this.skillsForm.controls.skills.value[indice].subTotal);
+    }
+    else{
+      this.skillsForm.controls.skills.value[indice].subTotal  = ((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)/1.18).toFixed(2);
+      
+    }
+
+    //Total
+    this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
     
     this.subTotal = this.skillsForm.controls.skills.value[indice].subTotal;
 
-    console.log(this.skillsForm.value.skills);
+    
+
     this.info = this.skillsForm.value;
 
     const linesFormArray = this.skillsForm.get("skills") as FormArray;
@@ -310,12 +355,22 @@ export class FormIngresoComponent implements OnInit{
 
   getTotal(){
     this.totalFinal = 0;
+    this.gravada = 0;
+    this.igvtotal = 0;
+
     const linesFormArray = this.skillsForm.get("skills") as FormArray;
     this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+
+        this.gravada = Number(this.info.skills[index].subTotal) + this.gravada;
+        this.ingreso.ing_gravada = (this.gravada.toFixed(2)).toString();
+
+
+        this.igvtotal = (Number(this.info.skills[index].total)-(Number(this.info.skills[index].total)/1.18))+ this.igvtotal
+        this.ingreso.ing_igv = (this.igvtotal.toFixed(2)).toString();
        
-        this.totalFinal = this.info.skills[index].total + this.totalFinal;
+        this.totalFinal = Number(this.info.skills[index].total) + this.totalFinal;
         console.log(this.totalFinal);
-        this.ingreso.ing_totalCompra = this.totalFinal.toString();
+        this.ingreso.ing_totalCompra = (this.totalFinal.toFixed(2)).toString();
    });
   }
 

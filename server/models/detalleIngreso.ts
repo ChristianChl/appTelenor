@@ -17,6 +17,12 @@ const DetalleIngreso = db.define('DetalleIngreso', {
     deti_precioCompra: {
         type: DataTypes.DECIMAL
     },
+    deti_subTotal: {
+        type: DataTypes.DECIMAL
+    },
+    deti_total: {
+        type: DataTypes.DECIMAL
+    },
     deti_precioVenta: {
         type: DataTypes.DECIMAL
     },

@@ -10,6 +10,8 @@ export interface Ingreso{
     ing_guiaRemitente?:string;
     ing_ordenCompra? : string;
     ing_observacion? : string;
+    ing_gravada? : string;
+    ing_igv? : string;
     fk_id_persona?: string;
     fk_id_usuario?: string;
     ok?:boolean;

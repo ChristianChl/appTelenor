@@ -43,6 +43,12 @@ const Ingreso = connection_1.default.define('Ingreso', {
     ing_observacion: {
         type: sequelize_1.DataTypes.STRING
     },
+    ing_gravada: {
+        type: sequelize_1.DataTypes.DECIMAL
+    },
+    ing_igv: {
+        type: sequelize_1.DataTypes.DECIMAL
+    },
     fk_id_persona: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {

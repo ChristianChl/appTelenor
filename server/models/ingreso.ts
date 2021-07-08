@@ -45,6 +45,12 @@ const Ingreso = db.define('Ingreso', {
     ing_observacion:{
         type: DataTypes.STRING
     },
+    ing_gravada: {
+        type: DataTypes.DECIMAL
+    },
+    ing_igv: {
+        type: DataTypes.DECIMAL
+    },
     fk_id_persona: {
         type: DataTypes.INTEGER,
         references: {

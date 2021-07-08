@@ -19,6 +19,12 @@ const DetalleIngreso = connection_1.default.define('DetalleIngreso', {
     deti_precioCompra: {
         type: sequelize_1.DataTypes.DECIMAL
     },
+    deti_subTotal: {
+        type: sequelize_1.DataTypes.DECIMAL
+    },
+    deti_total: {
+        type: sequelize_1.DataTypes.DECIMAL
+    },
     deti_precioVenta: {
         type: sequelize_1.DataTypes.DECIMAL
     },

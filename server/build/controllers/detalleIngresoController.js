@@ -23,7 +23,7 @@ const getDetalleIngresos = (req, res) => __awaiter(void 0, void 0, void 0, funct
             {
                 model: producto_1.default,
                 as: 'Productos',
-                attributes: ["id_Producto", "prod_caracteristica", "prod_descripcion", "prod_imagen", "prod_modelo", "prod_stock", "prod_activo", "prod_precioCompra", "fk_id_categoria", "fk_id_marca", "fk_id_medida", "fk_id_tipo"],
+                attributes: ["id_Producto", "prod_caracteristica", "prod_descripcion", "prod_imagen", "prod_modelo", "prod_stock", "prod_activo", "prod_precioVenta", "fk_id_categoria", "fk_id_marca", "fk_id_medida", "fk_id_tipo"],
             },
             {
                 model: ingreso_1.default,
@@ -42,7 +42,7 @@ const getDetalleIngreso = (req, res) => __awaiter(void 0, void 0, void 0, functi
             {
                 model: producto_1.default,
                 as: 'Productos',
-                attributes: ["id_Producto", "prod_caracteristica", "prod_descripcion", "prod_imagen", "prod_modelo", "prod_stock", "prod_activo", "prod_precioCompra", "fk_id_categoria", "fk_id_marca", "fk_id_medida", "fk_id_tipo"],
+                attributes: ["id_Producto", "prod_caracteristica", "prod_descripcion", "prod_imagen", "prod_modelo", "prod_stock", "prod_activo", "prod_precioVenta", "fk_id_categoria", "fk_id_marca", "fk_id_medida", "fk_id_tipo"],
             },
             {
                 model: ingreso_1.default,

@@ -32,6 +32,7 @@ const Producto = db.define('Producto', {
         type: DataTypes.STRING
     },
 
+    
     prod_stock: {
         type: DataTypes.INTEGER
     },
