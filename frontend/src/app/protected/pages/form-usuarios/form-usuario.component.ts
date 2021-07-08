@@ -6,6 +6,9 @@ import { UsuarioService } from '../../services/usuario.service';
 import Swal from 'sweetalert2';
 import { PerfilService } from '../../services/perfil.service';
 import { TipoDocumentoService } from '../../services/tipo-documento.service';
+import { PermisoService } from '../../services/permiso.service';
+import { UsuarioPermisoService } from '../../services/usuario-permiso.service';
+import { UsuarioPermiso } from '../../interfaces/UsuarioPermiso';
 
 @Component({
   selector: 'app-form-usuario',
@@ -19,6 +22,8 @@ export class FormUsuarioComponent implements OnInit {
   @Output() newVisibleUsuario : EventEmitter<boolean>  = new EventEmitter<boolean>();
   perfil: any = [];
   tipoDocumentos: any = [];
+  permiso: any = [];
+  idPermisos: Number[] = [];
 
   isVisibleTipoDocumento = false;
   isVisiblePerfil = false;
@@ -42,6 +47,16 @@ export class FormUsuarioComponent implements OnInit {
     fk_id_perfil: "",
     fk_id_tipoDocumento: ""
   }
+  usuarioPermisos: UsuarioPermiso = {
+    id_UsuarioPermiso: 0,
+    fk_id_permiso: "",
+    fk_id_usuario: ""
+  }
+  // permisos : Permiso = {
+  //   id_permiso: 0,
+  //   perm_nombre: "",
+  // }
+
   edit: boolean = false;
 
   
@@ -58,6 +73,8 @@ export class FormUsuarioComponent implements OnInit {
     us_tipoDocumento: [, [Validators.required]],
     us_login: [, [Validators.required]],
     us_clave: [, [Validators.required, Validators.minLength(6)]],
+    Configuracion: [,[]],
+    Maestro: [,[]],
   });
 
   constructor(private fb: FormBuilder,
@@ -65,7 +82,9 @@ export class FormUsuarioComponent implements OnInit {
               private usuarioService : UsuarioService,
               private perfilService: PerfilService,
               private tipoDocumentoService: TipoDocumentoService,
-              private activatedRoute: ActivatedRoute ) { }
+              private permisoService: PermisoService,
+              private activatedRoute: ActivatedRoute,
+              private usuarioPermisoService: UsuarioPermisoService ) { }
 
   ngOnInit(): void {
     const params = this.activatedRoute.snapshot.params;
@@ -85,6 +104,7 @@ export class FormUsuarioComponent implements OnInit {
     this.edit = false;
     this.getTipoDocumento()
     this.getPerfil();
+    this.getPermiso();
   }
 
   getPerfil(){
@@ -106,14 +126,39 @@ export class FormUsuarioComponent implements OnInit {
     err => console.error(err)
     );
   }
+  getPermiso(){
+    this.permisoService.getPermisos()
+    .subscribe(resp => {
+      this.permiso = resp;
+      this.permiso = this.permiso.permiso;
+    },
+    err => console.log(err)
+    );
+  }
 
 
 
   guardarUsuario(){
     this.usuarioService.saveUsuario(this.usuarios)
-    .subscribe(ok =>{
+    .subscribe(resp =>{
       
-      if( ok == true && this.formUsuarios.valid ) {
+      if( resp.ok == true && this.formUsuarios.valid ) {
+
+        for(let i=0; i<this.permiso.length; i++){
+
+          if(this.permiso[i].checked == true){
+    
+            this.usuarioPermisos.fk_id_permiso = this.permiso[i].id_permiso;
+            this.usuarioPermisos.fk_id_usuario = resp.usuario.id_usuario;
+            this.usuarioPermisoService.saveUsuarioPermiso(this.usuarioPermisos)
+            .subscribe(ok =>{
+              console.log('usuario Permiso Guardado');
+            },
+            err => console.log(err)
+            );
+          }
+    
+        }
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -127,8 +172,8 @@ export class FormUsuarioComponent implements OnInit {
 
       }else{
         this.formUsuarios.markAllAsTouched();
-        Swal.fire('Error', ok, 'error');
-        console.log(ok);
+        Swal.fire('Error', resp, 'error');
+        console.log(resp);
       }
       
     });
@@ -137,7 +182,7 @@ export class FormUsuarioComponent implements OnInit {
   updateUsuario(){
     const params = this.activatedRoute.snapshot.params;
     this.usuarioService.updateUsuario(this.idUsuario, this.usuarios)
-    .subscribe(ok =>{
+    .subscribe(resp =>{
       if(this.formUsuarios.valid ) {
         Swal.fire({
           position: 'center',
@@ -153,7 +198,7 @@ export class FormUsuarioComponent implements OnInit {
 
       }else{
         this.formUsuarios.markAllAsTouched();
-        Swal.fire('Error', ok, 'error');
+        Swal.fire('Error', resp, 'error');
       }
       
     });
@@ -203,6 +248,27 @@ export class FormUsuarioComponent implements OnInit {
     this.isVisiblePerfil = false;
     
   }
+
+  // checkPermisos(){
+    
+
+  //   for(let i=0; i<this.permiso.length; i++){
+
+  //     if(this.permiso[i].checked == true){
+
+  //       this.idPermisos.push(this.permiso[i].id_permiso)
+
+  //       console.log('Guandando Elemento: ' + this.permiso[i].id_permiso);
+  //     }
+
+      
+  //   }
+    
+  //   console.log(this.idPermisos);
+
+    
+
+  // }
 
 
 

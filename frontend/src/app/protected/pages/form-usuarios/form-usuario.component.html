@@ -155,7 +155,7 @@
         </div>
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label> Contraseña </nz-form-label>
+            <nz-form-label> Clave </nz-form-label>
             <br />
             <nz-form-control nzHasFeedback>
               <nz-input-group [nzSuffix]="suffixTemplateInfo" nzAddOnBeforeIcon="lock">
@@ -209,7 +209,7 @@
       </div>
 
       <div class="row">
-        <div class="col-12">
+        <div class="col-6">
           <nz-form-item>
             <p> Activo <nz-switch formControlName="us_activo" name="activo" [(ngModel)]="usuarios.us_activo"
                 nzCheckedChildren="Si" nzUnCheckedChildren="No" required></nz-switch>
@@ -218,6 +218,16 @@
 
           </nz-form-item>
 
+          
+        </div>
+        <div class="col-6"> 
+          <span>Permisos:</span><br>
+          <ng-container *ngFor="let permiso of permiso; let i = index"  >
+            <label nz-checkbox [(ngModel)]="permiso.checked" [nzValue] = "permiso.checked" formControlName="{{permiso.perm_nombre}}"  > 
+              {{permiso.perm_nombre}}
+            </label>  
+            <br>
+          </ng-container>
         </div>
       </div>
     </form>

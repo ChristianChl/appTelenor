@@ -40,12 +40,15 @@
         <a class="full-width" mat-list-item routerLink="/dashboard/listaPerfil">Perfiles
           <mat-icon mat-list-icon>switch_account</mat-icon>
         </a>
+        <a class="full-width" mat-list-item routerLink="/dashboard/listaPermiso">Permisos
+          <mat-icon mat-list-icon>settings_applications</mat-icon>
+        </a>
         <a class="full-width" mat-list-item routerLink="/dashboard/listaUsuarios">Usuarios
           <mat-icon mat-list-icon>group</mat-icon>
         </a>
       </div>
       <mat-list-item (click)="showSubmenu1 = !showSubmenu1" class="parent">
-        <span class="full-width" *ngIf="isExpanded || isShowing">Almacen</span>
+        <span class="full-width" *ngIf="isExpanded || isShowing">Almacén</span>
         <mat-icon mat-list-icon>view_module</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu1}" *ngIf="isExpanded || isShowing">expand_more
         </mat-icon>

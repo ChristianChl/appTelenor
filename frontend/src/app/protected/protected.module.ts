@@ -27,6 +27,20 @@ import { FilterProveedorPipe } from './pipes/filter-proveedor.pipe';
 import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
 import { ListClienteComponent } from './pages/list-cliente/list-cliente.component';
 import { FormClienteComponent } from './pages/form-cliente/form-cliente.component';
+<<<<<<< HEAD
+import { FormIngresoComponent } from './pages/form-ingreso/form-ingreso.component';
+import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
+import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
+import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
+import { FilterMarcaPipe } from './pipes/filter-marca.pipe';
+import { FilterMedidaPipe } from './pipes/filter-medida.pipe';
+import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
+import { FilterProductoPipe } from './pipes/filter-producto.pipe';
+import { ResumUsuarioComponent } from './pages/resum-usuario/resum-usuario.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { ListPermisoComponent } from './pages/list-permiso/list-permiso.component';
+import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
+=======
 
 import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
@@ -41,6 +55,7 @@ import { ResumUsuarioComponent } from './pages/resum-usuario/resum-usuario.compo
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
+>>>>>>> ca154a6b5ca2b6c4f9fdff12e6b9f8c8f1fde8a8
 
 
 
@@ -83,7 +98,12 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
     FormIngresoComponent,
     FilterProductoPipe,
     ResumUsuarioComponent,
+<<<<<<< HEAD
+    ListPermisoComponent,
+    FilterPermisoPipe
+=======
     ListIngresoComponent
+>>>>>>> ca154a6b5ca2b6c4f9fdff12e6b9f8c8f1fde8a8
   ],
   imports: [
     CommonModule,
