@@ -30,6 +30,7 @@ const detalleVenta_1 = __importDefault(require("../routes/detalleVenta"));
 const ingreso_1 = __importDefault(require("../routes/ingreso"));
 const detalleIngreso_1 = __importDefault(require("../routes/detalleIngreso"));
 const usuarioPermiso_1 = __importDefault(require("../routes/usuarioPermiso"));
+const moneda_1 = __importDefault(require("../routes/moneda"));
 const cors_1 = __importDefault(require("cors"));
 const connection_1 = __importDefault(require("../database/connection"));
 class Server {
@@ -52,6 +53,7 @@ class Server {
             ingreso: '/api/ingreso',
             detalleIngreso: '/api/detalleIngreso',
             usuarioPermiso: '/api/usuarioPermiso',
+            monedas: '/api/moneda',
         };
         this.app = express_1.default();
         this.port = process.env.PORT || '3000';
@@ -96,6 +98,7 @@ class Server {
         this.app.use(this.apiPaths.ingreso, ingreso_1.default);
         this.app.use(this.apiPaths.detalleIngreso, detalleIngreso_1.default);
         this.app.use(this.apiPaths.usuarioPermiso, usuarioPermiso_1.default);
+        this.app.use(this.apiPaths.monedas, moneda_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

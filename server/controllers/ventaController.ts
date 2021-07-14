@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { Response } from "express";
 import Persona from "../models/persona";
+import Moneda from "../models/moneda"; "../models/moneda";
 import Usuario from "../models/usuario";
 import Venta from "../models/venta";
 
@@ -17,6 +18,11 @@ export const getVentas  = async (req:Request, res:Response) =>{
                 as: 'Usuarios',
                 attributes: ["id_usuario", "us_apellidos", "us_nombres", "us_numeroDocumento", "us_direccion", "us_telefono", "us_email", "us_fechaRegistro", "us_login", "us_clave", "us_activo", "fk_id_perfil", "fk_id_tipoDocumento"],
 
+            },
+            {
+                model: Moneda,
+                as: 'Monedas',
+                attributes: ["id_moneda", "mon_nombre", "mon_tipoCambio"],
             }
         ]
     });
@@ -69,6 +75,7 @@ export const postVenta  = async (req:Request, res:Response) =>{
             venta
 
         });
+        
         //res.json(usuario);
         // res.json(token);
 

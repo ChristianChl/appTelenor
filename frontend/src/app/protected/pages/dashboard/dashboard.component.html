@@ -75,6 +75,20 @@
         <a class="full-width" routerLink="/dashboard/listaTipoDocumento" mat-list-item ><mat-icon mat-list-icon>credit_card</mat-icon>Tipo Documento</a>
       </div>
 
+      <!-- Sub Menu Compras -->
+
+      <mat-list-item (click)="showSubmenuCompras = !showSubmenuCompras" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Compras</span>
+        <mat-icon mat-list-icon>shopping_cart</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenuCompras}" *ngIf="isExpanded || isShowing">expand_more
+        </mat-icon>
+      </mat-list-item>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenuCompras}" *ngIf="isShowing || isExpanded">
+        
+        <a class="full-width" routerLink="/dashboard/listaIngreso" mat-list-item ><mat-icon mat-list-icon>shopping_cart</mat-icon>Registro de Compras</a>
+        
+      </div>
+
 
       <mat-list-item (click)="showSubmenu2 = !showSubmenu2" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Ventas</span>
@@ -83,8 +97,7 @@
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu2}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" mat-list-item href="...">Registrar Venta</a>
-        <a class="full-width" mat-list-item href="...">Detalle Ventas</a>
+        <a class="full-width" mat-list-item href="...">Registro de Ventas</a>
       </div>
       <mat-list-item (click)="showSubmenu3 = !showSubmenu3" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Precios</span>

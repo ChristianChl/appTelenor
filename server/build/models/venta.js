@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../database/connection"));
+const moneda_1 = __importDefault(require("./moneda"));
 const persona_1 = __importDefault(require("./persona"));
 const usuario_1 = __importDefault(require("./usuario"));
 const Venta = connection_1.default.define('Venta', {
@@ -22,10 +23,19 @@ const Venta = connection_1.default.define('Venta', {
     ven_numeroComprobante: {
         type: sequelize_1.DataTypes.STRING
     },
+    ven_guiaRemitente: {
+        type: sequelize_1.DataTypes.STRING
+    },
     ven_fechaHora: {
         type: sequelize_1.DataTypes.DATE
     },
     ven_impuesto: {
+        type: sequelize_1.DataTypes.DECIMAL
+    },
+    ven_igv: {
+        type: sequelize_1.DataTypes.DECIMAL
+    },
+    ven_gravada: {
         type: sequelize_1.DataTypes.DECIMAL
     },
     ven_total: {
@@ -48,6 +58,13 @@ const Venta = connection_1.default.define('Venta', {
             key: 'id_usuario'
         }
     },
+    fk_id_moneda: {
+        type: sequelize_1.DataTypes.INTEGER,
+        references: {
+            model: moneda_1.default,
+            key: 'id_moneda'
+        }
+    }
 });
 Venta.belongsTo(persona_1.default, {
     as: 'Personas',
@@ -56,6 +73,10 @@ Venta.belongsTo(persona_1.default, {
 Venta.belongsTo(usuario_1.default, {
     as: 'Usuarios',
     foreignKey: "fk_id_usuario"
+});
+Venta.belongsTo(moneda_1.default, {
+    as: 'Monedas',
+    foreignKey: "fk_id_moneda"
 });
 exports.default = Venta;
 //# sourceMappingURL=venta.js.map

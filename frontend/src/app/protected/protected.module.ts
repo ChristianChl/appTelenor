@@ -27,6 +27,7 @@ import { FilterProveedorPipe } from './pipes/filter-proveedor.pipe';
 import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
 import { ListClienteComponent } from './pages/list-cliente/list-cliente.component';
 import { FormClienteComponent } from './pages/form-cliente/form-cliente.component';
+<<<<<<< HEAD
 import { ListPermisoComponent } from './pages/list-permiso/list-permiso.component';
 import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
 import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
@@ -42,6 +43,26 @@ import { ResumUsuarioComponent } from './pages/resum-usuario/resum-usuario.compo
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
+=======
+
+import { FormIngresoComponent } from './pages/form-ingreso/form-ingreso.component';
+import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
+import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
+import { FilterPerfilPipe } from './pipes/filter-perfil.pipe';
+import { FilterMarcaPipe } from './pipes/filter-marca.pipe';
+import { FilterMedidaPipe } from './pipes/filter-medida.pipe';
+import { FilterCategoriaPipe } from './pipes/filter-categoria.pipe';
+import { FilterProductoPipe } from './pipes/filter-producto.pipe';
+import { ResumUsuarioComponent } from './pages/resum-usuario/resum-usuario.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { ListPermisoComponent } from './pages/list-permiso/list-permiso.component';
+import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
+import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
+import { PruebaAutocompletadoComponent } from './pages/prueba-autocompletado/prueba-autocompletado.component';
+import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
+>>>>>>> 15725386281d412da34f6e7c26d0fae0769d707c
 
 
 
@@ -86,7 +107,14 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
     ResumUsuarioComponent,
     ListPermisoComponent,
     FilterPermisoPipe,
+<<<<<<< HEAD
     ListIngresoComponent
+=======
+    ListIngresoComponent,
+    FormVentasComponent,
+    PruebaAutocompletadoComponent,
+    ListVentasComponent
+>>>>>>> 15725386281d412da34f6e7c26d0fae0769d707c
   ],
   imports: [
     CommonModule,

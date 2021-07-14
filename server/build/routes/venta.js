@@ -10,10 +10,8 @@ router.get('/:id', ventaController_1.getVenta);
 router.post('/', [
     express_validator_1.check('ven_tipoComprobante', 'El tipo de comprobante es obligatorio').not().isEmpty(),
     express_validator_1.check('ven_serieComprobante', 'La serie de comprobante es obligatorio').not().isEmpty(),
-    express_validator_1.check('ven_numseroComprobante', 'El número de comprobante es obligatorio').not().isEmpty(),
-    express_validator_1.check('ven_impuesto', 'El impuesto de comprobante es obligatorio').not().isEmpty(),
-    express_validator_1.check('ven_total', 'El total de comprobante es obligatorio').not().isEmpty(),
-    express_validator_1.check('ven_estado', 'El estado de comprobante es obligatorio').not().isEmpty(),
+    express_validator_1.check('ven_numeroComprobante', 'El número de comprobante es obligatorio').not().isEmpty(),
+    //check('ven_total', 'El total de comprobante es obligatorio').not().isEmpty(),
     validar_campos_1.validarCampos
 ], ventaController_1.postVenta);
 router.put('/:id', ventaController_1.putVenta);

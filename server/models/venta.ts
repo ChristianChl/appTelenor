@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import db from "../database/connection";
+import Moneda from './moneda';
 import Persona from './persona';
 import Usuario from './usuario';
 
@@ -21,6 +22,9 @@ const Venta = db.define('Venta', {
     ven_numeroComprobante: {
         type: DataTypes.STRING
     },
+    ven_guiaRemitente: {
+        type: DataTypes.STRING
+    },
 
     ven_fechaHora: {
         type: DataTypes.DATE
@@ -29,7 +33,12 @@ const Venta = db.define('Venta', {
     ven_impuesto: {
         type: DataTypes.DECIMAL
     },
-
+    ven_igv: {
+        type: DataTypes.DECIMAL
+    },
+    ven_gravada: {
+        type: DataTypes.DECIMAL
+    },
     ven_total: {
         type: DataTypes.DECIMAL
     },
@@ -50,7 +59,13 @@ const Venta = db.define('Venta', {
             key: 'id_usuario'
         }
     },
-
+    fk_id_moneda: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Moneda,
+            key: 'id_moneda'
+        }
+    }
 
 });
 
@@ -61,6 +76,10 @@ Venta.belongsTo(Persona, {
 Venta.belongsTo(Usuario,{
     as: 'Usuarios',
     foreignKey: "fk_id_usuario"
+});
+Venta.belongsTo(Moneda,{
+    as: 'Monedas',
+    foreignKey: "fk_id_moneda"
 });
 
 export default Venta;

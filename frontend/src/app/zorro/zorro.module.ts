@@ -22,7 +22,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
-
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 @NgModule({
   declarations: [],
   imports: [
@@ -48,7 +48,8 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
     NzModalModule,
     NzImageModule,
     NzMessageModule,
-    NzSpaceModule
+    NzSpaceModule,
+    NzAutocompleteModule
 
   ]
 })

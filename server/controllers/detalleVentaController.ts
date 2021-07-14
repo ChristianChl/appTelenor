@@ -11,7 +11,7 @@ export const getDetalleVentas  = async (req:Request, res:Response) =>{
             {
                 model: Producto,
                 as: 'Productos',
-                attributes: ["id_Producto", "prod_nombre", "prod_caracteristica", "prod_descripcion", "prod_imagen", "prod_modelo", "prod_stock", "fk_id_categoria", "fk_id_marca", "fk_id_medida", "fk_id_tipo"],
+                attributes: ["id_Producto","prod_caracteristica", "prod_descripcion", "prod_imagen", "prod_modelo", "prod_stock", "fk_id_categoria", "fk_id_marca", "fk_id_medida", "fk_id_tipo"],
             },
             {
                 model: Venta,

@@ -1,0 +1,39 @@
+<button id="botonNuevo" routerLink="/dashboard/agregarVenta" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
+
+
+<nz-table id="tabla" nzBordered #basicTable  [nzData]="ventas" style="margin-left: 10px; margin-right: 10px;">
+    <thead>
+      <tr>
+        <th style="text-align: center;"><strong>#</strong> </th>
+        <th style="text-align: center;"><strong>Num. Comp.</strong></th>
+        <th style="text-align: center;"><strong>Num. Doc.</strong></th>
+        <th style="text-align: center;"><strong>Razón Social</strong></th>
+        <th style="text-align: center;"><strong>Total</strong></th>
+        <th style="text-align: center;"><strong>Fecha Emision</strong></th>
+        <th style="text-align: center;"><strong>Acciones</strong></th>
+
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data; let indice = index">
+            <td>{{ indice+1}}</td> 
+            <td>{{ data.ven_numeroComprobante }}</td>
+            <td>{{ data.Personas.per_numeroDocumento }}</td>
+            <td>{{ data.Personas.per_razonSocial }}</td>
+            <td>{{ data.ven_total }}</td>
+            <td>{{ data.createdAt }}</td>
+            <td>
+              <button nz-button nzType="primary" nzTooltipTitle="PDF" nzTooltipPlacement="left" nz-tooltip   ntype="button"  >
+                <i nz-icon nzType="download" nzTheme="outline"></i>
+              </button>
+            </td>
+            
+          </tr>
+    </tbody>
+  </nz-table>
+
+  <button (click)="createPdf()">PDF</button>
+  
+
+
+  

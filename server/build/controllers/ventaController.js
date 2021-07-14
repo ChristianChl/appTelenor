@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteVenta = exports.putVenta = exports.postVenta = exports.getVenta = exports.getVentas = void 0;
 const persona_1 = __importDefault(require("../models/persona"));
+const moneda_1 = __importDefault(require("../models/moneda"));
+"../models/moneda";
 const usuario_1 = __importDefault(require("../models/usuario"));
 const venta_1 = __importDefault(require("../models/venta"));
 const getVentas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,6 +30,11 @@ const getVentas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 model: usuario_1.default,
                 as: 'Usuarios',
                 attributes: ["id_usuario", "us_apellidos", "us_nombres", "us_numeroDocumento", "us_direccion", "us_telefono", "us_email", "us_fechaRegistro", "us_login", "us_clave", "us_activo", "fk_id_perfil", "fk_id_tipoDocumento"],
+            },
+            {
+                model: moneda_1.default,
+                as: 'Monedas',
+                attributes: ["id_moneda", "mon_nombre", "mon_tipoCambio"],
             }
         ]
     });
