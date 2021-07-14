@@ -179,30 +179,71 @@ export class FormUsuarioComponent implements OnInit {
     });
 
   }
+  // updateUsuario(){
+  //   const params = this.activatedRoute.snapshot.params;
+  //   this.usuarioService.updateUsuario(this.idUsuario, this.usuarios)
+  //   .subscribe(resp =>{
+  //     if(this.formUsuarios.valid ) {
+  //       Swal.fire({
+  //         position: 'center',
+  //         icon: 'success',
+  //         title: 'Usuario Actualizado Exitosamente!',
+  //         showConfirmButton: false,
+  //         timer: 1500
+  //       });
+  //       this.router.navigateByUrl('/dashboard/listaUsuarios');
+  //       this.formUsuarios.reset();
+  //       this.handleCancelUsuario();
+        
+
+  //     }else{
+  //       this.formUsuarios.markAllAsTouched();
+  //       Swal.fire('Error', resp, 'error');
+  //     }
+      
+  //   });
+  // }
   updateUsuario(){
     const params = this.activatedRoute.snapshot.params;
-    this.usuarioService.updateUsuario(this.idUsuario, this.usuarios)
-    .subscribe(resp =>{
-      if(this.formUsuarios.valid ) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Usuario Actualizado Exitosamente!',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.router.navigateByUrl('/dashboard/listaUsuarios');
-        this.formUsuarios.reset();
-        this.handleCancelUsuario();
-        
+    this.usuarioService.deleteUsuario(this.idUsuario).subscribe(
+      res => {
+        this.usuarioService.saveUsuario(this.usuarios)
+        .subscribe(resp =>{
+        if( resp.ok == true && this.formUsuarios.valid ) {
+
+          for(let i=0; i<this.permiso.length; i++){
+  
+            if(this.permiso[i].checked == true){
+      
+              this.usuarioPermisos.fk_id_permiso = this.permiso[i].id_permiso;
+              this.usuarioPermisos.fk_id_usuario = this.idUsuario;
+              this.usuarioPermisoService.saveUsuarioPermiso(this.usuarioPermisos)
+              .subscribe(ok =>{
+                console.log('usuario Permiso Guardado');
+              },
+              err => console.log(err)
+              );
+            }
+      
+          }
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Usuario Actualizado Exitosamente!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.router.navigateByUrl('/dashboard/listaUsuarios');
+          this.formUsuarios.reset();
+          this.handleCancelUsuario();
 
       }else{
         this.formUsuarios.markAllAsTouched();
         Swal.fire('Error', resp, 'error');
       }
-      
     });
-  }
+  });
+}
 
   campoEsValido(campo: string){
     return this.formUsuarios.controls[campo].errors && this.formUsuarios.controls[campo].touched;

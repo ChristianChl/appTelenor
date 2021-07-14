@@ -79,8 +79,19 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             });
         }
         // const usuario =  Usuario.build(body);
-        const salt = bcrypt_1.default.genSaltSync(10);
-        body.us_clave = bcrypt_1.default.hashSync(body.us_clave, salt);
+        const validPassword = bcrypt_1.default.compareSync(body.us_clave, body.us_clave);
+        console.log('llego el lechero clavin');
+        console.log(body.us_clave);
+        console.log(validPassword);
+        if (validPassword) {
+            const salt = bcrypt_1.default.genSaltSync(10);
+            body.us_clave = bcrypt_1.default.hashSync(body.us_clave, salt);
+        }
+        // console.log('clavin el lechero');
+        // console.log(body.us_clave.);
+        // console.log('lecheroop');
+        // const salt = bcrypt.genSaltSync(10);
+        // body.us_clave = bcrypt.hashSync(body.us_clave, salt);
         const usuario = usuario_1.default.build(body);
         yield usuario.save();
         const token = yield jwt_1.generarJwt(usuario.id_usuario, usuario.us_nombres);
