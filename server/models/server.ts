@@ -16,6 +16,7 @@ import detalleVenta from '../routes/detalleVenta';
 import ingreso from '../routes/ingreso';
 import detalleIngreso from '../routes/detalleIngreso';
 import usuarioPermiso from '../routes/usuarioPermiso';
+import moneda from '../routes/moneda';
 import cors from 'cors';
 import db from '../database/connection';
 
@@ -40,6 +41,7 @@ class Server {
         ingreso: '/api/ingreso',
         detalleIngreso: '/api/detalleIngreso',
         usuarioPermiso: '/api/usuarioPermiso',
+        monedas: '/api/moneda',
 
     }
     
@@ -96,6 +98,8 @@ class Server {
         this.app.use(this.apiPaths.ingreso, ingreso);
         this.app.use(this.apiPaths.detalleIngreso, detalleIngreso);
         this.app.use(this.apiPaths.usuarioPermiso, usuarioPermiso);
+        this.app.use(this.apiPaths.monedas, moneda );
+
     }
 
     listen(){

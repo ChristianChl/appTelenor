@@ -14,11 +14,11 @@ import { ListTipoProductoComponent } from './pages/list-tipo-producto/list-tipo-
 import { UsuariosComponent } from './pages/list-usuarios/usuarios.component';
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
 import { FormIngresoComponent } from './pages/form-ingreso/form-ingreso.component'
-<<<<<<< HEAD
 import { ListPermisoComponent } from './pages/list-permiso/list-permiso.component';
-=======
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
->>>>>>> ca154a6b5ca2b6c4f9fdff12e6b9f8c8f1fde8a8
+import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
+import { PruebaAutocompletadoComponent } from './pages/prueba-autocompletado/prueba-autocompletado.component';
+import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
 
 const routes: Routes = [
   {
@@ -76,9 +76,15 @@ const routes: Routes = [
       {
         path: 'listaIngreso',
         component: ListIngresoComponent
-        
       },
-
+      {
+        path: 'agregarVenta',
+        component: FormVentasComponent
+      },
+      {
+        path: 'listaVentas',
+        component: ListVentasComponent
+      },
       {
         path: '**',
         redirectTo: ''

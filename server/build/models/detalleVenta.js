@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../database/connection"));
-const producto_1 = __importDefault(require("./producto"));
 const venta_1 = __importDefault(require("./venta"));
+const producto_1 = __importDefault(require("./producto"));
 const DetalleVenta = connection_1.default.define('DetalleVenta', {
     id_detalleVenta: {
         type: sequelize_1.DataTypes.INTEGER,
@@ -19,7 +19,10 @@ const DetalleVenta = connection_1.default.define('DetalleVenta', {
     detv_precioVenta: {
         type: sequelize_1.DataTypes.DECIMAL
     },
-    detv_descuento: {
+    detv_subTotal: {
+        type: sequelize_1.DataTypes.DECIMAL
+    },
+    detv_total: {
         type: sequelize_1.DataTypes.DECIMAL
     },
     fk_id_producto: {

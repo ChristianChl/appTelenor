@@ -151,19 +151,8 @@ export class ListIngresoComponent implements OnInit {
         pdf.text("Total: ", 160, tamañoArray);
         pdf.text(this.totalVenta, 175, tamañoArray );
 
-        var element : HTMLElement | any = document.getElementById('boleta');
-        pdf.html(element)
-          
-        console.log(element)
-        html2canvas(element).then((canvas) => { 
-          
-          var imgdata = canvas.toDataURL("image/png");
-          var imgHeight = canvas.height * 55 / canvas.width;
-          
-          //pdf.addImage(imgdata,130,40,55, imgHeight)
-          pdf.save("prueba.pdf");
-          
-        })
+    
+        pdf.save(`${this.titulo2}.pdf` );
 
         // Download PDF pdf  
   }

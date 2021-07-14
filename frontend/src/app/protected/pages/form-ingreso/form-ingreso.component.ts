@@ -390,8 +390,6 @@ export class FormIngresoComponent implements OnInit{
 
   idProveedor = "";
   modalEditProveedor(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleProveedor = true;
     this.idProveedor = id;
   }
