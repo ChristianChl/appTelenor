@@ -92,8 +92,7 @@ export class ListIngresoComponent implements OnInit {
         let tamañoArray = this.probar();
 
         
-        console.log(tamañoArray);
-        console.log(this.arrayP);
+        
         
         tamañoArray =  80 + 10 + tamañoArray + 5;
         let idPersonaN: any;
@@ -122,7 +121,7 @@ export class ListIngresoComponent implements OnInit {
 
         (pdf as any).autoTable({
         columnStyles: { Cantidad: { halign: 'center' } },
-        margin:{top:80},
+        margin:{top:100},
         head: this.header,
         body: this.arrayP,
         theme: 'grid',

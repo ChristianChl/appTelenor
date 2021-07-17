@@ -23,7 +23,7 @@
             <td>{{ data.ven_total }}</td>
             <td>{{ data.createdAt }}</td>
             <td>
-              <button nz-button nzType="primary" nzTooltipTitle="PDF" nzTooltipPlacement="left" nz-tooltip   ntype="button"  >
+              <button nz-button nzType="primary" nzTooltipTitle="PDF" nzTooltipPlacement="left" nz-tooltip (click)="generatePdf(data.ven_numeroComprobante)"  ntype="button"  >
                 <i nz-icon nzType="download" nzTheme="outline"></i>
               </button>
             </td>
@@ -32,7 +32,7 @@
     </tbody>
   </nz-table>
 
-  <button (click)="createPdf()">PDF</button>
+  
   
 
 
