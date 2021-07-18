@@ -4,7 +4,7 @@ const sequelize_1 = require("sequelize");
 const db = new sequelize_1.Sequelize('bdtelenor', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
-    port: 3307
+    // port: 3307
     //logggin: false,
 });
 exports.default = db;

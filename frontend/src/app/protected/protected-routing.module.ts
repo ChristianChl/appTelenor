@@ -15,16 +15,8 @@ import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tip
 import { FormIngresoComponent } from './pages/form-ingreso/form-ingreso.component'
 import { ListPermisoComponent } from './pages/list-permiso/list-permiso.component';
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
-<<<<<<< HEAD
-=======
-
->>>>>>> 33c54ec0bd855584771c2fac1391b58e6d9bc7ff
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
-<<<<<<< HEAD
-=======
-
->>>>>>> 33c54ec0bd855584771c2fac1391b58e6d9bc7ff
 
 const routes: Routes = [
   {
