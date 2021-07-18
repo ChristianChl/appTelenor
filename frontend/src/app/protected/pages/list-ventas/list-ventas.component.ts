@@ -58,8 +58,8 @@ export class ListVentasComponent implements OnInit {
             const now = new Date(this.ventas[i].createdAt);
             var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         
-            let formatted = now.getFullYear() + ' ' + months[now.getMonth()] + ' ' + 
-            now.getDate()
+            let formatted = now.getDate() + ' ' + months[now.getMonth()]  + ' ' + now.getFullYear();
+            
 
             this.ventas[i].createdAt = formatted;
         }
@@ -114,9 +114,10 @@ export class ListVentasComponent implements OnInit {
   totalVenta = "";
   tamañoFilas : any = 0;
   
+
   dataSourcePro = ELEMENT_DATA_PRO;
   getProductos(numeroComprobante:string){
-    
+    this.dataSourcePro = [];
     this.arrayPdf = [];
     const nuevoNumero = Number(numeroComprobante);
     this.filterDetalle = this.detalleVenta.filter(function(ele: any){
@@ -271,7 +272,7 @@ export class ListVentasComponent implements OnInit {
         //Total de venta
         this.totalVenta = this.filterVenta[0].ven_total ;
 
-        pdf.save(`prueba.pdf` );
+        pdf.save(`${this.filterVenta[0].ven_serieComprobante}-${this.filterVenta[0].ven_numeroComprobante}.pdf` );
   }
 
   data : any = [];
@@ -284,6 +285,7 @@ export class ListVentasComponent implements OnInit {
   }
 
   obtenerTablas(numeroComprobante:string){
+    this.dataSourceDetalle = [];
     this.dataSourceTotal = [];
     const nuevoNumero = Number(numeroComprobante);
 
@@ -342,7 +344,7 @@ export class ListVentasComponent implements OnInit {
       Total:   x.Total
     }));
 
-    TableUtil.exportArrayToExcel(arrayDetalles,arrayTotales,"ExampleArray");
+    TableUtil.exportArrayToExcel(arrayDetalles,arrayTotales,`${this.filterVenta[0].ven_serieComprobante}-${this.filterVenta[0].ven_numeroComprobante}`);
   }
 
 

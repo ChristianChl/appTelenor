@@ -27,6 +27,10 @@ import { FilterProveedorPipe } from './pipes/filter-proveedor.pipe';
 import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
 import { ListClienteComponent } from './pages/list-cliente/list-cliente.component';
 import { FormClienteComponent } from './pages/form-cliente/form-cliente.component';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2549093513101feb9dfff3737f48ee5cb1d874eb
 import { FormIngresoComponent } from './pages/form-ingreso/form-ingreso.component';
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
 import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
@@ -42,6 +46,10 @@ import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2549093513101feb9dfff3737f48ee5cb1d874eb
 
 
 

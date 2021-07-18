@@ -232,9 +232,8 @@ export class ListIngresoComponent implements OnInit {
             const now = new Date(this.ingreso[i].createdAt);
             var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         
-            let formatted = now.getFullYear() + ' ' + months[now.getMonth()] + ' ' + 
-            now.getDate() + ' /// ' + now.getHours() + ':' + now.getMinutes() + ':' + 
-            now.getSeconds();
+            let formatted = now.getDate()+ ' ' + months[now.getMonth()] + ' ' + now.getFullYear()   
+            
 
             this.ingreso[i].createdAt = formatted;
         }
