@@ -121,7 +121,7 @@ export class ListIngresoComponent implements OnInit {
 
         (pdf as any).autoTable({
         columnStyles: { Cantidad: { halign: 'center' } },
-        margin:{top:100},
+        margin:{top:80},
         head: this.header,
         body: this.arrayP,
         theme: 'grid',

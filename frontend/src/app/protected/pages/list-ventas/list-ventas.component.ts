@@ -9,6 +9,10 @@ import 'jspdf-autotable';
 import { PersonaService } from '../../services/persona.service';
 import { TablaVenta } from '../../interfaces/tablaVenta';
 
+import { ExporterService } from '../../services/exporter.service';
+import * as XLSX from 'xlsx';
+import { TableUtil } from "./tableUtil";
+
 PdfMakeWrapper.setFonts(pdfFonts);
 
 @Component({
@@ -32,7 +36,8 @@ export class ListVentasComponent implements OnInit {
   constructor(
     private ventasService:VentasService,
     private personaService:PersonaService,
-    private detallVentaService:DetallVentaService
+    private detallVentaService:DetallVentaService,
+    private exporterService:ExporterService
   ) { }
 
   ngOnInit(): void {
@@ -108,8 +113,11 @@ export class ListVentasComponent implements OnInit {
   }
   totalVenta = "";
   tamañoFilas : any = 0;
+  
+  dataSourcePro = ELEMENT_DATA_PRO;
   getProductos(numeroComprobante:string){
-
+    
+    this.arrayPdf = [];
     const nuevoNumero = Number(numeroComprobante);
     this.filterDetalle = this.detalleVenta.filter(function(ele: any){
       return ele.fk_id_venta == nuevoNumero;
@@ -125,7 +133,16 @@ export class ListVentasComponent implements OnInit {
       this.tablaVenta.subTotal = this.filterDetalle[i].detv_subTotal;
       this.tablaVenta.total = this.filterDetalle[i].detv_total;
 
-      
+      this.dataSourcePro.push({
+        modeloProd: this.filterDetalle[i].Productos.prod_modelo,
+        descripcion:this.filterDetalle[i].Productos.prod_descripcion,
+        cantidad:this.filterDetalle[i].detv_cantidad,
+        pUnit:this.filterDetalle[i].detv_precioVenta,
+        subTotal:this.filterDetalle[i].detv_subTotal,
+        tota:this.filterDetalle[i].detv_total
+      })
+     
+
       this.arrayPdf.push([this.tablaVenta.id,
         this.tablaVenta.modelo,
         this.tablaVenta.decripcion,
@@ -133,6 +150,8 @@ export class ListVentasComponent implements OnInit {
         this.tablaVenta.pUnitario,
         this.tablaVenta.subTotal,
         this.tablaVenta.total]);
+      
+      
     }
     this.tamañoFilas =  this.arrayPdf.length*8;
 
@@ -228,15 +247,12 @@ export class ListVentasComponent implements OnInit {
         const margiTopTotal =   margiTopiGV + 5;
         this.igv = (this.filterVenta[0].ven_igv).toString();
         this.total = (this.filterVenta[0].ven_total).toString();
-        /*
-        const igv = this.filterVenta[0].ven_igv;
-        const total = this.filterVenta[0].ven_total;*/
+        
 
         pdf.text('IGV:  ', 160, margiTopiGV);
         pdf.text(this.igv, 184, margiTopiGV);
         pdf.text('TOTAL:', 160, margiTopTotal);
         pdf.text(this.total, 184, margiTopTotal);
-        //pdf.text(total, 163, margiTopTotal);
 
 
         (pdf as any).autoTable({
@@ -258,5 +274,115 @@ export class ListVentasComponent implements OnInit {
         pdf.save(`prueba.pdf` );
   }
 
+  data : any = [];
+  title = 'angular-app';
+  fileName= 'ExcelSheet.xlsx';
+  datos(numeroComprobante:string){
+      this.obtenerTablas(numeroComprobante);
+      this.exportarTabla();
+
+  }
+
+  obtenerTablas(numeroComprobante:string){
+    this.dataSourceTotal = [];
+    const nuevoNumero = Number(numeroComprobante);
+
+    // Obtener datos para la tabla totales
+    this.filterVenta = this.ventas.filter(function(ele: any){
+      return ele.id_venta == nuevoNumero;
+    });
+    this.dataSourceTotal.push({
+      Igv:      this.filterVenta[0].ven_igv, 
+      Gravada:  this.filterVenta[0].ven_gravada, 
+      Total:    this.filterVenta[0].ven_total});
+
+    //Obtener datos para la tabla detalle 
+    this.getProductos(numeroComprobante);
+    console.log(this.arrayPdf);
+    console.log(this.tablaVenta);
+    console.log(this.dataSourcePro);
+    
+    for(let i=0 ; i<this.dataSourcePro.length; i++){
+      this.dataSourceDetalle.push({ 
+        Cliente:      this.filterVenta[0].Personas.per_razonSocial,
+        Ruc:          this.filterVenta[0].Personas.per_numeroDocumento,
+        Direccion:    this.filterVenta[0].Personas.per_direccion,
+        FechaEmision: this.filterVenta[0].createdAt,
+        Moneda:       this.filterVenta[0].Monedas.mon_nombre,
+        ModeloProd:   this.dataSourcePro[i].modeloProd,
+        Descripcion:  this.dataSourcePro[i].descripcion,
+        Cantidad:     this.dataSourcePro[i].cantidad,
+        PUnit:        this.dataSourcePro[i].pUnit,
+        SubTotal:     this.dataSourcePro[i].subTotal,
+        Total:        this.dataSourcePro[i].tota });
+    }
+  }
+  
+
+  dataSourceDetalle = ELEMENT_DATA_DETALLE;
+  dataSourceTotal = ELEMENT_DATA_TOTAL;
+  exportarTabla(){
+    const arrayDetalles: Partial<DetalleVental>[] = this.dataSourceDetalle.map(x => ({
+      Cliente:      x.Cliente,
+      Ruc:          x.Ruc,
+      Direccion:    x.Direccion,
+      FechaEmision: x.FechaEmision,
+      Moneda:       x.Moneda,
+      ModeloProd:   x.ModeloProd,
+      Descripcion:  x.Descripcion,
+      Cantidad:     x.Cantidad,
+      PUnit:        x.PUnit,
+      SubTotal:     x.SubTotal,
+      Total:        x.Total
+    }));
+
+    const arrayTotales: Partial<TotalVental>[] = this.dataSourceTotal.map(x => ({
+      Igv:     x.Igv,
+      Gravada: x.Gravada,
+      Total:   x.Total
+    }));
+
+    TableUtil.exportArrayToExcel(arrayDetalles,arrayTotales,"ExampleArray");
+  }
+
+
+  exportar(){
+
+  }
 }
+
+
+const ELEMENT_DATA_TOTAL: TotalVental[] = [];
+export interface TotalVental {
+  Igv: number;
+  Gravada : number;
+  Total: number;
+}
+
+const ELEMENT_DATA_DETALLE: DetalleVental[] = [];
+export interface DetalleVental {
+  Cliente: string;
+  Ruc:string;
+  Direccion:string;
+  FechaEmision:string;
+  Moneda:string,
+  ModeloProd:string;
+  Descripcion:string;
+  Cantidad:number;
+  PUnit:number;
+  SubTotal:number;
+  Total:number
+}
+
+const ELEMENT_DATA_PRO: ArrayProducto[] = [];
+export interface ArrayProducto {
+  modeloProd:string;
+  descripcion:string;
+  cantidad:number;
+  pUnit:number;
+  subTotal:number;
+  tota:number
+}
+
+
 

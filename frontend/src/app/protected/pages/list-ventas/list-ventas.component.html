@@ -8,6 +8,7 @@
         <th style="text-align: center;"><strong>Num. Comp.</strong></th>
         <th style="text-align: center;"><strong>Num. Doc.</strong></th>
         <th style="text-align: center;"><strong>Razón Social</strong></th>
+        <th style="text-align: center;"><strong>Moneda</strong></th>
         <th style="text-align: center;"><strong>Total</strong></th>
         <th style="text-align: center;"><strong>Fecha Emision</strong></th>
         <th style="text-align: center;"><strong>Acciones</strong></th>
@@ -20,17 +21,36 @@
             <td>{{ data.ven_numeroComprobante }}</td>
             <td>{{ data.Personas.per_numeroDocumento }}</td>
             <td>{{ data.Personas.per_razonSocial }}</td>
+            <td>{{ data.Monedas.mon_nombre }}</td>
             <td>{{ data.ven_total }}</td>
             <td>{{ data.createdAt }}</td>
-            <td>
-              <button nz-button nzType="primary" nzTooltipTitle="PDF" nzTooltipPlacement="left" nz-tooltip (click)="generatePdf(data.ven_numeroComprobante)"  ntype="button"  >
-                <i nz-icon nzType="download" nzTheme="outline"></i>
-              </button>
+
+            <td style="text-align: center;">
+              <nz-button-group>
+                  <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                    <i nz-icon nzType="setting"></i>
+                  </button>
+              </nz-button-group>
+              <nz-dropdown-menu #menu2="nzDropdownMenu">
+                  <ul nz-menu>
+                    <li nz-menu-item>
+                      <button nz-button nzType="primary" nzTooltipTitle="PDF" nzTooltipPlacement="left" nz-tooltip (click)="generatePdf(data.ven_numeroComprobante)"  ntype="button"  >
+                        <i nz-icon nzType="file-pdf" nzTheme="outline"></i>
+                      </button>
+                    </li>
+                    <li nz-menu-item>
+                      <button nz-button nzType="primary" nzTooltipTitle="EXCEL" nzTooltipPlacement="left" nz-tooltip (click)="datos(data.ven_numeroComprobante)"  ntype="button"  >
+                        <i nz-icon nzType="file-excel" nzTheme="outline"></i>
+                      </button>
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
             </td>
-            
           </tr>
     </tbody>
   </nz-table>
+
+
 
   
   
