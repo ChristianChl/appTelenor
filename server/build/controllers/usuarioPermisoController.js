@@ -36,7 +36,32 @@ const getUsuarioPermisos = (req, res) => __awaiter(void 0, void 0, void 0, funct
 exports.getUsuarioPermisos = getUsuarioPermisos;
 const getUsuarioPermiso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const usuarioPermiso = yield usuarioPermiso_1.default.findByPk(id, {
+    // const usuarioPermiso = await UsuarioPermiso.findByPk(id, {
+    //     include:[
+    //         {
+    //             model: Usuario,
+    //             as: 'Usuarios',
+    //             attributes: ["id_usuario", "us_apellidos", "us_nombres", "us_numeroDocumento", "us_direccion", "us_telefono", "us_email", "us_fechaRegistro", "us_login", "us_clave", "us_activo", "fk_id_perfil", "fk_id_tipoDocumento" ]
+    //         },
+    //         {
+    //             model: Permiso,
+    //             as: 'Permisos',
+    //             attributes: ["id_permiso", "perm_nombre"]
+    //         }
+    //     ]
+    // });
+    // if(usuarioPermiso){
+    // res.json(usuarioPermiso);
+    // }
+    // else{
+    //     res.status(404).json({
+    //         msg:`no existe un usuario permiso con el id ${id}`
+    //     })
+    // }
+    const usuarioPermisos = yield usuarioPermiso_1.default.findAll({
+        where: {
+            fk_id_usuario: id
+        },
         include: [
             {
                 model: usuario_1.default,
@@ -50,14 +75,10 @@ const getUsuarioPermiso = (req, res) => __awaiter(void 0, void 0, void 0, functi
             }
         ]
     });
-    if (usuarioPermiso) {
-        res.json(usuarioPermiso);
-    }
-    else {
-        res.status(404).json({
-            msg: `no existe un usuario permiso con el id ${id}`
-        });
-    }
+    //     usuarioPermisos.forEach(element => {
+    //         element.destroy();
+    //    });
+    res.json(usuarioPermisos);
 });
 exports.getUsuarioPermiso = getUsuarioPermiso;
 const postUsuarioPermiso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -105,14 +126,20 @@ const putUsuarioPermiso = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.putUsuarioPermiso = putUsuarioPermiso;
 const deleteUsuarioPermiso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const usuarioPermiso = yield usuarioPermiso_1.default.findByPk(id);
-    if (!usuarioPermiso) {
-        return res.status(404).json({
-            msg: 'No existe el usuario permiso con el id' + id
-        });
-    }
-    yield usuarioPermiso.destroy();
-    res.json(usuarioPermiso);
+    const usuarioPermisos = yield usuarioPermiso_1.default.findAll({
+        where: {
+            fk_id_usuario: id
+        }
+    });
+    // if(!usuarioPermisos){
+    //     return res.status(404).json({
+    //         msg: 'No existe el usuario permiso con el id' + id
+    //     })
+    // }
+    usuarioPermisos.forEach(element => {
+        element.destroy();
+    });
+    res.json(usuarioPermisos);
 });
 exports.deleteUsuarioPermiso = deleteUsuarioPermiso;
 //# sourceMappingURL=usuarioPermisoController.js.map

@@ -76,27 +76,10 @@ export const postUsuario = async (req: Request, res: Response) => {
             });
         }
         // const usuario =  Usuario.build(body);
+    
+        const salt = bcrypt.genSaltSync(10);
 
-        const validPassword = bcrypt.compareSync(body.us_clave, body.us_clave);
-
-        console.log('llego el lechero clavin');
-        console.log(body.us_clave);
-        console.log(validPassword);
-
-        if( validPassword ) {
-
-            const salt = bcrypt.genSaltSync(10);
-
-            body.us_clave = bcrypt.hashSync(body.us_clave, salt);
-       }
-
-        // console.log('clavin el lechero');
-        // console.log(body.us_clave.);
-        // console.log('lecheroop');
-
-        // const salt = bcrypt.genSaltSync(10);
-
-        // body.us_clave = bcrypt.hashSync(body.us_clave, salt);
+        body.us_clave = bcrypt.hashSync(body.us_clave, salt);
 
         const usuario: any = Usuario.build(body);
 
@@ -133,6 +116,7 @@ export const putUsuario = async (req: Request, res: Response) => {
         }
         const actualizaClave = await Usuario.findOne({
             where: {
+                us_login: body.us_login,
                 us_clave: body.us_clave
             }
         });

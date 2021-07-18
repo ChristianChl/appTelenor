@@ -22,10 +22,10 @@ export class UsuarioPermisoService {
     
     return this.http.get<UsuarioPermiso>(`${this.baseUrl}/usuarioPermiso/${id}`);
   }
-  deleteUsuarioPermiso(id: string): Observable<any>{
+  // deleteUsuarioPermiso(id: string): Observable<any>{
     
-    return this.http.delete<any>(`${this.baseUrl}/usuarioPermiso/${id}`);
-  }
+  //   return this.http.delete<any>(`${this.baseUrl}/usuarioPermiso/${id}`);
+  // }
   saveUsuarioPermiso(usuarioPermiso: UsuarioPermiso): Observable<any>{
 
     return this.http.post<UsuarioPermiso>(`${this.baseUrl}/usuarioPermiso`, usuarioPermiso);
@@ -33,6 +33,11 @@ export class UsuarioPermisoService {
   updateUsuarioPermiso(id: string|number, updateUsuarioPermiso: UsuarioPermiso): Observable<any>{
 
     return this.http.put<UsuarioPermiso>(`${this.baseUrl}/usuarioPermiso/${updateUsuarioPermiso.id_UsuarioPermiso}`, updateUsuarioPermiso);
+
+  }
+  deleteUsuarioPermisoByUsuario(id: string): Observable<UsuarioPermiso>{
+
+    return this.http.delete<any>(`${this.baseUrl}/usuarioPermiso/${id}`);
 
   }
 }
