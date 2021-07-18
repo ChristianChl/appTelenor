@@ -24,7 +24,7 @@
                            
                            <nz-form-control nzHasFeedback>
                              <nz-input-group [nzSuffix]="suffixTemplateInfo">
-                               <input [(ngModel)]="venta.ven_serieComprobante"  type="text" formControlName="serieIngreso" nz-input placeholder="Serie" name="serie" required />
+                               <input [disabled]="true" readonly [(ngModel)]="venta.ven_serieComprobante"  type="text" formControlName="serieIngreso" nz-input placeholder="Serie" name="serie" required />
                              </nz-input-group>
                              <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
                            </nz-form-control>
@@ -41,7 +41,7 @@
                            
                            <nz-form-control nzHasFeedback>
                              <nz-input-group [nzSuffix]="suffixTemplateInfo">
-                               <input [(ngModel)]="venta.ven_numeroComprobante"   type="number" formControlName="numComIngreso" nz-input placeholder="Num Doc" name="Num. Doc." required />
+                               <input readonly  [(ngModel)]="venta.ven_numeroComprobante"   type="number" formControlName="numComIngreso" nz-input placeholder="Num Doc" name="Num. Doc." required />
                              </nz-input-group>
                              <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
                            </nz-form-control>

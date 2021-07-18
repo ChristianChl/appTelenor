@@ -38,7 +38,7 @@ export class FormVentasComponent implements OnInit {
   direccionCliente = "";
 
   formDatosVentas = new FormGroup({
-    tipoDocIngreso: new FormControl(),
+    tipoDocIngreso: new FormControl(null),
     tipoMoneda: new FormControl(),
     serieIngreso: new FormControl(),
     numComIngreso: new FormControl(),
@@ -106,8 +106,30 @@ export class FormVentasComponent implements OnInit {
     this.getVentas();
 
     this.maxDate = new Date();
-  }
 
+    this.formDatosVentas.controls.tipoDocIngreso.valueChanges.subscribe(changes => {
+        console.log("Entro al change");
+        this.Opciones(changes);
+        this.venta.ven_numeroComprobante = this.siguienteVenta.toString();
+    });
+    
+    
+  }
+  opc: any = "";
+  Opciones(opc: string) {
+    // console.log(opc);
+    this.opc;
+    if (opc == "1") {
+      console.log("ID 1");
+      this.venta.ven_serieComprobante = "F001";
+    } else if (opc == "2") {
+      console.log("ID 2");
+      this.venta.ven_serieComprobante = "B001";
+    } else if (opc == "3") {
+      this.venta.ven_serieComprobante = "N001";
+    } 
+  }
+  siguienteVenta = 0;
   totalFinal = 0;
   subTotal = 0;
   ventas:any = [];
@@ -118,6 +140,7 @@ export class FormVentasComponent implements OnInit {
         this.ventas = this.ventas.venta;
 
         console.log(this.ventas);
+        this.siguienteVenta = this.ventas.length+1+10000;
         console.log("this.producto.producto");
       },
       err => console.error(err)

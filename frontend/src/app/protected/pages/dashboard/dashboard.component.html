@@ -97,8 +97,10 @@
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu2}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" mat-list-item href="...">Registro de Ventas</a>
+        <a class="full-width" routerLink="/dashboard/listaVentas" mat-list-item href="...">Registro de Ventas</a>
       </div>
+
+      
       <mat-list-item (click)="showSubmenu3 = !showSubmenu3" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Precios</span>
         <mat-icon mat-list-icon>list</mat-icon>

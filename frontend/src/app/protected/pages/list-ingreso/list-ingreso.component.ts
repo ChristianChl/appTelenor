@@ -92,8 +92,7 @@ export class ListIngresoComponent implements OnInit {
         let tamañoArray = this.probar();
 
         
-        console.log(tamañoArray);
-        console.log(this.arrayP);
+        
         
         tamañoArray =  80 + 10 + tamañoArray + 5;
         let idPersonaN: any;
