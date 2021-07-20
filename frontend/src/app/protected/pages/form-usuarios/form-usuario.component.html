@@ -223,7 +223,7 @@
         <div class="col-6"> 
           <span>Permisos:</span><br>
           <ng-container *ngFor="let permiso of permiso; let i = index"  >
-            <label nz-checkbox [(ngModel)]="permiso.checked" [nzValue] = "permiso.checked" formControlName="{{permiso.perm_nombre}}" nzChecked = "{{permiso.perm_nombre ? 'true' : 'false'}}" > 
+            <label nz-checkbox [(ngModel)]="selected[i].checked" [nzValue] = "permiso.checked" formControlName="{{permiso.perm_nombre}}" > 
               {{permiso.perm_nombre}}
             </label>  
             <br>
