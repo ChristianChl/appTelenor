@@ -42,7 +42,19 @@ import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
+<<<<<<< HEAD
 import { ErrorAcessoComponent } from './pages/error-acesso/error-acesso.component';
+=======
+<<<<<<< HEAD
+import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
+import { FormCotizacionComponent } from './pages/form-cotizacion/form-cotizacion.component';
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> cd18e5e5940025dea34053dfe65c477a94a5ac4b
+
+>>>>>>> 2549093513101feb9dfff3737f48ee5cb1d874eb
+>>>>>>> aaf257f8f465e888ef6551e4a6fbda9d910b1bca
 
 
 
@@ -91,7 +103,12 @@ import { ErrorAcessoComponent } from './pages/error-acesso/error-acesso.componen
     ListIngresoComponent,
     FormVentasComponent,
     ListVentasComponent,
+<<<<<<< HEAD
     ErrorAcessoComponent
+=======
+    ListCotizacionComponent,
+    FormCotizacionComponent
+>>>>>>> aaf257f8f465e888ef6551e4a6fbda9d910b1bca
   ],
   imports: [
     CommonModule,

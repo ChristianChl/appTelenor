@@ -60,7 +60,7 @@ export class FormVentasComponent implements OnInit {
     fk_id_venta: 0
   }
 
- 
+  numeroCorrecto:any = 'no';
 
   venta: Venta = {
     id_venta: 0,
@@ -98,7 +98,8 @@ export class FormVentasComponent implements OnInit {
      }
   
      maxDate:any = "";
-  ngOnInit(): void {
+     filterVentas:any = []
+    ngOnInit(): void {
     this.getCliente();
     this.getMoneda();
     this.getProductos();
@@ -106,10 +107,11 @@ export class FormVentasComponent implements OnInit {
     this.getVentas();
 
     this.maxDate = new Date();
-
+     
     this.formDatosVentas.controls.tipoDocIngreso.valueChanges.subscribe(changes => {
         console.log("Entro al change");
         this.Opciones(changes);
+
         this.venta.ven_numeroComprobante = this.siguienteVenta.toString();
     });
     
@@ -128,6 +130,7 @@ export class FormVentasComponent implements OnInit {
     } else if (opc == "3") {
       this.venta.ven_serieComprobante = "N001";
     } 
+
   }
   siguienteVenta = 0;
   totalFinal = 0;
@@ -141,11 +144,33 @@ export class FormVentasComponent implements OnInit {
 
         console.log(this.ventas);
         this.siguienteVenta = this.ventas.length+1+10000;
+
+
+        let numVenta = this.siguienteVenta;
+        
+        while(this.numeroCorrecto == 'no'){
+
+          this.filterVentas = this.ventas.filter(function(ele: any){
+            return ele.ven_numeroComprobante == numVenta;
+          });
+
+          if(this.filterVentas.length == 0){
+            this.numeroCorrecto = 'si';
+          } 
+          else{
+            this.numeroCorrecto = 'no';
+            numVenta = numVenta + 1;
+          }
+        }
+
+        this.siguienteVenta = numVenta;
+
         console.log("this.producto.producto");
       },
       err => console.error(err)
     );
   }
+  
   addSkills() {
     this.subTotal = 0;
     this.skills.push(this.newSkill());
@@ -279,14 +304,6 @@ export class FormVentasComponent implements OnInit {
     this.filterProducto = this.producto.filter(function(ele: any){
       return ele.id_Producto == idProducto;
     });
-    /*
-    for(let i=0; i<this.producto.length; i++){
-      if(this.producto[i].id_Producto == idProducto){
-        this.filterProducto.push(this.producto[i])
-        break;
-      }
-    }
-    */
     
     if(this.filterProducto[0].prod_stock == 0){
       Swal.fire({
@@ -553,6 +570,7 @@ export class FormVentasComponent implements OnInit {
       }
       else{
         Swal.fire('Alerta', 'Ya existe un numero de comprobante ' + this.venta.ven_numeroComprobante + "\n Ingrese uno diferente", 'warning');
+        
       }
         
       

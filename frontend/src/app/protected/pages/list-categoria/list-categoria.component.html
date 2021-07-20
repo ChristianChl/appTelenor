@@ -25,7 +25,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr   *ngFor="let data of basicTable.data|filterCategoria:filterNombre|filterCategoria:filterDescripcion|filterCategoria:filterEstado; let indice = index">
+      <tr   *ngFor="let data of basicTable.data|filterCategoria:filterNombre|filterCategoria:filterDescripcion|filterCategoria:filterEstado; let indice = index" [ngClass]="{'resaltado': data.cat_activo == '0'}">
         <td>{{ indice+1}}</td> 
         <td>{{ data.cat_nombre }}</td>
         <td>{{ data.cat_descripcion }}</td>

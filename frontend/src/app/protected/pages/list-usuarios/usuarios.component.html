@@ -41,7 +41,7 @@
   </thead>
   <tbody>
     <tr
-      *ngFor="let data of basicTable.data|filter:filterUsuario|filter:filterNombre|filter:filterApellido|filter:filterEstado|filter:filterDocumento|filter:filterNumero|filter:filterTelefono|filter:filterPerfil; let indice = index">
+      *ngFor="let data of basicTable.data|filter:filterUsuario|filter:filterNombre|filter:filterApellido|filter:filterEstado|filter:filterDocumento|filter:filterNumero|filter:filterTelefono|filter:filterPerfil; let indice = index" [ngClass]="{'resaltado': data.us_activo == '0'}">
       <td >{{ indice+1}}</td>
       <td (click)="modalResumenUsuario(data.id_usuario)">{{ data.us_apellidos }}</td>
       <td (click)="modalResumenUsuario(data.id_usuario)">{{ data.us_nombres }}</td>

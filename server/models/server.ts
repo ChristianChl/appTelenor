@@ -12,9 +12,11 @@ import tipoDocumento from '../routes/tipoDocumento';
 import tipoPersona from '../routes/tipoPersona';
 import persona from '../routes/persona';
 import venta from '../routes/venta';
+import Cotizacion from  '../routes/cotizacion';
 import detalleVenta from '../routes/detalleVenta';
 import ingreso from '../routes/ingreso';
 import detalleIngreso from '../routes/detalleIngreso';
+import DetalleCotizacion from  '../routes/detalleCotizacion';
 import usuarioPermiso from '../routes/usuarioPermiso';
 import moneda from '../routes/moneda';
 import cors from 'cors';
@@ -42,6 +44,8 @@ class Server {
         detalleIngreso: '/api/detalleIngreso',
         usuarioPermiso: '/api/usuarioPermiso',
         monedas: '/api/moneda',
+        Cotizacion: '/api/cotizacion',
+        DetalleCotizacion: '/api/detalleCotizacion'
 
     }
     
@@ -99,6 +103,8 @@ class Server {
         this.app.use(this.apiPaths.detalleIngreso, detalleIngreso);
         this.app.use(this.apiPaths.usuarioPermiso, usuarioPermiso);
         this.app.use(this.apiPaths.monedas, moneda );
+        this.app.use(this.apiPaths.Cotizacion, Cotizacion );
+        this.app.use(this.apiPaths.DetalleCotizacion, DetalleCotizacion );
 
     }
 

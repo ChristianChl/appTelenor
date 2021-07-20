@@ -1,0 +1,185 @@
+<nz-modal
+  [(nzVisible)]="isVisibleCotizacion"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancelCotizacion()"
+  (nzAfterOpen) = "ngOnInit()"
+  nzWidth = 840px
+  
+>
+  <ng-template #modalTitle >Cotizacion</ng-template>
+
+  <ng-template #modalContent >
+
+    <form [formGroup]="formCotizacion"  >
+            <div class="row">
+                <div class="col-9">
+                    <label>Cliente</label>
+                       <br />
+                       <nz-form-item style="margin-bottom: 4px;">
+                           <nz-form-control nzHasFeedback>
+                             <nz-select  [(ngModel)]="cotizacion.fk_id_persona" [nzSuffixIcon]="'exclamation-circle'"  nzShowSearch formControlName="selecCliente" name="Cliente" nzAllowClear nzPlaceHolder="Seleccione" required>
+                               <nz-option *ngFor="let option of persona" [nzLabel]="option.per_razonSocial" [nzValue]="option.id_Persona" ></nz-option>
+                             </nz-select>
+                           </nz-form-control>
+                         </nz-form-item>
+                         <span  class="form-text text-danger" *ngIf="validarCampo('selecCliente')">
+                           Es un campo requerido*
+                         </span>
+                </div>
+                <div class="col-3">
+                    <br />
+                       <button id="botonNuevo"  (click)="openModalCliente()"  nz-button nzType="primary"><i nz-icon nzType="user-add" nzTheme="outline"></i>Agregar Cliente</button>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 5px;">
+                <div class="col-6">
+                    <label>Tipo Moneda</label>
+                    <br />
+                    <nz-form-item style="margin-bottom: 4px;">
+                    <nz-form-control nzHasFeedback>
+                        <nz-select [(ngModel)]="cotizacion.fk_id_moneda"  [nzSuffixIcon]="'exclamation-circle'"  nzShowSearch formControlName="tipoMoneda" name="TipoMon" nzAllowClear nzPlaceHolder="Seleccione"  required >
+                            <nz-option  style="font-size: 10px;" *ngFor="let option of monedas" [nzLabel]="option.mon_nombre" [nzValue]="option.id_moneda" ></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    </nz-form-item>
+                    <span  class="form-text text-danger" *ngIf="validarCampo('tipoMoneda')">
+                    Es un campo requerido*
+                    </span>
+                </div>
+            </div>
+
+      
+    </form>
+
+    
+    <nz-card style="width:auto; margin-top: 15px;" nzTitle="Detalle de Cotización" >
+        <div class="row" style="margin-bottom: 10px; ">
+          <div class="col-4" style="text-align: center;">
+            <label>Producto</label>
+          </div>
+          <div class="col" style="text-align: center;">
+            <label>Cantidad</label>
+          </div>
+          <div class="col" style="text-align: center;">
+            <label>Precio Unit.</label>
+          </div>
+          <div class="col" style="text-align: center;">
+            <label>Total</label>
+          </div>
+          <div class="col-1" style="text-align: center;">
+            <label></label>
+          </div>
+        </div>
+      
+        <form [formGroup]="skillsForm" (ngSubmit)="onSubmit()" >
+          <div formArrayName="skills">
+            <div *ngFor="let skill of skills.controls; let i=index">
+              <div [formGroupName]="i">
+                
+                <div class="row" style="height: 40px;">
+                  <div class="col-4">
+                    <nz-form-item >
+                      <nz-form-control nzHasFeedback>
+                        <nz-select  [disabled]="true" (nzOpenChange)="onKeyUpProducto(i)" nzSize='small' style="margin-top: 1px;" [nzSuffixIcon]="'exclamation-circle'" [attr.for]="'producto'+i" class="form-control" nzShowSearch formControlName="producto" name="producto" nzAllowClear required>
+                          <nz-option nzSize='small'  *ngFor="let option of producto" [nzLabel]="option.prod_modelo" [nzValue]="option.id_Producto" ></nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  
+                  <div class="col">
+                    <nz-form-item>            
+                      <nz-form-control nzHasFeedback>
+                        <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                          <input type="number" (keyup)="onKeyUp(i)" formControlName="num1" nz-input required>
+                        </nz-input-group>
+                        <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col">
+                    <nz-form-item>            
+                      <nz-form-control nzHasFeedback>
+                        <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                          <input type="number"  (keyup)="onKeyUp(i)" formControlName="num2" nz-input required>
+                        </nz-input-group>
+                        <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  
+                  <div class="col">
+                    <nz-form-item>            
+                      <nz-form-control >
+                        <nz-input-group >
+                          <input type="text" [disabled]="true" formControlName="total" nz-input readonly aria-disabled="true">
+                          
+                        </nz-input-group>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-1" style="margin-left: 0px; margin-right: 0px;padding-left: 0px; padding-right: 0px;">
+                   <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="removeSkill(i)" >
+                     <i nz-icon nzType="delete" nzTheme="outline"></i>
+                   </button>
+                 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        
+        </form>
+        <div class="row">
+            <div class="col-6">
+                <button id="botonNuevo"  (click)="addSkills()" nz-button nzType="primary"><i nz-icon nzType="plus-circle" nzTheme="outline"></i>Agregar Producto</button>
+            </div>
+            <div class="col-6">
+
+                <div class="row" style="margin-left: 107px;">
+                    <label for="" style="width: auto; text-align: center; margin-top: 4px;">Importe Total</label>
+                    <input type="text" nz-input [(ngModel)]="cotizacion.coti_total" readonly style="width: 100px;">
+                </div>
+            </div>
+        </div>
+        
+
+
+    </nz-card>
+
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-7">
+            <label>Observaciones</label>
+            <nz-form-item>
+              <textarea [(ngModel)]="cotizacion.coti_observacion"  rows="2" name="descripcion"  nz-input ></textarea>
+            </nz-form-item>
+        </div>
+      </div>
+
+    
+  </ng-template>
+  
+
+  <ng-template #modalFooter >
+    <div class="row">
+        <div class="col-6">
+            <div style=" border: solid #F78181 1px; border-radius: 3px; text-align: center; background-color:#F5A9A9 ;">
+                <i nz-icon style="vertical-align: 0; position: relative; bottom:2px; margin-left: 5px; "  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#DF0101'"></i><label for="" style="margin-left: 6px; margin-top: 4px; margin-right: 6px; color: #FE2E2E;">Campos Obligatorios </label>
+            </div>
+        </div>
+        <div class="col-6">
+            <button style="padding-left: 5px; padding-right: 5px;" nz-button nzType="default" (click)="handleCancelCotizacion()"><i style="vertical-align:1px; " nz-icon nzType="close-circle"></i>Cancelar</button>
+    <button style="padding-left: 5px; padding-right: 5px;" nz-button nzType="primary" (click)="edit ? updateCotizacion() : saveNewCotizacion()" ><i style="vertical-align:1px; " nz-icon nzType="save"></i>Guardar</button>
+  
+        </div>
+    </div>
+    
+
+    </ng-template>
+</nz-modal>
+
+<app-form-cliente [isVisibleCliente]="isVisibleCliente" [idCliente]="idCliente" (newVisibleCliente)="nuevoDatoCliente()"></app-form-cliente>
+  

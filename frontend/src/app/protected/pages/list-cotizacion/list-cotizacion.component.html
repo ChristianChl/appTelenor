@@ -1,0 +1,60 @@
+<button id="botonNuevo" (click)="showModalCotizacion()" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
+
+<nz-table nzBordered #basicTable [nzData]="cotizacion" style="margin-left: 10px; margin-right: 10px;">
+    <thead>
+      <tr>
+        <th style="text-align: center;"><strong>#</strong> </th>
+        <th style="text-align: center;"><strong>Cliente</strong>
+        </th>
+        <th style="text-align: center;"><strong>Numero Doc.</strong></th>
+        <th style="text-align: center;"><strong>Moneda</strong></th>
+        <th style="text-align: center;"><strong>Total</strong></th>
+        <th style="text-align: center;"><strong>Fecha Emi.</strong></th>
+
+        <th style="text-align: center;"><strong>Acciones</strong></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let data of basicTable.data; let indice = index">
+        
+          <td>{{ indice+1}}</td> 
+          <td>{{ data.Personas.per_razonSocial }}</td>
+          <td>{{ data.Personas.per_numeroDocumento }}</td>
+          <td>{{ data.Monedas.mon_nombre }}</td>
+          <td>{{ data.coti_total }}</td>
+          <td>{{ data.createdAt }}</td>
+          
+
+          <td style="text-align: center;">
+            <nz-button-group>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                  <i nz-icon nzType="setting"></i>
+                </button>
+            </nz-button-group>
+            <nz-dropdown-menu #menu2="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteCotizacion(data.id_cotizacion)" >
+                      <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </button>
+                      
+                  </li>
+                  <li nz-menu-item>
+                    <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="showModalEditarCotizacion(data.id_cotizacion)">
+                      <i nz-icon nzType="edit" nzTheme="outline"></i>
+                    </button>
+                  </li>
+                  <li nz-menu-item>
+                    <button type="button" nzTooltipTitle="PDF" nzTooltipPlacement="right" nz-tooltip class="btn btn-primary"  (click)="generatePdf(data.id_cotizacion)">
+                      <i nz-icon nzType="file-pdf" nzTheme="outline"></i>
+                    </button>
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+          </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <app-form-cotizacion  [siguienteCoti]="siguienteCoti"  [isVisibleCotizacion]="isVisibleCotizacion"  [idCotizacion]="idCotizacion" (newVisibleCotizacion)="nuevoDatoCotizacion()"></app-form-cotizacion>
