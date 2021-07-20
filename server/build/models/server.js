@@ -26,9 +26,11 @@ const tipoDocumento_1 = __importDefault(require("../routes/tipoDocumento"));
 const tipoPersona_1 = __importDefault(require("../routes/tipoPersona"));
 const persona_1 = __importDefault(require("../routes/persona"));
 const venta_1 = __importDefault(require("../routes/venta"));
+const cotizacion_1 = __importDefault(require("../routes/cotizacion"));
 const detalleVenta_1 = __importDefault(require("../routes/detalleVenta"));
 const ingreso_1 = __importDefault(require("../routes/ingreso"));
 const detalleIngreso_1 = __importDefault(require("../routes/detalleIngreso"));
+const detalleCotizacion_1 = __importDefault(require("../routes/detalleCotizacion"));
 const usuarioPermiso_1 = __importDefault(require("../routes/usuarioPermiso"));
 const moneda_1 = __importDefault(require("../routes/moneda"));
 const cors_1 = __importDefault(require("cors"));
@@ -54,6 +56,8 @@ class Server {
             detalleIngreso: '/api/detalleIngreso',
             usuarioPermiso: '/api/usuarioPermiso',
             monedas: '/api/moneda',
+            Cotizacion: '/api/cotizacion',
+            DetalleCotizacion: '/api/detalleCotizacion'
         };
         this.app = express_1.default();
         this.port = process.env.PORT || '3000';
@@ -99,6 +103,8 @@ class Server {
         this.app.use(this.apiPaths.detalleIngreso, detalleIngreso_1.default);
         this.app.use(this.apiPaths.usuarioPermiso, usuarioPermiso_1.default);
         this.app.use(this.apiPaths.monedas, moneda_1.default);
+        this.app.use(this.apiPaths.Cotizacion, cotizacion_1.default);
+        this.app.use(this.apiPaths.DetalleCotizacion, detalleCotizacion_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

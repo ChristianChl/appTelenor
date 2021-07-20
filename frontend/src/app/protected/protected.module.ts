@@ -43,6 +43,8 @@ import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
+import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
+import { FormCotizacionComponent } from './pages/form-cotizacion/form-cotizacion.component';
 
 
 
@@ -91,7 +93,9 @@ import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
     ListIngresoComponent,
     ListIngresoComponent,
     FormVentasComponent,
-    ListVentasComponent
+    ListVentasComponent,
+    ListCotizacionComponent,
+    FormCotizacionComponent
   ],
   imports: [
     CommonModule,

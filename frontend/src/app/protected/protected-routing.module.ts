@@ -20,6 +20,7 @@ import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.componen
 
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
+import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
 
 
 
@@ -88,6 +89,10 @@ const routes: Routes = [
       {
         path: 'listaVentas',
         component: ListVentasComponent
+      },
+      {
+        path: 'listaCotizaciones',
+        component: ListCotizacionComponent
       },
       {
         path: '**',

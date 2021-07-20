@@ -24,40 +24,41 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data|filterMarca:filterNombre|filterMarca:filterDescripcion|filterMarca:filterEstado; let indice = index">
-        <td>{{ indice+1}}</td> 
-        <td>{{ data.mar_nombre }}</td>
-        <td>{{ data.mar_descripcion }}</td>
-        <td> 
-          <div id="label">
-            <label id="activo" *ngIf="data.mar_activo" for=""> Activo </label>
-            <label id="inactivo" *ngIf="!data.mar_activo" for=""> Inactivo </label>
-        </div>
+      <tr  *ngFor="let data of basicTable.data|filterMarca:filterNombre|filterMarca:filterDescripcion|filterMarca:filterEstado; let indice = index"  [ngClass]="{'resaltado': data.mar_activo == '0'}">
+        
+          <td>{{ indice+1}}</td> 
+          <td>{{ data.mar_nombre }}</td>
+          <td>{{ data.mar_descripcion }}</td>
+          <td> 
+            <div id="label">
+              <label id="activo" *ngIf="data.mar_activo" for=""> Activo </label>
+              <label id="inactivo" *ngIf="!data.mar_activo" for=""> Inactivo </label>
+          </div>
 
-        </td>
+          </td>
 
-        <td style="text-align: center;">
-          <nz-button-group>
-              <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-                <i nz-icon nzType="setting"></i>
-              </button>
-          </nz-button-group>
-          <nz-dropdown-menu #menu2="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-menu-item>
-                  <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteMarca(data.id_marca)" >
-                    <i nz-icon nzType="delete" nzTheme="outline"></i>
-                  </button>
-                    
-                </li>
-                <li nz-menu-item>
-                  <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="showModalEditarMarca(data.id_marca)">
-                    <i nz-icon nzType="edit" nzTheme="outline"></i>
-                  </button>
-                </li>
-              </ul>
-            </nz-dropdown-menu>
-        </td>
+          <td style="text-align: center;">
+            <nz-button-group>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                  <i nz-icon nzType="setting"></i>
+                </button>
+            </nz-button-group>
+            <nz-dropdown-menu #menu2="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteMarca(data.id_marca)" >
+                      <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </button>
+                      
+                  </li>
+                  <li nz-menu-item>
+                    <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="showModalEditarMarca(data.id_marca)">
+                      <i nz-icon nzType="edit" nzTheme="outline"></i>
+                    </button>
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+          </td>
       </tr>
     </tbody>
   </nz-table>
