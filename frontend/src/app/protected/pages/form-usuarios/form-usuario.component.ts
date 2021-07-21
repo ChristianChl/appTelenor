@@ -9,7 +9,6 @@ import { TipoDocumentoService } from '../../services/tipo-documento.service';
 import { PermisoService } from '../../services/permiso.service';
 import { UsuarioPermisoService } from '../../services/usuario-permiso.service';
 import { UsuarioPermiso } from '../../interfaces/UsuarioPermiso';
-import { Permiso } from '../../interfaces/Permiso';
 
 @Component({
   selector: 'app-form-usuario',
@@ -54,15 +53,12 @@ export class FormUsuarioComponent implements OnInit {
     fk_id_permiso: "",
     fk_id_usuario: ""
   }
-  // usuarioPermiso: UsuarioPermiso = {
-  //   id_UsuarioPermiso: 0,
-  //   fk_id_permiso: "",
-  //   fk_id_usuario: ""
-  // }
-  // permisos : Permiso = {
-  //   id_permiso: 0,
-  //   perm_nombre: "",
-  // }
+
+  selected: any = [
+    {id: 1, text:"Configuracion", value:"false"},
+    {id: 2,text:"Maestro", value:"false"}
+  ];
+  
 
   edit: boolean = false;
 
@@ -110,29 +106,20 @@ export class FormUsuarioComponent implements OnInit {
       .subscribe(
         res => {
           this.usuarioPermiso = res;
+          // console.log(this.usuarioPermiso);
+          // console.log(this.selected);
           for(let i=0; i<this.usuarioPermiso.length; i++){
 
-            for(let k=0; i<this.permiso.length; i++){
+            for(let k=0; k<this.selected.length; k++){
 
-              if(this.usuarioPermiso[i].Permisos.perm_nombre == this.permiso[k].perm_nombre){
-
-                this.permiso[k].checked = true;
-                console.log(this.permiso[k].perm_nombre);
-                console.log(this.permiso[k].checked);
-                console.log(this.usuarioPermiso[i].Permisos.perm_nombre);
-
-
+              if(this.usuarioPermiso[i].Permisos.perm_nombre == this.selected[k].text) {
+  
+                this.selected[k].checked  = true;
+                // console.log(this.usuarioPermiso[i].Permisos.perm_nombre);
+                // console.log(this.selected[i].text);
               }
-
             }
 
-            // this.usuarioPermiso = this.usuarioPermiso;
-
-            // this.usuarioPermiso[i].Permisos.perm_nombre.checked  = true;
-
-            // this.permiso[i].perm_nombre.checked = true
-      
-            // console.log(this.usuarioPermiso[i].Permisos.perm_nombre);
           }
 
         },
@@ -183,11 +170,11 @@ export class FormUsuarioComponent implements OnInit {
       
       if( resp.ok == true && this.formUsuarios.valid ) {
 
-        for(let i=0; i<this.permiso.length; i++){
+        for(let i=0; i<this.selected.length; i++){
 
-          if(this.permiso[i].checked == true){
+          if(this.selected[i].checked == true){
     
-            this.usuarioPermisos.fk_id_permiso = this.permiso[i].id_permiso;
+            this.usuarioPermisos.fk_id_permiso = this.selected[i].id;
             this.usuarioPermisos.fk_id_usuario = resp.usuario.id_usuario;
             this.usuarioPermisoService.saveUsuarioPermiso(this.usuarioPermisos)
             .subscribe(ok =>{
@@ -218,30 +205,6 @@ export class FormUsuarioComponent implements OnInit {
     });
 
   }
-  // updateUsuario(){
-  //   const params = this.activatedRoute.snapshot.params;
-  //   this.usuarioService.updateUsuario(this.idUsuario, this.usuarios)
-  //   .subscribe(resp =>{
-  //     if(this.formUsuarios.valid ) {
-  //       Swal.fire({
-  //         position: 'center',
-  //         icon: 'success',
-  //         title: 'Usuario Actualizado Exitosamente!',
-  //         showConfirmButton: false,
-  //         timer: 1500
-  //       });
-  //       this.router.navigateByUrl('/dashboard/listaUsuarios');
-  //       this.formUsuarios.reset();
-  //       this.handleCancelUsuario();
-        
-
-  //     }else{
-  //       this.formUsuarios.markAllAsTouched();
-  //       Swal.fire('Error', resp, 'error');
-  //     }
-      
-  //   });
-  // }
   updateUsuario(){
     const params = this.activatedRoute.snapshot.params;
     this.usuarioPermisoService.deleteUsuarioPermisoByUsuario(this.idUsuario).subscribe(
@@ -250,11 +213,11 @@ export class FormUsuarioComponent implements OnInit {
         .subscribe(resp =>{
         if( this.formUsuarios.valid ) {
 
-          for(let i=0; i<this.permiso.length; i++){
+          for(let i=0; i<this.selected.length; i++){
   
-            if(this.permiso[i].checked == true){
+            if(this.selected[i].checked == true){
       
-              this.usuarioPermisos.fk_id_permiso = this.permiso[i].id_permiso;
+              this.usuarioPermisos.fk_id_permiso = this.selected[i].id;
               this.usuarioPermisos.fk_id_usuario = this.idUsuario;
               this.usuarioPermisoService.saveUsuarioPermiso(this.usuarioPermisos)
               .subscribe(ok =>{
@@ -329,26 +292,8 @@ export class FormUsuarioComponent implements OnInit {
     
   }
 
-  // checkPermisos(){
-    
 
-  //   for(let i=0; i<this.permiso.length; i++){
 
-  //     if(this.permiso[i].checked == true){
-
-  //       this.idPermisos.push(this.permiso[i].id_permiso)
-
-  //       console.log('Guandando Elemento: ' + this.permiso[i].id_permiso);
-  //     }
-
-      
-  //   }
-    
-  //   console.log(this.idPermisos);
-
-    
-
-  // }
 
 
 
