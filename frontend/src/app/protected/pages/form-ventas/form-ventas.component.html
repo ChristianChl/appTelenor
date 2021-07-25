@@ -40,8 +40,8 @@
                        <nz-form-item style="margin-bottom: 0px;">
                            
                            <nz-form-control nzHasFeedback>
-                             <nz-input-group [nzSuffix]="suffixTemplateInfo">
-                               <input readonly  [(ngModel)]="venta.ven_numeroComprobante"   type="number" formControlName="numComIngreso" nz-input placeholder="Num Doc" name="Num. Doc." required />
+                             <nz-input-group [nzSuffix]="suffixTemplateInfo" >
+                               <input [(ngModel)]="venta.ven_numeroComprobante"   type="number" formControlName="numComIngreso" nz-input placeholder="Num Doc" name="Num. Doc." required Disabled/>
                              </nz-input-group>
                              <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
                            </nz-form-control>
@@ -102,7 +102,7 @@
                     <br />
                     <nz-form-item style="margin-bottom: 4px;">
                     <nz-form-control nzHasFeedback>
-                        <nz-select [(ngModel)]="venta.fk_id_moneda"  [nzSuffixIcon]="'exclamation-circle'"  nzShowSearch formControlName="tipoMoneda" name="TipoMon" nzAllowClear nzPlaceHolder="Seleccione"  required >
+                        <nz-select  (ngModelChange)="onChangeTipoCambio($event)" [(ngModel)]="venta.fk_id_moneda"  [nzSuffixIcon]="'exclamation-circle'"  nzShowSearch formControlName="tipoMoneda" name="TipoMon" nzAllowClear nzPlaceHolder="Seleccione"  required >
                             <nz-option  style="font-size: 10px;" *ngFor="let option of monedas" [nzLabel]="option.mon_nombre" [nzValue]="option.id_moneda" ></nz-option>
                         </nz-select>
                     </nz-form-control>
@@ -115,7 +115,7 @@
                </div>
   
                <div class="row" style="margin-top: 12px;">
-                <div class="col-6">
+                <div class="col-4">
                   <label>Guía Rem. Remitente</label>
                   <br />
                   <nz-form-item style="margin-bottom: 0px;">
@@ -129,8 +129,8 @@
                       
                   </nz-form-item>
                 </div>
-                <div class="col-6">
-                  <label>Orden de Compra</label>
+                <div class="col-4">
+                        <label>Orden de Compra</label>
                         <br />
                         <nz-form-item style="margin-bottom: 0px;">
                             
@@ -140,9 +140,19 @@
                               </nz-input-group>
                               
                             </nz-form-control>
-                            
                         </nz-form-item>
                 </div>
+                <div class="col-4">
+                  <label>T.Cambio</label>
+                  <br />
+                  <nz-form-item style="margin-bottom: 0px;">
+                      <nz-form-control >
+                        <nz-input-group >
+                          <input id="tipoCambio"  (keyup)="onKeyupCambio($event)" [(ngModel)]="venta.ven_tipoCambio" formControlName="tipoCambio" type="number"  nz-input  name="Orden Compra"  />
+                        </nz-input-group>
+                      </nz-form-control>
+                  </nz-form-item>
+          </div>
                </div>
            </div>
        </div>

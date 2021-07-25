@@ -45,6 +45,9 @@ const Venta = db.define('Venta', {
     ven_estado: {
         type: DataTypes.STRING
     },
+    ven_tipoCambio: {
+        type: DataTypes.DECIMAL
+    },
     fk_id_persona: {
         type: DataTypes.INTEGER,
         references: {

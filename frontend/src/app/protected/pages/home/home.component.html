@@ -1,0 +1,40 @@
+<div class="buttons" style="margin-top: 20px;margin-left: 10px;margin-right: 10px;"> 
+    <button class="offset" routerLink="/dashboard/listaProducto">Lista Productos</button>
+    <button class="offset" routerLink="/dashboard/listaVentas" style="margin-left: 20px;">Lista Ventas</button> 
+    <button class="offset" routerLink="/dashboard/listaCotizaciones" style="margin-left: 20px;">Lista Cotizacion</button> 
+
+    <hr/>
+</div>
+
+<div class="row" style="margin-top: 40px;margin-left: 10px;margin-right: 10px;">
+    <div class="col-6 " style="text-align: center;">
+            <h2 >Ventas y Compras</h2>
+            <div style="display: block">
+                <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+                </canvas>
+            </div>
+    </div>
+
+    <div class="col-6" style="text-align: center;">
+        <div style="display: block" >
+            <h2 >Tipos de Productos</h2>
+            <canvas baseChart
+              [data]="doughnutChartData"
+              [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType"
+              [colors]="colors">
+              
+            </canvas>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
+</div>

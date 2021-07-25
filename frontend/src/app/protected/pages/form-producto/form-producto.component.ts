@@ -238,6 +238,7 @@ export class FormProductoComponent implements OnInit {
 
   saveNewProducto(){
 
+  
     this.productoService.saveProducto(this.producto)
     .subscribe(ok =>{
       

@@ -12,6 +12,7 @@ export interface Venta{
     ven_observacion? : string;
     ven_gravada? : string;
     ven_igv? : string;
+    ven_tipoCambio? : number;
     fk_id_persona?: number;
     fk_id_usuario?: string;
     fk_id_moneda?: number;

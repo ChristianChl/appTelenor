@@ -4,14 +4,13 @@ import { PdfMakeWrapper, Txt } from 'pdfmake-wrapper';
 import { jsPDF } from 'jspdf'
 import 'jspdf-autotable';
 import {UserOptions} from 'jspdf-autotable';
-import html2canvas from 'html2canvas';
 import { devOnlyGuardedExpression } from '@angular/compiler';
 import { TablaIngreso } from '../../interfaces/tablaIngreso';
 import { Marca } from '../../interfaces/Marca';
 
 import { DetalleIngresoService } from '../../services/detalle-ingreso.service';
 import { PersonaService } from '../../services/persona.service';
-
+import { TableUtil } from "./tableUtil";
 @Component({
   selector: 'app-list-ingreso',
   templateUrl: './list-ingreso.component.html',
@@ -91,9 +90,6 @@ export class ListIngresoComponent implements OnInit {
 
         let tamañoArray = this.probar();
 
-        
-        
-        
         tamañoArray =  80 + 10 + tamañoArray + 5;
         let idPersonaN: any;
         idPersonaN = this.idPersona;
@@ -148,7 +144,7 @@ export class ListIngresoComponent implements OnInit {
 
         pdf.setFontSize(10);
         pdf.text("Total: ", 160, tamañoArray);
-        pdf.text(this.totalVenta, 175, tamañoArray );
+        pdf.text('S/.'+this.totalVenta, 175, tamañoArray );
 
     
         pdf.save(`${this.titulo2}.pdf` );
@@ -174,7 +170,7 @@ export class ListIngresoComponent implements OnInit {
             this.tablaIngreso.precioCompra = Number((Number(this.detalleIngreso[i].deti_precioCompra)*1.00).toFixed(3));
             this.tablaIngreso.subTotal = this.detalleIngreso[i].deti_subTotal;
             this.tablaIngreso.total = this.detalleIngreso[i].deti_total;
-            this.arrayP.push([this.tablaIngreso.producto, this.tablaIngreso.cantidad,this.tablaIngreso.precioCompra,this.tablaIngreso.subTotal, this.tablaIngreso.total]);
+            this.arrayP.push([this.tablaIngreso.producto, this.tablaIngreso.cantidad,'S/.'+this.tablaIngreso.precioCompra,'S/.'+this.tablaIngreso.subTotal, 'S/.'+this.tablaIngreso.total]);
             this.arrayPdf.push(this.tablaIngreso);
 
             const now = new Date(this.detalleIngreso[i].createdAt);
@@ -242,6 +238,130 @@ export class ListIngresoComponent implements OnInit {
     );
   }
 
+  generarExcel(numeroComprobante:string){
+    this.obtenerTablas(numeroComprobante);
+    this.exportarTabla();
+  }
+
+  dataSourceDetalle = ELEMENT_DATA_DETALLE;
+  dataSourceTotal = ELEMENT_DATA_TOTAL;
+  filterIngreso:any = [];
+  obtenerTablas(numeroComprobante:string){
+    this.dataSourceDetalle = [];
+    this.dataSourceTotal = [];
+    const nuevoNumero = Number(numeroComprobante);
+
+    // Obtener datos para la tabla totales
+    this.filterIngreso= this.ingreso.filter(function(ele: any){
+      return ele.id_ingreso == nuevoNumero;
+    });
+
+    this.dataSourceTotal.push({
+      Igv:      this.filterIngreso[0].ing_igv, 
+      Gravada:  this.filterIngreso[0].ing_gravada, 
+      Total:    this.filterIngreso[0].ing_totalCompra
+    });
+
+    //Obtener datos para la tabla detalle 
+    this.getProductos(numeroComprobante);
+    
+    for(let i=0 ; i<this.dataSourcePro.length; i++){
+      this.dataSourceDetalle.push({ 
+        Cliente:      this.filterIngreso[0].Personas.per_razonSocial,
+        Ruc:          this.filterIngreso[0].Personas.per_numeroDocumento,
+        Direccion:    this.filterIngreso[0].Personas.per_direccion,
+        FechaEmision: this.filterIngreso[0].createdAt,
+        ModeloProd:   this.dataSourcePro[i].modeloProd,
+        Descripcion:  this.dataSourcePro[i].descripcion,
+        Cantidad:     this.dataSourcePro[i].cantidad,
+        PUnit:        this.dataSourcePro[i].pUnit,
+        SubTotal:     this.dataSourcePro[i].subTotal,
+        Total:        this.dataSourcePro[i].tota });
+    }
+  
+  }
+
+  exportarTabla(){
+    const arrayDetalles: Partial<DetalleIngreso>[] = this.dataSourceDetalle.map(x => ({
+      Cliente:      x.Cliente,
+      Ruc:          x.Ruc,
+      Direccion:    x.Direccion,
+      FechaEmision: x.FechaEmision,
+      ModeloProd:   x.ModeloProd,
+      Descripcion:  x.Descripcion,
+      Cantidad:     x.Cantidad,
+      PUnit:        x.PUnit,
+      SubTotal:     x.SubTotal,
+      Total:        x.Total
+    }));
+
+    const arrayTotales: Partial<TotalIngreso>[] = this.dataSourceTotal.map(x => ({
+      Igv:     x.Igv,
+      Gravada: x.Gravada,
+      Total:   x.Total
+    }));
+
+    TableUtil.exportArrayToExcel(arrayDetalles,arrayTotales,`${this.filterIngreso[0].ing_serieComprobante}-${this.filterIngreso[0].ing_numeroComprobante}`);
+  }
+
+  filterDetalle:any=[];
+  dataSourcePro = ELEMENT_DATA_PRO;
+  getProductos(numeroComprobante:string){
+    this.dataSourcePro = [];
+    this.arrayPdf = [];
+    const nuevoNumero = Number(numeroComprobante);
+
+    this.filterDetalle = this.detalleIngreso.filter(function(ele: any){
+      return ele.fk_id_ingreso == nuevoNumero;
+    });
+
+    for(let i=0; i<this.filterDetalle.length;i++){
+
+      this.dataSourcePro.push({
+        modeloProd: this.filterDetalle[i].Productos.prod_modelo,
+        descripcion:this.filterDetalle[i].Productos.prod_descripcion,
+        cantidad:this.filterDetalle[i].deti_cantidad,
+        pUnit:this.filterDetalle[i].deti_precioCompra,
+        subTotal:this.filterDetalle[i].deti_subTotal,
+        tota:this.filterDetalle[i].deti_total
+      })
+     
+    }
+
+  }
+
+    
   
 
+}
+
+
+const ELEMENT_DATA_TOTAL: TotalIngreso[] = [];
+export interface TotalIngreso {
+  Igv: number;
+  Gravada : number;
+  Total: number;
+}
+const ELEMENT_DATA_DETALLE: DetalleIngreso[] = [];
+export interface DetalleIngreso {
+  Cliente: string;
+  Ruc:string;
+  Direccion:string;
+  FechaEmision:string;
+  ModeloProd:string;
+  Descripcion:string;
+  Cantidad:number;
+  PUnit:number;
+  SubTotal:number;
+  Total:number
+}
+
+const ELEMENT_DATA_PRO: ArrayProducto[] = [];
+export interface ArrayProducto {
+  modeloProd:string;
+  descripcion:string;
+  cantidad:number;
+  pUnit:number;
+  subTotal:number;
+  tota:number
 }

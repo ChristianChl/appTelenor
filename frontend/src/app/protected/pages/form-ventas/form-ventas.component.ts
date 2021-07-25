@@ -46,7 +46,8 @@ export class FormVentasComponent implements OnInit {
     direccionCliente: new FormControl(),
     fechaIngreso: new FormControl(),
     guiaRemitente: new FormControl(),
-    ordenCompra: new FormControl()
+    ordenCompra: new FormControl(),
+    tipoCambio: new FormControl()
     
   });
 
@@ -76,6 +77,7 @@ export class FormVentasComponent implements OnInit {
     ven_observacion: "",
     ven_gravada: "",
     ven_igv: "",
+    ven_tipoCambio : 1,
     fk_id_persona: 0,
     fk_id_usuario: "",
     fk_id_moneda: 0,
@@ -114,9 +116,60 @@ export class FormVentasComponent implements OnInit {
 
         this.venta.ven_numeroComprobante = this.siguienteVenta.toString();
     });
+
     
     
   }
+  selectedDevice:any = "";
+  onChangeTipoCambio(newValue:any) {
+    console.log(newValue);
+    this.selectedDevice = newValue;
+    if(this.selectedDevice == 1){ 
+        let input2 = document.getElementById("tipoCambio");
+        input2?.setAttribute("disabled", "true");
+        this.venta.ven_tipoCambio = 1;
+        for(let i=0; i<this.skillsForm.value.skills.length; i++){
+
+          if(this.info.skills[i].producto !=""){
+            this.skillsForm.value.skills[i].num2 = ((Number(this.skillsForm.value.skills[i].precioOriginal)/Number(this.venta.ven_tipoCambio)).toFixed(2)).toString();
+          }
+          this.skillsForm.controls.skills.value[i].subTotal  = ((this.skillsForm.controls.skills.value[i].num1 *  this.skillsForm.controls.skills.value[i].num2)/1.18).toFixed(2);
+          this.skillsForm.controls.skills.value[i].total = (this.skillsForm.controls.skills.value[i].num1 *  this.skillsForm.controls.skills.value[i].num2).toFixed(2);
+        
+        }
+  
+          console.log(this.info);
+          this.info = this.skillsForm.value;
+            const linesFormArray = this.skillsForm.get("skills") as FormArray;
+            this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+              linesFormArray.at(index).setValue(a);
+            });
+          
+            this.getTotal();
+
+            
+    }
+    else{
+      this.venta.ven_tipoCambio = 0;
+      let input2 = document.getElementById("tipoCambio");
+      input2?.removeAttribute("disabled");
+
+    }
+    // ... do other stuff here ...
+}
+
+  OpcionesTCambio(opc: string){
+    console.log(opc);
+    this.opc;
+    if (opc == "1") {
+      console.log("ID 1");
+      this.venta.ven_tipoCambio = 1;
+    }
+    else{
+      this.venta.ven_tipoCambio = 0;
+    }
+  } 
+
   opc: any = "";
   Opciones(opc: string) {
     // console.log(opc);
@@ -182,6 +235,7 @@ export class FormVentasComponent implements OnInit {
       igv: '1',
       num1: '',
       num2: '',
+      precioOriginal:'',
       subTotal:'',
       total: ''
     })
@@ -335,7 +389,15 @@ export class FormVentasComponent implements OnInit {
         console.log(this.filterProducto);
         this.stockPro = false;
         this.skillsForm.controls.skills.value[indice].num1 = 1;
-        this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
+        this.skillsForm.controls.skills.value[indice].precioOriginal = this.filterProducto[0].prod_precioVenta;
+
+        if(this.venta.fk_id_moneda == 2){
+          this.skillsForm.controls.skills.value[indice].num2 = (this.filterProducto[0].prod_precioVenta / Number(this.venta.ven_tipoCambio)).toFixed(2);
+        }
+        else{
+          this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
+        }
+        
 
         this.info = this.skillsForm.value;
         const linesFormArray = this.skillsForm.get("skills") as FormArray;
@@ -489,8 +551,8 @@ export class FormVentasComponent implements OnInit {
     console.log(this.venta)
      
     if(this.formDatosVentas.valid){
-
-      const refCompro = this.venta.ven_numeroComprobante;
+      if(this.venta.ven_tipoCambio != 0){
+        const refCompro = this.venta.ven_numeroComprobante;
       const ventaFilter = this.ventas.filter(function(ele: any){
         return ele.ven_numeroComprobante == refCompro;
       });
@@ -572,6 +634,12 @@ export class FormVentasComponent implements OnInit {
         Swal.fire('Alerta', 'Ya existe un numero de comprobante ' + this.venta.ven_numeroComprobante + "\n Ingrese uno diferente", 'warning');
         
       }
+      }
+      else{
+        this.formDatosVentas.markAllAsTouched();
+        Swal.fire('Error', 'Por favor agregue el cantidad de cambio', 'error');
+      }
+      
         
       
     }
@@ -583,6 +651,35 @@ export class FormVentasComponent implements OnInit {
     
   }
 
+  onKeyupCambio(event: any){
+    console.log(event.key);
+    console.log(this.venta.ven_tipoCambio);
+
+    if(event.key != "."){
+      this.info = this.skillsForm.value;
+      console.log(this.info);
+      for(let i=0; i<this.skillsForm.value.skills.length; i++){
+
+          if(this.skillsForm.value.skills[i].producto !=""){
+            this.skillsForm.value.skills[i].num2 = ((Number(this.skillsForm.value.skills[i].precioOriginal)/Number(this.venta.ven_tipoCambio)).toFixed(2)).toString();
+          }
+           this.skillsForm.controls.skills.value[i].subTotal  = ((this.skillsForm.controls.skills.value[i].num1 *  this.skillsForm.controls.skills.value[i].num2)/1.18).toFixed(2);
+          this.skillsForm.controls.skills.value[i].total = (this.skillsForm.controls.skills.value[i].num1 *  this.skillsForm.controls.skills.value[i].num2).toFixed(2);
+        
+      }
+
+      console.log(this.info);
+      this.info = this.skillsForm.value;
+        const linesFormArray = this.skillsForm.get("skills") as FormArray;
+        this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+          linesFormArray.at(index).setValue(a);
+        });
+        this.getTotal();
+
+    }
+
+    
+  }
 
   
 }
