@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-
     console.log(this.miFormulario.value);
     const {us_login, us_clave} = this.miFormulario.value;
     this.authService.login(us_login, us_clave)
@@ -34,7 +33,10 @@ export class LoginComponent implements OnInit {
 
       if( ok == true ) {
         
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/dashboard')
+        .then(() => {
+          window.location.reload();
+        });
 
       }else{
         Swal.fire('Error', ok, 'error');

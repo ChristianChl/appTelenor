@@ -5,18 +5,37 @@
       <tr>
         <th style="text-align: center;"><strong>#</strong> </th>
         <th style="text-align: center;"><strong>Cliente</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterCliente" name="filterCliente">
+          </nz-input-group>
         </th>
-        <th style="text-align: center;"><strong>Numero Doc.</strong></th>
-        <th style="text-align: center;"><strong>Moneda</strong></th>
-        <th style="text-align: center;"><strong>Total</strong></th>
-        <th style="text-align: center;"><strong>Fecha Emi.</strong></th>
+        <th style="text-align: center;"><strong>Numero Doc.</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNumDoc" name="filterNumDoc">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Moneda</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterMoneda" name="filterMoneda">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Total</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterTotal" name="filterTotal">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong>Fecha Emi.</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterFecha" name="filterFecha">
+          </nz-input-group>
+        </th>
 
         <th style="text-align: center;"><strong>Acciones</strong></th>
 
       </tr>
     </thead>
     <tbody>
-      <tr  *ngFor="let data of basicTable.data; let indice = index">
+      <tr *ngFor="let data of basicTable.data|filterCotizacion:filterCliente|filterCotizacion:filterNumDoc|filterCotizacion:filterMoneda|filterCotizacion:filterTotal|filterCotizacion:filterFecha; let indice = index">
         
           <td>{{ indice+1}}</td> 
           <td>{{ data.Personas.per_razonSocial }}</td>

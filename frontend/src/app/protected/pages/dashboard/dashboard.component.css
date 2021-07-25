@@ -69,3 +69,7 @@
   .example-app-name{
     color: rgb(253, 253, 253) !important;
   }
+
+  .mat-sidenav-container .mat-list-item:hover {
+    background: rgb(96, 169, 242);
+  }

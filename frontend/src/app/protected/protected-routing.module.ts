@@ -18,12 +18,10 @@ import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.componen
 
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
-<<<<<<< HEAD
 import { ValidarPermisoConfiguracionGuard } from '../guards/validar-permiso-configuracion.guard';
 import { ErrorAcessoComponent } from './pages/error-acesso/error-acesso.component';
-=======
 import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
->>>>>>> aaf257f8f465e888ef6551e4a6fbda9d910b1bca
+import { ValidarPermisoMaestroGuard } from '../guards/validar-permiso-maestro.guard';
 
 
 const routes: Routes = [
@@ -33,21 +31,18 @@ const routes: Routes = [
     children:[
       {
         path: 'listaUsuarios',
+        canActivate: [ValidarPermisoConfiguracionGuard ],
         component: UsuariosComponent,
-        // canActivate: [ ValidarPermisoConfiguracionGuard ],
-        // canLoad: [ ValidarPermisoConfiguracionGuard ]
       },
       {
         path: 'listaPerfil',
+        canActivate: [ValidarPermisoConfiguracionGuard ],
         component: ListPerfilComponent,
-        // canActivate: [ ValidarPermisoConfiguracionGuard ],
-        // canLoad: [ ValidarPermisoConfiguracionGuard ]
       },
       {
         path: 'listaPermiso',
+        canActivate: [ValidarPermisoConfiguracionGuard ],
         component: ListPermisoComponent,
-        // canActivate: [ ValidarPermisoConfiguracionGuard ],
-        // canLoad: [ ValidarPermisoConfiguracionGuard ]
       },
       {
         path: 'errorAcesso',
@@ -55,18 +50,22 @@ const routes: Routes = [
       },
       {
         path: 'listaTipoDocumento',
+        canActivate: [ ValidarPermisoMaestroGuard ],
         component: ListTipoDocumentoComponent
       },
       {
         path: 'listaCategoria',
+        canActivate: [ ValidarPermisoMaestroGuard ],
         component: ListCategoriaComponent
       },
       {
         path: 'listaMarca',
+        canActivate: [ ValidarPermisoMaestroGuard ],
         component: ListMarcaComponent
       },
       {
         path: 'listaMedida',
+        canActivate: [ ValidarPermisoMaestroGuard ],
         component: ListMedidaComponent
       },
       {

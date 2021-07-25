@@ -39,9 +39,11 @@ export class ListIngresoComponent implements OnInit {
   ingreso:any = [];
   detalleIngreso:any = [];
 
-  filterNombre = "";
-  filterDescripcion = "";
-  filterEstado = "";
+  filterNumComp = "";
+  filterNumDoc = "";
+  filterRazonSocial = "";
+  filterTotal = "";
+  filterFecha = "";
 
   select: any = [
     {text:"Activos", value:"true"},

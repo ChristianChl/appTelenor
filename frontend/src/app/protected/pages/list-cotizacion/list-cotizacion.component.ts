@@ -14,9 +14,12 @@ export class ListCotizacionComponent implements OnInit {
 
   cotizacion:any = [];
   documento:any = [];
-  filterNombre = "";
-  filterDescripcion = "";
-  filterEstado = "";
+
+  filterCliente = "";
+  filterNumDoc = "";
+  filterMoneda = "";
+  filterTotal = "";
+  filterFecha = "";
 
   select: any = [
     {text:"Activos", value:"true"},

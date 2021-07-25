@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CanActivate, CanLoad, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth/services/auth.service';
@@ -8,8 +8,7 @@ import { UsuarioPermisoService } from '../protected/services/usuario-permiso.ser
 @Injectable({
   providedIn: 'root'
 })
-export class ValidarPermisoConfiguracionGuard implements CanActivate {
-
+export class ValidarPermisoMaestroGuard implements CanActivate {
   constructor(private authService: AuthService,
               private usuarioPermisoService: UsuarioPermisoService,
               private router: Router ){}
@@ -25,24 +24,24 @@ export class ValidarPermisoConfiguracionGuard implements CanActivate {
     this.getPermisoC();
 
     return this.authService.validarToken()
-    .pipe(
-      tap(valid =>{
-        if(valid && !this.permiso){
-          this.router.navigateByUrl('/dashboard/errorAcesso');
-        }
-      })
-    );
+      .pipe(
+        tap(valid => {
+          if (valid && !this.permiso) {
+            this.router.navigateByUrl('/dashboard/errorAcesso');
+          }
+        })
+      );
   }
 
   getPermisoC() {
-    
+
     this.usuarioPermisoService.getUsuarioPermiso(this.usuario.uid)
       .subscribe(
         resp => {
           this.usuarioPermiso = resp;
           for (let i = 0; i < this.usuarioPermiso.length; i++) {
 
-            if (this.usuarioPermiso[i].Permisos.perm_nombre == "Configuracion") {
+            if (this.usuarioPermiso[i].Permisos.perm_nombre == "Maestro") {
 
               this.permiso = true;
               console.log('permiso dentro del bucle Si');
@@ -57,6 +56,5 @@ export class ValidarPermisoConfiguracionGuard implements CanActivate {
         err => console.log(err)
       )
   }
-
+  
 }
-

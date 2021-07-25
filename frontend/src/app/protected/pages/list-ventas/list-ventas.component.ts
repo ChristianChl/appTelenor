@@ -31,6 +31,12 @@ export class ListVentasComponent implements OnInit {
     subTotal: 0,
     total: 0,
   }
+  filterNumComp = "";
+  filterNumDoc = "";
+  filterRazonSocial = "";
+  filterMoneda = "";
+  filterTotal = "";
+  filterFecha = "";
 
 
   constructor(
