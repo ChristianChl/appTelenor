@@ -44,6 +44,9 @@ const Venta = connection_1.default.define('Venta', {
     ven_estado: {
         type: sequelize_1.DataTypes.STRING
     },
+    ven_tipoCambio: {
+        type: sequelize_1.DataTypes.DECIMAL
+    },
     fk_id_persona: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {

@@ -42,10 +42,26 @@
         <td>{{ data.Personas.per_razonSocial }}</td>
         <td>{{ data.ing_totalCompra }}</td>
         <td>{{ data.createdAt }}</td>
-        <td>
-          <button nz-button nzType="primary" nzTooltipTitle="PDF" nzTooltipPlacement="left" nz-tooltip   ntype="button" (click)="generatePdf(data.ing_numeroComprobante)" >
-            <i nz-icon nzType="download" nzTheme="outline"></i>
-          </button>
+        <td style="text-align: center;">
+          <nz-button-group>
+              <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                <i nz-icon nzType="setting"></i>
+              </button>
+          </nz-button-group>
+          <nz-dropdown-menu #menu2="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item>
+                  <button nz-button nzType="primary" nzTooltipTitle="PDF" nzTooltipPlacement="left" nz-tooltip   ntype="button" (click)="generatePdf(data.ing_numeroComprobante)" >
+                    <i nz-icon nzType="download" nzTheme="outline"></i>
+                  </button>
+                </li>
+                <li nz-menu-item>
+                  <button nz-button nzType="primary" nzTooltipTitle="EXCEL" nzTooltipPlacement="left" nz-tooltip (click)="generarExcel(data.ing_numeroComprobante)"  ntype="button"  >
+                    <i nz-icon nzType="file-excel" nzTheme="outline"></i>
+                  </button>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
         </td>
         
       </tr>

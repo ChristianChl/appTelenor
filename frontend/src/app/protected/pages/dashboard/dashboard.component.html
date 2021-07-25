@@ -132,7 +132,7 @@
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu5}" *ngIf="isShowing || isExpanded">
         <a class="full-width" mat-list-item href="...">Reporte Ven.</a>
-        <a class="full-width" mat-list-item href="...">Reporte Inv.</a>
+        <a class="full-width" routerLink="/dashboard/reporteProducto">Reporte Prod.</a>
       </div>
       <mat-list-item class="parent" (click)="logout()">
         <span class="full-width" *ngIf="isExpanded || isShowing">Logout</span>
@@ -147,4 +147,9 @@
   <div class="idElemento">
     <router-outlet></router-outlet>
   </div>
+
+
+  
 </mat-sidenav-container>
+
+

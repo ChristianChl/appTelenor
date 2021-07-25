@@ -87,7 +87,7 @@ Producto.belongsTo(Medida, {
     foreignKey: "fk_id_medida"
 })
 Producto.belongsTo(Tipo, {
-    as: 'Tipos',
+    as: 'Tipos', 
     foreignKey: "fk_id_tipo"
 })
 

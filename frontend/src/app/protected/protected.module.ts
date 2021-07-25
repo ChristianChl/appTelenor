@@ -27,6 +27,8 @@ import { FilterProveedorPipe } from './pipes/filter-proveedor.pipe';
 import { ListPerfilComponent } from './pages/list-perfil/list-perfil.component';
 import { ListClienteComponent } from './pages/list-cliente/list-cliente.component';
 import { FormClienteComponent } from './pages/form-cliente/form-cliente.component';
+
+
 import { FormIngresoComponent } from './pages/form-ingreso/form-ingreso.component';
 import { ListTipoDocumentoComponent } from './pages/list-tipo-documento/list-tipo-documento.component';
 import { FilterTipoDocumentoPipe } from './pipes/filter-tipo-documento.pipe';
@@ -42,6 +44,7 @@ import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
+<<<<<<< HEAD
 import { ErrorAcessoComponent } from './pages/error-acesso/error-acesso.component';
 import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
 import { FormCotizacionComponent } from './pages/form-cotizacion/form-cotizacion.component';
@@ -49,6 +52,18 @@ import { FilterComprasPipe } from './pipes/filter-compra.pipe';
 import { FilterVentasPipe } from './pipes/filter-venta.pipe';
 import { FilterCotizacionesPipe } from './pipes/filter-cotizacion.pipe';
 
+=======
+
+import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
+import { FormCotizacionComponent } from './pages/form-cotizacion/form-cotizacion.component';
+
+import { ErrorAcessoComponent } from './pages/error-acesso/error-acesso.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ChartsModule } from 'ng2-charts';
+import { ReporteProductosComponent } from './pages/reporte-productos/reporte-productos.component';
+import { ReporteVentasComponent } from './pages/reporte-ventas/reporte-ventas.component';
+
+>>>>>>> 58e7d4f522e10a5105753f1c179612574c8179b0
 
 
 
@@ -100,9 +115,15 @@ import { FilterCotizacionesPipe } from './pipes/filter-cotizacion.pipe';
     ErrorAcessoComponent,
     ListCotizacionComponent,
     FormCotizacionComponent,
+<<<<<<< HEAD
     FilterComprasPipe,
     FilterVentasPipe,
     FilterCotizacionesPipe
+=======
+    HomeComponent,
+    ReporteProductosComponent,
+    ReporteVentasComponent
+>>>>>>> 58e7d4f522e10a5105753f1c179612574c8179b0
   ],
   imports: [
     CommonModule,
@@ -112,7 +133,8 @@ import { FilterCotizacionesPipe } from './pipes/filter-cotizacion.pipe';
     ReactiveFormsModule,
     FormsModule,
     ClipboardModule,
-    ProtectedRoutingModule
+    ProtectedRoutingModule,
+    ChartsModule
   ],
   entryComponents: [
     FormUsuarioComponent

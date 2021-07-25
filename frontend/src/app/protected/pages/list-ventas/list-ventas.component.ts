@@ -170,6 +170,7 @@ export class ListVentasComponent implements OnInit {
   header = [[ 'Item', 'Modelo', 'Descripcion/Serie','Cantidad','P.Unit','S.Total', 'V.venta']]
   igv : string = "";
   total : string ="";
+  
   generatePdf(numeroComprobante:string){
         var pdf = new jsPDF();
         this.arrayPdf =[]
@@ -329,6 +330,7 @@ export class ListVentasComponent implements OnInit {
 
   dataSourceDetalle = ELEMENT_DATA_DETALLE;
   dataSourceTotal = ELEMENT_DATA_TOTAL;
+
   exportarTabla(){
     const arrayDetalles: Partial<DetalleVental>[] = this.dataSourceDetalle.map(x => ({
       Cliente:      x.Cliente,
