@@ -1,3 +1,4 @@
+
 <button id="botonNuevo" (click)="showModalCotizacion()" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
 
 <nz-table nzBordered #basicTable [nzData]="cotizacion" style="margin-left: 10px; margin-right: 10px;">
@@ -29,6 +30,7 @@
             <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterFecha" name="filterFecha">
           </nz-input-group>
         </th>
+        <th style="text-align: center;"><strong>Concreto Vent.</strong></th>
 
         <th style="text-align: center;"><strong>Acciones</strong></th>
 
@@ -43,7 +45,12 @@
           <td>{{ data.Monedas.mon_nombre }}</td>
           <td>{{ data.coti_total }}</td>
           <td>{{ data.createdAt }}</td>
-          
+          <td>
+            <div id="label">
+              <label  *ngIf="data.coti_hechoVenta" for=""> Si </label>
+              <label *ngIf="!data.coti_hechoVenta" for=""> No </label>
+            </div>
+          </td>
 
           <td style="text-align: center;">
             <nz-button-group>
@@ -69,6 +76,12 @@
                       <i nz-icon nzType="file-pdf" nzTheme="outline"></i>
                     </button>
                   </li>
+                  
+                  <li nz-menu-item *ngIf="!data.coti_hechoVenta">
+                    <button type="button" nzTooltipTitle="VENTA" nzTooltipPlacement="right" nz-tooltip class="btn btn-primary"  (click)="showModalCotizacionVenta(data.id_cotizacion)">
+                      <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+                    </button>
+                  </li>
                 </ul>
               </nz-dropdown-menu>
           </td>
@@ -77,3 +90,4 @@
   </nz-table>
 
   <app-form-cotizacion  [siguienteCoti]="siguienteCoti"  [isVisibleCotizacion]="isVisibleCotizacion"  [idCotizacion]="idCotizacion" (newVisibleCotizacion)="nuevoDatoCotizacion()"></app-form-cotizacion>
+  <app-venta-cotizacion [isVisibleCotizacionVenta]="isVisibleCotizacionVenta"  [idCotizacionVenta]="idCotizacionVenta" (newVisibleCotizacionVenta)="nuevoDatoCotizacionVenta()"></app-venta-cotizacion>

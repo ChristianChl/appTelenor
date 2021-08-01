@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { PersonaService } from '../../services/persona.service';
 import { Venta } from '../../interfaces/Venta';
@@ -10,7 +10,7 @@ import { debounceTime } from 'rxjs/operators';
 import { ProductoService } from '../../services/producto.service';
 import { DetalleVenta } from '../../interfaces/DetalleVenta';
 import { DetallVentaService } from '../../services/detall-venta.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form-ventas',
@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./form-ventas.component.css']
 })
 export class FormVentasComponent implements OnInit {
+
+  
 
   skillsForm: FormGroup;
   persona:any = [];
@@ -90,8 +92,10 @@ export class FormVentasComponent implements OnInit {
     private fb:FormBuilder,
     private productoService:ProductoService,
     private detallVentaService:DetallVentaService,
-    private router: Router
-    ) {
+    private router: Router,
+    private activatedRoute:ActivatedRoute
+    ) 
+    {
       this.skillsForm = this.fb.group({
         skills: this.fb.array([]) ,
       });
@@ -101,11 +105,15 @@ export class FormVentasComponent implements OnInit {
   
      maxDate:any = "";
      filterVentas:any = []
+
     ngOnInit(): void {
+
+    const param = this.activatedRoute.snapshot.params
+    console.log(param);
     this.getCliente();
     this.getMoneda();
     this.getProductos();
-    this.addSkills();
+    
     this.getVentas();
 
     this.maxDate = new Date();
@@ -117,7 +125,7 @@ export class FormVentasComponent implements OnInit {
         this.venta.ven_numeroComprobante = this.siguienteVenta.toString();
     });
 
-    
+    this.addSkills();
     
   }
   selectedDevice:any = "";
@@ -153,10 +161,9 @@ export class FormVentasComponent implements OnInit {
       this.venta.ven_tipoCambio = 0;
       let input2 = document.getElementById("tipoCambio");
       input2?.removeAttribute("disabled");
-
     }
     // ... do other stuff here ...
-}
+  }
 
   OpcionesTCambio(opc: string){
     console.log(opc);
@@ -553,7 +560,7 @@ export class FormVentasComponent implements OnInit {
     if(this.formDatosVentas.valid){
       if(this.venta.ven_tipoCambio != 0){
         const refCompro = this.venta.ven_numeroComprobante;
-      const ventaFilter = this.ventas.filter(function(ele: any){
+        const ventaFilter = this.ventas.filter(function(ele: any){
         return ele.ven_numeroComprobante == refCompro;
       });
       

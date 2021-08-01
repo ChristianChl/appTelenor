@@ -8,7 +8,7 @@
   nzWidth = 840px
   
 >
-  <ng-template #modalTitle >Cotizacion</ng-template>
+  <ng-template #modalTitle >{{(idCotizacion)? 'Editar' : 'Agregar'}} Cotizacion</ng-template>
 
   <ng-template #modalContent >
 
@@ -40,7 +40,7 @@
                     <br />
                     <nz-form-item style="margin-bottom: 4px;">
                     <nz-form-control nzHasFeedback>
-                        <nz-select [(ngModel)]="cotizacion.fk_id_moneda"  [nzSuffixIcon]="'exclamation-circle'"  nzShowSearch formControlName="tipoMoneda" name="TipoMon" nzAllowClear nzPlaceHolder="Seleccione"  required >
+                        <nz-select (ngModelChange)="onChangeTipoCambio($event)" [(ngModel)]="cotizacion.fk_id_moneda"  [nzSuffixIcon]="'exclamation-circle'"  nzShowSearch formControlName="tipoMoneda" name="TipoMon" nzAllowClear nzPlaceHolder="Seleccione"  required >
                             <nz-option  style="font-size: 10px;" *ngFor="let option of monedas" [nzLabel]="option.mon_nombre" [nzValue]="option.id_moneda" ></nz-option>
                         </nz-select>
                     </nz-form-control>
@@ -48,6 +48,17 @@
                     <span  class="form-text text-danger" *ngIf="validarCampo('tipoMoneda')">
                     Es un campo requerido*
                     </span>
+                </div>
+                <div class="col-4">
+                  <label>T.Cambio</label>
+                  <br />
+                  <nz-form-item style="margin-bottom: 0px;">
+                      <nz-form-control >
+                        <nz-input-group >
+                          <input id="tipoCambio" (keyup)="onKeyupCambio($event)" [(ngModel)]="cotizacion.coti_tipoCambio" formControlName="tipoCambio" type="number"  nz-input  name="Orden Compra"  />
+                        </nz-input-group>
+                      </nz-form-control>
+                  </nz-form-item>
                 </div>
             </div>
 

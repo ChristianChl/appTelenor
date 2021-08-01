@@ -1,0 +1,74 @@
+
+<nz-card style="background-color: #ECEAEA; margin-left: 10px; margin-right: 10px;margin-top: 10px; ">
+    <div class="row">
+        <div class="col-5" style="margin:auto;">
+            <div class="row">
+                <div class="col-8">
+                    <form nz-form [formGroup]="formDatosBusqueda" >
+                        <label>Producto</label>
+                        <br />
+                        <nz-form-item >
+                            <nz-form-control >
+                            <nz-select  (ngModelChange)="onChangeProducto($event)"   nzShowSearch formControlName="selecProducto" name="selecProducto" nzAllowClear nzPlaceHolder="Seleccione Producto">
+                                <nz-option *ngFor="let option of producto" [nzLabel]="option.prod_modelo" [nzValue]="option.id_Producto" ></nz-option>
+                            </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </form>
+                </div>
+                <div class="col-4">
+                    <br />
+                    <button style="margin-top: 4px;"   (click)="buscarProducto()"  nz-button nzType="primary"><i nz-icon nzType="search" nzTheme="outline"></i>Buscar</button>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</nz-card>
+
+<nz-card style="background-color: #ECEAEA; margin-left: 10px; margin-right: 10px;margin-top: 10px;  ">
+    <div class="" style="margin-bottom: 10px;">
+        <form nz-form [formGroup]="formResultado">
+            <div class="row">
+                <div class="col-10" style="margin-left: 30px;">
+                    <label for="" style="margin-left: 66px;">Modelo: </label>
+                    <input readonly style="margin-left:10px; width: 450px;" id="modelo" [(ngModel)]="modelo"   type="text" formControlName="modelo" nz-input/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-7" style="margin-left: 30px;">
+                    <label for="">Unidad de Medida: </label>
+                    <input id="medida" readonly style="margin-left:10px; width: 300px; margin-top: 5px;" [(ngModel)]="medida" type="text" formControlName="medida" nz-input  />
+                          
+                </div>
+            </div>
+        </form>
+        
+    </div>
+    <nz-table nzBordered #basicTable [nzData]="dataSourceKardex" style="margin-left: 10px; margin-right: 10px;">
+        <thead>
+          <tr>
+            <th style="text-align: center;"><strong>#</strong> </th>
+            <th style="text-align: center;"><strong>Fecha</strong></th>
+            <th style="text-align: center;"><strong>Tipo Doc.</strong></th>
+            <th style="text-align: center;"><strong>Num. Doc.</strong></th>
+            <th style="text-align: center;"><strong>Moneda</strong></th>
+            <th style="text-align: center;"><strong>Precio</strong></th>
+            <th style="text-align: center;"><strong>Cantidad</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr   *ngFor="let data of basicTable.data; let indice = index">
+            <td style="text-align: center;">{{ indice+1}}</td> 
+            <td style="text-align: center;">{{ data.fecha }}</td>
+            <td style="text-align: center;">{{ data.tipoDoc }}</td>
+            <td style="text-align: center;">{{ data.numDoc }}</td>
+            <td style="text-align: center;">{{ data.moneda }}</td>
+            <td style="text-align: center;">{{ data.precio }}</td>
+            <td style="text-align: center;">{{ data.cantidad }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+</nz-card>
+ 

@@ -100,6 +100,11 @@ export const getVenta =  async (req:Request, res:Response) =>{
                 as: 'Usuarios',
                 attributes: ["id_usuario", "us_apellidos", "us_nombres", "us_numeroDocumento", "us_direccion", "us_telefono", "us_email", "us_fechaRegistro", "us_login", "us_clave", "us_activo", "fk_id_perfil", "fk_id_tipoDocumento"],
 
+            },
+            {
+                model: Moneda,
+                as: 'Monedas',
+                attributes: ["id_moneda", "mon_nombre", "mon_tipoCambio"],
             }
         ]
     });

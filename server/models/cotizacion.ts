@@ -20,6 +20,12 @@ const Cotizacion = db.define('Cotizacion', {
     coti_observacion:{
         type: DataTypes.STRING
     },
+    coti_tipoCambio:{
+        type: DataTypes.FLOAT   
+    },
+    coti_hechoVenta: {
+        type: DataTypes.BOOLEAN
+    },
     fk_id_persona: {
         type: DataTypes.INTEGER,
         references: {

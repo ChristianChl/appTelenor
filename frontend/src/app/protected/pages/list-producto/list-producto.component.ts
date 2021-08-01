@@ -66,7 +66,7 @@ export class ListProductoComponent implements OnInit {
   }
 
   deleteProducto(id: string){
-
+    console.log("elimar");
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",

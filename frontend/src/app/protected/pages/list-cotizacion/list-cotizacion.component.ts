@@ -50,8 +50,24 @@ export class ListCotizacionComponent implements OnInit {
     )
   }
 
-  
+  //Modal para crear una venta desde una cotizacion
+  idCotizacionVenta = "";
+  isVisibleCotizacionVenta = false;
+  showModalCotizacionVenta(id:string){
+    console.log(this.isVisibleCotizacionVenta);
+    console.log(id);
+    this.isVisibleCotizacionVenta = true;  
+    this.idCotizacionVenta = id;
+    
+  }
+  nuevoDatoCotizacionVenta(){
+    console.log("prueba regresando");
+    //this.ngOnInit();
+    this.isVisibleCotizacionVenta = false;
+  }
 
+  
+  // modal para crear nueva cotizacion
   idCotizacion = "";
   isVisibleCotizacion = false;
   showModalCotizacion(){
@@ -72,6 +88,9 @@ export class ListCotizacionComponent implements OnInit {
     console.log("Editar Categoria");
     this.idCotizacion = id;
   }
+
+  
+
   numCotiz:any = 0;
   siguienteCoti = 0;
   numeroCorrecto:any = 'no';

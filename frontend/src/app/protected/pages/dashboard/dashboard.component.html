@@ -54,10 +54,9 @@
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu1}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" routerLink="/dashboard/listaProducto" mat-list-item href="...">
+        <a class="full-width" routerLink="/dashboard/listaProducto" mat-list-item >
           <mat-icon mat-list-icon>inventory_2</mat-icon>Productos</a>
-        <a class="full-width" mat-list-item href="...">Inventario</a>
-        <a class="full-width" mat-list-item href="...">Kardex</a>
+        <a class="full-width" mat-list-item routerLink="/dashboard/kardex">Kardex</a>
       </div>
 
       <!--Nuevo sub menu - Maestro -->
@@ -131,8 +130,8 @@
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu5}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" mat-list-item href="...">Reporte Ven.</a>
-        <a class="full-width" routerLink="/dashboard/reporteProducto">Reporte Prod.</a>
+        <a class="full-width" mat-list-item >Reporte Ven.</a>
+        <a class="full-width" mat-list-item routerLink="/dashboard/reporteProducto">Reporte Prod.</a>
       </div>
       <mat-list-item class="parent" (click)="logout()">
         <span class="full-width" *ngIf="isExpanded || isShowing">Logout</span>
