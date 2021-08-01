@@ -20,6 +20,28 @@ export class VentasService {
   getVenta(id: string){
     return this.http.get(`${this.baseUrl}/venta/${id}`);
   }
+  getVentasByDates(createdAt: Date, ven_fechaHora: Date){
+    const url = `${this.baseUrl}/venta/dates`;
+    const body = {createdAt, ven_fechaHora};
+    return this.http.post<Venta>(url, body)
+    .pipe(
+      tap(resp =>{
+        if(resp.ok){
+          console.log('Ventas Obtenidas')
+        }
+      }),
+      map(resp => resp),
+      catchError(err =>{
+
+        if(err.error?.msg){
+          return of(err.error.msg)
+        }
+        return of('Hable con el Administrador')
+      })
+
+    );
+
+  }
 
   deleteVenta(id: string){
     return this.http.delete(`${this.baseUrl}/venta/${id}`);

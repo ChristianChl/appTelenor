@@ -1,10 +1,11 @@
 import {Router } from 'express';
 import { check } from 'express-validator';
-import { deleteVenta, getVenta, getVentas, postVenta, putVenta } from '../controllers/ventaController';
+import { deleteVenta, getVenta, getVentas, postVenta, putVenta, getVentasByDates } from '../controllers/ventaController';
 import { validarCampos } from '../middlewares/validar-campos';
 const router = Router();
 
 router.get('/',         getVentas);
+router.post('/dates',         getVentasByDates);
 router.get('/:id',      getVenta);
 router.post('/', [
     check('ven_tipoComprobante', 'El tipo de comprobante es obligatorio').not().isEmpty(),

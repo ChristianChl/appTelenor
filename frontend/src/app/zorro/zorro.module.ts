@@ -25,6 +25,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
     NzMessageModule,
     NzSpaceModule,
     NzAutocompleteModule,
-    NzAlertModule
+    NzAlertModule,
+    NzCollapseModule
 
   ]
 })

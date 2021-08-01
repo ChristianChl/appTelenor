@@ -1,0 +1,120 @@
+<nz-modal nzWidth = 1000px
+  [(nzVisible)]="isVisibleDetalleVentas"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancelVentas()"
+
+  (nzAfterOpen) = "ngOnInit()">
+  
+  <ng-template #modalTitle> Detalle: Reporte de Ventas</ng-template>
+
+  <ng-template #modalContent>
+      <form autocomplete="off" [formGroup]="formVentas">
+          <!-- Rango de Fechas -->
+        <div class="row" class="textInputs" style="margin: auto; text-align: center;"  >
+            <div class="col-12" style="margin: auto;  text-align: center;">
+    
+                <label for="" style="margin-right: 10px;">Desde</label>
+                <input type="date" nz-input [(ngModel)]="fechaInicio" formControlName = "startDate"  style="width:15%;" />
+    
+                <label for="" style="margin-right: 10px; margin-left: 40px;">Hasta</label>
+                <input type="date" nz-input [(ngModel)]="fechaFinal" formControlName = "endDate"  style="width:15%;" />
+    
+                <button (click)="getVentas()" style="margin-left: 20px;" nz-button nzType="primary"><i
+                        style="vertical-align:1px;" nz-icon nzType="search"></i>Buscar</button>
+            </div>
+        </div>
+        <hr>
+        <!-- Tarjetas -->
+        <div class="row" >
+            <div class="col-6" style="text-align: right;">
+                <nz-card style="width:300px;height: 100px;margin: 0 auto;background-color: darkgreen;border: 1px solid rgb(22, 95, 22);" [nzHoverable] = "true" >
+                    <div class="row">
+                        <div class="col-6">
+                            <i nz-icon class="IconoShooping" style="color: floralwhite;position: relative;right: 30px;" nzType="shopping-cart" nzTheme="outline"></i> 
+                        </div>
+                        <div class="col-6">
+                            <span class="LetrasCard" style="color: floralwhite;">{{totalVentas}}</span><br>
+                            <span class="LetrasCard1" style="color: floralwhite;">Ventas con IGV</span>
+                          </div>
+                    </div>
+                  </nz-card>
+            </div>
+            <div class="col-6" style="text-align: right;">
+                <nz-card style="width:300px;height: 100px;background-color: rgb(18, 128, 179);border: 1px solid rgb(22, 77, 102);" [nzHoverable] = "true" >
+                    <div class="row">
+                        <div class="col-6">
+                            <i nz-icon class="IconoShooping" style="color: floralwhite;position: relative;right: 30px;" nzType="calculator" nzTheme="outline"></i>
+                        </div>
+                        <div class="col-6">
+                            <span class="LetrasCard" style="color: floralwhite;">{{totalIgv}}</span><br>
+                            <span class="LetrasCard1" style="color: floralwhite;">Total IGV</span>
+                          </div>
+                    </div>
+                  </nz-card>
+            </div>
+
+        </div>
+        <br>
+        <!-- tabla con los datos -->
+        <div id="table">
+            <div class="row">
+                <div class="col-10">
+                    <strong><h2>Listado de Ventas</h2></strong>
+                </div>
+                <hr>
+            </div>
+
+            <div class="row" style="width: 932px;margin-inline: 10px auto;">
+                <div class="col-12" style="background-color:rgb(48, 52, 84);">
+                    <span style="color: floralwhite;">Productos Vendidos</span>
+                </div>
+            </div>
+            <nz-table  #basicTable [nzData]="ventas" [nzFrontPagination]="false" style="margin-left: 10px; margin-right: 10px;" >
+                <thead>
+                    <tr>
+                        <th style="text-align: center;" class="cabeceras"><strong >Num. Comprobante</strong></th>
+                <th style="text-align: center;" class="cabeceras"><strong >Cliente</strong></th>
+                <th style="text-align: center;" class="cabeceras"><strong >Fecha de Em.</strong></th>
+                <th style="text-align: center;" class="cabeceras"><strong >Moneda</strong></th>
+                <th style="text-align: center;" class="cabeceras"><strong >Total</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+            *ngFor="let data of basicTable.data; let indice = index">
+            <td class="cabeceras">{{ data.id_venta }}</td>
+            <td class="cabeceras">{{ data.Personas.per_razonSocial}}</td>
+            <td class="cabeceras">{{ data.ven_fechaHora|date: 'dd-MM-yyyy'}}</td>
+            <td class="cabeceras">{{ data.Monedas.mon_nombre}}</td>
+            <td class="cabeceras">{{ data.ven_total}}</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td class="cabeceras">
+                    <button (click)="descargar()" style="margin-left: 20px;" nz-button nzType="primary" nzDanger><i style="vertical-align:1px;" nz-icon
+                        nzType="export"></i>Reporte</button>
+                    </td>
+                    <td class="cabeceras"></td>
+                    <td class="cabeceras"><strong >Total Ventas: </strong></td>
+                    <td class="cabeceras"></td>
+                    <td class="cabeceras"><strong >{{totalVentas}}</strong></td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+        <!-- <div class="row" style="width: 932px;margin-inline: 10px auto;">
+            <div class="col-12" style="border: 1px solid rgb(48, 52, 84);">
+                <span style="color: floralwhite;">Total: </span>
+            </div>
+        </div> -->
+      </form>
+
+  </ng-template>
+  
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancelVentas()"><i style="vertical-align:0px;" nz-icon nzType="close-circle"></i>Cancelar</button>
+  </ng-template>
+</nz-modal>

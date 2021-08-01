@@ -6,6 +6,7 @@ const ventaController_1 = require("../controllers/ventaController");
 const validar_campos_1 = require("../middlewares/validar-campos");
 const router = express_1.Router();
 router.get('/', ventaController_1.getVentas);
+router.post('/dates', ventaController_1.getVentasByDates);
 router.get('/:id', ventaController_1.getVenta);
 router.post('/', [
     express_validator_1.check('ven_tipoComprobante', 'El tipo de comprobante es obligatorio').not().isEmpty(),

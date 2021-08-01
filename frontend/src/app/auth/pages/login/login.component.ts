@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
       if( ok == true ) {
         
-        this.router.navigateByUrl('/dashboard')
+        this.router.navigateByUrl('/dashboard/graficas')
         .then(() => {
           window.location.reload();
         });
