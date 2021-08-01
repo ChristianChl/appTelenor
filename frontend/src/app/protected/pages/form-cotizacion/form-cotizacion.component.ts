@@ -25,12 +25,14 @@ export class FormCotizacionComponent implements OnInit {
   @Input() siguienteCoti: any;
   @Output() newVisibleCotizacion : EventEmitter<boolean>  = new EventEmitter<boolean>(); 
   skillsForm: FormGroup;
+  
   persona:any = [];
   monedas:any = [];
   producto:any = [];
   formCotizacion = new FormGroup({
     selecCliente: new FormControl(),
-    tipoMoneda : new FormControl()
+    tipoMoneda : new FormControl(),
+    tipoCambio: new FormControl()
   });
 
   tipoDoc: any = [
@@ -59,6 +61,8 @@ export class FormCotizacionComponent implements OnInit {
     coti_fechaHora: '',
     coti_observacion: '',
     coti_total: '',
+    coti_tipoCambio:'',
+    coti_hechoVenta: false,
     fk_id_moneda: '',
     fk_id_persona:'',
     fk_id_usuario:''
@@ -161,6 +165,7 @@ export class FormCotizacionComponent implements OnInit {
         },
         err => console.log(err)
       )
+
     }
     else
     {   
@@ -190,6 +195,71 @@ export class FormCotizacionComponent implements OnInit {
     }
   }
 
+  selectedDevice:any = "";
+  onChangeTipoCambio(newValue:any) {
+    console.log(newValue);
+    this.selectedDevice = newValue;
+    if(this.selectedDevice == 1){ 
+        let input2 = document.getElementById("tipoCambio");
+        input2?.setAttribute("disabled", "true");
+        this.cotizacion.coti_tipoCambio = "1";
+        for(let i=0; i<this.skillsForm.value.skills.length; i++){
+
+          if(this.info.skills[i].producto !=""){
+            this.skillsForm.value.skills[i].num2 = ((Number(this.skillsForm.value.skills[i].precioOriginal)/Number(this.cotizacion.coti_tipoCambio)).toFixed(2)).toString();
+          }
+          this.skillsForm.controls.skills.value[i].total = (this.skillsForm.controls.skills.value[i].num1 *  this.skillsForm.controls.skills.value[i].num2).toFixed(2);
+        
+        }
+  
+          console.log(this.info);
+          this.info = this.skillsForm.value;
+            const linesFormArray = this.skillsForm.get("skills") as FormArray;
+            this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+              linesFormArray.at(index).setValue(a);
+            });
+          
+            this.getTotal();
+
+            
+    }
+    else{
+      if(this.idCotizacion == ""){
+        this.cotizacion.coti_tipoCambio = "";
+      }
+      
+      let input2 = document.getElementById("tipoCambio");
+      input2?.removeAttribute("disabled");
+
+    }
+    // ... do other stuff here ...
+  }
+
+  onKeyupCambio(event: any){
+    if(event.key != "."){
+      this.info = this.skillsForm.value;
+      console.log(this.info);
+      for(let i=0; i<this.skillsForm.value.skills.length; i++){
+
+          if(this.skillsForm.value.skills[i].producto !=""){
+            this.skillsForm.value.skills[i].num2 = ((Number(this.skillsForm.value.skills[i].precioOriginal)/Number(this.cotizacion.coti_tipoCambio)).toFixed(2)).toString();
+          }
+           
+          this.skillsForm.controls.skills.value[i].total = (this.skillsForm.controls.skills.value[i].num1 *  this.skillsForm.controls.skills.value[i].num2).toFixed(2);
+        
+      }
+
+      console.log(this.info);
+      this.info = this.skillsForm.value;
+        const linesFormArray = this.skillsForm.get("skills") as FormArray;
+        this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+          linesFormArray.at(index).setValue(a);
+        });
+        this.getTotal();
+
+    }
+  }
+
   get usuario(){
     return this.authService.usuario;
     console.log(this.usuario);
@@ -207,7 +277,9 @@ export class FormCotizacionComponent implements OnInit {
   private buildForm() {
     this.formCotizacion = this.formBuilder.group({
       selecCliente: ['', [Validators.required]],
-      tipoMoneda: ['',[Validators.required]]
+      tipoMoneda: ['',[Validators.required]],
+      tipoCambio: ['',[Validators.required]],
+      
     });
 
   }
@@ -467,9 +539,11 @@ export class FormCotizacionComponent implements OnInit {
     return this.fb.group({
       id:'',
       producto: '',
+      precioOriginal: '',
       num1: '',
       num2: '',
-      total: ''
+      total: '',
+      continuaStockCero:''
     })
   }
 
@@ -539,10 +613,45 @@ export class FormCotizacionComponent implements OnInit {
       return ele.id_Producto == idProducto;
     });
 
+    if(this.filterProducto[0].prod_stock == 0){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Alerta',
+        text: 'No hay stock para el producto seleccionado',
+      });
+
+      this.refenciaProducto = this.skillsForm.controls.skills.value[indice].producto;
+      this.stockPro = true;
+      this.skillsForm.controls.skills.value[indice].producto = 0;
+
+      this.skillsForm.controls.skills.value[indice].num1 = 0;
+      this.skillsForm.controls.skills.value[indice].num2 = 0;
+      this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
+       
+
+      this.info = this.skillsForm.value;
+        const linesFormArray = this.skillsForm.get("skills") as FormArray;
+        this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+          
+          linesFormArray.at(index).setValue(a);
+          
+        });
+        this.onKeyUp(indice);
+    }
+    else{
         console.log(this.filterProducto);
         this.stockPro = false;
         this.skillsForm.controls.skills.value[indice].num1 = 1;
         this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
+        this.skillsForm.controls.skills.value[indice].continuaStockCero = 0;
+        this.skillsForm.controls.skills.value[indice].precioOriginal = this.filterProducto[0].prod_precioVenta;
+
+        if(this.cotizacion.fk_id_moneda == "2"){
+          this.skillsForm.controls.skills.value[indice].num2 = (this.filterProducto[0].prod_precioVenta / Number(this.cotizacion.coti_tipoCambio)).toFixed(2);
+        }
+        else{
+          this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
+        }
 
         this.info = this.skillsForm.value;
         const linesFormArray = this.skillsForm.get("skills") as FormArray;
@@ -552,6 +661,13 @@ export class FormCotizacionComponent implements OnInit {
           
         });
         this.onKeyUp(indice);
+    }
+    
+    
+      
+    
+
+        
   }
   onKeyUp(indice:any){
     console.log(indice)
@@ -571,21 +687,39 @@ export class FormCotizacionComponent implements OnInit {
     });
 
     
-    
-          
-        //Total
-        this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
+    if(this.filterProducto[0].prod_stock < this.skillsForm.controls.skills.value[indice].num1){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Alerta',
+        text: 'Sobrepaso el limite de Stock del Producto - Stock : ' + this.filterProducto[0].prod_stock,
+      });
+      
+      this.skillsForm.controls.skills.value[indice].num1 = this.filterProducto[0].prod_stock;
+      this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
         
-        
-        this.info = this.skillsForm.value;
+      this.info = this.skillsForm.value;
+
         const linesFormArray = this.skillsForm.get("skills") as FormArray;
         this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+          
           linesFormArray.at(index).setValue(a);
+          
         });
-        this.getTotal();
-    
 
-    
+        this.getTotal();
+    }
+    else{
+      //Total
+      this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
+        
+        
+      this.info = this.skillsForm.value;
+      const linesFormArray = this.skillsForm.get("skills") as FormArray;
+      this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+        linesFormArray.at(index).setValue(a);
+      });
+      this.getTotal();
+    }
   }
 
   igvtotal= 0;

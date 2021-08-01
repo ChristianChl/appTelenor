@@ -44,15 +44,13 @@ import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
-<<<<<<< HEAD
-import { ErrorAcessoComponent } from './pages/error-acesso/error-acesso.component';
-import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
-import { FormCotizacionComponent } from './pages/form-cotizacion/form-cotizacion.component';
+
+
 import { FilterComprasPipe } from './pipes/filter-compra.pipe';
 import { FilterVentasPipe } from './pipes/filter-venta.pipe';
 import { FilterCotizacionesPipe } from './pipes/filter-cotizacion.pipe';
 
-=======
+
 
 import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
 import { FormCotizacionComponent } from './pages/form-cotizacion/form-cotizacion.component';
@@ -62,8 +60,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { ChartsModule } from 'ng2-charts';
 import { ReporteProductosComponent } from './pages/reporte-productos/reporte-productos.component';
 import { ReporteVentasComponent } from './pages/reporte-ventas/reporte-ventas.component';
-
->>>>>>> 58e7d4f522e10a5105753f1c179612574c8179b0
+import { VentaCotizacionComponent } from './pages/venta-cotizacion/venta-cotizacion.component';
+import { KardexComponent } from './pages/kardex/kardex.component';
 
 
 
@@ -115,15 +113,14 @@ import { ReporteVentasComponent } from './pages/reporte-ventas/reporte-ventas.co
     ErrorAcessoComponent,
     ListCotizacionComponent,
     FormCotizacionComponent,
-<<<<<<< HEAD
     FilterComprasPipe,
     FilterVentasPipe,
-    FilterCotizacionesPipe
-=======
+    FilterCotizacionesPipe,
     HomeComponent,
     ReporteProductosComponent,
-    ReporteVentasComponent
->>>>>>> 58e7d4f522e10a5105753f1c179612574c8179b0
+    ReporteVentasComponent,
+    VentaCotizacionComponent,
+    KardexComponent
   ],
   imports: [
     CommonModule,

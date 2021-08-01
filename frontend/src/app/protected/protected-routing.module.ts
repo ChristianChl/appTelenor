@@ -18,12 +18,9 @@ import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.componen
 
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
-<<<<<<< HEAD
-import { ValidarPermisoConfiguracionGuard } from '../guards/validar-permiso-configuracion.guard';
-import { ErrorAcessoComponent } from './pages/error-acesso/error-acesso.component';
-import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
+
+
 import { ValidarPermisoMaestroGuard } from '../guards/validar-permiso-maestro.guard';
-=======
 
 import { ValidarPermisoConfiguracionGuard } from '../guards/validar-permiso-configuracion.guard';
 import { ErrorAcessoComponent } from './pages/error-acesso/error-acesso.component';
@@ -32,8 +29,8 @@ import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion
 import { HomeComponent } from './pages/home/home.component';
 import { ReporteProductosComponent } from './pages/reporte-productos/reporte-productos.component';
 import { ReporteVentasComponent } from './pages/reporte-ventas/reporte-ventas.component';
+import { KardexComponent } from './pages/kardex/kardex.component';
 
->>>>>>> 58e7d4f522e10a5105753f1c179612574c8179b0
 
 
 const routes: Routes = [
@@ -127,6 +124,10 @@ const routes: Routes = [
       {
         path: 'reporteVenta',
         component: ReporteVentasComponent
+      },
+      {
+        path: 'kardex',
+        component: KardexComponent
       },
       {
         path: '**',

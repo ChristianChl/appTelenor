@@ -23,6 +23,12 @@ const Cotizacion = connection_1.default.define('Cotizacion', {
     coti_observacion: {
         type: sequelize_1.DataTypes.STRING
     },
+    coti_tipoCambio: {
+        type: sequelize_1.DataTypes.FLOAT
+    },
+    coti_hechoVenta: {
+        type: sequelize_1.DataTypes.BOOLEAN
+    },
     fk_id_persona: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {

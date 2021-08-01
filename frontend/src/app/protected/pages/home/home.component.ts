@@ -3,6 +3,7 @@ import {ChartOptions,ChartType,ChartDataSets} from 'chart.js';
 import {Color,MultiDataSet, Label} from 'ng2-charts';
 import { DetallVentaService } from '../../services/detall-venta.service';
 import { IngresoService } from '../../services/ingreso.service';
+import { ProductoService } from '../../services/producto.service';
 import { VentasService } from '../../services/ventas.service';
 
 @Component({
@@ -56,10 +57,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private ventasService:VentasService,
   private ingresoService: IngresoService,
-  private detallVentaService:DetallVentaService) { }
+  private detallVentaService:DetallVentaService,
+  private prductoService:ProductoService) { }
   
   ngOnInit(): void {
 
+    this.getProductos();
     this.getMeses();
     this.getVentas();
     this.getCompras();
@@ -68,6 +71,8 @@ export class HomeComponent implements OnInit {
   detalleVenta:any = [];
   filterDetallePro:any = [];
   filterDetalleSer:any = [];
+  ventasProducto:any = [];
+  productoSinMoviento:any = [];
   getDetalleVentas(){ 
     this.detallVentaService.getDetalleVentas().subscribe(
       res => {
@@ -85,7 +90,68 @@ export class HomeComponent implements OnInit {
         this.doughnutChartData[0].splice(0, 1, this.filterDetallePro.length);
         this.doughnutChartData[0].splice(1, 1, this.filterDetalleSer.length);
 
+        
+
+        for(let i=0; i<this.detalleVenta.length; i++){
+          const now = new Date(this.detalleVenta[i].createdAt);
+          var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          let numMes:any = "";
+          let mesPrueba =  Number([now.getMonth()+1]);
+          if( mesPrueba <= 9){
+              numMes = "0"+ mesPrueba;
+          }
+          else{
+              numMes =  mesPrueba;
+          }
+
+          let formatted = now.getFullYear()+'/'+numMes+'/' +now.getDate();
+
+          this.detalleVenta[i].createdAt = formatted;
+        }
         console.log(this.detalleVenta)
+        let milisegundos = 24*60*60*1000;
+        this.productoSinMoviento = [];
+        for(let i=0; i<this.producto.length; i++){
+
+          let idProducto = this.producto[i].id_Producto;
+
+          this.ventasProducto = this.detalleVenta.filter(function(ele: any){
+            return ele.fk_id_producto == idProducto;
+          });
+          if(this.ventasProducto.length>0){
+            let ultimo = this.ventasProducto.length - 1 ;
+
+            console.log(this.ventasProducto);
+            var f = new Date();
+            var xy = new Date(this.ventasProducto[ultimo].createdAt);
+            let milisegundosTranscurridos = Math.abs(f.getTime() - xy.getTime());
+            let diasTranscurridos = Math.round(milisegundosTranscurridos/milisegundos);
+            
+            console.log(diasTranscurridos);
+
+            if(diasTranscurridos >= 90){
+              this.productoSinMoviento.push(this.producto[i]);
+            }
+          }
+          else{
+            
+            var f = new Date();
+            var xy = new Date(this.producto[i].createdAt);
+            
+            let milisegundosTranscurridos = Math.abs(f.getTime() - xy.getTime());
+            let diasTranscurridos = Math.round(milisegundosTranscurridos/milisegundos);
+            if(diasTranscurridos >= 90){
+              this.productoSinMoviento.push(this.producto[i]);
+            }
+          }
+
+          console.log(this.productoSinMoviento);
+          
+
+          
+          
+        }
+
       },
       err => console.error(err)
     );
@@ -220,7 +286,41 @@ export class HomeComponent implements OnInit {
       (Math.random() * 100),
       40 ];
   }
+  producto:any = [];
 
+  
+  getProductos(){
+    this.prductoService.getProductos().subscribe(
+      res => {
+        this.producto = res;
+        this.producto = this.producto.producto;
+        
+        this.producto = this.producto.filter(function(ele: any){
+          return ele.prod_stock != 0;
+        });
+
+        for(let i=0; i<this.producto.length; i++){
+          const now = new Date(this.producto[i].createdAt);
+          var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          let numMes:any = "";
+          let mesPrueba =  Number([now.getMonth()+1]);
+          if( mesPrueba <= 9){
+              numMes = "0"+ mesPrueba;
+          }
+          else{
+              numMes =  mesPrueba;
+          }
+
+          let formatted = now.getFullYear()+'/'+numMes+'/' +now.getDate();
+
+          this.producto[i].createdAt = formatted;
+        }
+
+        console.log(this.producto);
+      },
+      err => console.error(err)
+    );
+  }
   
 
 }

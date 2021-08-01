@@ -32,7 +32,6 @@ export class FormProductoComponent implements OnInit {
     tipoProducto : new FormControl(),
     activoProducto : new FormControl(),
     precioProducto : new FormControl(),
-    stockProducto : new FormControl(),
     imgProducto : new FormControl()
   });
 
@@ -214,7 +213,6 @@ export class FormProductoComponent implements OnInit {
       medidaProducto: ['', [Validators.required]],
       tipoProducto: ['', [Validators.required]],
       precioProducto: ['', [Validators.required]],
-      stockProducto: ['', [Validators.required]],
       activoProducto: ['', [Validators.required]],
       imgProducto: ['', []],
     });

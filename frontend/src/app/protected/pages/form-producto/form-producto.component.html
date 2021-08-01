@@ -196,26 +196,6 @@
               </nz-form-item>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-6">
-            <label>Stock</label>
-                <nz-form-item style="margin-bottom: 4px;">
-                  <nz-form-control nzHasFeedback>
-                    <nz-input-group [nzSuffix]="suffixTemplateInfo">
-                      <input  type="number" [(ngModel)]="producto.prod_stock" formControlName="stockProducto" nz-input placeholder="Stock de Producto" name="stock"  />
-                    </nz-input-group>
-                    
-                    <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#DF0101'"></i></ng-template>
-                    
-                  </nz-form-control>
-                </nz-form-item>
-                <span  class="form-text text-danger" *ngIf="validarCampo('stockProducto')">
-                  Es un campo requerido*
-                </span>
-          </div>
-          
-        </div>
       </form>
 
 
