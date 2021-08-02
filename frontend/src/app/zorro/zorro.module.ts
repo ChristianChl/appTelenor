@@ -25,12 +25,8 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-<<<<<<< HEAD
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
-
-=======
 import { NzListModule } from 'ng-zorro-antd/list';
->>>>>>> 8a2025c9bd9af9f3570e83bea5dad85fbdd3fdbd
 
 @NgModule({
   declarations: [],
@@ -60,11 +56,8 @@ import { NzListModule } from 'ng-zorro-antd/list';
     NzSpaceModule,
     NzAutocompleteModule,
     NzAlertModule,
-<<<<<<< HEAD
-    NzCollapseModule
-=======
+    NzCollapseModule,
     NzListModule
->>>>>>> 8a2025c9bd9af9f3570e83bea5dad85fbdd3fdbd
 
   ]
 })

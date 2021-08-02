@@ -18,11 +18,6 @@ import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.componen
 
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 8a2025c9bd9af9f3570e83bea5dad85fbdd3fdbd
 import { ValidarPermisoMaestroGuard } from '../guards/validar-permiso-maestro.guard';
 
 import { ValidarPermisoConfiguracionGuard } from '../guards/validar-permiso-configuracion.guard';
@@ -33,11 +28,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { ReporteProductosComponent } from './pages/reporte-productos/reporte-productos.component';
 import { ReporteVentasComponent } from './pages/reporte-ventas/reporte-ventas.component';
 import { KardexComponent } from './pages/kardex/kardex.component';
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 8a2025c9bd9af9f3570e83bea5dad85fbdd3fdbd
 
 const routes: Routes = [
   {
