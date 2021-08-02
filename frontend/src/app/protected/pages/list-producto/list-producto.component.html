@@ -1,93 +1,94 @@
-<button id="botonNuevo" (click)="openModalProducto()" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
+<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+  <button id="botonNuevo" (click)="openModalProducto()" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
 
-<nz-table nzBordered #basicTable [nzData]="producto" style=" margin-left: 10px; margin-right: 10px;">
-    <thead>
-      <tr>
-        <th style="text-align: center;"><strong>#</strong> </th>
-        <th  style="text-align: center;"><strong>Modelo</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterModelo" name="filterModelo">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"><strong>Caracteristica</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterCaracteristica" name="filterCaracteristica">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"><strong>Tipo</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterTipo" name="filterTipo">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"><strong>Categoria</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterCategoria" name="filterCategoria">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"><strong>U.Medida</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterMedida" name="filterMedida">
-          </nz-input-group>
-        </th>
-        <th  style="text-align: center;"><strong>Stock</strong>
-          <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
-            <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
-          </nz-select>
-        </th>
-        <th  style="text-align: center;"><strong>Estado</strong>
-          <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
-            <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
-          </nz-select>
-        </th>
-        <th style="text-align: center;"><strong>Acciones</strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of basicTable.data|filterProducto:filterModelo|filterProducto:filterCaracteristica|filterProducto:filterTipo|filterProducto:filterCategoria|filterProducto:filterMedida|filterProducto:filterEstado; let indice = index" [ngClass]="{'resaltado': data.prod_activo == '0'}">
-        <td>{{ indice+1}}</td>
-        <td>{{ data.prod_modelo }}</td>
-        <td>{{ data.prod_caracteristica }}</td>
-        <td>{{ data.Tipos.tip_nombre }}</td>
-        <td>{{ data.Categorias.cat_nombre }}</td>
-        <td>{{ data.Medidas.med_unidad}}</td>
-        <td>{{ data.prod_stock}}</td>
-        <td> 
-          <div id="label">
-            <label id="activo" *ngIf="data.prod_activo" for=""> Activo </label>
-            <label id="inactivo" *ngIf="!data.prod_activo" for=""> Inactivo </label>
-          </div>
-        </td>
+  <nz-table nzBordered #basicTable [nzData]="producto" style=" margin-left: 10px; margin-right: 10px;">
+      <thead>
+        <tr>
+          <th style="text-align: center;"><strong>#</strong> </th>
+          <th  style="text-align: center;"><strong>Modelo</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterModelo" name="filterModelo">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"><strong>Caracteristica</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterCaracteristica" name="filterCaracteristica">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"><strong>Tipo</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterTipo" name="filterTipo">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"><strong>Categoria</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterCategoria" name="filterCategoria">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"><strong>U.Medida</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterMedida" name="filterMedida">
+            </nz-input-group>
+          </th>
+          <th  style="text-align: center;"><strong>Stock</strong>
+            <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
+              <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+            </nz-select>
+          </th>
+          <th  style="text-align: center;"><strong>Estado</strong>
+            <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
+              <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+            </nz-select>
+          </th>
+          <th style="text-align: center;"><strong>Acciones</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data|filterProducto:filterModelo|filterProducto:filterCaracteristica|filterProducto:filterTipo|filterProducto:filterCategoria|filterProducto:filterMedida|filterProducto:filterEstado; let indice = index" [ngClass]="{'resaltado': data.prod_activo == '0'}">
+          <td>{{ indice+1}}</td>
+          <td>{{ data.prod_modelo }}</td>
+          <td>{{ data.prod_caracteristica }}</td>
+          <td>{{ data.Tipos.tip_nombre }}</td>
+          <td>{{ data.Categorias.cat_nombre }}</td>
+          <td>{{ data.Medidas.med_unidad}}</td>
+          <td>{{ data.prod_stock}}</td>
+          <td> 
+            <div id="label">
+              <label id="activo" *ngIf="data.prod_activo" for=""> Activo </label>
+              <label id="inactivo" *ngIf="!data.prod_activo" for=""> Inactivo </label>
+            </div>
+          </td>
 
-        <td style="text-align: center;">
+          <td style="text-align: center;">
 
-             <nz-button-group>
-                <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-                  <i nz-icon nzType="setting"></i>
-                </button>
-            </nz-button-group>
-            <nz-dropdown-menu #menu2="nzDropdownMenu">
-                <ul nz-menu>
-                  <li nz-menu-item>
-                    <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteProducto(data.id_Producto)" >
-                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+              <nz-button-group>
+                  <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                    <i nz-icon nzType="setting"></i>
+                  </button>
+              </nz-button-group>
+              <nz-dropdown-menu #menu2="nzDropdownMenu">
+                  <ul nz-menu>
+                    <li nz-menu-item>
+                      <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteProducto(data.id_Producto)" >
+                          <i nz-icon nzType="delete" nzTheme="outline"></i>
+                        </button>
+                        
+                    </li>
+                    <li nz-menu-item>
+                      <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="modalEditProducto(data.id_Producto)" >
+                          <i nz-icon nzType="edit" nzTheme="outline"></i>                                                          
                       </button>
-                      
-                  </li>
-                  <li nz-menu-item>
-                    <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="modalEditProducto(data.id_Producto)" >
-                        <i nz-icon nzType="edit" nzTheme="outline"></i>                                                          
-                    </button>
-                  </li>
-                </ul>
-              </nz-dropdown-menu>
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
 
-            
-            
-        </td>
-      </tr>
-    </tbody>
+              
+              
+          </td>
+        </tr>
+      </tbody>
   </nz-table>
-
+</div>
   <app-form-producto [isVisibleProducto]="isVisibleProducto" [idProducto]="idProducto" (newVisibleProducto)="nuevoDatoProducto()"></app-form-producto>
   
 

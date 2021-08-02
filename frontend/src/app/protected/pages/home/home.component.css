@@ -21,3 +21,8 @@ body{color:#fff;background:#17181c;font:300 1em 'Fira Sans',sans-serif;justify-c
 button{background:0 0;border:2px solid;font:inherit;line-height:1;margin:.5em;padding:1em 2em}
 h1{font-weight:400}
 code{color:#e4cb58;font:inherit}
+
+.IconoShooping{
+    font-size: 65px;
+    color: aliceblue;
+}

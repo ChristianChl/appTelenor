@@ -1,30 +1,32 @@
-<button id="botonNuevo" (click)="openModalTipoProducto()" nz-button nzType="primary">Nuevo</button>
+<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+  <button id="botonNuevo" (click)="openModalTipoProducto()" nz-button nzType="primary">Nuevo</button>
 
-<nz-table nzBordered  #basicTable [nzData]="tipoProducto">
-    <thead>
-      <tr>
-        <th><strong>#</strong> </th>
-        <th><strong>Nombre</strong></th>
-        <th><strong>Acciones</strong></th>
+  <nz-table nzBordered  #basicTable [nzData]="tipoProducto">
+      <thead>
+        <tr>
+          <th><strong>#</strong> </th>
+          <th><strong>Nombre</strong></th>
+          <th><strong>Acciones</strong></th>
 
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of basicTable.data; let indice = index">
-        <td>{{ indice+1}}</td> 
-        <td>{{ data.tip_nombre}}</td>
-        
-        <td>
-            <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteTipoProducto(data.id_tipo)" >
-              <i nz-icon nzType="delete" nzTheme="outline"></i>
-            </button>
-            <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning" (click)="modalEditTipoProducto(data.id_tipo)">
-                <i nz-icon nzType="edit" nzTheme="outline"></i>
-            </button>
-        </td>
-        
-      </tr>
-    </tbody>
-  </nz-table>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data; let indice = index">
+          <td>{{ indice+1}}</td> 
+          <td>{{ data.tip_nombre}}</td>
+          
+          <td>
+              <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteTipoProducto(data.id_tipo)" >
+                <i nz-icon nzType="delete" nzTheme="outline"></i>
+              </button>
+              <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning" (click)="modalEditTipoProducto(data.id_tipo)">
+                  <i nz-icon nzType="edit" nzTheme="outline"></i>
+              </button>
+          </td>
+          
+        </tr>
+      </tbody>
+    </nz-table>
+</div>
   <app-form-tipo-producto [isVisibleTipoProducto]="isVisibleTipoProducto" [idTipoProducto]="idTipoProducto" (newVisibleTipoProducto)="nuevoDatoTipoProducto()"></app-form-tipo-producto>
   

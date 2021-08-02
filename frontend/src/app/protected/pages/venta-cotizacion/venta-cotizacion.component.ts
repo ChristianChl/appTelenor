@@ -457,6 +457,7 @@ export class VentaCotizacionComponent implements OnInit {
   getProductoIndividual(arrayProductos:any, id:any){
     let filterProducto = []
     for(let i=0; i<arrayProductos.length; i++){
+      
 
         if(arrayProductos[i].id_Producto == id){
           filterProducto.push(arrayProductos[i]);

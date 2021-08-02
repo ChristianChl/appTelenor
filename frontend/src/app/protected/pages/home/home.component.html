@@ -1,9 +1,87 @@
 <div class="buttons" style="margin-top: 20px;margin-left: 10px;margin-right: 10px;"> 
+    <!-- 
     <button class="offset" routerLink="/dashboard/listaProducto">Lista Productos</button>
     <button class="offset" routerLink="/dashboard/listaVentas" style="margin-left: 20px;">Lista Ventas</button> 
     <button class="offset" routerLink="/dashboard/listaCotizaciones" style="margin-left: 20px;">Lista Cotizacion</button> 
+    -->
+    
+    
 
-    <hr/>
+    <div style="background: #ECECEC;padding:20px; text-align: center;">
+        <div nz-row [nzGutter]="8">
+          <div nz-col [nzSpan]="4">
+              
+            <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaProducto" style="background-color: #E88B58">
+                <div class="row">
+                    <div class="col-8">
+                        <span class="LetrasCard1" style="color: floralwhite;font-size: 20px;">Lista</span> <br>
+                        <span class="LetrasCard1" style="color: floralwhite;">Productos</span>
+                    </div>
+                    <div class="col-4">
+                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="file-done" nzTheme="outline"></i>
+                    </div>
+                </div>
+            </nz-card>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <nz-card [nzHoverable] = "true" style="background-color: #E88B58">
+                <div class="row">
+                    <div class="col-8">
+                        <span class="LetrasCard1" style="color: floralwhite;font-size: 20px;">Realizar</span> <br>
+                        <span class="LetrasCard1" style="color: floralwhite;">Venta</span>
+                    </div>
+                    <div class="col-4">
+                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="shopping-cart" nzTheme="outline"></i>
+                    </div>
+                </div>
+            </nz-card>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaCotizaciones" style="background-color: #E88B58">
+                <div class="row">
+                    <div class="col-8">
+                        <span class="LetrasCard1" style="color: floralwhite; font-size: 20px;">Realizar</span> <br>
+                        <span class="LetrasCard1" style="color: floralwhite;">Cotización</span>
+                    </div>
+                    <div class="col-4">
+                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="file-excel" nzTheme="outline"></i>
+                    </div>
+                </div>
+            </nz-card>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaCliente" style="background-color: #E88B58">
+                <div class="row">
+                    <div class="col-8">
+                        <span class="LetrasCard1" style="color: floralwhite; font-size: 20px;">Lista</span> <br>
+                        <span class="LetrasCard1" style="color: floralwhite;">Clientes</span>
+                    </div>
+                    <div class="col-4">
+                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="user" nzTheme="outline"></i>
+                    </div>
+                </div>
+            </nz-card>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaProveedor" style="background-color: #E88B58">
+                <div class="row">
+                    <div class="col-8">
+                        <span class="LetrasCard1" style="color: floralwhite; font-size: 20px;">Lista</span> <br>
+                        <span class="LetrasCard1" style="color: floralwhite;">Proveedores</span>
+                    </div>
+                    <div class="col-4">
+                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="user" nzTheme="outline"></i>
+                    </div>
+                </div>
+            </nz-card>
+          </div>
+        </div>
+    </div>
+
+    
+    
+
+    
 </div>
 
 <div class="row" style="margin-top: 40px;margin-left: 10px;margin-right: 10px;">
