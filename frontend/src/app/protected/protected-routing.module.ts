@@ -28,7 +28,12 @@ import { HomeComponent } from './pages/home/home.component';
 import { ReporteProductosComponent } from './pages/reporte-productos/reporte-productos.component';
 import { ReporteVentasComponent } from './pages/reporte-ventas/reporte-ventas.component';
 import { KardexComponent } from './pages/kardex/kardex.component';
+import { PreciosProductosComponent } from './pages/precios-productos/precios-productos.component';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d44907983c11bfb7424e6cdf90d04bcc409c469e
 const routes: Routes = [
   {
     path: '',
@@ -124,6 +129,10 @@ const routes: Routes = [
       {
         path: 'kardex',
         component: KardexComponent
+      },
+      {
+        path: 'precioProductos',
+        component: PreciosProductosComponent
       },
       {
         path: '**',

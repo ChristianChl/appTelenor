@@ -1,10 +1,10 @@
 import { Sequelize } from "sequelize";
 
 
-const db = new Sequelize('bdtelenor' , 'root', '', {
+const db = new Sequelize('bd_new_segunda' , 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
-    // port: 3307
+    port: 3307
     //logggin: false,
 });
 

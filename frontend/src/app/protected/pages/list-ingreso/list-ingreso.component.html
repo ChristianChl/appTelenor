@@ -1,73 +1,74 @@
-<button id="botonNuevo" routerLink="/dashboard/agregarIngreso" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
+<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+  <button id="botonNuevo" routerLink="/dashboard/agregarIngreso" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
 
 
-<nz-table id="tabla" nzBordered #basicTable [nzData]="ingreso" style="margin-left: 10px; margin-right: 10px;">
-    <thead>
-      <tr>
-        <th style="text-align: center;"><strong>#</strong> </th>
-        <th style="text-align: center;"><strong>Num. Comp.</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNumComp" name="filterNumComp">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"><strong>Num. Doc.</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNumDoc" name="filterNumDoc">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"><strong>Razón Social</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterRazonSocial" name="filterRazonSocial">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"><strong>Total</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterTotal" name="filterTotal">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"><strong>Fecha Emision</strong>
-          <nz-input-group nzAddOnAfterIcon="filter">
-            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterFecha" name="filterFecha">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"><strong>Acciones</strong></th>
+  <nz-table id="tabla" nzBordered #basicTable [nzData]="ingreso" style="margin-left: 10px; margin-right: 10px;">
+      <thead>
+        <tr>
+          <th style="text-align: center;"><strong>#</strong> </th>
+          <th style="text-align: center;"><strong>Num. Comp.</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNumComp" name="filterNumComp">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"><strong>Num. Doc.</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNumDoc" name="filterNumDoc">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"><strong>Razón Social</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterRazonSocial" name="filterRazonSocial">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"><strong>Total</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterTotal" name="filterTotal">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"><strong>Fecha Emision</strong>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterFecha" name="filterFecha">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"><strong>Acciones</strong></th>
 
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of basicTable.data|filterCompra:filterNumComp|filterCompra:filterNumDoc|filterCompra:filterRazonSocial|filterCompra:filterTotal|filterCompra:filterFecha; let indice = index">
-        <td>{{ indice+1}}</td> 
-        <td>{{ data.ing_numeroComprobante }}</td>
-        <td>{{ data.Personas.per_numeroDocumento }}</td>
-        <td>{{ data.Personas.per_razonSocial }}</td>
-        <td>{{ data.ing_totalCompra }}</td>
-        <td>{{ data.createdAt }}</td>
-        <td style="text-align: center;">
-          <nz-button-group>
-              <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-                <i nz-icon nzType="setting"></i>
-              </button>
-          </nz-button-group>
-          <nz-dropdown-menu #menu2="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-menu-item>
-                  <button nz-button nzType="primary" nzTooltipTitle="PDF" nzTooltipPlacement="left" nz-tooltip   ntype="button" (click)="generatePdf(data.ing_numeroComprobante)" >
-                    <i nz-icon nzType="download" nzTheme="outline"></i>
-                  </button>
-                </li>
-                <li nz-menu-item>
-                  <button nz-button nzType="primary" nzTooltipTitle="EXCEL" nzTooltipPlacement="left" nz-tooltip (click)="generarExcel(data.ing_numeroComprobante)"  ntype="button"  >
-                    <i nz-icon nzType="file-excel" nzTheme="outline"></i>
-                  </button>
-                </li>
-              </ul>
-            </nz-dropdown-menu>
-        </td>
-        
-      </tr>
-    </tbody>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data|filterCompra:filterNumComp|filterCompra:filterNumDoc|filterCompra:filterRazonSocial|filterCompra:filterTotal|filterCompra:filterFecha; let indice = index">
+          <td>{{ indice+1}}</td> 
+          <td>{{ data.ing_numeroComprobante }}</td>
+          <td>{{ data.Personas.per_numeroDocumento }}</td>
+          <td>{{ data.Personas.per_razonSocial }}</td>
+          <td>{{ data.ing_totalCompra }}</td>
+          <td>{{ data.createdAt }}</td>
+          <td style="text-align: center;">
+            <nz-button-group>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                  <i nz-icon nzType="setting"></i>
+                </button>
+            </nz-button-group>
+            <nz-dropdown-menu #menu2="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <button nz-button nzType="primary" nzTooltipTitle="PDF" nzTooltipPlacement="left" nz-tooltip   ntype="button" (click)="generatePdf(data.ing_numeroComprobante)" >
+                      <i nz-icon nzType="download" nzTheme="outline"></i>
+                    </button>
+                  </li>
+                  <li nz-menu-item>
+                    <button nz-button nzType="primary" nzTooltipTitle="EXCEL" nzTooltipPlacement="left" nz-tooltip (click)="generarExcel(data.ing_numeroComprobante)"  ntype="button"  >
+                      <i nz-icon nzType="file-excel" nzTheme="outline"></i>
+                    </button>
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+          </td>
+          
+        </tr>
+      </tbody>
   </nz-table>
-  
+</div>
 
 
   

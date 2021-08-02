@@ -1,0 +1,35 @@
+<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+<h2 style="margin-left: 10px; margin-right: 10px; margin-top: 5px;">Precios de Productos</h2>
+    <nz-table nzBordered #basicTable [nzData]="producto" style=" margin-left: 10px; margin-right: 10px; margin-top: 5px;">
+        <thead>
+        <tr>
+            <th style="text-align: center;"><strong>#</strong> </th>
+            <th  style="text-align: center;"><strong>Modelo</strong></th>
+            <th style="text-align: center;"><strong>Categoria</strong></th>
+            <th style="text-align: center;"><strong>U.Medida</strong></th>
+            <th  style="text-align: center;"><strong>Stock</strong></th>
+            <th  style="text-align: center;"><strong>Estado</strong></th>
+            <th  style="text-align: center;"><strong>Moneda</strong></th>
+            <th style="text-align: center;"><strong>Prec.Vent.</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of basicTable.data; let indice = index" [ngClass]="{'resaltado': data.prod_activo == '0'}">
+            <td>{{ indice+1}}</td>
+            <td>{{ data.prod_modelo }}</td>
+            <td>{{ data.Categorias.cat_nombre }}</td>
+            <td>{{ data.Medidas.med_unidad}}</td>
+            <td>{{ data.prod_stock}}</td>
+            <td> 
+            <div id="label">
+                <label id="activo" *ngIf="data.prod_activo" for=""> Activo </label>
+                <label id="inactivo" *ngIf="!data.prod_activo" for=""> Inactivo </label>
+            </div>
+            </td>
+            <td>Soles</td>
+            <td>{{ data.prod_precioVenta}}</td>
+            
+        </tr>
+        </tbody>
+    </nz-table>
+</div>

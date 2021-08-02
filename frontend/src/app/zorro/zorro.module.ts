@@ -58,7 +58,10 @@ import { NzListModule } from 'ng-zorro-antd/list';
     NzAlertModule,
     NzCollapseModule,
     NzListModule
+<<<<<<< HEAD
 
+=======
+>>>>>>> d44907983c11bfb7424e6cdf90d04bcc409c469e
   ]
 })
 export class ZorroModule { }

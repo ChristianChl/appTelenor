@@ -1,47 +1,49 @@
-<button id="botonNuevo" (click)="openModalMedida()" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
+<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+  <button id="botonNuevo" (click)="openModalMedida()" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
 
-<nz-table style="margin-left: 10px; margin-right: 10px;" nzBordered  #basicTable [nzData]="medida">
-    <thead>
-      <tr>
-        <th style="text-align: center;"><strong>#</strong> </th>
-        <th style="text-align: center;"><strong>Nombre</strong>
-          <nz-input-group  nzAddOnAfterIcon="filter">
-            <input nz-input type="text"  class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNombre" name="filterNombre">
-          </nz-input-group>
-        </th>
-        <th style="text-align: center;"v><strong>Acciones</strong></th>
+  <nz-table style="margin-left: 10px; margin-right: 10px;" nzBordered  #basicTable [nzData]="medida">
+      <thead>
+        <tr>
+          <th style="text-align: center;"><strong>#</strong> </th>
+          <th style="text-align: center;"><strong>Nombre</strong>
+            <nz-input-group  nzAddOnAfterIcon="filter">
+              <input nz-input type="text"  class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterNombre" name="filterNombre">
+            </nz-input-group>
+          </th>
+          <th style="text-align: center;"v><strong>Acciones</strong></th>
 
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of basicTable.data|filterMedida:filterNombre; let indice = index">
-        <td>{{ indice+1}}</td> 
-        <td>{{ data.med_unidad}}</td>
-        
-        <td style="text-align: center;">
-          <nz-button-group>
-              <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-                <i nz-icon nzType="setting"></i>
-              </button>
-          </nz-button-group>
-          <nz-dropdown-menu #menu2="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-menu-item>
-                  <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteMedida(data.id_medida)" >
-                    <i nz-icon nzType="delete" nzTheme="outline"></i>
-                  </button>
-                    
-                </li>
-                <li nz-menu-item>
-                  <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="modalEditMedida(data.id_medida)" >
-                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data|filterMedida:filterNombre; let indice = index">
+          <td>{{ indice+1}}</td> 
+          <td>{{ data.med_unidad}}</td>
+          
+          <td style="text-align: center;">
+            <nz-button-group>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                  <i nz-icon nzType="setting"></i>
                 </button>
-                </li>
-              </ul>
-            </nz-dropdown-menu>
-        </td>
-      </tr>
-    </tbody>
-  </nz-table>
+            </nz-button-group>
+            <nz-dropdown-menu #menu2="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip  id="delete" ntype="button" class="btn btn-danger" (click)="deleteMedida(data.id_medida)" >
+                      <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </button>
+                      
+                  </li>
+                  <li nz-menu-item>
+                    <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="modalEditMedida(data.id_medida)" >
+                      <i nz-icon nzType="edit" nzTheme="outline"></i>
+                  </button>
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+</div>
   <app-form-medida [isVisibleMedida]="isVisibleMedida" [idMedida]="idMedida" (newVisibleMedida)="nuevoDatoMedida()"></app-form-medida>
   

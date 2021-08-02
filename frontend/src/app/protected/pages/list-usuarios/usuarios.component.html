@@ -1,87 +1,88 @@
-<button id="botonNuevo" (click)="showModalUsuario()" nz-button nzType="primary"><i nz-icon nzType="user-add"
-    nzTheme="outline"></i>Nuevo</button>
-<nz-table nzBordered #basicTable [nzData]="usuarios" style="margin-left: 10px; margin-right: 10px;">
-  <thead>
-    <tr>
-      <th style="text-align: center;"><strong class="campos">#</strong> </th>
-      <th style="text-align: center;"><strong class="campos">Apellidos</strong>
-        <nz-input-group nzAddOnAfterIcon="filter">
-          <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterApellido"
-            name="filterApellido">
-        </nz-input-group>
-      </th>
-      <th style="text-align: center;"><strong class="campos">Nombres</strong>
-        <nz-input-group nzAddOnAfterIcon="filter">
-          <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterNombre"
-            name="filterNombre">
-        </nz-input-group>
-      </th>
-      <th style="text-align: center;"><strong class="campos">Tipo Documento</strong>
-        <nz-input-group nzAddOnAfterIcon="filter">
-          <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterDocumento"
-            name="filterDocumento">
-        </nz-input-group>
-      </th>
-      <th style="text-align: center;"><strong class="campos">Usuario</strong>
-        <nz-input-group nzAddOnAfterIcon="filter">
-          <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterUsuario"
-            name="filterUsuario">
-        </nz-input-group>
-      </th>
-      <th style="text-align: center;"><strong class="campos">Estado</strong><br />
+<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+  <button id="botonNuevo" (click)="showModalUsuario()" nz-button nzType="primary"><i nz-icon nzType="user-add"
+      nzTheme="outline"></i>Nuevo</button>
+  <nz-table nzBordered #basicTable [nzData]="usuarios" style="margin-left: 10px; margin-right: 10px;">
+    <thead>
+      <tr>
+        <th style="text-align: center;"><strong class="campos">#</strong> </th>
+        <th style="text-align: center;"><strong class="campos">Apellidos</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterApellido"
+              name="filterApellido">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong class="campos">Nombres</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterNombre"
+              name="filterNombre">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong class="campos">Tipo Documento</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterDocumento"
+              name="filterDocumento">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong class="campos">Usuario</strong>
+          <nz-input-group nzAddOnAfterIcon="filter">
+            <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)]="filterUsuario"
+              name="filterUsuario">
+          </nz-input-group>
+        </th>
+        <th style="text-align: center;"><strong class="campos">Estado</strong><br />
 
-        <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.." name="filterEstado"
-          style="margin-top: 10px;  font-size: 12px;">
-          <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select"
-            [nzLabel]="option.text" [nzValue]="option.value"></nz-option>
-        </nz-select>
-      </th>
-      <th style="text-align: center;"><strong class="campos">Acciones</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      *ngFor="let data of basicTable.data|filter:filterUsuario|filter:filterNombre|filter:filterApellido|filter:filterEstado|filter:filterDocumento|filter:filterNumero|filter:filterTelefono|filter:filterPerfil; let indice = index" [ngClass]="{'resaltado': data.us_activo == '0'}">
-      <td >{{ indice+1}}</td>
-      <td (click)="modalResumenUsuario(data.id_usuario)">{{ data.us_apellidos }}</td>
-      <td (click)="modalResumenUsuario(data.id_usuario)">{{ data.us_nombres }}</td>
-      <td (click)="modalResumenUsuario(data.id_usuario)" >{{ data.TipoDocumentos.tipodoc_descripcion}} : {{ data.us_numeroDocumento }} </td>
-      <td (click)="modalResumenUsuario(data.id_usuario)">{{ data.us_login}} : {{ data.Perfils.perf_nombre}}</td> 
-      <td (click)="modalResumenUsuario(data.id_usuario)">
-        <div id="label">
-          <label id="activo" *ngIf="data.us_activo" for=""> Activo </label>
-          <label id="inactivo" *ngIf="!data.us_activo" for=""> Inactivo </label>
-        </div>
+          <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.." name="filterEstado"
+            style="margin-top: 10px;  font-size: 12px;">
+            <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select"
+              [nzLabel]="option.text" [nzValue]="option.value"></nz-option>
+          </nz-select>
+        </th>
+        <th style="text-align: center;"><strong class="campos">Acciones</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let data of basicTable.data|filter:filterUsuario|filter:filterNombre|filter:filterApellido|filter:filterEstado|filter:filterDocumento|filter:filterNumero|filter:filterTelefono|filter:filterPerfil; let indice = index" [ngClass]="{'resaltado': data.us_activo == '0'}">
+        <td >{{ indice+1}}</td>
+        <td (click)="modalResumenUsuario(data.id_usuario)">{{ data.us_apellidos }}</td>
+        <td (click)="modalResumenUsuario(data.id_usuario)">{{ data.us_nombres }}</td>
+        <td (click)="modalResumenUsuario(data.id_usuario)" >{{ data.TipoDocumentos.tipodoc_descripcion}} : {{ data.us_numeroDocumento }} </td>
+        <td (click)="modalResumenUsuario(data.id_usuario)">{{ data.us_login}} : {{ data.Perfils.perf_nombre}}</td> 
+        <td (click)="modalResumenUsuario(data.id_usuario)">
+          <div id="label">
+            <label id="activo" *ngIf="data.us_activo" for=""> Activo </label>
+            <label id="inactivo" *ngIf="!data.us_activo" for=""> Inactivo </label>
+          </div>
 
-      </td>
-      <td style="text-align: center;">
-        <nz-button-group>
-          <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-            <i nz-icon nzType="setting"></i>
-          </button>
-        </nz-button-group>
-        <nz-dropdown-menu #menu2="nzDropdownMenu">
-          <ul nz-menu>
-            <li nz-menu-item>
-              <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip id="delete" ntype="button"
-                class="btn btn-danger" (click)="deleteUsuario(data.id_usuario)">
-                <i nz-icon nzType="delete" nzTheme="outline"></i>
-              </button>
+        </td>
+        <td style="text-align: center;">
+          <nz-button-group>
+            <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+              <i nz-icon nzType="setting"></i>
+            </button>
+          </nz-button-group>
+          <nz-dropdown-menu #menu2="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <button nzTooltipTitle="Eliminar" nzTooltipPlacement="left" nz-tooltip id="delete" ntype="button"
+                  class="btn btn-danger" (click)="deleteUsuario(data.id_usuario)">
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
 
-            </li>
-            <li nz-menu-item>
-              <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" id="edit" nz-tooltip
-                class="btn btn-warning" (click)="showModalUsuarioEdit(data.id_usuario)">
-                <i nz-icon nzType="edit" nzTheme="outline"></i>
-              </button>
-            </li>
-          </ul>
-        </nz-dropdown-menu>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
-
+              </li>
+              <li nz-menu-item>
+                <button type="button" nzTooltipTitle="Editar" nzTooltipPlacement="right" id="edit" nz-tooltip
+                  class="btn btn-warning" (click)="showModalUsuarioEdit(data.id_usuario)">
+                  <i nz-icon nzType="edit" nzTheme="outline"></i>
+                </button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
 <app-form-usuario [isVisibleUsuario]="isVisibleUsuario" (newVisibleUsuario)="nuevoDato()" [idUsuario]="idUsuario">
 </app-form-usuario>
 <app-resum-usuario [isVisbleResumenUsuario] = "isVisbleResumenUsuario" (newVisibleResumenUsuario)  = "nuevoDatoResumenDato()" [idUsuario]="idUsuario"> </app-resum-usuario>
