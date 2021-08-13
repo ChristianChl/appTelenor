@@ -20,6 +20,7 @@ const categoria_1 = __importDefault(require("../routes/categoria"));
 const medida_1 = __importDefault(require("../routes/medida"));
 const tipoProducto_1 = __importDefault(require("../routes/tipoProducto"));
 const producto_1 = __importDefault(require("../routes/producto"));
+const historialProducto_1 = __importDefault(require("../routes/historialProducto"));
 const perfil_1 = __importDefault(require("../routes/perfil"));
 const permiso_1 = __importDefault(require("../routes/permiso"));
 const tipoDocumento_1 = __importDefault(require("../routes/tipoDocumento"));
@@ -45,6 +46,7 @@ class Server {
             medidad: '/api/medida',
             tipoProducto: '/api/tipoProducto',
             producto: '/api/producto',
+            historialProducto: '/api/historialProducto',
             perfil: '/api/perfil',
             permiso: '/api/permiso',
             tipoDocumento: '/api/tipoDocumento',
@@ -105,6 +107,7 @@ class Server {
         this.app.use(this.apiPaths.monedas, moneda_1.default);
         this.app.use(this.apiPaths.Cotizacion, cotizacion_1.default);
         this.app.use(this.apiPaths.DetalleCotizacion, detalleCotizacion_1.default);
+        this.app.use(this.apiPaths.historialProducto, historialProducto_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

@@ -1,37 +1,35 @@
-<div class="buttons" style="margin-top: 20px;margin-left: 10px;margin-right: 10px;"> 
-    <!-- 
-    <button class="offset" routerLink="/dashboard/listaProducto">Lista Productos</button>
-    <button class="offset" routerLink="/dashboard/listaVentas" style="margin-left: 20px;">Lista Ventas</button> 
-    <button class="offset" routerLink="/dashboard/listaCotizaciones" style="margin-left: 20px;">Lista Cotizacion</button> 
-    -->
+<div class="buttons" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;"> 
     
     
 
-    <div style="background: #ECECEC;padding:20px; text-align: center;">
+    <div style="background: #ECECEC;padding:5px; text-align: center;">
         <div nz-row [nzGutter]="8">
           <div nz-col [nzSpan]="4">
               
             <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaProducto" style="background-color: #E88B58">
                 <div class="row">
                     <div class="col-8">
-                        <span class="LetrasCard1" style="color: floralwhite;font-size: 20px;">Lista</span> <br>
-                        <span class="LetrasCard1" style="color: floralwhite;">Productos</span>
+                        <span class="LetrasCard1" style="color: floralwhite;font-size: 18px">Productos</span>
                     </div>
                     <div class="col-4">
-                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="file-done" nzTheme="outline"></i>
+                        <i nz-icon class="IconoShooping" style="margin-right: 0px; color: floralwhite;right: 27px;" nzType="file-done" nzTheme="outline"></i>
                     </div>
                 </div>
             </nz-card>
           </div>
+<<<<<<< HEAD
           <div nz-col [nzSpan]="4">
             <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaVentas" style="background-color: #E88B58">
+=======
+          <div nz-col [nzSpan]="4" >
+            <nz-card [nzHoverable] = "true" style="background-color: #E88B58; ">
+>>>>>>> 14dddfaf1f9c30e874e980489cddbbddca610188
                 <div class="row">
                     <div class="col-8">
-                        <span class="LetrasCard1" style="color: floralwhite;font-size: 20px;">Realizar</span> <br>
-                        <span class="LetrasCard1" style="color: floralwhite;">Venta</span>
+                        <span class="LetrasCard1" style="color: floralwhite;font-size: 18px">Ventas</span>
                     </div>
                     <div class="col-4">
-                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="shopping-cart" nzTheme="outline"></i>
+                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;right: 20px; position: relative;" nzType="shopping-cart" nzTheme="outline"></i>
                     </div>
                 </div>
             </nz-card>
@@ -40,11 +38,10 @@
             <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaCotizaciones" style="background-color: #E88B58">
                 <div class="row">
                     <div class="col-8">
-                        <span class="LetrasCard1" style="color: floralwhite; font-size: 20px;">Realizar</span> <br>
-                        <span class="LetrasCard1" style="color: floralwhite;">Cotización</span>
+                        <span class="LetrasCard1" style="color: floralwhite;font-size: 18px">Cotización</span>
                     </div>
                     <div class="col-4">
-                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="file-excel" nzTheme="outline"></i>
+                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;right: 27px;" nzType="file-excel" nzTheme="outline"></i>
                     </div>
                 </div>
             </nz-card>
@@ -53,11 +50,10 @@
             <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaCliente" style="background-color: #E88B58">
                 <div class="row">
                     <div class="col-8">
-                        <span class="LetrasCard1" style="color: floralwhite; font-size: 20px;">Lista</span> <br>
-                        <span class="LetrasCard1" style="color: floralwhite;">Clientes</span>
+                        <span class="LetrasCard1" style="color: floralwhite;font-size: 18px">Clientes</span>
                     </div>
                     <div class="col-4">
-                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="user" nzTheme="outline"></i>
+                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;right: 15px;position: relative" nzType="user" nzTheme="outline"></i>
                     </div>
                 </div>
             </nz-card>
@@ -66,11 +62,10 @@
             <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaProveedor" style="background-color: #E88B58">
                 <div class="row">
                     <div class="col-8">
-                        <span class="LetrasCard1" style="color: floralwhite; font-size: 20px;">Lista</span> <br>
-                        <span class="LetrasCard1" style="color: floralwhite;">Proveedores</span>
+                        <span class="LetrasCard1" style="color: floralwhite;font-size: 18px">Proveedores</span>
                     </div>
                     <div class="col-4">
-                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;position: relative;right: 27px;" nzType="user" nzTheme="outline"></i>
+                        <i nz-icon class="IconoShooping" style="margin-right: 5px; color: floralwhite;right: 27px;" nzType="user" nzTheme="outline"></i>
                     </div>
                 </div>
             </nz-card>
@@ -112,17 +107,18 @@
     </div>
     <div class="col-3" >
          <h2 >Productos Sin Salida</h2>
-        <ul nz-list [nzDataSource]="productoSinMoviento" nzBordered nzSize="large">
-            <a  routerLink="/dashboard/listaProducto"><nz-list-header >ir a Productos</nz-list-header></a>
-                <li nz-list-item *ngFor="let item of productoSinMoviento" nzNoFlex>
-                
-                {{ item.prod_modelo }}
-                </li>
-        </ul>
+        
+         <nz-list nzBordered >
+            <nz-list-item *ngFor="let item of productoSinMoviento">
+              {{ item.prod_modelo }}
+              <a (click)="modalEditProducto(item.id_Producto)"> edit</a>
+            </nz-list-item>
+          </nz-list>
     </div>
 </div>
 
-
-
 <div class="row" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
 </div>
+
+<app-form-producto [cambioTiempo]="cambioTiempo" [isVisibleProducto]="isVisibleProducto" [idProducto]="idProducto" (newVisibleProducto)="nuevoDatoProducto()"></app-form-producto>
+  

@@ -98,8 +98,13 @@
                           <i nz-icon nzType="edit" nzTheme="outline"></i>                                                          
                       </button>
                     </li>
+                    <li nz-menu-item>
+                      <button type="button" nzTooltipTitle="Historial" nzTooltipPlacement="right" nz-tooltip class="btn btn-warning"  (click)="modalHistorial(data.id_Producto)" >
+                          <i nz-icon nzType="profile" nzTheme="outline"></i>                                                          
+                      </button>
+                    </li>
                   </ul>
-                </nz-dropdown-menu>
+              </nz-dropdown-menu>
 
               
               
@@ -109,7 +114,8 @@
   </nz-table>
 </div>
   <app-form-producto [isVisibleProducto]="isVisibleProducto" [idProducto]="idProducto" (newVisibleProducto)="nuevoDatoProducto()"></app-form-producto>
+  <app-lista-hitorial [isVisibleHistorial]="isVisibleHistorial" [idProducto]="idProducto" (newVisibleHistorial)="nuevoDatoHistorial()"></app-lista-hitorial>
   
-
+  
 
 

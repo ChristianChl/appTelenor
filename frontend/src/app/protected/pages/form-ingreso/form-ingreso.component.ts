@@ -8,10 +8,12 @@ import { PersonaService } from '../../services/persona.service'
 import { ProductoService } from '../../services/producto.service';
 import { IngresoService } from '../../services/ingreso.service';
 import { DetalleIngresoService } from '../../services/detalle-ingreso.service';
+import { HistorialProductoService } from '../../services/historial-producto.service';
 
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { HistorialProducto } from '../../interfaces/HistorialProducto';
 
 @Component({
   selector: 'app-form-ingreso',
@@ -39,6 +41,24 @@ export class FormIngresoComponent implements OnInit{
     ordenCompra: new FormControl()
     
   });
+
+  historialProducto:HistorialProducto = {
+    id_historial: 0,
+    id_producto: 0,
+    hist_modelo: "",
+    hist_descripcion: "",
+    hist_caracteristica: "",
+    hist_stock: 0,
+    hist_imagen: "",
+    hist_activo: "",
+    hist_precioVenta: 0,
+    hist_cambioTiempo:"",
+    fk_id_categoria: "",
+    fk_id_marca: "",
+    fk_id_medida: "",
+    fk_id_tipo: "",
+    fk_id_usuario: ""
+  }
 
   ingreso: Ingreso = {
     id_ingreso: 0,
@@ -92,7 +112,8 @@ export class FormIngresoComponent implements OnInit{
     private detalleIngresoService:DetalleIngresoService,
     private authService: AuthService,
     private fb:FormBuilder,
-    private router: Router,) {
+    private router: Router,
+    private historialProductoService:HistorialProductoService) {
  
     this.skillsForm = this.fb.group({
       skills: this.fb.array([]) ,
@@ -135,6 +156,38 @@ export class FormIngresoComponent implements OnInit{
   }
 
   actualizaProducto(id:any, productoActualizar:any){
+
+    this.historialProducto.id_producto = productoActualizar.id_Producto;
+    this.historialProducto.hist_modelo = productoActualizar.prod_modelo;
+    this.historialProducto.hist_descripcion = productoActualizar.prod_descripcion;
+    this.historialProducto.hist_caracteristica = productoActualizar.prod_caracteristica;
+    this.historialProducto.hist_stock = productoActualizar.prod_stock;
+    this.historialProducto.hist_imagen = productoActualizar.prod_imagen;
+    this.historialProducto.hist_activo = productoActualizar.prod_activo;
+    this.historialProducto.hist_precioVenta = productoActualizar.prod_precioVenta;
+    this.historialProducto.hist_activo = productoActualizar.prod_activo;
+    this.historialProducto.fk_id_categoria = productoActualizar.fk_id_categoria;
+    this.historialProducto.fk_id_marca = productoActualizar.fk_id_marca;
+    this.historialProducto.fk_id_medida = productoActualizar.fk_id_medida;
+    this.historialProducto.fk_id_tipo = productoActualizar.fk_id_tipo;
+    this.historialProducto.hist_cambioTiempo = "Compra";
+    this.historialProducto.fk_id_usuario = this.usuario.uid;
+
+    console.log(this.historialProducto);
+
+    this.historialProductoService.saveHistorialProducto(this.historialProducto)
+    .subscribe(ok =>{
+      if( ok == true ) {
+        console.log("Historial guardado")
+        
+
+      }else{
+
+        console.log("Error - Historial no guardado")
+      }
+    })
+
+
     this.prductoService.updateProducto(id, productoActualizar)
     .subscribe(
       ok => {

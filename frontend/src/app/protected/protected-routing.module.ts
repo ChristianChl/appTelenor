@@ -30,6 +30,11 @@ import { ReporteVentasComponent } from './pages/reporte-ventas/reporte-ventas.co
 import { KardexComponent } from './pages/kardex/kardex.component';
 import { PreciosProductosComponent } from './pages/precios-productos/precios-productos.component';
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 14dddfaf1f9c30e874e980489cddbbddca610188
 const routes: Routes = [
   {
     path: '',

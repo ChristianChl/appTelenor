@@ -1,0 +1,67 @@
+<nz-modal
+  [(nzVisible)]="isVisibleHistorial"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancelHistorial()"
+  (nzAfterOpen) = "ngOnInit()"
+  nzWidth = 1100px
+  
+>
+  <ng-template #modalTitle >Historial</ng-template>
+
+  <ng-template #modalContent >
+    
+    <nz-table nzBordered #basicTable [nzData]="historialProducto" style=" margin-left: 3px; margin-right: 3px;">
+        <thead>
+          <tr>
+            <th style="text-align: center;"><strong>#</strong> </th>
+            <th  style="text-align: center;"><strong>Modelo</strong></th>
+            <th style="text-align: center;"><strong>Caracteristica</strong></th>
+            <th style="text-align: center;"><strong>Tipo</strong></th>
+            <th style="text-align: center;"><strong>Categoria</strong></th>
+            <th style="text-align: center;"><strong>U.Medida</strong></th>
+            <th  style="text-align: center;"><strong>Stock</strong></th>
+            <th  style="text-align: center;"><strong>Estado</strong></th>
+            <th  style="text-align: center;"><strong>Precio Ven.</strong></th>
+            <th  style="text-align: center;"><strong>Usuario</strong></th>
+            <th  style="text-align: center;"><strong>Raz. Edit.</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data; let indice = index">
+            <td>{{ indice+1}}</td>
+            <td>{{ data.hist_modelo }}</td>
+            <td>{{ data.hist_caracteristica }}</td>
+            <td>{{ data.Tipos.tip_nombre }}</td>
+            <td>{{ data.Categorias.cat_nombre }}</td>
+            <td>{{ data.Medidas.med_unidad}}</td>
+            <td>{{ data.hist_stock}}</td>
+            <td> 
+              <div id="label">
+                <label id="activo" *ngIf="data.hist_activo" for=""> Activo </label>
+                <label id="inactivo" *ngIf="!data.hist_activo" for=""> Inactivo </label>
+              </div>
+            </td>
+            <td>{{ data.hist_precioVenta}}</td>
+            <td>{{ data.Usuarios.us_nombres}}</td>
+            <td>{{ data.hist_cambioTiempo}}</td>
+          </tr>
+        </tbody>
+    </nz-table>
+      
+      
+  </ng-template>
+  
+
+  <ng-template #modalFooter >
+    <button style="padding-left: 5px; padding-right: 5px;" nz-button nzType="default" (click)="handleCancelHistorial()"><i style="vertical-align:1px; " nz-icon nzType="close-circle"></i>Cancelar</button>
+    <button style="padding-left: 5px; padding-right: 5px;" nz-button nzType="primary" ><i style="vertical-align:1px; " nz-icon nzType="save"></i>Guardar</button>
+  </ng-template>
+</nz-modal>
+
+
+
+
+
+
