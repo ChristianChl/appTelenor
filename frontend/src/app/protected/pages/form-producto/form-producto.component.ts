@@ -4,11 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Producto } from '../../interfaces/Producto';
+import { HistorialProducto } from '../../interfaces/HistorialProducto';
 import { CategoriasService } from '../../services/categorias.service';
 import { MarcaService } from '../../services/marca.service';
 import { ProductoService } from '../../services/producto.service';
 import { TipoProductoService } from '../../services/tipo-producto.service';
 import { UnidadMedidaService } from '../../services/unidad-medida.service';
+import { HistorialProductoService } from '../../services/historial-producto.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-form-producto',
@@ -19,9 +22,11 @@ export class FormProductoComponent implements OnInit {
 
   @Input() isVisibleProducto: any;
   @Input() idProducto: any;
+  @Input() cambioTiempo: any;
   @Output() newVisibleProducto : EventEmitter<boolean>  = new EventEmitter<boolean>();
 
   img = 'https://tse2.mm.bing.net/th?id=OIP.2jHHTQc6_5uS-HvEaMzK1wHaHa&pid=Api&P=0&w=300&h=300';
+  precioActual:any = "";
   formProducto = new FormGroup({
     modeloProducto: new FormControl(),
     descripcionProducto: new FormControl(),
@@ -50,10 +55,29 @@ export class FormProductoComponent implements OnInit {
     prod_activo: "",
     prod_precioVenta: 0,
     fk_id_categoria: "",
+    createdAt:"",
     fk_id_marca: "",
     fk_id_medida: "",
     fk_id_tipo: ""
   };
+
+  historialProducto:HistorialProducto = {
+    id_historial: 0,
+    id_producto: 0,
+    hist_modelo: "",
+    hist_descripcion: "",
+    hist_caracteristica: "",
+    hist_stock: 0,
+    hist_imagen: "",
+    hist_activo: "",
+    hist_precioVenta: 0,
+    hist_cambioTiempo:"",
+    fk_id_categoria: "",
+    fk_id_marca: "",
+    fk_id_medida: "",
+    fk_id_tipo: "",
+    fk_id_usuario:""
+  }
   
   toppings: FormGroup;
   // Funciones de Marca
@@ -124,7 +148,9 @@ export class FormProductoComponent implements OnInit {
     private medidaService: UnidadMedidaService, 
     private tipoProductoService: TipoProductoService, 
     private router: Router, 
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private historialProductoService:HistorialProductoService,
+    private authService:AuthService
   ) { 
 
     this.buildForm();
@@ -140,12 +166,22 @@ export class FormProductoComponent implements OnInit {
 
     this.edit = false;
     this.producto.prod_activo = "true";
+    console.log(this.cambioTiempo);
+    if(this.cambioTiempo == true){
+      this.historialProducto.hist_cambioTiempo = "Precio Editado por Falta de Ventas";
+    }
+    else{
+      this.historialProducto.hist_cambioTiempo = "Editado";
+    }
+    console.log(this.cambioTiempo);
     if(this.idProducto != ""){
       this.productoService.getProducto(this.idProducto)
       .subscribe(
         res => {
           console.log(res);
           this.producto = res;
+          console.log(this.producto);
+          this.precioActual = this.producto.prod_precioVenta
           this.edit = true;
         },
         err => console.log(err)
@@ -159,6 +195,11 @@ export class FormProductoComponent implements OnInit {
     this.getMedida();
     this.getTipoProducto();
   }
+
+  get usuario(){
+    return this.authService.usuario;
+    console.log(this.usuario);
+  } 
 
   getCategoria(){
       this.categoriaService.getCategorias().subscribe(
@@ -232,16 +273,68 @@ export class FormProductoComponent implements OnInit {
       this.formProducto.controls[i].updateValueAndValidity();
     }
   }
+  
+  productos:any = [];
+  
+  getProductos(){
+    this.productoService.getProductos().subscribe(
+      res => {
+        this.productos = res;
+        this.productos = this.productos.producto;
+        
+        console.log(this.productos);
+        let tamaño = this.productos.length; 
 
+        
+        this.producto = this.productos[tamaño-1];
+        console.log(this.producto);
+        
+        this.historialProducto.id_producto = this.producto.id_Producto;
+        this.historialProducto.hist_modelo = this.producto.prod_modelo;
+        this.historialProducto.hist_descripcion = this.producto.prod_descripcion;
+        this.historialProducto.hist_caracteristica = this.producto.prod_caracteristica;
+        this.historialProducto.hist_stock = this.producto.prod_stock;
+        this.historialProducto.hist_imagen = this.producto.prod_imagen;
+        this.historialProducto.hist_activo = this.producto.prod_activo;
+        this.historialProducto.hist_precioVenta = this.producto.prod_precioVenta;
+        this.historialProducto.hist_activo = this.producto.prod_activo;
+        this.historialProducto.fk_id_categoria = this.producto.fk_id_categoria;
+        this.historialProducto.fk_id_marca = this.producto.fk_id_marca;
+        this.historialProducto.fk_id_medida = this.producto.fk_id_medida;
+        this.historialProducto.fk_id_tipo = this.producto.fk_id_tipo;
+        this.historialProducto.hist_cambioTiempo = "Creado";
+        this.historialProducto.fk_id_usuario = this.usuario.uid;
+        
+        console.log(this.historialProducto);
+
+        this.historialProductoService.saveHistorialProducto(this.historialProducto)
+        .subscribe(ok =>{
+          if( ok == true ) {
+            console.log("Historial guardado")
+            
+    
+          }else{
+
+            console.log("Error - Historial no guardado")
+          }
+        })
+
+
+      },
+      err => console.error(err)
+    );
+  }
 
   saveNewProducto(){
 
-  
+    
     this.productoService.saveProducto(this.producto)
     .subscribe(ok =>{
       
+
       if( ok == true && this.formProducto.valid ) {
         
+        this.getProductos()
         Swal.fire('Success', 'Producto creado exitosamente!', 'success');
         this.formProducto.reset();
         this.router.navigateByUrl('/dashboard/listaProducto');
@@ -258,10 +351,13 @@ export class FormProductoComponent implements OnInit {
 
   updateProducto(){
 
-    console.log("Entro a editar");
+    console.log(this.producto);
     const params = this.activatedRoute.snapshot.params;
-    this.productoService.updateProducto(this.idProducto, this.producto)
-      .subscribe(
+    if(this.cambioTiempo = true){
+      if(this.precioActual != this.producto.prod_precioVenta){
+        this.producto.createdAt = (new Date()).toString();
+        this.productoService.updateProducto(this.idProducto, this.producto)
+        .subscribe(
         ok => {
           if (this.formProducto.valid) {
             Swal.fire({
@@ -271,6 +367,33 @@ export class FormProductoComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
             });
+            
+
+            this.historialProducto.id_producto = this.producto.id_Producto;
+            this.historialProducto.hist_modelo = this.producto.prod_modelo;
+            this.historialProducto.hist_descripcion = this.producto.prod_descripcion;
+            this.historialProducto.hist_caracteristica = this.producto.prod_caracteristica;
+            this.historialProducto.hist_stock = this.producto.prod_stock;
+            this.historialProducto.hist_imagen = this.producto.prod_imagen;
+            this.historialProducto.hist_activo = this.producto.prod_activo;
+            this.historialProducto.hist_precioVenta = this.producto.prod_precioVenta;
+            this.historialProducto.hist_activo = this.producto.prod_activo;
+            this.historialProducto.fk_id_categoria = this.producto.fk_id_categoria;
+            this.historialProducto.fk_id_marca = this.producto.fk_id_marca;
+            this.historialProducto.fk_id_medida = this.producto.fk_id_medida;
+            this.historialProducto.fk_id_tipo = this.producto.fk_id_tipo;
+            this.historialProducto.fk_id_usuario = this.usuario.uid;
+
+            this.historialProductoService.saveHistorialProducto(this.historialProducto)
+            .subscribe(ok =>{
+              if( ok == true ) {
+                console.log("Historial guardado")
+              }
+              else{
+                console.log("Error - Historial no guardado")
+              }
+            })
+
             this.formProducto.reset();
             this.ngOnInit();
             this.isVisibleProducto = false;
@@ -283,6 +406,70 @@ export class FormProductoComponent implements OnInit {
           }
           
         });
+      }
+      else{
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Por favor edite el campos de Precio',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+      
+    }
+    else{
+      this.productoService.updateProducto(this.idProducto, this.producto)
+      .subscribe(
+        ok => {
+          if (this.formProducto.valid) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se guardo con Exito',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            
+
+            this.historialProducto.id_producto = this.producto.id_Producto;
+            this.historialProducto.hist_modelo = this.producto.prod_modelo;
+            this.historialProducto.hist_descripcion = this.producto.prod_descripcion;
+            this.historialProducto.hist_caracteristica = this.producto.prod_caracteristica;
+            this.historialProducto.hist_stock = this.producto.prod_stock;
+            this.historialProducto.hist_imagen = this.producto.prod_imagen;
+            this.historialProducto.hist_activo = this.producto.prod_activo;
+            this.historialProducto.hist_precioVenta = this.producto.prod_precioVenta;
+            this.historialProducto.hist_activo = this.producto.prod_activo;
+            this.historialProducto.fk_id_categoria = this.producto.fk_id_categoria;
+            this.historialProducto.fk_id_marca = this.producto.fk_id_marca;
+            this.historialProducto.fk_id_medida = this.producto.fk_id_medida;
+            this.historialProducto.fk_id_tipo = this.producto.fk_id_tipo;
+
+            this.historialProductoService.saveHistorialProducto(this.historialProducto)
+            .subscribe(ok =>{
+              if( ok == true ) {
+                console.log("Historial guardado")
+              }
+              else{
+                console.log("Error - Historial no guardado")
+              }
+            })
+
+            this.formProducto.reset();
+            this.ngOnInit();
+            this.isVisibleProducto = false;
+            this.newVisibleProducto.emit(this.isVisibleProducto);
+          }
+          else{
+            this.formProducto.markAllAsTouched();
+            Swal.fire('Error', ok, 'error');
+            console.log(ok);
+          }
+          
+    });
+    }
+    
   }
 
   

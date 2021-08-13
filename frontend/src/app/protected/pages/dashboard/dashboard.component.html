@@ -112,13 +112,10 @@
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu3}" *ngIf="isExpanded || isShowing">expand_more
         </mat-icon>
       </mat-list-item>
-<<<<<<< HEAD
+
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu3}" *ngIf="isShowing || isExpanded">
         <a class="full-width" href="..." mat-list-item ><mat-icon mat-list-icon>attach_money</mat-icon>Precios Venta</a>
-=======
-      <div class="submenu" [ngClass]="{'expanded' : showSubmenu3}" *ngIf="isShowing || isExpanded"request_quote>
-        <a class="full-width" mat-list-item routerLink="/dashboard/precioProductos"><mat-icon mat-list-icon>request_quote</mat-icon>Precios Venta</a>
->>>>>>> d44907983c11bfb7424e6cdf90d04bcc409c469e
+
       </div>
       <mat-list-item (click)="showSubmenu4 = !showSubmenu4" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Client-Prov.</span>
@@ -140,13 +137,10 @@
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu5}" *ngIf="isShowing || isExpanded">
-<<<<<<< HEAD
+
         <a class="full-width" routerLink="/dashboard/reporteVenta" mat-list-item ><mat-icon mat-list-icon>point_of_sale</mat-icon>Reporte Ven.</a>
         <a class="full-width" routerLink="/dashboard/reporteProducto" mat-list-item ><mat-icon mat-list-icon>window</mat-icon>Reporte Prod.</a>
-=======
-        <a class="full-width" mat-list-item ><mat-icon mat-list-icon>description</mat-icon>Reporte Ven.</a>
-        <a class="full-width" mat-list-item routerLink="/dashboard/reporteProducto"><mat-icon mat-list-icon>description</mat-icon>Reporte Prod.</a>
->>>>>>> d44907983c11bfb7424e6cdf90d04bcc409c469e
+
       </div>
       <mat-list-item class="parent" (click)="logout()">
         <span class="full-width" *ngIf="isExpanded || isShowing">Logout</span>

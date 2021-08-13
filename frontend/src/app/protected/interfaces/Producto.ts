@@ -11,6 +11,7 @@ export interface Producto{
     fk_id_marca?: string;
     fk_id_medida?: string;
     fk_id_tipo?: string;
+    createdAt?:string;
     ok?:boolean;
     msg?:string;
 }

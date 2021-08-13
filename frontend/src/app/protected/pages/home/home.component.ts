@@ -144,12 +144,6 @@ export class HomeComponent implements OnInit {
               this.productoSinMoviento.push(this.producto[i]);
             }
           }
-
-          console.log(this.productoSinMoviento);
-          
-
-          
-          
         }
 
       },
@@ -321,6 +315,21 @@ export class HomeComponent implements OnInit {
       err => console.error(err)
     );
   }
-  
+  isVisibleProducto = false;
+  idProducto = "";
+  cambioTiempo = true;
+  modalEditProducto(id:string){
 
+    console.log("Este es el id _-----" + id);
+    this.isVisibleProducto = true;
+    this.idProducto = id;
+    this.cambioTiempo = true;
+  }
+
+  nuevoDatoProducto(){
+    this.ngOnInit();
+    this.isVisibleProducto = false;
+  }
+
+  
 }

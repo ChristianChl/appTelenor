@@ -11,6 +11,7 @@ export class ListProductoComponent implements OnInit {
 
   isVisibleProducto = false;
   isVisibleCategoria = false;
+  isVisibleHistorial = false;
 
   filterModelo = "";
   filterCaracteristica = "";
@@ -45,6 +46,13 @@ export class ListProductoComponent implements OnInit {
 
     console.log("Este es el id _-----" + id);
     this.isVisibleProducto = true;
+    this.idProducto = id;
+  }
+
+  modalHistorial(id:string){
+
+    console.log("Este es el id _-----" + id);
+    this.isVisibleHistorial = true;
     this.idProducto = id;
   }
 
@@ -108,5 +116,10 @@ export class ListProductoComponent implements OnInit {
     this.ngOnInit();
     this.isVisibleCategoria = false;
   }
+  nuevoDatoHistorial(){
+    this.ngOnInit();
+    this.isVisibleHistorial = false;
+  }
+
 
 }

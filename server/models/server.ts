@@ -6,6 +6,7 @@ import categoriaRoutes from '../routes/categoria';
 import medidaRoutes from '../routes/medida';
 import tipoProducto from '../routes/tipoProducto';
 import producto from '../routes/producto';
+import historialProducto from '../routes/historialProducto';
 import perfil from '../routes/perfil';
 import permiso from '../routes/permiso';
 import tipoDocumento from '../routes/tipoDocumento';
@@ -33,6 +34,7 @@ class Server {
         medidad: '/api/medida',
         tipoProducto: '/api/tipoProducto',
         producto: '/api/producto',
+        historialProducto: '/api/historialProducto',
         perfil: '/api/perfil',
         permiso: '/api/permiso',
         tipoDocumento: '/api/tipoDocumento',
@@ -105,9 +107,10 @@ class Server {
         this.app.use(this.apiPaths.monedas, moneda );
         this.app.use(this.apiPaths.Cotizacion, Cotizacion );
         this.app.use(this.apiPaths.DetalleCotizacion, DetalleCotizacion );
+        this.app.use(this.apiPaths.historialProducto, historialProducto );
 
     }
-
+    
     listen(){
         this.app.listen(this.port, () => {
             console.log('Servidor corriendo en puerto  ' + this.port);
