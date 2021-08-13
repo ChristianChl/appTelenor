@@ -9,6 +9,7 @@ import { TipoDocumentoService } from '../../services/tipo-documento.service';
 import { PermisoService } from '../../services/permiso.service';
 import { UsuarioPermisoService } from '../../services/usuario-permiso.service';
 import { UsuarioPermiso } from '../../interfaces/UsuarioPermiso';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-form-usuario',
@@ -31,6 +32,8 @@ export class FormUsuarioComponent implements OnInit {
 
   idTipoDocumento = "";
   idPerfil =  "";
+
+  fechaActual: any = "";
   
 
   usuarios: Usuarios = {
@@ -87,13 +90,13 @@ export class FormUsuarioComponent implements OnInit {
               private tipoDocumentoService: TipoDocumentoService,
               private permisoService: PermisoService,
               private activatedRoute: ActivatedRoute,
-              private usuarioPermisoService: UsuarioPermisoService ) { }
+              private usuarioPermisoService: UsuarioPermisoService,
+              private datePipe: DatePipe ) { }
 
   ngOnInit(): void {
     const params = this.activatedRoute.snapshot.params;
     this.edit = false;
     if(this.idUsuario){
-
       this.usuarioService.getUsuario(this.idUsuario)
       .subscribe(
         res => {
@@ -125,6 +128,10 @@ export class FormUsuarioComponent implements OnInit {
         },
         err => console.log(err)
       )
+    }else{
+      this.fechaActual = this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
+      this.usuarios.us_fechaRegistro = this.fechaActual;
+      this.usuarios.us_activo = "true";
     }
 
     this.edit = false;

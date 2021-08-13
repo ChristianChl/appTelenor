@@ -29,6 +29,9 @@ const Venta = db.define('Venta', {
     ven_fechaHora: {
         type: DataTypes.DATE
     },
+    endDate: {
+        type: DataTypes.DATE
+    },
 
     ven_impuesto: {
         type: DataTypes.DECIMAL

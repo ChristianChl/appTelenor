@@ -17,6 +17,7 @@ export class ListProductoComponent implements OnInit {
   filterTipo = "";
   filterCategoria = "";
   filterMedida = "";
+  filterStock ="";
   filterEstado = "";
 
   select: any = [

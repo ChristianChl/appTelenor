@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, CanLoad, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, timeout } from 'rxjs/operators';
 import { AuthService } from '../auth/services/auth.service';
 import { UsuarioPermisoService } from '../protected/services/usuario-permiso.service';
 
@@ -26,6 +26,7 @@ export class ValidarPermisoConfiguracionGuard implements CanActivate {
 
     return this.authService.validarToken()
     .pipe(
+      timeout(2000),
       tap(valid =>{
         if(valid && !this.permiso){
           this.router.navigateByUrl('/dashboard/errorAcesso');

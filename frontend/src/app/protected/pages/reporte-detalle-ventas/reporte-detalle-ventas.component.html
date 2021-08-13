@@ -86,7 +86,7 @@
             *ngFor="let data of basicTable.data; let indice = index">
             <td class="cabeceras">{{ data.id_venta }}</td>
             <td class="cabeceras">{{ data.Personas.per_razonSocial}}</td>
-            <td class="cabeceras">{{ data.ven_fechaHora|date: 'dd-MM-yyyy'}}</td>
+            <td class="cabeceras">{{ data.createdAt|date: 'dd/MM/yyyy'}}</td>
             <td class="cabeceras">{{ data.Monedas.mon_nombre}}</td>
             <td class="cabeceras">{{ data.ven_total}}</td>
             </tr>

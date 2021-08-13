@@ -14,14 +14,18 @@
     <div class="row" class="textInputs" style="margin: auto; text-align: center;"  >
       <div class="col-12" style="margin: auto;  text-align: center;">
 
-          <label for="" style="margin-right: 10px;">Desde</label>
-          <input type="date" nz-input formControlName="startDate" style="width:15%;" />
-
-          <label for="" style="margin-right: 10px; margin-left: 40px;">Hasta</label>
-          <input type="date" nz-input formControlName="endDate" style="width:15%;" />
-
-          <button (click)="buscar()" style="margin-left: 20px;" nz-button nzType="primary"><i
-                  style="vertical-align:1px;" nz-icon nzType="search"></i>Buscar</button>
+        <label for="" style="margin-right: 10px;">Desde</label>
+        <input type="date" nz-input formControlName="startDate" style="width:15%;" />
+        
+        <label for="" style="margin-right: 10px; margin-left: 40px;">Hasta</label>
+        <input type="date" nz-input formControlName="endDate" style="width:15%;" />
+        
+        <button (click)="buscar()" style="margin-left: 20px;" nz-button nzType="primary"><i
+          style="vertical-align:1px;" nz-icon nzType="search"></i>Buscar</button>
+          
+        <button (click)="buscarPorDia()" style="margin-left: 20px;" nz-button nzType="primary"><i
+          style="vertical-align:1px;" nz-icon nzType="shopping-cart"></i>Ventas del Día</button>
+                  
       </div>
   </div>
     <br>
@@ -52,10 +56,10 @@
       <div class="col-8" style="background-color: dodgerblue;text-align: center;">
         <div class="row">
           <div class="col-4">
-            <i style="color: floralwhite;position: relative;left: 120px;top: -2px;" nz-icon nzType="info-circle" nzTheme="outline"></i>
+            <!-- <i style="color: floralwhite;position: relative;left: 120px;top: -2px;" nz-icon nzType="info-circle" nzTheme="outline"></i> -->
           </div>
           <div class="col-4"> 
-            <span style="color: floralwhite;">No se encontraron registros</span>
+            <span style="color: floralwhite;">¡No se encontraron registros!</span>
           </div>
         </div>
       </div>

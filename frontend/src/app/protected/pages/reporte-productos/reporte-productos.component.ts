@@ -11,6 +11,14 @@ import { buffer } from 'rxjs/operators';
 })
 export class ReporteProductosComponent implements OnInit {
   producto:any = [];
+
+  filterModelo = "";
+  filterCaracteristica = "";
+  filterTipo = "";
+  filterCategoria = "";
+  filterMedida = "";
+  filterStock ="";
+  
   constructor(private prductoService:ProductoService) { }
 
   ngOnInit(): void {

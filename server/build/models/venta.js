@@ -29,6 +29,9 @@ const Venta = connection_1.default.define('Venta', {
     ven_fechaHora: {
         type: sequelize_1.DataTypes.DATE
     },
+    endDate: {
+        type: sequelize_1.DataTypes.DATE
+    },
     ven_impuesto: {
         type: sequelize_1.DataTypes.DECIMAL
     },

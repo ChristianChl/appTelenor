@@ -96,7 +96,7 @@ export class ReporteDetalleVentasComponent implements OnInit {
     this.resetar();
     this.fechaDesde = new Date(this.fechaInicio);
     this.fechaHasta = new Date(this.fechaFinal);
-    this.fechaDesde.setDate(this.fechaDesde.getDate());
+    this.fechaDesde.setDate(this.fechaDesde.getDate() + 1);
     this.fechaHasta.setDate(this.fechaHasta.getDate() + 2);
     this.fechaFormateada1 = this.datePipe.transform(this.fechaDesde.toISOString(), 'yyyy-MM-dd');
     this.fechaFormateada2 = this.datePipe.transform(this.fechaHasta.toISOString(), 'yyyy-MM-dd');

@@ -15,15 +15,10 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-
-
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-
 import { NzMessageModule } from 'ng-zorro-antd/message';
-
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
-
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzListModule } from 'ng-zorro-antd/list';
@@ -58,10 +53,6 @@ import { NzListModule } from 'ng-zorro-antd/list';
     NzAlertModule,
     NzCollapseModule,
     NzListModule
-<<<<<<< HEAD
-
-=======
->>>>>>> d44907983c11bfb7424e6cdf90d04bcc409c469e
   ]
 })
 export class ZorroModule { }

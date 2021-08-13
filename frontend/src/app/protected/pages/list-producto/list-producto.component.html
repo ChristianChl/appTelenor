@@ -1,4 +1,23 @@
-<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 10px;">
+  <div class="row">
+    <div class="col-4" id="pointer1" style="margin-left: 22px; margin-right: 10px;">
+      <i nz-icon nzType="home" nzTheme="outline" style="color: rgb(250, 250, 250);position: relative;right: -23px;top: 7px; transform: scale(1.5)"></i>
+    </div>
+    <div class="col-4" id="pointer2" style="margin-left: 10px; margin-right: 10px;" >
+      <p style="color: rgb(250, 250, 250);position: relative;right: -30px;top: 10px; transform: scale(1)">Almacén</p>
+    </div>
+    <div class="col-4" id="pointer3" style="margin-left: 10px; margin-right: 10px;" >
+      <p style="color: rgb(250, 250, 250);position: relative;right: -20px;top: 10px; transform: scale(1)">Productos</p>
+    </div>
+  </div>
+  <!-- <hr style="position: relative;top: -10px;margin-left: 10px; margin-right: 10px;"> -->
+  <p></p>
+  <div class="row" style="margin-left: 10px; margin-right: 10px;">
+    <div class="col-12" style="background-color: rgb(40, 23, 114);">
+          <span style="color: floralwhite;">Aquí se Registrará Todos los Productos para sus Ventas Posteriores.</span>
+    </div>
+  </div>
+
   <button id="botonNuevo" (click)="openModalProducto()" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
 
   <nz-table nzBordered #basicTable [nzData]="producto" style=" margin-left: 10px; margin-right: 10px;">
@@ -31,9 +50,9 @@
             </nz-input-group>
           </th>
           <th  style="text-align: center;"><strong>Stock</strong>
-            <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
-              <nz-option class="forms-control" style="font-size: 12px;" *ngFor="let option of select" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
-            </nz-select>
+            <nz-input-group nzAddOnAfterIcon="filter">
+              <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterStock" name="filterStock">
+            </nz-input-group>
           </th>
           <th  style="text-align: center;"><strong>Estado</strong>
             <nz-select [(ngModel)]="filterEstado" nzShowSearch nzAllowClear nzPlaceHolder="Selec.."  name="filterEstado" style="margin-top: 10px;  font-size: 12px;">
@@ -44,7 +63,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of basicTable.data|filterProducto:filterModelo|filterProducto:filterCaracteristica|filterProducto:filterTipo|filterProducto:filterCategoria|filterProducto:filterMedida|filterProducto:filterEstado; let indice = index" [ngClass]="{'resaltado': data.prod_activo == '0'}">
+        <tr *ngFor="let data of basicTable.data|filterProducto:filterModelo|filterProducto:filterCaracteristica|filterProducto:filterTipo|filterProducto:filterCategoria|filterProducto:filterMedida|filterProducto:filterStock|filterProducto:filterEstado; let indice = index" [ngClass]="{'resaltado': data.prod_activo == '0'}">
           <td>{{ indice+1}}</td>
           <td>{{ data.prod_modelo }}</td>
           <td>{{ data.prod_caracteristica }}</td>

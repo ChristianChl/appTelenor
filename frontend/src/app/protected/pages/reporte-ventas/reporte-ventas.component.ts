@@ -65,12 +65,65 @@ export class ReporteVentasComponent implements OnInit {
     this.resetar();
     console.log(this.miFormulario.value);
     const {startDate, endDate} = this.miFormulario.value;
-    this.fechaInicio = startDate;
-    this.fechaFinal = endDate;
-    this.fechaDesde = new Date(startDate);
-    this.fechaHasta = new Date(endDate);
-    this.fechaDesde.setDate(this.fechaDesde.getDate());
-    this.fechaHasta.setDate(this.fechaHasta.getDate() + 2);
+    if(startDate != "" && endDate != ""){
+
+      this.fechaInicio = startDate;
+      this.fechaFinal = endDate;
+      this.fechaDesde = new Date(startDate);
+      this.fechaHasta = new Date(endDate);
+      this.fechaDesde.setDate(this.fechaDesde.getDate() + 1);
+      this.fechaHasta.setDate(this.fechaHasta.getDate() + 2);
+      this.fechaFormateada1 = this.datePipe.transform(this.fechaDesde.toISOString(), 'yyyy-MM-dd');
+      this.fechaFormateada2 = this.datePipe.transform(this.fechaHasta.toISOString(), 'yyyy-MM-dd');
+      
+      console.log(this.fechaFormateada1);
+      console.log(this.fechaFormateada2);
+      console.log(this.fechaDesde.toISOString().toString());
+      console.log(this.fechaHasta.toISOString().toString());
+      this.ventasService.getVentasByDates(this.fechaFormateada1, this.fechaFormateada2)
+      .subscribe(resp =>{
+        if(resp.ok == true){
+          this.existDatos = true;
+          this.ventas = resp
+          this.ventas = this.ventas.venta;
+          console.log(this.ventas);
+          for(let i = 0; i< this.ventas.length; i++){
+            if(this.ventas[i].Monedas.mon_nombre == "Dolares"){
+  
+              this.totalCambio = Number(this.ventas[i].ven_total * this.ventas[i].Monedas.mon_tipoCambio);
+              this.subTotal1 += this.totalCambio;
+              console.log('cuando es dolares '+ this.totalVentas);
+            }else{
+              this.totalFinal = Number(this.ventas[i].ven_total);
+              this.subTotal2 += this.totalFinal;
+            }
+          }
+          this.totalVentas = Number(this.subTotal1 + this.subTotal2).toFixed(2);
+          console.log(this.totalVentas);
+  
+        }else{
+          // Swal.fire('Error', resp, 'error');
+          console.log(resp);
+          this.existDatos = false;
+          this.dataError = resp;
+        }
+  
+      });
+
+    }
+    else{
+      this.existDatos = false;
+      this.dataError = "No se encontraron registros";
+    }
+  }
+  buscarPorDia(){
+    this.resetar();
+    this.fechaDesde = new Date();
+    this.fechaHasta = new Date();
+    this.fechaInicio = this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
+    this.fechaFinal =  this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
+    this.fechaDesde.setDate(this.fechaDesde.getDate() );
+    this.fechaHasta.setDate(this.fechaHasta.getDate() + 1);
     this.fechaFormateada1 = this.datePipe.transform(this.fechaDesde.toISOString(), 'yyyy-MM-dd');
     this.fechaFormateada2 = this.datePipe.transform(this.fechaHasta.toISOString(), 'yyyy-MM-dd');
     
@@ -108,6 +161,8 @@ export class ReporteVentasComponent implements OnInit {
 
     });
   }
+
+
   hidde(){
     this.isExpanded = !this.isExpanded;
   }

@@ -50,7 +50,7 @@ const getVentasByDates = (req, res) => __awaiter(void 0, void 0, void 0, functio
             where: {
                 createdAt: {
                     //   [Op.between]: ["2021-07-14T00:00:00.000Z", "2021-07-19T21:03:41.000Z"]
-                    [sequelize_1.Op.between]: [body.createdAt, body.ven_fechaHora]
+                    [sequelize_1.Op.between]: [body.createdAt, body.endDate]
                 }
             },
             include: [
