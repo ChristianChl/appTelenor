@@ -84,7 +84,7 @@
                          
                          <nz-form-control nzHasFeedback>
                            <nz-input-group [nzSuffix]="suffixTemplateInfo">
-                             <input [(ngModel)]="ingreso.ing_fechaHora"  type="date" formControlName="fechaIngreso" nz-input  name="fecha" required />
+                             <input readonly [(ngModel)]="ingreso.ing_fechaHora"  type="date" formControlName="fechaIngreso" nz-input  name="fecha" required />
                            </nz-input-group>
                            <ng-template #suffixTemplateInfo><i nz-icon  nz-tooltip nzTooltipTitle="Obligatorio" [nzType]="'exclamation-circle'"></i></ng-template>
                          </nz-form-control>
@@ -136,6 +136,16 @@
 
 
 <nz-card style="width:auto; margin-top: 15px; margin-left: 10px;margin-right: 10px;" nzTitle="Detalle de Venta" >
+  <div class="row" style="margin-bottom: 8px;">
+    <div class="col-10">
+      
+    </div>
+    <div class="col-2">
+      <button style="float: right; margin-right: 10px;" nz-button nzType="primary" (click)="openModalProducto()"><i style="vertical-align:1px; " nz-icon nzType="save"></i>Crear Nuevo Producto</button>
+    
+    </div>
+    
+  </div>
   <div class="row" style="margin-bottom: 10px; ">
     <div class="col-3" style="text-align: center;">
       <label>Producto</label>
@@ -296,8 +306,11 @@
   <div class="col-6"style="margin-bottom: 10px;margin-top: 10px;">
     <button style="float: right; margin-right: 10px;" nz-button nzType="primary" (click)="guardarDatos()"><i style="vertical-align:1px; " nz-icon nzType="save"></i>Grabar</button>
     <button style="float: right; margin-right: 10px;" nz-button nzType="default" routerLink="/dashboard/listaIngreso"><i style="vertical-align:1px; " nz-icon nzType="close-circle"></i>Cancelar</button>
+     
   </div>
     
 </div>
 
 <app-form-proveedor [isVisibleProveedor]="isVisibleProveedor" [idProveedor]="idProveedor" (newVisibleProveedor)="nuevoDatoProveedor()"></app-form-proveedor>
+<app-form-producto [paginaAnterior]="paginaAnterior" [isVisibleProducto]="isVisibleProducto" [idProducto]="idProductoModal" (newVisibleProducto)="nuevoDatoProducto()"></app-form-producto>
+  
