@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"version":3,"file":"connection.js","sourceRoot":"","sources":["../../database/connection.ts"],"names":[],"mappings":";;AAAA,yCAAsC;AAGtC,MAAM,EAAE,GAAG,IAAI,qBAAS,CAAC,WAAW,EAAG,MAAM,EAAE,EAAE,EAAE;IAC/C,IAAI,EAAE,WAAW;IACjB,OAAO,EAAE,OAAO;IAChB,aAAa;IACb,iBAAiB;CACpB,CAAC,CAAC;AAEH,kBAAe,EAAE,CAAC"}
-=======
-{"version":3,"file":"connection.js","sourceRoot":"","sources":["../../database/connection.ts"],"names":[],"mappings":";;AAAA,yCAAsC;AAGtC,MAAM,EAAE,GAAG,IAAI,qBAAS,CAAC,gBAAgB,EAAG,MAAM,EAAE,EAAE,EAAE;IACpD,IAAI,EAAE,WAAW;IACjB,OAAO,EAAE,OAAO;IAChB,IAAI,EAAE,IAAI;IAEV,iBAAiB;CACpB,CAAC,CAAC;AAEH,kBAAe,EAAE,CAAC"}
->>>>>>> 14dddfaf1f9c30e874e980489cddbbddca610188
+{"version":3,"file":"connection.js","sourceRoot":"","sources":["../../database/connection.ts"],"names":[],"mappings":";;AAAA,yCAAsC;AAGtC,MAAM,EAAE,GAAG,IAAI,qBAAS,CAAC,WAAW,EAAG,MAAM,EAAE,EAAE,EAAE;IAC/C,IAAI,EAAE,WAAW;IACjB,OAAO,EAAE,OAAO;IAChB,cAAc;IACd,iBAAiB;CACpB,CAAC,CAAC;AAEH,kBAAe,EAAE,CAAC"}

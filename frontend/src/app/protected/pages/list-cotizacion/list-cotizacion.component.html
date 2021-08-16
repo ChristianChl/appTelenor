@@ -1,4 +1,23 @@
-<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 10px;">
+  <div class="row">
+    <div class="col-4" id="pointer1" style="margin-left: 22px; margin-right: 10px;">
+      <i nz-icon nzType="home" nzTheme="outline" style="color: rgb(250, 250, 250);position: relative;right: -23px;top: 7px; transform: scale(1.5)"></i>
+    </div>
+    <div class="col-4" id="pointer2" style="margin-left: 10px; margin-right: 10px;" >
+      <p style="color: rgb(250, 250, 250);position: relative;right: -22px;top: 10px; transform: scale(1)">Ventas</p>
+    </div>
+    <div class="col-4" id="pointer3" style="margin-left: 10px; margin-right: 10px;" >
+      <p style="color: rgb(250, 250, 250);position: relative;right: -20px;top: 10px; transform: scale(1)">Cotizaciones</p>
+    </div>
+  </div>
+  <!-- <hr style="position: relative;top: -10px;margin-left: 10px; margin-right: 10px;"> -->
+  <p></p>
+  <div class="row" style="margin-left: 10px; margin-right: 10px;">
+    <div class="col-12" style="background-color: rgb(40, 23, 114);">
+          <span style="color: floralwhite;">Aquí se Registrará las Cotizaciones y/o Pedidos.</span>
+    </div>
+  </div>
+
   <button id="botonNuevo" (click)="showModalCotizacion()" nz-button nzType="primary"><i style="vertical-align:1px; " nz-icon nzType="tag"></i>Nuevo</button>
 
   <nz-table nzBordered #basicTable [nzData]="cotizacion" style="margin-left: 10px; margin-right: 10px;">
