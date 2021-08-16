@@ -14,6 +14,7 @@ import { HistorialProductoService } from '../../services/historial-producto.serv
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { HistorialProducto } from '../../interfaces/HistorialProducto';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-form-ingreso',
@@ -113,7 +114,8 @@ export class FormIngresoComponent implements OnInit{
     private authService: AuthService,
     private fb:FormBuilder,
     private router: Router,
-    private historialProductoService:HistorialProductoService) {
+    private historialProductoService:HistorialProductoService,
+    private datePipe: DatePipe) {
  
     this.skillsForm = this.fb.group({
       skills: this.fb.array([]) ,
@@ -121,10 +123,14 @@ export class FormIngresoComponent implements OnInit{
     
     this.buildForm();
   }
+  fechaActual: any = "";
   ngOnInit(): void {
     this.getProveedor();
     this.getProductos();
     this.addSkills();
+
+    this.fechaActual = this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
+    this.ingreso.ing_fechaHora = this.fechaActual;
   }
   
   getProductos(){
@@ -481,6 +487,19 @@ export class FormIngresoComponent implements OnInit{
       err => console.error(err)
     );
   }
+  isVisibleProducto:any = false;
 
+  idProductoModal:any = "";
+  paginaAnterior:string =""
+   openModalProducto(){
+    this.paginaAnterior = "compra";
+    this.idProductoModal= "";
+    this.isVisibleProducto = true;
+  }
+
+  nuevoDatoProducto(){
+    this.getProductos();
+    this.isVisibleProducto = false;
+  }
 
 }

@@ -13,6 +13,7 @@ import { DetallVentaService } from '../../services/detall-venta.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HistorialProducto } from '../../interfaces/HistorialProducto';
 import { HistorialProductoService } from '../../services/historial-producto.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-form-ventas',
@@ -21,7 +22,7 @@ import { HistorialProductoService } from '../../services/historial-producto.serv
 })
 export class FormVentasComponent implements OnInit {
 
-  
+  isVisibleProducto = false;
 
   skillsForm: FormGroup;
   persona:any = [];
@@ -114,7 +115,8 @@ export class FormVentasComponent implements OnInit {
     private detallVentaService:DetallVentaService,
     private router: Router,
     private activatedRoute:ActivatedRoute,
-    private historialProductoService:HistorialProductoService
+    private historialProductoService:HistorialProductoService,
+    private datePipe: DatePipe
     ) 
     {
       this.skillsForm = this.fb.group({
@@ -126,7 +128,7 @@ export class FormVentasComponent implements OnInit {
   
      maxDate:any = "";
      filterVentas:any = []
-
+     fechaActual: any = "";
     ngOnInit(): void {
 
     const param = this.activatedRoute.snapshot.params
@@ -145,6 +147,11 @@ export class FormVentasComponent implements OnInit {
 
         this.venta.ven_numeroComprobante = this.siguienteVenta.toString();
     });
+    this.fechaActual = this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
+    this.venta.ven_fechaHora = this.fechaActual;
+
+    let inputFecha = document.getElementById("fechaIngreso");
+    inputFecha?.setAttribute("disabled", "true");
 
     this.addSkills();
     
@@ -741,6 +748,8 @@ export class FormVentasComponent implements OnInit {
 
     
   }
+
+  
 
   
 }

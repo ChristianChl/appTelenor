@@ -22,6 +22,7 @@ export class FormProductoComponent implements OnInit {
 
   @Input() isVisibleProducto: any;
   @Input() idProducto: any;
+  @Input() paginaAnterior: any;
   @Input() cambioTiempo: any;
   @Output() newVisibleProducto : EventEmitter<boolean>  = new EventEmitter<boolean>();
 
@@ -337,7 +338,13 @@ export class FormProductoComponent implements OnInit {
         this.getProductos()
         Swal.fire('Success', 'Producto creado exitosamente!', 'success');
         this.formProducto.reset();
-        this.router.navigateByUrl('/dashboard/listaProducto');
+        if(this.paginaAnterior == "compra"){
+          this.router.navigateByUrl('/dashboard/agregarIngreso');
+        }
+        else{
+          this.router.navigateByUrl('/dashboard/listaProducto');
+        } 
+        
         this.handleCancelProducto();
 
       }else{
