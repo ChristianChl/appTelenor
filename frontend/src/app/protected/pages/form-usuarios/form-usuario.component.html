@@ -196,11 +196,11 @@
         </div>
         <div class="col-6">
           <nz-form-item>
-            <nz-form-control>
+            <nz-form-control nzHasFeedback>
               <label> Fecha Registro: </label>
-              <nz-input-group>
-                <input [(ngModel)]="usuarios.us_fechaRegistro" type="date" formControlName="us_fechaRegistro" nz-input
-                  placeholder="Fecha Registro" name="nombre" />
+              <nz-input-group [nzSuffix]="suffixTemplateInfo">
+                <input readonly [(ngModel)]="usuarios.us_fechaRegistro" type="date" formControlName="us_fechaRegistro" nz-input
+                  placeholder="Fecha Registro" name="nombre" required />
               </nz-input-group>
               <ng-template #suffixTemplateInfo></ng-template>
             </nz-form-control>
