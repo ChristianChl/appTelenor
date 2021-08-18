@@ -77,6 +77,8 @@ export class FormVentasComponent implements OnInit {
     hist_activo: "",
     hist_precioVenta: 0,
     hist_cambioTiempo:"",
+    hist_cantVenta:0,
+    hist_cantCompra:0,
     fk_id_categoria: "",
     fk_id_marca: "",
     fk_id_medida: "",
@@ -569,7 +571,7 @@ export class FormVentasComponent implements OnInit {
     return filterProducto
   }
 
-  actualizaProducto(id:any, productoActualizar:any){
+  actualizaProducto(id:any, productoActualizar:any, detalleVenta:any){
 
     this.historialProducto.id_producto = productoActualizar.id_Producto;
     this.historialProducto.hist_modelo = productoActualizar.prod_modelo;
@@ -585,6 +587,7 @@ export class FormVentasComponent implements OnInit {
     this.historialProducto.fk_id_medida = productoActualizar.fk_id_medida;
     this.historialProducto.fk_id_tipo = productoActualizar.fk_id_tipo;
     this.historialProducto.hist_cambioTiempo = "Venta";
+    this.historialProducto.hist_cantVenta = detalleVenta.detv_cantidad;
     this.historialProducto.fk_id_usuario = this.usuario.uid;
     
 
@@ -666,7 +669,8 @@ export class FormVentasComponent implements OnInit {
             const productoIndi =  this.getProductoIndividual(this.producto,  this.id);
             const cantidadIngresada = Number(arrayProductos[i].num1);
             productoIndi[0].prod_stock = productoIndi[0].prod_stock - cantidadIngresada;
-            this.actualizaProducto(this.id, productoIndi[0]);
+            console.log(this.detalleVenta);
+            this.actualizaProducto(this.id, productoIndi[0],this.detalleVenta);
 
             this.detallVentaService.saveDetalleVenta(this.detalleVenta)
             .subscribe(

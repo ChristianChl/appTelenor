@@ -40,6 +40,12 @@ const HistorialProducto = connection_1.default.define('HistorialProducto', {
     hist_precioVenta: {
         type: sequelize_1.DataTypes.FLOAT
     },
+    hist_cantVenta: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
+    hist_cantCompra: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
     fk_id_categoria: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {
