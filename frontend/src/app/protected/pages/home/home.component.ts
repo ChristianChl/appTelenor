@@ -5,6 +5,7 @@ import { DetallVentaService } from '../../services/detall-venta.service';
 import { IngresoService } from '../../services/ingreso.service';
 import { ProductoService } from '../../services/producto.service';
 import { VentasService } from '../../services/ventas.service';
+import * as pluginDataLabels from '@marcelorafael/chartjs-plugin-datalabels'
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,10 @@ import { VentasService } from '../../services/ventas.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  
   ventas:any = [];
   ingreso:any = [];
+
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
@@ -28,7 +31,7 @@ export class HomeComponent implements OnInit {
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
-
+  public barChartPlugins = [pluginDataLabels];
   /*
   public barChartData: ChartDataSets[] = [
     { data: [65, 59, 80], label: 'Ventas' },
@@ -37,7 +40,6 @@ export class HomeComponent implements OnInit {
 
   public barChartData: ChartDataSets[] = [];
 
-  //Datos para la grafica d dona
   public doughnutChartLabels: Label[] = ['Productos', 'Servicios'];
   public doughnutChartData: MultiDataSet = [[350, 450]];
   public doughnutChartType: ChartType = 'doughnut';
@@ -188,6 +190,7 @@ export class HomeComponent implements OnInit {
         this.ventas = this.ventas.venta;
         let ventasArraySol:any = [];
         let ventasArrayDol:any = [];
+
         for(let i = 0; i <this.barChartLabels.length ; i++){
     
           this.filterVentas = this.filterMes(this.barChartLabels[i],this.ventas);
@@ -211,6 +214,9 @@ export class HomeComponent implements OnInit {
           this.barChartData.push({data:ventasArrayDol, label:"Ventas - Dol",backgroundColor:'#ea8013', hoverBackgroundColor:'#e1913e'});
           this.barChartData.push({data:ventasArraySol, label:"Ventas - Sol",backgroundColor:'#a3e542', hoverBackgroundColor:'#b5e56e'});
           
+          console.log("Data");
+          console.log(this.barChartData);
+
       },
       err => console.error(err)
     );

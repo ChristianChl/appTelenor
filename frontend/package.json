@@ -22,6 +22,7 @@
     "@angular/platform-browser": "~11.2.13",
     "@angular/platform-browser-dynamic": "~11.2.13",
     "@angular/router": "~11.2.13",
+    "@marcelorafael/chartjs-plugin-datalabels": "^0.8.11",
     "chart.js": "^2.9.4",
     "faker": "^5.5.3",
     "file-saver": "^2.0.5",

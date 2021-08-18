@@ -54,6 +54,8 @@ export class FormIngresoComponent implements OnInit{
     hist_activo: "",
     hist_precioVenta: 0,
     hist_cambioTiempo:"",
+    hist_cantVenta:0,
+    hist_cantCompra:0,
     fk_id_categoria: "",
     fk_id_marca: "",
     fk_id_medida: "",
@@ -161,7 +163,7 @@ export class FormIngresoComponent implements OnInit{
     return filterProducto
   }
 
-  actualizaProducto(id:any, productoActualizar:any){
+  actualizaProducto(id:any, productoActualizar:any, detalleIngreso:any){
 
     this.historialProducto.id_producto = productoActualizar.id_Producto;
     this.historialProducto.hist_modelo = productoActualizar.prod_modelo;
@@ -177,6 +179,7 @@ export class FormIngresoComponent implements OnInit{
     this.historialProducto.fk_id_medida = productoActualizar.fk_id_medida;
     this.historialProducto.fk_id_tipo = productoActualizar.fk_id_tipo;
     this.historialProducto.hist_cambioTiempo = "Compra";
+    this.historialProducto.hist_cantCompra = detalleIngreso.deti_cantidad;
     this.historialProducto.fk_id_usuario = this.usuario.uid;
 
     console.log(this.historialProducto);
@@ -261,7 +264,7 @@ export class FormIngresoComponent implements OnInit{
           productoIndi[0].prod_stock = productoIndi[0].prod_stock + cantidadIngresada;
           
 
-          this.actualizaProducto(this.id, productoIndi[0]);
+          this.actualizaProducto(this.id, productoIndi[0],this.detalleIngreso);
           //
           this.detalleIngresoService.saveIngreso(this.detalleIngreso)
           .subscribe(
