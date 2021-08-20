@@ -8,7 +8,7 @@
       <button mat-icon-button class="miBotonUsuario">
         <mat-icon class="miBotonUsuario">person</mat-icon>
       </button>
-      <h1 class="miUsuario"> Bienvenido: {{usuario.name}}</h1>
+      <h1 class="miUsuario">{{usuario.name}}</h1>
     </div>
   </mat-toolbar>
 </div>
@@ -108,9 +108,13 @@
       </mat-list-item>
 
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu3}" *ngIf="isShowing || isExpanded">
+<<<<<<< HEAD
+        <a class="full-width" routerLink="/dashboard/precioProductos" mat-list-item ><mat-icon mat-list-icon>attach_money</mat-icon>Precios Venta</a>
+=======
 
         <a class="full-width" routerLink="/dashboard/precioProductos" mat-list-item ><mat-icon mat-list-icon>attach_money</mat-icon>Precios Venta</a>
 
+>>>>>>> dc3c6400d95289446fa783d402068bdcdc95eea4
       </div>
       <mat-list-item (click)="showSubmenu4 = !showSubmenu4" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Client-Prov.</span>

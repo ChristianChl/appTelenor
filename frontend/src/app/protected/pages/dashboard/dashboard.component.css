@@ -18,13 +18,13 @@
     color: rgb(253, 253, 253) !important;
   }
   .full-width1 {
-    width:50%;
-    white-space:pre;
+    /* width:50%; */
+    /* white-space:pre; */
     text-align: center;
     font-size: 1vw;
     color: rgb(253, 253, 253) !important;
     /* text-indent: 1em; */
-    padding-left: 20px;
+    padding-left: 15px;
     
   }
   .separator{
@@ -63,7 +63,7 @@
     color: rgb(253, 253, 253) !important;
   }
   .miBotonUsuario{
-    color: rgb(12, 150, 181) !important;
+    color: rgb(253, 253, 253) !important;
     transform: scale(0.9);
   }
   .example-app-name{

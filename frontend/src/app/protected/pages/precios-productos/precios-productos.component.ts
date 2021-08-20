@@ -8,6 +8,21 @@ import { ProductoService } from '../../services/producto.service';
 })
 export class PreciosProductosComponent implements OnInit {
   producto:any = [];
+  filterModelo = "";
+  filterCategoria = "";
+  filterMedida = "";
+  filterStock ="";
+  filterEstado = "";
+  filterMoneda = "";
+  filterPrecio = "";
+
+  select: any = [
+    {text:"Activos", value:"true"},
+    {text:"Inactivos", value:"false"},
+    {text: "Resetear", value: ""}
+  ];
+
+
   constructor(private prductoService:ProductoService) { }
 
   ngOnInit(): void {

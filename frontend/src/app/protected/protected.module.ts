@@ -44,11 +44,17 @@ import { FilterPermisoPipe } from './pipes/filter-permiso.pipe';
 import { ListIngresoComponent } from './pages/list-ingreso/list-ingreso.component';
 import { FormVentasComponent } from './pages/form-ventas/form-ventas.component';
 import { ListVentasComponent } from './pages/list-ventas/list-ventas.component';
+<<<<<<< HEAD
+import { FilterComprasPipe } from './pipes/filter-compra.pipe';
+import { FilterVentasPipe } from './pipes/filter-venta.pipe';
+import { FilterCotizacionesPipe } from './pipes/filter-cotizacion.pipe';
+=======
 
 import { FilterComprasPipe } from './pipes/filter-compra.pipe';
 import { FilterVentasPipe } from './pipes/filter-venta.pipe';
 import { FilterCotizacionesPipe } from './pipes/filter-cotizacion.pipe';
 
+>>>>>>> dc3c6400d95289446fa783d402068bdcdc95eea4
 import { ListCotizacionComponent } from './pages/list-cotizacion/list-cotizacion.component';
 import { FormCotizacionComponent } from './pages/form-cotizacion/form-cotizacion.component';
 import { ErrorAcessoComponent } from './pages/error-acesso/error-acesso.component';
