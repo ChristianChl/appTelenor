@@ -20,10 +20,6 @@
 
           <div nz-col [nzSpan]="4">
             <nz-card [nzHoverable] = "true" routerLink="/dashboard/listaVentas" style="background-color: #E88B58">
-<<<<<<< HEAD
-=======
-
->>>>>>> dc3c6400d95289446fa783d402068bdcdc95eea4
                 <div class="row">
                     <div class="col-8">
                         <span class="LetrasCard1" style="color: floralwhite;font-size: 18px">Ventas</span>
@@ -106,6 +102,20 @@
             </canvas>
         </div>
     </div>
+
+    <div class="col-4" style="text-align: center;">
+        <div style="display: block" >
+            <h2 >Compras Proveedores</h2>
+            <canvas baseChart
+              [data]="doughnutChartData1"
+              [labels]="doughnutChartLabels1"
+              [chartType]="doughnutChartType"
+              [colors]="colors">
+              
+            </canvas>
+        </div>
+    </div>
+
     <div class="col-3" >
          <h2 >Productos Sin Salida</h2>
         

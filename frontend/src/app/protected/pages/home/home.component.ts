@@ -6,6 +6,8 @@ import { IngresoService } from '../../services/ingreso.service';
 import { ProductoService } from '../../services/producto.service';
 import { VentasService } from '../../services/ventas.service';
 import * as pluginDataLabels from '@marcelorafael/chartjs-plugin-datalabels'
+import { DatePipe } from '@angular/common';
+import { Ingreso } from '../../interfaces/Ingreso';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +18,15 @@ export class HomeComponent implements OnInit {
   
   ventas:any = [];
   ingreso:any = [];
+
+  fechaDesde:any ="";
+  fechaHasta:any ="";
+  fechaFormateada1: any = "";
+  fechaFormateada2: any = "";
+  unicos: any = [];
+  totalCompras: any = [];
+  count: any =0;
+  totalAcumulado: any = 0;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -44,6 +55,12 @@ export class HomeComponent implements OnInit {
   public doughnutChartData: MultiDataSet = [[350, 450]];
   public doughnutChartType: ChartType = 'doughnut';
 
+  //Dona Compras mayor a Proveedores
+  public doughnutChartLabels1: Label[] = [];
+  public doughnutChartData1: MultiDataSet = [];
+
+
+
   public colors: Color[] = [
     {
       backgroundColor:[
@@ -60,7 +77,8 @@ export class HomeComponent implements OnInit {
   constructor(private ventasService:VentasService,
   private ingresoService: IngresoService,
   private detallVentaService:DetallVentaService,
-  private prductoService:ProductoService) { }
+  private prductoService:ProductoService,
+  private datePipe: DatePipe) { }
   
   ngOnInit(): void {
 
@@ -68,7 +86,8 @@ export class HomeComponent implements OnInit {
     this.getMeses();
     this.getVentas();
     this.getCompras();
-    this.getDetalleVentas();   
+    this.getDetalleVentas();
+    this.getMonthsValues();  
   }
   detalleVenta:any = [];
   filterDetallePro:any = [];
@@ -214,8 +233,8 @@ export class HomeComponent implements OnInit {
           this.barChartData.push({data:ventasArrayDol, label:"Ventas - Dol",backgroundColor:'#ea8013', hoverBackgroundColor:'#e1913e'});
           this.barChartData.push({data:ventasArraySol, label:"Ventas - Sol",backgroundColor:'#a3e542', hoverBackgroundColor:'#b5e56e'});
           
-          console.log("Data");
-          console.log(this.barChartData);
+          // console.log("Data");
+          // console.log(this.barChartData);
 
       },
       err => console.error(err)
@@ -335,6 +354,68 @@ export class HomeComponent implements OnInit {
   nuevoDatoProducto(){
     this.ngOnInit();
     this.isVisibleProducto = false;
+  }
+
+  onlyUnique(value: any, index: any, self: any) { 
+    return self.indexOf(value) === index;
+}
+
+  //Obtener Compras Del Mes y el anterior
+  getMonthsValues(){
+    this.resetear();
+    const fechaInicial  = new Date();
+    const fechaFinal  = new Date(); 
+    this.fechaDesde = new Date(fechaInicial.getFullYear(), fechaInicial.getMonth() - 1, 1);
+    this.fechaHasta = new Date(fechaFinal.getFullYear(), fechaFinal.getMonth() + 1, 0);
+    this.fechaHasta.setDate(this.fechaHasta.getDate() + 1);
+    this.fechaFormateada1 = this.datePipe.transform(this.fechaDesde.toISOString(), 'yyyy-MM-dd');
+    this.fechaFormateada2 = this.datePipe.transform(this.fechaHasta.toISOString(), 'yyyy-MM-dd');
+    this.ingresoService.getIngresosByDates(this.fechaFormateada1, this.fechaFormateada2)
+    .subscribe(
+      resp => { 
+        this.ingreso = resp;
+        this.ingreso = this.ingreso.ingreso;
+        for(let i = 0; i< this.ingreso.length; i++ ){
+          const elemento = this.ingreso[i].Personas.per_razonSocial.toLowerCase();
+          if(!this.unicos.includes(this.ingreso[i].Personas.per_razonSocial.toLowerCase())){
+            this.unicos.push(elemento);
+          }
+        }
+        for(let i=0; i<this.unicos.length; i++){
+          
+          this.count = 0;
+          this.totalAcumulado = 0;
+
+          for(let j=0; j<this.ingreso.length; j++){
+
+            if(this.unicos[i].toLowerCase() == this.ingreso[j].Personas.per_razonSocial.toLowerCase()){
+              
+              this.count = Number(this.ingreso[j].ing_totalCompra);
+              this.totalAcumulado += this.count;
+            }
+
+          }
+          this.totalCompras.push({total: this.totalAcumulado, nombreProveedor: this.unicos[i]});
+        }
+        this.totalCompras.sort(function(a: any, b: any){
+          return b.total - a.total;
+        });
+        for(let k = 0; k < 3; k ++){
+          this.doughnutChartLabels1.push(this.totalCompras[k].nombreProveedor);
+          this.doughnutChartData1.push(this.totalCompras[k].total);
+        }
+
+      },
+      err => console.error(err)
+    );
+  }
+
+
+  resetear(){
+    this.count = 0;
+    this.totalAcumulado = 0;
+    this.unicos = [];
+    this.totalCompras = [];
   }
 
   

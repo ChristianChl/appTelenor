@@ -6,6 +6,7 @@ const ingresoController_1 = require("../controllers/ingresoController");
 const validar_campos_1 = require("../middlewares/validar-campos");
 const router = express_1.Router();
 router.get('/', ingresoController_1.getIngresos);
+router.post('/dates', ingresoController_1.getIngresosByDates);
 router.get('/:id', ingresoController_1.getIngreso);
 router.post('/', [
     express_validator_1.check('ing_tipoComprobante', 'El tipo de comprobante es obligatorio').not().isEmpty(),

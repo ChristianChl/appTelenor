@@ -20,6 +20,12 @@ export class IngresoService {
   getIngreso(id: string){
     return this.http.get(`${this.baseUrl}/ingreso/${id}`);
   }
+  getIngresosByDates(createdAt: Date, ing_fechaHora: Date){
+    const url = `${this.baseUrl}/ingreso/dates`;
+    const body = {createdAt, ing_fechaHora};
+    return this.http.post<Ingreso>(url, body);
+
+  }
 
   deleteIngreso(id: string){
     return this.http.delete(`${this.baseUrl}/ingreso/${id}`);
