@@ -5,9 +5,15 @@ import { DetallVentaService } from '../../services/detall-venta.service';
 import { IngresoService } from '../../services/ingreso.service';
 import { ProductoService } from '../../services/producto.service';
 import { VentasService } from '../../services/ventas.service';
+<<<<<<< HEAD
 import * as pluginDataLabels from '@marcelorafael/chartjs-plugin-datalabels'
 import { DatePipe } from '@angular/common';
 import { Ingreso } from '../../interfaces/Ingreso';
+=======
+import * as pluginDataLabels from '@marcelorafael/chartjs-plugin-datalabels';
+import { DetalleCotizacionService } from '../../services/detalle-cotizacion.service';
+import { CotizacionService } from '../../services/cotizacion.service';
+>>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
 
 @Component({
   selector: 'app-home',
@@ -50,16 +56,25 @@ export class HomeComponent implements OnInit {
   ];*/
 
   public barChartData: ChartDataSets[] = [];
+  public barChartDataCompra: ChartDataSets[] = [];
 
   public doughnutChartLabels: Label[] = ['Productos', 'Servicios'];
   public doughnutChartData: MultiDataSet = [[350, 450]];
   public doughnutChartType: ChartType = 'doughnut';
 
+<<<<<<< HEAD
   //Dona Compras mayor a Proveedores
   public doughnutChartLabels1: Label[] = [];
   public doughnutChartData1: MultiDataSet = [];
 
 
+=======
+  public doughnutChartLabelsProvee: Label[] = [];
+  public doughnutChartDataProvee: MultiDataSet = [[]];
+
+  public doughnutChartLabelsCoti: Label[] = ['Coti - Ventas', 'Coti - No Venta'];
+  public doughnutChartDataCoti: MultiDataSet = [[350, 450]];
+>>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
 
   public colors: Color[] = [
     {
@@ -78,7 +93,11 @@ export class HomeComponent implements OnInit {
   private ingresoService: IngresoService,
   private detallVentaService:DetallVentaService,
   private prductoService:ProductoService,
+<<<<<<< HEAD
   private datePipe: DatePipe) { }
+=======
+  private cotizacionService:CotizacionService) { }
+>>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
   
   ngOnInit(): void {
 
@@ -86,8 +105,13 @@ export class HomeComponent implements OnInit {
     this.getMeses();
     this.getVentas();
     this.getCompras();
+<<<<<<< HEAD
     this.getDetalleVentas();
     this.getMonthsValues();  
+=======
+    this.getDetalleVentas();   
+    this.getCotizaciones();
+>>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
   }
   detalleVenta:any = [];
   filterDetallePro:any = [];
@@ -245,7 +269,7 @@ export class HomeComponent implements OnInit {
   getCompras(){
     this.ingresoService.getIngresos().subscribe(
       res => {
-        
+        this.barChartDataCompra = [];
         const pruebaCompras = 'Compras';
         this.ingreso = res;
         this.ingreso = this.ingreso.ingreso;
@@ -264,8 +288,8 @@ export class HomeComponent implements OnInit {
           IngresoArray.push(ingresoMes);
         }
           console.log(IngresoArray);
-          this.barChartData.push({data:IngresoArray, label:"Compras", backgroundColor:'#6cb6d6', hoverBackgroundColor:'#8bc4dd'});
-          console.log(this.barChartData);
+          this.barChartDataCompra.push({data:IngresoArray, label:"Compras - Sol", backgroundColor:'#6cb6d6', hoverBackgroundColor:'#8bc4dd'});
+          console.log(this.barChartDataCompra);
       },
       err => console.error(err)
     );
@@ -356,6 +380,7 @@ export class HomeComponent implements OnInit {
     this.isVisibleProducto = false;
   }
 
+<<<<<<< HEAD
   onlyUnique(value: any, index: any, self: any) { 
     return self.indexOf(value) === index;
 }
@@ -418,5 +443,43 @@ export class HomeComponent implements OnInit {
     this.totalCompras = [];
   }
 
+=======
+  cotizacion:any = [];
+  filterDetalleCotizacion:any = [];
+  getCotizaciones(){
+    this.cotizacionService.getCotizacions().subscribe(
+      res =>{
+            
+        this.cotizacion = res;
+        this.cotizacion = this.cotizacion.cotizacion;
+        let totalCotiVenta = 0;
+        let totalCotiNoVenta = 0;
+
+        for(let i = 0; i <this.barChartLabels.length ; i++){
+    
+          this.filterDetalleCotizacion = this.filterMes(this.barChartLabels[i],this.cotizacion);
+
+          
+          
+          for(let i=0; i<this.filterDetalleCotizacion.length; i++){
+              if(this.filterDetalleCotizacion[i].coti_hechoVenta == true){
+                totalCotiVenta = totalCotiVenta + 1;
+              }else{
+                totalCotiNoVenta = totalCotiNoVenta + 1;
+              }
+              
+          }
+
+        }
+
+        console.log(totalCotiVenta);
+        console.log(totalCotiNoVenta)
+        this.doughnutChartDataCoti[0].splice(0, 1, totalCotiVenta);
+        this.doughnutChartDataCoti[0].splice(1, 1, totalCotiNoVenta);
+      },
+      err => console.log(err)
+    )
+  }
+>>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
   
 }
