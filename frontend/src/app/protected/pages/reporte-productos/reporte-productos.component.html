@@ -18,9 +18,18 @@
     </div>
   </div><br>
     <div id="table">
-        <div class="row">
+        <div class="row"> 
             <div class="col-10">
                 <strong><h2>Lista de Productos</h2></strong>
+            </div>
+            <div class="col-1">
+              <form nz-form [formGroup]="formRotacion">
+                <nz-form-control nzHasFeedback>
+                  <nz-select formControlName="indiceRotacion"  (ngModelChange)="onChangeTipoCambio($event)" nzShowSearch name="TipoDoc"  nzPlaceHolder="Seleccione"   >
+                    <nz-option  style="font-size: 10px;" *ngFor="let option of tipoDoc" [nzLabel]="option.text" [nzValue]="option.value" ></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </form>
             </div>
         </div>
         
@@ -58,6 +67,7 @@
                     <input nz-input type="text" class="forms-control" placeholder="Buscar..." [(ngModel)] ="filterStock" name="filterStock">
                   </nz-input-group>
                 </th>
+                <th  style="text-align: center;"><strong>Indicador Rotacion</strong></th>
               </tr>
             </thead>
         
@@ -70,6 +80,7 @@
                   <td>{{ data.Tipos.tip_nombre }}</td>
                   <td>{{ data.Medidas.med_unidad}}</td>
                   <td>{{ data.prod_stock}}</td>
+                  <td>{{ data.prod_imagen}}</td>
                 </tr>
               </tbody>
             

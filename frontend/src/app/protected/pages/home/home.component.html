@@ -76,6 +76,7 @@
     
 </div>
 
+<!-- 
 <div class="row" style="margin-top: 40px;margin-left: 10px;margin-right: 10px;">
     <div class="col-5" style="text-align: center;">
             <h2 >Ventas y Compras</h2>
@@ -114,8 +115,89 @@
           </nz-list>
     </div>
 </div>
+-->
 
-<div class="row" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
+<div >
+    
+    <div class="row" >
+        <div class="row">
+            <div class="col-10">
+                <div class="row" style="background: #f8f6f6;margin-top: 10px;margin-left: 10px;margin-right: 5px; border: black solid 2px;border-radius: 5px; text-align: center;">
+                    <h1><strong>Ventas</strong></h1>
+                    <div class="col-7" style="text-align: center;">
+                            <h2 >Ventas Mensuales</h2>
+                            <div style="display: block">
+                                <canvas baseChart
+                                  [datasets]="barChartData"
+                                  [labels]="barChartLabels"
+                                  [options]="barChartOptions"
+                                  
+                                  [legend]="barChartLegend"
+                                  [chartType]="barChartType">
+                                </canvas>
+                            </div>
+                    </div>
+                    
+                    <div class="col-5" style="text-align: center;">
+                        <div style="display: block" >
+                            <h2 >Cotizaciones</h2>
+                            <canvas baseChart
+                              [data]="doughnutChartDataCoti"
+                              [labels]="doughnutChartLabelsCoti"
+                              [chartType]="doughnutChartType"
+                              [colors]="colors">
+                              
+                            </canvas>
+                        </div>
+                    </div>
+                   
+                </div>
+
+                <div class="row" style="text-align: center;margin-top: 10px;margin-left: 10px;margin-right: 5px;background: #f8f6f6;border: black solid 2px;  border-radius: 5px;">
+                    <h1><strong>Compras</strong></h1>
+                    <div class="col-7" style="text-align: center;">
+                            <h2 >Compras Mensuales</h2>
+                            <div style="display: block">
+                                <canvas baseChart
+                                  [datasets]="barChartDataCompra"
+                                  [labels]="barChartLabels"
+                                  [options]="barChartOptions"
+                                  
+                                  [legend]="barChartLegend"
+                                  [chartType]="barChartType">
+                                </canvas>
+                            </div>
+                    </div>
+                    
+                    <div class="col-5" style="text-align: center;">
+                        <div style="display: block" >
+                            <h2 >Tipos de Productos</h2>
+                            <canvas baseChart
+                              [data]="doughnutChartData"
+                              [labels]="doughnutChartLabels"
+                              [chartType]="doughnutChartType"
+                              [colors]="colors">
+                              
+                            </canvas>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="col-2" style="margin-top: 10px;">
+                <div  >
+                    <h2 > Productos Sin Salida</h2>
+                   
+                    <nz-list nzBordered >
+                       <nz-list-item *ngFor="let item of productoSinMoviento">
+                         {{ item.prod_modelo }}
+                         <a (click)="modalEditProducto(item.id_Producto)"> edit</a>
+                       </nz-list-item>
+                     </nz-list>
+               </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <app-form-producto [cambioTiempo]="cambioTiempo" [isVisibleProducto]="isVisibleProducto" [idProducto]="idProducto" (newVisibleProducto)="nuevoDatoProducto()"></app-form-producto>
