@@ -130,7 +130,7 @@ export class HomeComponent implements OnInit {
 
         for(let i=0; i<this.detalleVenta.length; i++){
           const now = new Date(this.detalleVenta[i].createdAt);
-          var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          var months = ['Ene', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'];
           let numMes:any = "";
           let mesPrueba =  Number([now.getMonth()+1]);
           if( mesPrueba <= 9){
@@ -193,7 +193,7 @@ export class HomeComponent implements OnInit {
   contador:number = 0;
   filterVentas:any=[];
   filterIngresos:any=[];
-  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  months = ['Ene', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'];
     
   //Obtener meses
   getMeses(){
@@ -335,7 +335,7 @@ export class HomeComponent implements OnInit {
 
         for(let i=0; i<this.producto.length; i++){
           const now = new Date(this.producto[i].createdAt);
-          var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          var months = ['Ene', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'];
           let numMes:any = "";
           let mesPrueba =  Number([now.getMonth()+1]);
           if( mesPrueba <= 9){
@@ -471,8 +471,7 @@ export class HomeComponent implements OnInit {
       err => console.log(err)
     )
   }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> d3e2ab8d63b45d337d1e69c62111ccba7ae4916c
+
+
