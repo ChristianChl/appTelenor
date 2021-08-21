@@ -104,8 +104,17 @@ export class ListCotizacionComponent implements OnInit {
         for(let i=0; i<this.cotizacion.length; i++){
           const now = new Date(this.cotizacion[i].createdAt);
           var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      
-          let formatted = now.getDate() + '/' + months[now.getMonth()]  + '/' + now.getFullYear();
+          
+              let numMes:any = "";
+              let mesPrueba =  Number([now.getMonth()+1]);
+              if( mesPrueba <= 9){
+                  numMes = "0"+ mesPrueba;
+              }
+              else{
+                  numMes =  mesPrueba;
+              }
+
+          let formatted = now.getDate() + '/' + numMes  + '/' + now.getFullYear();
           
 
           this.cotizacion[i].createdAt = formatted;

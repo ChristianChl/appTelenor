@@ -229,8 +229,16 @@ export class ListIngresoComponent implements OnInit {
         for(let i=0; i<this.ingreso.length; i++){
             const now = new Date(this.ingreso[i].createdAt);
             var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        
-            let formatted = now.getDate()+ ' ' + months[now.getMonth()] + ' ' + now.getFullYear()   
+
+            let numMes:any = "";
+              let mesPrueba =  Number([now.getMonth()+1]);
+              if( mesPrueba <= 9){
+                  numMes = "0"+ mesPrueba;
+              }
+              else{
+                  numMes =  mesPrueba;
+              }
+            let formatted = now.getDate()+ '/' + numMes + '/' + now.getFullYear()   
             
 
             this.ingreso[i].createdAt = formatted;
