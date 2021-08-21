@@ -471,4 +471,8 @@ export class HomeComponent implements OnInit {
       err => console.log(err)
     )
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d3e2ab8d63b45d337d1e69c62111ccba7ae4916c
