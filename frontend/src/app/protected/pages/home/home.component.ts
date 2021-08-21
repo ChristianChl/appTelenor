@@ -5,15 +5,14 @@ import { DetallVentaService } from '../../services/detall-venta.service';
 import { IngresoService } from '../../services/ingreso.service';
 import { ProductoService } from '../../services/producto.service';
 import { VentasService } from '../../services/ventas.service';
-<<<<<<< HEAD
-import * as pluginDataLabels from '@marcelorafael/chartjs-plugin-datalabels'
+
+
 import { DatePipe } from '@angular/common';
 import { Ingreso } from '../../interfaces/Ingreso';
-=======
+
 import * as pluginDataLabels from '@marcelorafael/chartjs-plugin-datalabels';
 import { DetalleCotizacionService } from '../../services/detalle-cotizacion.service';
 import { CotizacionService } from '../../services/cotizacion.service';
->>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
 
 @Component({
   selector: 'app-home',
@@ -62,19 +61,18 @@ export class HomeComponent implements OnInit {
   public doughnutChartData: MultiDataSet = [[350, 450]];
   public doughnutChartType: ChartType = 'doughnut';
 
-<<<<<<< HEAD
+
   //Dona Compras mayor a Proveedores
   public doughnutChartLabels1: Label[] = [];
   public doughnutChartData1: MultiDataSet = [];
 
 
-=======
+
   public doughnutChartLabelsProvee: Label[] = [];
   public doughnutChartDataProvee: MultiDataSet = [[]];
 
   public doughnutChartLabelsCoti: Label[] = ['Coti - Ventas', 'Coti - No Venta'];
   public doughnutChartDataCoti: MultiDataSet = [[350, 450]];
->>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
 
   public colors: Color[] = [
     {
@@ -93,11 +91,8 @@ export class HomeComponent implements OnInit {
   private ingresoService: IngresoService,
   private detallVentaService:DetallVentaService,
   private prductoService:ProductoService,
-<<<<<<< HEAD
-  private datePipe: DatePipe) { }
-=======
+  private datePipe: DatePipe,
   private cotizacionService:CotizacionService) { }
->>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
   
   ngOnInit(): void {
 
@@ -105,13 +100,9 @@ export class HomeComponent implements OnInit {
     this.getMeses();
     this.getVentas();
     this.getCompras();
-<<<<<<< HEAD
     this.getDetalleVentas();
-    this.getMonthsValues();  
-=======
-    this.getDetalleVentas();   
+    this.getMonthsValues();
     this.getCotizaciones();
->>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
   }
   detalleVenta:any = [];
   filterDetallePro:any = [];
@@ -380,7 +371,7 @@ export class HomeComponent implements OnInit {
     this.isVisibleProducto = false;
   }
 
-<<<<<<< HEAD
+
   onlyUnique(value: any, index: any, self: any) { 
     return self.indexOf(value) === index;
 }
@@ -443,7 +434,7 @@ export class HomeComponent implements OnInit {
     this.totalCompras = [];
   }
 
-=======
+
   cotizacion:any = [];
   filterDetalleCotizacion:any = [];
   getCotizaciones(){
@@ -480,6 +471,4 @@ export class HomeComponent implements OnInit {
       err => console.log(err)
     )
   }
->>>>>>> dccc4a9506e866ea39391c3ff2a4749bf7085bbb
-  
 }

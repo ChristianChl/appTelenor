@@ -1,7 +1,4 @@
 <div class="buttons" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;"> 
-    
-    
-
     <div style="background: #ECECEC;padding:5px; text-align: center;">
         <div nz-row [nzGutter]="8">
           <div nz-col [nzSpan]="4">
@@ -68,11 +65,6 @@
           </div>
         </div>
     </div>
-
-    
-    
-
-    
 </div>
 
 <!-- 
@@ -184,10 +176,10 @@
                     
                     <div class="col-5" style="text-align: center;">
                         <div style="display: block" >
-                            <h2 >Tipos de Productos</h2>
+                            <h2 >Compras Proveedores</h2>
                             <canvas baseChart
-                              [data]="doughnutChartData"
-                              [labels]="doughnutChartLabels"
+                              [data]="doughnutChartData1"
+                              [labels]="doughnutChartLabels1"
                               [chartType]="doughnutChartType"
                               [colors]="colors">
                               
@@ -198,7 +190,7 @@
                 </div>
             </div>
             <div class="col-2" style="margin-top: 10px;">
-                <div  >
+                <div>
                     <h2 > Productos Sin Salida</h2>
                    
                     <nz-list nzBordered >
