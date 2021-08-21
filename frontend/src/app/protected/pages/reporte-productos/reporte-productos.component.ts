@@ -13,7 +13,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ReporteProductosComponent implements OnInit {
   tipoDoc: any = [
-    {text:"Mes Actual", value:"1"}
+    {text:"Mes Actual", value:"1"},
+    {text:"Dia Anterior", value:"2"}
   ];
 
   formRotacion = new FormGroup({
@@ -237,12 +238,82 @@ export class ReporteProductosComponent implements OnInit {
       for(let i=0; i<this.producto.length; i++){
         let cantidadVentas = 0;
         let id = this.producto[i].id_Producto;
-        console.log(formattedAyer);
+
         this.historialProductoFilter = this.historialProducto.filter(function(ele: any){
           return ele.id_producto == id && ele.createdAt >= primerDiaMes ;
         });
         this.historialProductoFilter = this.historialProductoFilter.filter(function(ele: any){
           return ele.createdAt <= formattedAyer ;
+        });
+        console.log(this.historialProductoFilter);
+        let cant = this.historialProductoFilter.length;
+
+        //Sacar Sttock inicial y final de cada Producto
+        if(this.historialProductoFilter.length > 0){
+
+          if(this.historialProductoFilter.length == 1){
+            if(this.historialProductoFilter[0].hist_cambioTiempo == "Venta"){
+               this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
+               this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
+            }
+            else{
+              this.stockInicialDiaAyer = 0;
+              this.stockFinalDiaAyer = 0;
+            }
+            
+          }
+          else{
+            if(this.historialProductoFilter[0].hist_cambioTiempo == "Venta"){
+              this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
+            }
+            else if(this.historialProductoFilter[0].hist_cambioTiempo == "Compra"){
+              this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock;
+            }
+            
+
+            if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Venta"){
+              this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
+            }
+            else if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Compra"){
+              this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock - this.historialProductoFilter[0].hist_cantCompra;;
+            }
+          }
+          
+        }
+        else{
+          this.stockInicialDiaAyer = 0;
+          this.stockFinalDiaAyer = 0;
+        }
+
+        //Obtener la cantidad de productos que se vendieron
+
+        for(let j=0;j<this.historialProductoFilter.length; j++){
+          cantidadVentas = this.historialProductoFilter[j].hist_cantVenta + cantidadVentas
+        }
+
+        // Realizar la formula 
+        let stockPromDiaAyer = (this.stockFinalDiaAyer + this.stockInicialDiaAyer)/2;
+        let rotacion;
+        if(stockPromDiaAyer == 0){
+           rotacion = 0;
+        } 
+        else{
+          rotacion = (cantidadVentas/stockPromDiaAyer).toFixed(2);
+        }
+        
+
+        console.log(rotacion);
+        this.producto[i].prod_imagen = rotacion;
+        
+      }
+    }
+    else{
+      for(let i=0; i<this.producto.length; i++){
+        let cantidadVentas = 0;
+        let id = this.producto[i].id_Producto;
+        console.log(formattedAyer);
+        this.historialProductoFilter = this.historialProducto.filter(function(ele: any){
+          return ele.id_producto == id && ele.createdAt == formattedAyer;
         });
         console.log(this.historialProductoFilter);
         let cant = this.historialProductoFilter.length;
