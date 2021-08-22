@@ -5,7 +5,6 @@ const db = new sequelize_1.Sequelize(process.env.DB_DATABASE || 'bd_new_segunda'
     host: process.env.DB_HOST || 'localhost',
     dialect: 'mysql',
     //port: 3307,
-    //logggin: false,
 });
 exports.default = db;
 //# sourceMappingURL=connection.js.map
