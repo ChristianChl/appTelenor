@@ -536,13 +536,7 @@ export class FormVentasComponent implements OnInit {
     this.monedasService.getMonedas().subscribe(
       res => {
         this.monedas = res;
-        console.log(this.monedas);
         this.monedas = this.monedas.monedas;
-        console.log("Monedas");
-        console.log(this.monedas);
-        //const personasFiltradas = this.persona.filter((x: { TipoPersonas: { tipoper_descripcion: string; }; }) => x.TipoPersonas.tipoper_descripcion == 'Proveedor');
-        
-        
       },
       err => console.error(err)
     );
@@ -557,7 +551,7 @@ export class FormVentasComponent implements OnInit {
   //Obtener datos del usario 
   get usuario(){
     return this.authService.usuario;
-    console.log(this.usuario);
+    
   } 
 
   getProductoIndividual(arrayProductos:any, id:any){
@@ -617,10 +611,6 @@ export class FormVentasComponent implements OnInit {
   numComprobante: number | undefined;
   id = 0;
   guardarDatos(){
-
-    
-    console.log(this.venta)
-     
     if(this.formDatosVentas.valid){
       if(this.venta.ven_tipoCambio != 0){
         const refCompro = this.venta.ven_numeroComprobante;
@@ -649,7 +639,7 @@ export class FormVentasComponent implements OnInit {
             }else{
               this.formDatosVentas.markAllAsTouched();
               Swal.fire('Error', resp, 'error');
-              console.log(resp);
+              
             }
             
           });
@@ -685,13 +675,13 @@ export class FormVentasComponent implements OnInit {
                   })
                   this.skillsForm.reset();
                   this.router.navigateByUrl('/dashboard/listaVentas');
-                  console.log("Exito");
+                  
 
                 }
                 else{
                   this.formDatosVentas.markAllAsTouched();
                   Swal.fire('Error', ok, 'error');
-                  console.log(ok);
+                  
                 }
               });
 
