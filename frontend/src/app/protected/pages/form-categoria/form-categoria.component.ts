@@ -52,16 +52,12 @@ export class FormCategoriaComponent implements OnInit {
 
   ngOnInit(): void {
     this.edit = false;
-    console.log("Inicializando cATEGORIA");
     const params = this.activatedRoute.snapshot.params;
     this.categoria.cat_activo = "true";
-    console.log("IdCategoria" + this.idCategoria);
     if(this.idCategoria!=""){
       this.categoriaService.getCategoria(this.idCategoria)
       .subscribe(
         res => {
-          console.log(res);
-          console.log("IdCategoria prueba");
           this.categoria = res;
           this.edit = true;
         },
@@ -70,7 +66,7 @@ export class FormCategoriaComponent implements OnInit {
     }
     else{
       
-      console.log("prueba de oninit");
+      
       this.edit = false;
       
       this.categoria.cat_nombre = "";
@@ -80,7 +76,7 @@ export class FormCategoriaComponent implements OnInit {
   }
 
   handleCancelCategoria(): void {
-    console.log('Button cancel clicked!');
+    
     this.isVisibleCategoria = false;
     this.newVisibleCategoria.emit(this.isVisibleCategoria);
   }
@@ -101,7 +97,6 @@ export class FormCategoriaComponent implements OnInit {
       debounceTime(500)
     )
     .subscribe(value => {
-      console.log(value);
     });
   }
 
@@ -125,7 +120,6 @@ export class FormCategoriaComponent implements OnInit {
           else{
             this.formCategoria.markAllAsTouched();
             Swal.fire('Error', ok, 'error');
-            console.log(ok);
           }
         });
   }
@@ -135,7 +129,7 @@ export class FormCategoriaComponent implements OnInit {
     this.categoriaService.updateCategoria(this.idCategoria, this.categoria)
       .subscribe(
         ok => {
-          console.log("dfdf");
+          
           if (this.formCategoria.valid) {
             Swal.fire({
               position: 'center',
@@ -152,7 +146,7 @@ export class FormCategoriaComponent implements OnInit {
           else{
             this.formCategoria.markAllAsTouched();
             Swal.fire('Error', ok, 'error');
-            console.log(ok);
+           
           }
           
         });

@@ -56,7 +56,6 @@ export class FormMarcaComponent implements OnInit {
       this.marcaService.getMarca(this.idMarca)
       .subscribe(
         res => {
-          console.log(res);
           this.marca = res;
           this.edit = true;
         },
@@ -65,7 +64,6 @@ export class FormMarcaComponent implements OnInit {
     }
     else
     {
-        console.log("prueba de oninit");
         this.edit = false;
         
         this.marca.mar_nombre = "";
@@ -76,7 +74,6 @@ export class FormMarcaComponent implements OnInit {
   }
 
   handleCancelMarca(): void {
-    console.log('Button cancel clicked!');
     this.isVisibleMarca = false;
     this.newVisibleMarca.emit(this.isVisibleMarca);
   }
@@ -97,16 +94,12 @@ export class FormMarcaComponent implements OnInit {
       debounceTime(500)
     )
     .subscribe(value => {
-      console.log(value);
     });
   }
 
   saveNewMarca(){
-
-    console.log("nuevo");
     
       const value = this.formMarca.value;
-      console.log(value);
         this.marcaService.saveMarca(this.marca)
       .subscribe(
         ok=>{
@@ -125,7 +118,6 @@ export class FormMarcaComponent implements OnInit {
           else{
             this.formMarca.markAllAsTouched();
             Swal.fire('Error', ok, 'error');
-            console.log(ok);
           }
         });
     
@@ -136,7 +128,6 @@ export class FormMarcaComponent implements OnInit {
     this.marcaService.updateMarca(this.idMarca, this.marca)
       .subscribe(
         ok => {
-          console.log("dfdf");
           if (this.formMarca.valid) {
             Swal.fire({
               position: 'center',
@@ -153,7 +144,6 @@ export class FormMarcaComponent implements OnInit {
           else{
             this.formMarca.markAllAsTouched();
             Swal.fire('Error', ok, 'error');
-            console.log(ok);
           }
           
         });

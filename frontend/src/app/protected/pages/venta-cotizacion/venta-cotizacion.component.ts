@@ -143,7 +143,6 @@ export class VentaCotizacionComponent implements OnInit {
       
       
       this.formDatosVentas.controls.tipoDocIngreso.valueChanges.subscribe(changes => {
-        console.log("Entro al change");
         this.Opciones(changes);
 
         this.venta.ven_numeroComprobante = this.siguienteVenta.toString();
@@ -171,7 +170,6 @@ export class VentaCotizacionComponent implements OnInit {
             return ele.fk_id_cotizacion == idCotizacionFilter;
           });
 
-          console.log(this.detalleCotiFilter);
           for(let i=0 ; i<this.detalleCotiFilter.length; i++){
             this.addSkills();
             this.romover = false;
@@ -237,7 +235,6 @@ export class VentaCotizacionComponent implements OnInit {
               const linesFormArray = this.skillsForm.get("skills") as FormArray;
               this.info.skills.forEach((a: { skills: any[]; },index: number) => {
 
-                console.log(linesFormArray.at(index).setValue(a));
                 if(linesFormArray.value[index].num1 != 0){
                     linesFormArray.at(index).setValue(a);
                 }
@@ -262,7 +259,6 @@ export class VentaCotizacionComponent implements OnInit {
     this.cotizacionService.getCotizacion(this.idCotizacionVenta).subscribe(
       res => {
         this.cotizacion = res;
-        console.log(this.cotizacion);
 
       },
       err => console.error(err)
@@ -270,13 +266,10 @@ export class VentaCotizacionComponent implements OnInit {
   }
   opc: any = "";
   Opciones(opc: string) {
-    // console.log(opc);
     this.opc;
     if (opc == "1") {
-      console.log("ID 1");
       this.venta.ven_serieComprobante = "F001";
     } else if (opc == "2") {
-      console.log("ID 2");
       this.venta.ven_serieComprobante = "B001";
     } else if (opc == "3") {
       this.venta.ven_serieComprobante = "N001";
@@ -292,7 +285,6 @@ export class VentaCotizacionComponent implements OnInit {
         this.ventas = res;
         this.ventas = this.ventas.venta;
         this.numeroCorrecto = 'no'
-        console.log(this.ventas);
         this.siguienteVenta = this.ventas.length+1+10000;
 
 
@@ -314,8 +306,6 @@ export class VentaCotizacionComponent implements OnInit {
         }
 
         this.siguienteVenta = numVenta;
-
-        console.log("this.producto.producto");
       },
       err => console.error(err)
     );
@@ -330,9 +320,6 @@ export class VentaCotizacionComponent implements OnInit {
         this.producto = this.producto.filter(function(ele: any){
           return ele.prod_activo == true;
         });
-
-        console.log(this.producto);
-        console.log("this.producto.producto");
       },
       err => console.error(err)
     );
@@ -350,7 +337,6 @@ export class VentaCotizacionComponent implements OnInit {
   }
 
   handleCancelCategoria(): void {
-    console.log('Button cancel clicked!');
     this.formDatosVentas.reset();
     this.isVisibleCotizacionVenta = false;
     this.newVisibleCotizacionVenta.emit(this.isVisibleCotizacionVenta);
@@ -358,7 +344,6 @@ export class VentaCotizacionComponent implements OnInit {
   info: any;
   selectedDevice:any = "";
   onChangeTipoCambio(newValue:any) {
-    console.log(newValue);
     this.selectedDevice = newValue;
     if(this.selectedDevice == 1){ 
         let input2 = document.getElementById("tipoCambio");
@@ -374,7 +359,6 @@ export class VentaCotizacionComponent implements OnInit {
         
         }
   
-          console.log(this.info);
           this.info = this.skillsForm.value;
             const linesFormArray = this.skillsForm.get("skills") as FormArray;
             this.info.skills.forEach((a: { skills: any[]; },index: number) => {
@@ -410,7 +394,6 @@ export class VentaCotizacionComponent implements OnInit {
             this.venta.ven_igv = (this.igvtotal.toFixed(2)).toString();
           
             this.totalFinal = Number(this.info.skills[index].total) + this.totalFinal;
-            console.log(this.totalFinal);
             this.venta.ven_total = (this.totalFinal.toFixed(2)).toString();
         });
     }
@@ -451,7 +434,6 @@ export class VentaCotizacionComponent implements OnInit {
 
   get usuario(){
     return this.authService.usuario;
-    console.log(this.usuario);
   } 
 
   getProductoIndividual(arrayProductos:any, id:any){
@@ -470,7 +452,6 @@ export class VentaCotizacionComponent implements OnInit {
     this.productoService.updateProducto(id, productoActualizar)
     .subscribe(
       ok => {
-        console.log("verifique stock catualizado");
       });
 
   }
@@ -502,16 +483,7 @@ export class VentaCotizacionComponent implements OnInit {
                 icon: 'success',
                 title: 'Venta Registrada Exitosamente!',
               });
-              /*
-              this.cotizacion.id_cotizacion = this.idCotizacionVenta;
-              this.cotizacion.coti_fechaHora = '';
-              this.cotizacion.coti_observacion = this.cotizacionIndividual[0].coti_observacion;
-              this.cotizacion.coti_total = this.cotizacionIndividual[0].coti_total;
-              this.cotizacion.coti_tipoCambio = this.cotizacionIndividual[0].coti_tipoCambio;
               
-              this.cotizacion.fk_id_persona = this.cotizacionIndividual[0].fk_id_persona;
-              this.cotizacion.fk_id_moneda = this.cotizacionIndividual[0].fk_id_moneda;
-              this.cotizacion.fk_id_usuario = this.cotizacionIndividual[0].fk_id_usuario;*/
 
               this.cotizacion.coti_hechoVenta = true;
               
@@ -528,7 +500,6 @@ export class VentaCotizacionComponent implements OnInit {
             }else{
               this.formDatosVentas.markAllAsTouched();
               Swal.fire('Error', resp, 'error');
-              console.log(resp);
             }
             
           });
@@ -563,13 +534,11 @@ export class VentaCotizacionComponent implements OnInit {
                   })
                   this.skillsForm.reset();
                   this.router.navigateByUrl('/dashboard/listaVentas');
-                  console.log("Exito");
 
                 }
                 else{
                   this.formDatosVentas.markAllAsTouched();
                   Swal.fire('Error', ok, 'error');
-                  console.log(ok);
                 }
               });
 
@@ -603,12 +572,7 @@ export class VentaCotizacionComponent implements OnInit {
     this.monedasService.getMonedas().subscribe(
       res => {
         this.monedas = res;
-        console.log(this.monedas);
         this.monedas = this.monedas.monedas;
-        console.log("Monedas");
-        console.log(this.monedas);
-        //const personasFiltradas = this.persona.filter((x: { TipoPersonas: { tipoper_descripcion: string; }; }) => x.TipoPersonas.tipoper_descripcion == 'Proveedor');
-        
         
       },
       err => console.error(err)
@@ -616,12 +580,8 @@ export class VentaCotizacionComponent implements OnInit {
   }
 
   onKeyupCambio(event: any){
-    console.log(event.key);
-    console.log(this.venta.ven_tipoCambio);
-
     if(event.key != "."){
       this.info = this.skillsForm.value;
-      console.log(this.info);
       for(let i=0; i<this.skillsForm.value.skills.length; i++){
 
           if(this.skillsForm.value.skills[i].producto !=""){
@@ -632,7 +592,6 @@ export class VentaCotizacionComponent implements OnInit {
         
       }
 
-      console.log(this.info);
       this.info = this.skillsForm.value;
         const linesFormArray = this.skillsForm.get("skills") as FormArray;
         this.info.skills.forEach((a: { skills: any[]; },index: number) => {
@@ -643,7 +602,6 @@ export class VentaCotizacionComponent implements OnInit {
   }
 
   handleCancelCotizaVenta(){
-    console.log('Button cancel clicked!');
     this.isVisibleCotizacionVenta = false;
     this.newVisibleCotizacionVenta.emit(this.isVisibleCotizacionVenta);
   }
@@ -658,8 +616,6 @@ export class VentaCotizacionComponent implements OnInit {
 
   idCliente = "";
   modalEditCliente(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleCliente = true;
     this.idCliente = id;
   }
@@ -674,9 +630,7 @@ export class VentaCotizacionComponent implements OnInit {
     this.personaService.getPersonas().subscribe(
       res => {
         this.persona = res;
-        console.log(this.persona);
         this.persona = this.persona.persona;
-        console.log(this.persona);
         //const personasFiltradas = this.persona.filter((x: { TipoPersonas: { tipoper_descripcion: string; }; }) => x.TipoPersonas.tipoper_descripcion == 'Proveedor');
         
          this.persona = this.persona.filter(function(ele: any){
@@ -684,16 +638,12 @@ export class VentaCotizacionComponent implements OnInit {
           return ele.TipoPersonas.tipoper_descripcion == 'Cliente';
 
         });
-        
-
-        console.log(this.persona);
       },
       err => console.error(err)
     );
   }
 
   onSubmit() {
-    console.log(this.skillsForm.value);
   }
   filterProducto:any = [];
   onKeyUp(indice:any){
@@ -732,7 +682,7 @@ export class VentaCotizacionComponent implements OnInit {
         // Sub-Total
         if(this.skillsForm.controls.skills.value[indice].igv == "" || this.skillsForm.controls.skills.value[indice].igv == "2"){
           this.skillsForm.controls.skills.value[indice].subTotal  = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
-          console.log(this.skillsForm.controls.skills.value[indice].subTotal);
+         
         }
         else{
           this.skillsForm.controls.skills.value[indice].subTotal  = ((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)/1.18).toFixed(2);

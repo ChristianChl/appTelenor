@@ -44,15 +44,11 @@ export class ListProductoComponent implements OnInit {
 
   idProducto = "";
   modalEditProducto(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleProducto = true;
     this.idProducto = id;
   }
 
   modalHistorial(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleHistorial = true;
     this.idProducto = id;
   }
@@ -65,17 +61,12 @@ export class ListProductoComponent implements OnInit {
         this.producto = res;
         this.producto = this.producto.producto;
         this.tipos = this.producto.Tipos;
-        
-        console.log(this.producto);
-        console.log(this.tipos);
-        console.log("this.producto.producto");
       },
       err => console.error(err)
     );
   }
 
   deleteProducto(id: string){
-    console.log("elimar");
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -89,7 +80,6 @@ export class ListProductoComponent implements OnInit {
 
         this.prductoService.deleteProducto(id).subscribe(
           res=> {
-            console.log(res)
             this.getProductos();
 
             Swal.fire(

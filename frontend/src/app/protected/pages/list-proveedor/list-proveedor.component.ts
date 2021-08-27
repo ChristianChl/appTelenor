@@ -49,8 +49,6 @@ export class ListProveedorComponent implements OnInit {
 
   idProveedor = "";
   modalEditProveedor(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleProveedor = true;
     this.idProveedor = id;
   }
@@ -65,9 +63,7 @@ export class ListProveedorComponent implements OnInit {
     this.personaService.getPersonas().subscribe(
       res => {
         this.persona = res;
-        console.log(this.persona);
         this.persona = this.persona.persona;
-        console.log(this.persona);
         //const personasFiltradas = this.persona.filter((x: { TipoPersonas: { tipoper_descripcion: string; }; }) => x.TipoPersonas.tipoper_descripcion == 'Proveedor');
         
          this.persona = this.persona.filter(function(ele: any){
@@ -75,9 +71,6 @@ export class ListProveedorComponent implements OnInit {
           return ele.TipoPersonas.tipoper_descripcion == 'Proveedor';
 
         });
-        
-
-        console.log(this.persona);
       },
       err => console.error(err)
     );
@@ -86,7 +79,6 @@ export class ListProveedorComponent implements OnInit {
   deleteProveedor(id: string){
     this.personaService.deletePersona(id).subscribe(
       res=> {
-        console.log(res)
         Swal.fire({
           position: 'center',
           icon: 'success',

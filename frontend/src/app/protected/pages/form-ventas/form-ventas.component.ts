@@ -134,7 +134,6 @@ export class FormVentasComponent implements OnInit {
     ngOnInit(): void {
 
     const param = this.activatedRoute.snapshot.params
-    console.log(param);
     this.getCliente();
     this.getMoneda();
     this.getProductos();
@@ -144,7 +143,6 @@ export class FormVentasComponent implements OnInit {
     this.maxDate = new Date();
      
     this.formDatosVentas.controls.tipoDocIngreso.valueChanges.subscribe(changes => {
-        console.log("Entro al change");
         this.Opciones(changes);
 
         this.venta.ven_numeroComprobante = this.siguienteVenta.toString();
@@ -160,7 +158,6 @@ export class FormVentasComponent implements OnInit {
   }
   selectedDevice:any = "";
   onChangeTipoCambio(newValue:any) {
-    console.log(newValue);
     this.selectedDevice = newValue;
     if(this.selectedDevice == 1){ 
         let input2 = document.getElementById("tipoCambio");
@@ -175,8 +172,6 @@ export class FormVentasComponent implements OnInit {
           this.skillsForm.controls.skills.value[i].total = (this.skillsForm.controls.skills.value[i].num1 *  this.skillsForm.controls.skills.value[i].num2).toFixed(2);
         
         }
-  
-          console.log(this.info);
           this.info = this.skillsForm.value;
             const linesFormArray = this.skillsForm.get("skills") as FormArray;
             this.info.skills.forEach((a: { skills: any[]; },index: number) => {
@@ -196,10 +191,8 @@ export class FormVentasComponent implements OnInit {
   }
 
   OpcionesTCambio(opc: string){
-    console.log(opc);
     this.opc;
     if (opc == "1") {
-      console.log("ID 1");
       this.venta.ven_tipoCambio = 1;
     }
     else{
@@ -209,13 +202,10 @@ export class FormVentasComponent implements OnInit {
 
   opc: any = "";
   Opciones(opc: string) {
-    // console.log(opc);
     this.opc;
     if (opc == "1") {
-      console.log("ID 1");
       this.venta.ven_serieComprobante = "F001";
     } else if (opc == "2") {
-      console.log("ID 2");
       this.venta.ven_serieComprobante = "B001";
     } else if (opc == "3") {
       this.venta.ven_serieComprobante = "N001";
@@ -231,8 +221,6 @@ export class FormVentasComponent implements OnInit {
       res => {
         this.ventas = res;
         this.ventas = this.ventas.venta;
-
-        console.log(this.ventas);
         this.siguienteVenta = this.ventas.length+1+10000;
 
 
@@ -254,8 +242,6 @@ export class FormVentasComponent implements OnInit {
         }
 
         this.siguienteVenta = numVenta;
-
-        console.log("this.producto.producto");
       },
       err => console.error(err)
     );
@@ -289,7 +275,6 @@ export class FormVentasComponent implements OnInit {
   probar : boolean = false;
 
   onKeyUp(indice:any){
-    console.log(indice)
 
     if(this.stockPro == true){
       this.skillsForm.controls.skills.value[indice].producto = this.refenciaProducto;
@@ -332,7 +317,7 @@ export class FormVentasComponent implements OnInit {
         // Sub-Total
         if(this.skillsForm.controls.skills.value[indice].igv == "" || this.skillsForm.controls.skills.value[indice].igv == "2"){
           this.skillsForm.controls.skills.value[indice].subTotal  = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
-          console.log(this.skillsForm.controls.skills.value[indice].subTotal);
+          
         }
         else{
           this.skillsForm.controls.skills.value[indice].subTotal  = ((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)/1.18).toFixed(2);
@@ -373,7 +358,6 @@ export class FormVentasComponent implements OnInit {
         this.venta.ven_igv = (this.igvtotal.toFixed(2)).toString();
        
         this.totalFinal = Number(this.info.skills[index].total) + this.totalFinal;
-        console.log(this.totalFinal);
         this.venta.ven_total = (this.totalFinal.toFixed(2)).toString();
    });
   }
@@ -382,14 +366,8 @@ export class FormVentasComponent implements OnInit {
   refenciaProducto:any = 0;
   stockPro = false;
   onKeyUpProducto(indice:any){
-
-    
-    console.log("Pruebaaa ");
-    
-    console.log(indice);
     
     this.filterProducto = [];
-    console.log("Pruebaaa ");
     const idProducto = this.skillsForm.controls.skills.value[indice].producto;
     
     this.filterProducto = this.producto.filter(function(ele: any){
@@ -401,8 +379,18 @@ export class FormVentasComponent implements OnInit {
         icon: 'warning',
         title: 'Alerta',
         text: 'No hay stock para el producto seleccionado',
+        confirmButtonText:
+        ' <a routerLink="/dashboard/agregarIngreso"> <i  class="fa fa-thumbs-up"></i> Ir a Compras! </a>',
+        showCancelButton: true,
+        cancelButtonText:
+        'OK!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigateByUrl('/dashboard/agregarIngreso');
+        }
       });
 
+      
       this.refenciaProducto = this.skillsForm.controls.skills.value[indice].producto;
       this.stockPro = true;
       this.skillsForm.controls.skills.value[indice].producto = 0;
@@ -423,7 +411,6 @@ export class FormVentasComponent implements OnInit {
         this.onKeyUp(indice);
     }
     else{
-        console.log(this.filterProducto);
         this.stockPro = false;
         this.skillsForm.controls.skills.value[indice].num1 = 1;
         this.skillsForm.controls.skills.value[indice].precioOriginal = this.filterProducto[0].prod_precioVenta;
@@ -461,9 +448,6 @@ export class FormVentasComponent implements OnInit {
         this.producto = this.producto.filter(function(ele: any){
           return ele.prod_activo == true;
         });
-
-        console.log(this.producto);
-        console.log("this.producto.producto");
       },
       err => console.error(err)
     );
@@ -476,11 +460,9 @@ export class FormVentasComponent implements OnInit {
       debounceTime(500)
     )
     .subscribe(value => {
-      console.log(value);
     });
   }
   onSubmit() {
-    console.log(this.skillsForm.value);
   }
 
 
@@ -493,8 +475,6 @@ export class FormVentasComponent implements OnInit {
 
   idCliente = "";
   modalEditCliente(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleCliente = true;
     this.idCliente = id;
   }
@@ -514,19 +494,12 @@ export class FormVentasComponent implements OnInit {
     this.personaService.getPersonas().subscribe(
       res => {
         this.persona = res;
-        console.log(this.persona);
         this.persona = this.persona.persona;
-        console.log(this.persona);
-        //const personasFiltradas = this.persona.filter((x: { TipoPersonas: { tipoper_descripcion: string; }; }) => x.TipoPersonas.tipoper_descripcion == 'Proveedor');
-        
          this.persona = this.persona.filter(function(ele: any){
 
           return ele.TipoPersonas.tipoper_descripcion == 'Cliente';
 
         });
-        
-
-        console.log(this.persona);
       },
       err => console.error(err)
     );
@@ -583,26 +556,20 @@ export class FormVentasComponent implements OnInit {
     this.historialProducto.hist_cambioTiempo = "Venta";
     this.historialProducto.hist_cantVenta = detalleVenta.detv_cantidad;
     this.historialProducto.fk_id_usuario = this.usuario.uid;
-    
-
-    console.log(this.historialProducto);
 
     this.historialProductoService.saveHistorialProducto(this.historialProducto)
     .subscribe(ok =>{
       if( ok == true ) {
-        console.log("Historial guardado")
         
 
       }else{
 
-        console.log("Error - Historial no guardado")
       }
     })
 
     this.productoService.updateProducto(id, productoActualizar)
     .subscribe(
       ok => {
-        console.log("verifique stock catualizado");
       });
 
   }
@@ -659,7 +626,6 @@ export class FormVentasComponent implements OnInit {
             const productoIndi =  this.getProductoIndividual(this.producto,  this.id);
             const cantidadIngresada = Number(arrayProductos[i].num1);
             productoIndi[0].prod_stock = productoIndi[0].prod_stock - cantidadIngresada;
-            console.log(this.detalleVenta);
             this.actualizaProducto(this.id, productoIndi[0],this.detalleVenta);
 
             this.detallVentaService.saveDetalleVenta(this.detalleVenta)
@@ -714,12 +680,9 @@ export class FormVentasComponent implements OnInit {
   }
 
   onKeyupCambio(event: any){
-    console.log(event.key);
-    console.log(this.venta.ven_tipoCambio);
 
     if(event.key != "."){
       this.info = this.skillsForm.value;
-      console.log(this.info);
       for(let i=0; i<this.skillsForm.value.skills.length; i++){
 
           if(this.skillsForm.value.skills[i].producto !=""){
@@ -730,7 +693,6 @@ export class FormVentasComponent implements OnInit {
         
       }
 
-      console.log(this.info);
       this.info = this.skillsForm.value;
         const linesFormArray = this.skillsForm.get("skills") as FormArray;
         this.info.skills.forEach((a: { skills: any[]; },index: number) => {

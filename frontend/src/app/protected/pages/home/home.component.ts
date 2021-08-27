@@ -13,6 +13,7 @@ import { Ingreso } from '../../interfaces/Ingreso';
 import * as pluginDataLabels from '@marcelorafael/chartjs-plugin-datalabels';
 import { DetalleCotizacionService } from '../../services/detalle-cotizacion.service';
 import { CotizacionService } from '../../services/cotizacion.service';
+import { HistorialProductoService } from '../../services/historial-producto.service';
 
 @Component({
   selector: 'app-home',
@@ -92,7 +93,8 @@ export class HomeComponent implements OnInit {
   private detallVentaService:DetallVentaService,
   private prductoService:ProductoService,
   private datePipe: DatePipe,
-  private cotizacionService:CotizacionService) { }
+  private cotizacionService:CotizacionService,
+  private historialProductoService:HistorialProductoService) { }
   
   ngOnInit(): void {
 
@@ -103,6 +105,44 @@ export class HomeComponent implements OnInit {
     this.getDetalleVentas();
     this.getMonthsValues();
     this.getCotizaciones();
+    this.getHistorial();
+  }
+  historialProducto:any = [];
+  getHistorial(){
+    this.historialProductoService.getHistorialProductos()
+      .subscribe(
+        res => {
+          let id = this.idProducto;
+          this.historialProducto = res;
+          this.historialProducto= this.historialProducto.historialProducto;
+          let milisegundos = 24*60*60*1000;
+          for(let i=0; i<this.todosProductos.length; i++){
+
+            let idProducto = this.todosProductos[i].id_Producto;
+  
+            this.ventasProducto = this.historialProducto.filter(function(ele: any){
+              return ele.id_producto == idProducto && ele.hist_cambioTiempo != "Compra";
+            });
+            let ultimoMovimiento = this.ventasProducto.length;
+            var f = new Date();
+            var xy = new Date(this.ventasProducto[ultimoMovimiento-1].createdAt);
+            let milisegundosTranscurridos = Math.abs(f.getTime() - xy.getTime());
+            let diasTranscurridos = Math.round(milisegundosTranscurridos/milisegundos);
+            
+            if(diasTranscurridos >= 90){
+              this.productoSinMoviento.push(this.todosProductos[i]);
+            }
+            
+          }
+
+
+
+          this.historialProducto = this.historialProducto.filter(function(ele: any){
+            return ele.id_producto == id;
+          });
+        },
+        err => console.log(err)
+      )
   }
   detalleVenta:any = [];
   filterDetallePro:any = [];
@@ -122,7 +162,6 @@ export class HomeComponent implements OnInit {
         this.filterDetalleSer = this.detalleVenta.filter(function(ele: any){
           return ele.Productos.fk_id_tipo == 3;
         });
-        console.log(this.doughnutChartData);
         this.doughnutChartData[0].splice(0, 1, this.filterDetallePro.length);
         this.doughnutChartData[0].splice(1, 1, this.filterDetalleSer.length);
 
@@ -144,7 +183,6 @@ export class HomeComponent implements OnInit {
 
           this.detalleVenta[i].createdAt = formatted;
         }
-        console.log(this.detalleVenta)
         let milisegundos = 24*60*60*1000;
         this.productoSinMoviento = [];
         for(let i=0; i<this.producto.length; i++){
@@ -156,15 +194,11 @@ export class HomeComponent implements OnInit {
           });
           if(this.ventasProducto.length>0){
             let ultimo = this.ventasProducto.length - 1 ;
-
-            console.log(this.ventasProducto);
             var f = new Date();
             var xy = new Date(this.ventasProducto[ultimo].createdAt);
             let milisegundosTranscurridos = Math.abs(f.getTime() - xy.getTime());
             let diasTranscurridos = Math.round(milisegundosTranscurridos/milisegundos);
             
-            console.log(diasTranscurridos);
-
             if(diasTranscurridos >= 90){
               this.productoSinMoviento.push(this.producto[i]);
             }
@@ -199,14 +233,11 @@ export class HomeComponent implements OnInit {
   getMeses(){
     var todaysDate = new Date();
     var currentMonth = this.months[todaysDate.getMonth()];
-    console.log('Current month ' + currentMonth);
-    console.log('Previous month(s) ');
     for(let i = this.months.indexOf(currentMonth); i >= 0; i--){
         this.contador = this.contador + 1;
         if(this.contador <= 3){
           this.barChartLabels.push(this.months[i]);
         }
-        console.log(this.months[i]);
     }
     this.barChartLabels = this.barChartLabels.reverse();
 
@@ -248,8 +279,6 @@ export class HomeComponent implements OnInit {
           this.barChartData.push({data:ventasArrayDol, label:"Ventas - Dol",backgroundColor:'#ea8013', hoverBackgroundColor:'#e1913e'});
           this.barChartData.push({data:ventasArraySol, label:"Ventas - Sol",backgroundColor:'#a3e542', hoverBackgroundColor:'#b5e56e'});
           
-          // console.log("Data");
-          // console.log(this.barChartData);
 
       },
       err => console.error(err)
@@ -268,19 +297,16 @@ export class HomeComponent implements OnInit {
         for(let i = 0; i <this.barChartLabels.length ; i++){
     
           this.filterIngreso =  this.filterMes(this.barChartLabels[i],this.ingreso);
-          console.log(this.filterIngreso);
 
           let ingresoMes = 0;
           
           for(let i=0; i<this.filterIngreso.length; i++){
               ingresoMes = ingresoMes + Number(this.filterIngreso[i].ing_totalCompra);
           }
-          console.log(this.filterIngreso);
           IngresoArray.push(ingresoMes);
         }
-          console.log(IngresoArray);
           this.barChartDataCompra.push({data:IngresoArray, label:"Compras - Sol", backgroundColor:'#6cb6d6', hoverBackgroundColor:'#8bc4dd'});
-          console.log(this.barChartDataCompra);
+          
       },
       err => console.error(err)
     );
@@ -301,12 +327,12 @@ export class HomeComponent implements OnInit {
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+    
 
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+
   }
 
   public randomize(): void {
@@ -321,12 +347,13 @@ export class HomeComponent implements OnInit {
       40 ];
   }
   producto:any = [];
-
+  todosProductos:any=[];
   
   getProductos(){
     this.prductoService.getProductos().subscribe(
       res => {
         this.producto = res;
+        this.todosProductos = this.producto.producto;
         this.producto = this.producto.producto;
         
         this.producto = this.producto.filter(function(ele: any){
@@ -349,8 +376,6 @@ export class HomeComponent implements OnInit {
 
           this.producto[i].createdAt = formatted;
         }
-
-        console.log(this.producto);
       },
       err => console.error(err)
     );
@@ -359,8 +384,6 @@ export class HomeComponent implements OnInit {
   idProducto = "";
   cambioTiempo = true;
   modalEditProducto(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleProducto = true;
     this.idProducto = id;
     this.cambioTiempo = true;
@@ -462,9 +485,6 @@ export class HomeComponent implements OnInit {
           }
 
         }
-
-        console.log(totalCotiVenta);
-        console.log(totalCotiNoVenta)
         this.doughnutChartDataCoti[0].splice(0, 1, totalCotiVenta);
         this.doughnutChartDataCoti[0].splice(1, 1, totalCotiNoVenta);
       },
@@ -472,3 +492,9 @@ export class HomeComponent implements OnInit {
     )
   }
 }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 61845ae2b9c0b03a25891728fe936c2e32f1cfeb

@@ -144,9 +144,6 @@ export class FormIngresoComponent implements OnInit{
         this.producto = this.producto.filter(function(ele: any){
           return ele.prod_activo == true;
         });
-
-        console.log(this.producto);
-        console.log("this.producto.producto");
       },
       err => console.error(err)
     );
@@ -182,17 +179,11 @@ export class FormIngresoComponent implements OnInit{
     this.historialProducto.hist_cantCompra = detalleIngreso.deti_cantidad;
     this.historialProducto.fk_id_usuario = this.usuario.uid;
 
-    console.log(this.historialProducto);
-
     this.historialProductoService.saveHistorialProducto(this.historialProducto)
     .subscribe(ok =>{
       if( ok == true ) {
-        console.log("Historial guardado")
-        
 
       }else{
-
-        console.log("Error - Historial no guardado")
       }
     })
 
@@ -200,7 +191,6 @@ export class FormIngresoComponent implements OnInit{
     this.prductoService.updateProducto(id, productoActualizar)
     .subscribe(
       ok => {
-        console.log("verifique stock catualizado");
       });
 
   }
@@ -208,7 +198,6 @@ export class FormIngresoComponent implements OnInit{
   numComprobante: number | undefined;
   id = 0;
   guardarDatos(){
-    console.log("pureba de ingreso");
     
     const value = this.formDatosIngreso.value;
     const num = this.ingreso.ing_numeroComprobante;
@@ -216,7 +205,6 @@ export class FormIngresoComponent implements OnInit{
     this.ingreso.id_ingreso = Number(this.ingreso.ing_numeroComprobante);
     this.ingreso.fk_id_usuario = this.usuario.uid;
     
-    console.log(this.skillsForm.value.skills);
     const arrayProductos = this.skillsForm.value.skills;
 
     if(this.formDatosIngreso.valid)
@@ -228,21 +216,17 @@ export class FormIngresoComponent implements OnInit{
       ok=>{
         if (ok== true && this.formDatosIngreso.valid && this.skillsForm.valid) {
           
-              console.log("Los datos del ingreso de guardaron correctamente");
               this.formDatosIngreso.reset();
         }
         else{
           this.formDatosIngreso.markAllAsTouched();
           Swal.fire('Error', ok, 'error');
-          console.log(ok);
         }
       });
       
      
 
         for(let i=0; i<arrayProductos.length; i++){
-          console.log("vuelta" +  i);
-          console.log(arrayProductos[i]);
           
           this.detalleIngreso.id_detalleIngreso = 0;
           this.detalleIngreso.deti_cantidad= Number(arrayProductos[i].num1);
@@ -255,7 +239,6 @@ export class FormIngresoComponent implements OnInit{
           this.id = Number(this.detalleIngreso.fk_id_producto)
           //Obtener el producto
 
-          console.log(this.producto);
 
           const productoIndi =  this.getProductoIndividual(this.producto,  this.id);
 
@@ -284,7 +267,6 @@ export class FormIngresoComponent implements OnInit{
               else{
                 this.formDatosIngreso.markAllAsTouched();
                 Swal.fire('Error', ok, 'error');
-                console.log(ok);
               }
             });
         }
@@ -330,7 +312,7 @@ export class FormIngresoComponent implements OnInit{
   }
 
   onSubmit() {
-    console.log(this.skillsForm.value);
+
   }
 
   private buildForm() {
@@ -341,7 +323,7 @@ export class FormIngresoComponent implements OnInit{
       debounceTime(500)
     )
     .subscribe(value => {
-      console.log(value);
+
     });
 
     this.skillsForm.valueChanges
@@ -349,12 +331,12 @@ export class FormIngresoComponent implements OnInit{
       debounceTime(500)
     )
     .subscribe(value => {
-      console.log(value);
+
     });
   }
 
   prueba2(){
-    console.log("Pruebaaa")
+
   
   }
   probar : boolean = false;
@@ -362,14 +344,14 @@ export class FormIngresoComponent implements OnInit{
   cambioIgv(indice:any, validacion:boolean){
       if(this.skillsForm.controls.skills.value[indice].igv == "" || this.skillsForm.controls.skills.value[indice].igv == "2"){
         this.skillsForm.controls.skills.value[indice].subTotal  = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
-        console.log(this.skillsForm.controls.skills.value[indice].subTotal);
+        
       }
       else{
         this.skillsForm.controls.skills.value[indice].subTotal  = ((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)-((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)*0.18)).toFixed(2);
         
       }
 
-      console.log(validacion)
+      
       this.info = this.skillsForm.value;
 
       const linesFormArray = this.skillsForm.get("skills") as FormArray;
@@ -383,13 +365,12 @@ export class FormIngresoComponent implements OnInit{
   totalFinal = 0;
   subTotal = 0;
   onKeyUp(indice:any){
-    console.log(indice)
 
     this.probar = false;
     // Sub-Total
     if(this.skillsForm.controls.skills.value[indice].igv == "" || this.skillsForm.controls.skills.value[indice].igv == "2"){
       this.skillsForm.controls.skills.value[indice].subTotal  = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
-      console.log(this.skillsForm.controls.skills.value[indice].subTotal);
+      
     }
     else{
       this.skillsForm.controls.skills.value[indice].subTotal  = ((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)/1.18).toFixed(2);
@@ -431,7 +412,7 @@ export class FormIngresoComponent implements OnInit{
         this.ingreso.ing_igv = (this.igvtotal.toFixed(2)).toString();
        
         this.totalFinal = Number(this.info.skills[index].total) + this.totalFinal;
-        console.log(this.totalFinal);
+        
         this.ingreso.ing_totalCompra = (this.totalFinal.toFixed(2)).toString();
    });
   }
@@ -440,7 +421,6 @@ export class FormIngresoComponent implements OnInit{
 
   get usuario(){
     return this.authService.usuario;
-    console.log(this.usuario);
   } 
 
   isVisibleProveedor = false;
@@ -483,9 +463,6 @@ export class FormIngresoComponent implements OnInit{
          this.persona = this.persona.filter(function(ele: any){
           return ele.TipoPersonas.tipoper_descripcion == 'Proveedor' && ele.per_activo == true;
           });
-          console.log("Primero de persona" + this.persona);
-          
-        console.log(this.persona);
       },
       err => console.error(err)
     );

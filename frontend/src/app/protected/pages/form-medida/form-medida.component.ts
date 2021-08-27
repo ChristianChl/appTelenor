@@ -41,7 +41,6 @@ export class FormMedidaComponent implements OnInit {
   }
 
   handleCancelMedida(): void {
-    console.log('Button cancel clicked!');
     this.isVisibleMedida = false;
     this.newVisibleMedida.emit(this.isVisibleMedida);
   }
@@ -55,7 +54,6 @@ export class FormMedidaComponent implements OnInit {
       this.medidaService.getMedida(this.idMedida)
       .subscribe(
         res => {
-          console.log(res);
           this.medida = res;
         },
         err => console.log(err)
@@ -80,7 +78,6 @@ export class FormMedidaComponent implements OnInit {
       debounceTime(500)
     )
     .subscribe(value => {
-      console.log(value);
     });
   }
 
@@ -103,7 +100,6 @@ export class FormMedidaComponent implements OnInit {
           else{
             this.formMedida.markAllAsTouched();
             Swal.fire('Error', ok, 'error');
-            console.log(ok);
           }
         });
     
@@ -115,7 +111,6 @@ export class FormMedidaComponent implements OnInit {
       .subscribe(
         ok => {
           if (this.formMedida.valid) {
-            console.log(this.medida);
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -130,7 +125,6 @@ export class FormMedidaComponent implements OnInit {
           else{
             this.formMedida.markAllAsTouched();
             Swal.fire('Error', ok, 'error');
-            console.log(ok);
           }
          
         });

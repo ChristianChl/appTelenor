@@ -109,8 +109,6 @@ export class FormUsuarioComponent implements OnInit {
       .subscribe(
         res => {
           this.usuarioPermiso = res;
-          // console.log(this.usuarioPermiso);
-          // console.log(this.selected);
           for(let i=0; i<this.usuarioPermiso.length; i++){
 
             for(let k=0; k<this.selected.length; k++){
@@ -118,8 +116,6 @@ export class FormUsuarioComponent implements OnInit {
               if(this.usuarioPermiso[i].Permisos.perm_nombre == this.selected[k].text) {
   
                 this.selected[k].checked  = true;
-                // console.log(this.usuarioPermiso[i].Permisos.perm_nombre);
-                // console.log(this.selected[i].text);
               }
             }
 
@@ -185,7 +181,7 @@ export class FormUsuarioComponent implements OnInit {
             this.usuarioPermisos.fk_id_usuario = resp.usuario.id_usuario;
             this.usuarioPermisoService.saveUsuarioPermiso(this.usuarioPermisos)
             .subscribe(ok =>{
-              console.log('usuario Permiso Guardado');
+
             },
             err => console.log(err)
             );
@@ -206,7 +202,6 @@ export class FormUsuarioComponent implements OnInit {
       }else{
         this.formUsuarios.markAllAsTouched();
         Swal.fire('Error', resp, 'error');
-        console.log(resp);
       }
       
     });
@@ -228,7 +223,7 @@ export class FormUsuarioComponent implements OnInit {
               this.usuarioPermisos.fk_id_usuario = this.idUsuario;
               this.usuarioPermisoService.saveUsuarioPermiso(this.usuarioPermisos)
               .subscribe(ok =>{
-                console.log('usuario Permiso Guardado');
+
               },
               err => console.log(err)
               );
@@ -278,7 +273,6 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   showModalTipoDocumento(): void {
-    console.log(this.isVisibleTipoDocumento);
     this.isVisibleTipoDocumento = true; 
     this.idTipoDocumento = ""; 
   }
@@ -289,7 +283,6 @@ export class FormUsuarioComponent implements OnInit {
   }
   
   showModalPerfil(): void {
-    console.log(this.isVisiblePerfil);
     this.isVisiblePerfil = true;
     this.idPerfil = "";  
   }

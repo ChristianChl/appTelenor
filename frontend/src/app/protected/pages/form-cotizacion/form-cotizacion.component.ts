@@ -111,7 +111,6 @@ export class FormCotizacionComponent implements OnInit {
     
     this.getProductos();
     const params = this.activatedRoute.snapshot.params;
-    console.log(this.siguienteCoti);
     if(this.idCotizacion != ""){
       
       let cantidadSkills = this.skillsForm.controls.skills.value.length;
@@ -125,7 +124,6 @@ export class FormCotizacionComponent implements OnInit {
       .subscribe(
         res => {
           
-          console.log(res);
           this.cotizacion = res;
           this.edit = true;
 
@@ -140,7 +138,6 @@ export class FormCotizacionComponent implements OnInit {
                 return ele.fk_id_cotizacion == idCotizacionFilter;
               });
 
-              console.log(this.detalleCotiFilter);
               for(let i=0 ; i<this.detalleCotiFilter.length; i++){
                 this.addSkills();
                 this.skillsForm.controls.skills.value[i].id =   this.detalleCotiFilter[i].id_detalleCotizacion;
@@ -150,7 +147,7 @@ export class FormCotizacionComponent implements OnInit {
                 this.skillsForm.controls.skills.value[i].total = this.detalleCotiFilter[i].decoti_total;
                 
               }
-              console.log(this.skillsForm.controls.skills );
+              
               this.info = this.skillsForm.value;
               const linesFormArray = this.skillsForm.get("skills") as FormArray;
               this.info.skills.forEach((a: { skills: any[]; },index: number) => {
@@ -169,15 +166,11 @@ export class FormCotizacionComponent implements OnInit {
     }
     else
     {   
-        console.log(this.skillsForm.controls.skills)
-        
-        
         this.cotizacion.fk_id_moneda =  '';
         this.cotizacion.fk_id_persona='';
         this.cotizacion.fk_id_usuario='';
         this.cotizacion.coti_total = '';
         this.cotizacion.coti_observacion = '';
-        console.log(this.skills.value)
         /*
         for(let i = 0; i<this.skillsForm.controls.skills.value.length  ; i++){
           this.skills.removeAt(i);
@@ -188,7 +181,6 @@ export class FormCotizacionComponent implements OnInit {
           this.addSkills();
         }
 
-        console.log("prueba de oninit");
         this.edit = false;
         
       
@@ -197,7 +189,6 @@ export class FormCotizacionComponent implements OnInit {
 
   selectedDevice:any = "";
   onChangeTipoCambio(newValue:any) {
-    console.log(newValue);
     this.selectedDevice = newValue;
     if(this.selectedDevice == 1){ 
         let input2 = document.getElementById("tipoCambio");
@@ -212,7 +203,6 @@ export class FormCotizacionComponent implements OnInit {
         
         }
   
-          console.log(this.info);
           this.info = this.skillsForm.value;
             const linesFormArray = this.skillsForm.get("skills") as FormArray;
             this.info.skills.forEach((a: { skills: any[]; },index: number) => {
@@ -238,7 +228,6 @@ export class FormCotizacionComponent implements OnInit {
   onKeyupCambio(event: any){
     if(event.key != "."){
       this.info = this.skillsForm.value;
-      console.log(this.info);
       for(let i=0; i<this.skillsForm.value.skills.length; i++){
 
           if(this.skillsForm.value.skills[i].producto !=""){
@@ -248,8 +237,6 @@ export class FormCotizacionComponent implements OnInit {
           this.skillsForm.controls.skills.value[i].total = (this.skillsForm.controls.skills.value[i].num1 *  this.skillsForm.controls.skills.value[i].num2).toFixed(2);
         
       }
-
-      console.log(this.info);
       this.info = this.skillsForm.value;
         const linesFormArray = this.skillsForm.get("skills") as FormArray;
         this.info.skills.forEach((a: { skills: any[]; },index: number) => {
@@ -262,11 +249,9 @@ export class FormCotizacionComponent implements OnInit {
 
   get usuario(){
     return this.authService.usuario;
-    console.log(this.usuario);
   }
 
   handleCancelCotizacion(): void {
-    console.log('Button cancel clicked!');
     this.isVisibleCotizacion = false;
     this.newVisibleCotizacion.emit(this.isVisibleCotizacion);
   }
@@ -308,7 +293,6 @@ export class FormCotizacionComponent implements OnInit {
             }else{
               this.formCotizacion.markAllAsTouched();
               Swal.fire('Error', resp, 'error');
-              console.log(resp);
             }
             
           });
@@ -335,13 +319,11 @@ export class FormCotizacionComponent implements OnInit {
                   this.skillsForm.reset();
                   //this.router.navigateByUrl('/dashboard/listaVentas');
                   this.handleCancelCotizacion();
-                  console.log("Exito");
 
                 }
                 else{
                   this.formCotizacion.markAllAsTouched();
                   Swal.fire('Error', ok, 'error');
-                  console.log(ok);
                 }
               });
           }
@@ -358,29 +340,16 @@ export class FormCotizacionComponent implements OnInit {
       this.formCotizacion.markAllAsTouched();
       Swal.fire('Error', 'Por favor complete los campos obligatorios', 'error');
     }
-    /*
-    console.log("nuevo");
-    
-      const value = this.formCotizacion.value;
-      console.log(value);
-        this.cotizacionService.saveCotizacion(this.cotizacion)
-      .subscribe(
-        ok=>{
-          
-        });*/
-    
   }
 
   updateCotizacion(){
     
     if(this.formCotizacion.valid){
-      console.log("prueba editar");
       if(this.skillsForm.controls.skills.value.length != 0){
         if(this.skillsForm.valid){
           this.cotizacionService.updateCotizacion(this.idCotizacion, this.cotizacion)
         .subscribe(
           ok => {
-            console.log("dfdf");
             
               Swal.fire({
                 position: 'center',
@@ -397,7 +366,6 @@ export class FormCotizacionComponent implements OnInit {
   
   
             const arrayProductos = this.skillsForm.value.skills;
-            console.log(this.detalleCotiFilter); 
             for(let i=0; i<arrayProductos.length; i++){
               
               if(arrayProductos[i].id != ""){
@@ -412,10 +380,7 @@ export class FormCotizacionComponent implements OnInit {
                 this.detalleCotizacionService.updateDetalleCotizacion(this.detalleCotizacion.id_detalleCotizacion, this.detalleCotizacion)
                 .subscribe(
                 ok=>{
-                  
-  
-                    console.log("Se actualizo con exito el producto" + this.detalleCotizacion.id_detalleCotizacion + " ")
-                 
+
                 });
   
               }
@@ -430,9 +395,6 @@ export class FormCotizacionComponent implements OnInit {
                 this.detalleCotizacionService.saveDetalleCotizacion(this.detalleCotizacion)
                 .subscribe(
                 ok=>{
-                  
-                    console.log("Se guardo  con exito el nuevo producto" + this.detalleCotizacion.id_detalleCotizacion + " ")
-                  
                   
                 });
               }
@@ -466,7 +428,6 @@ export class FormCotizacionComponent implements OnInit {
   }
 
   validarCampo(campo : string){
-    console.log("validar");
     return this.formCotizacion.controls[campo].errors && this.formCotizacion.controls[campo].touched; 
   }
 
@@ -476,9 +437,7 @@ export class FormCotizacionComponent implements OnInit {
     this.personaService.getPersonas().subscribe(
       res => {
         this.persona = res;
-        console.log(this.persona);
         this.persona = this.persona.persona;
-        console.log(this.persona);
         //const personasFiltradas = this.persona.filter((x: { TipoPersonas: { tipoper_descripcion: string; }; }) => x.TipoPersonas.tipoper_descripcion == 'Proveedor');
         
          this.persona = this.persona.filter(function(ele: any){
@@ -486,9 +445,6 @@ export class FormCotizacionComponent implements OnInit {
           return ele.TipoPersonas.tipoper_descripcion == 'Cliente';
 
         });
-        
-
-        console.log(this.persona);
       },
       err => console.error(err)
     );
@@ -503,8 +459,6 @@ export class FormCotizacionComponent implements OnInit {
 
   idCliente = "";
   modalEditCliente(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleCliente = true;
     this.idCliente = id;
   }
@@ -518,10 +472,7 @@ export class FormCotizacionComponent implements OnInit {
     this.monedasService.getMonedas().subscribe(
       res => {
         this.monedas = res;
-        console.log(this.monedas);
         this.monedas = this.monedas.monedas;
-        console.log("Monedas");
-        console.log(this.monedas);
         //const personasFiltradas = this.persona.filter((x: { TipoPersonas: { tipoper_descripcion: string; }; }) => x.TipoPersonas.tipoper_descripcion == 'Proveedor');
         
         
@@ -565,8 +516,6 @@ export class FormCotizacionComponent implements OnInit {
   }
 
     this.skills.removeAt(i);
-
-    console.log("Prueba eliminar");
     this.getTotalEliminado(i);
 
     
@@ -574,7 +523,7 @@ export class FormCotizacionComponent implements OnInit {
 
   
   onSubmit() {
-    console.log(this.skillsForm.value);
+
   }
 
   getProductos(){
@@ -586,9 +535,6 @@ export class FormCotizacionComponent implements OnInit {
         this.producto = this.producto.filter(function(ele: any){
           return ele.prod_activo == true;
         });
-
-        console.log(this.producto);
-        console.log("this.producto.producto");
       },
       err => console.error(err)
     );
@@ -599,14 +545,8 @@ export class FormCotizacionComponent implements OnInit {
   stockPro = false;
   info: any;
   onKeyUpProducto(indice:any){
-
-    
-    console.log("Pruebaaa ");
-    
-    console.log(indice);
     
     this.filterProducto = [];
-    console.log("Pruebaaa ");
     const idProducto = this.skillsForm.controls.skills.value[indice].producto;
     
     this.filterProducto = this.producto.filter(function(ele: any){
@@ -639,7 +579,6 @@ export class FormCotizacionComponent implements OnInit {
         this.onKeyUp(indice);
     }
     else{
-        console.log(this.filterProducto);
         this.stockPro = false;
         this.skillsForm.controls.skills.value[indice].num1 = 1;
         this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
@@ -670,7 +609,6 @@ export class FormCotizacionComponent implements OnInit {
         
   }
   onKeyUp(indice:any){
-    console.log(indice)
 
     if(this.stockPro == true){
       this.skillsForm.controls.skills.value[indice].producto = this.refenciaProducto;
@@ -734,7 +672,6 @@ export class FormCotizacionComponent implements OnInit {
     this.info.skills.forEach((a: { skills: any[]; },index: number) => {
 
         this.totalFinal = Number(this.info.skills[index].total) + this.totalFinal;
-        console.log(this.totalFinal);
         this.cotizacion.coti_total = (this.totalFinal.toFixed(2)).toString();
    });
   }
@@ -749,7 +686,6 @@ export class FormCotizacionComponent implements OnInit {
 
         if(index != indice){
           this.totalFinal = Number(this.info.skills[index].total) + this.totalFinal;
-          console.log(this.totalFinal);
           this.cotizacion.coti_total = (this.totalFinal.toFixed(2)).toString();
         }
         

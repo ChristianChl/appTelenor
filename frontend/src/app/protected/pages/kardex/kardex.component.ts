@@ -62,9 +62,6 @@ export class KardexComponent implements OnInit {
         this.producto = this.producto.filter(function(ele: any){
           return ele.prod_activo == true;
         });
-
-        console.log(this.producto);
-        console.log("this.producto.producto");
       },
       err => console.error(err)
     );
@@ -115,7 +112,6 @@ export class KardexComponent implements OnInit {
       res => {
         this.detalleIngreso = res;
         this.detalleIngreso = this.detalleIngreso.detalleIngreso;
-        console.log(this.detalleIngreso)
 
         for(let i=0; i<this.detalleIngreso.length; i++){
           const now = new Date(this.detalleIngreso[i].createdAt);
@@ -162,7 +158,6 @@ export class KardexComponent implements OnInit {
             this.detalleVenta[i].createdAt = formatted;
         }
 
-        console.log(this.detalleVenta)
       },
       err => console.error(err)
     );
@@ -174,7 +169,6 @@ export class KardexComponent implements OnInit {
       this.selectedDevice = 0;
     }
     else{
-      console.log(newValue);
       this.selectedDevice = newValue;
     }
     
@@ -210,8 +204,6 @@ export class KardexComponent implements OnInit {
     this.filterVentas = this.detalleVenta.filter(function(ele: any){
       return ele.Productos.id_Producto == idProducto;
     });
-    console.log(this.filterVentas.sort((a:any, b:any) => new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime()));
-
     this.filterIngresos = this.detalleIngreso.filter(function(ele: any){
       return ele.Productos.id_Producto == idProducto;
     });
@@ -261,7 +253,6 @@ export class KardexComponent implements OnInit {
         });
   
       }
-      console.log(this.dataSourceKardex.sort((a:any, b:any) => new Date(a.fecha).getTime() > new Date(b.fecha).getTime()));
       let temp;
       for(let i=0; i<this.dataSourceKardex.length; i++){
         for(let j=this.dataSourceKardex.length-1; j> i; j--){
@@ -272,8 +263,6 @@ export class KardexComponent implements OnInit {
           }
         }
       }
-  
-      console.log(this.dataSourceKardex);
     }
     
   }

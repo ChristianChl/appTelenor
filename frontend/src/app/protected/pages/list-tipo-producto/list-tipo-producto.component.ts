@@ -19,8 +19,6 @@ export class ListTipoProductoComponent implements OnInit {
 
   idTipoProducto = "";
   modalEditTipoProducto(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleTipoProducto= true;
     this.idTipoProducto = id;
   }
@@ -41,7 +39,6 @@ export class ListTipoProductoComponent implements OnInit {
       res => {
         this.tipoProducto = res;
         this.tipoProducto = this.tipoProducto.tipoProducto;
-        console.log(this.tipoProducto.tipoProducto);
       },
       err => console.error(err)
     );
@@ -50,7 +47,6 @@ export class ListTipoProductoComponent implements OnInit {
   deleteTipoProducto(id: string){
     this.tipoProductoService.deleteTipoProducto(id).subscribe(
       res=> {
-        console.log(res)
         this.getTipoProducto();
       },
       err => console.log(err)

@@ -16,8 +16,12 @@ const sequelize_1 = require("sequelize");
 const db = new sequelize_1.Sequelize(process.env.DB_DATABASE || 'nrsi45pnjgylc4wv', process.env.DB_USER || 'u03804lj5kn69i3t', process.env.DB_PASSORD || 'skx7rs5pgfpq5tr5', {
     host: process.env.DB_HOST || 'un0jueuv2mam78uv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     dialect: 'mysql',
+<<<<<<< HEAD
     logging: true,
     // port: 3307,
+=======
+    port: 3307,
+>>>>>>> 61845ae2b9c0b03a25891728fe936c2e32f1cfeb
 });
 exports.default = db;
 //# sourceMappingURL=connection.js.map

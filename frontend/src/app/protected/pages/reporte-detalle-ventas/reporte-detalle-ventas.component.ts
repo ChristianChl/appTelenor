@@ -63,8 +63,6 @@ export class ReporteDetalleVentasComponent implements OnInit {
     };
 
     html2canvas(element, options).then((canvas) =>{
-      console.log(canvas)
-
       var imgData = canvas.toDataURL('image/PNG')
 
       //Add image canvas to PDF
@@ -105,7 +103,6 @@ export class ReporteDetalleVentasComponent implements OnInit {
       if(resp.ok == true){
         this.ventas = resp
         this.ventas = this.ventas.venta;
-        console.log(this.ventas);
         for(let i = 0; i< this.ventas.length; i++){
           if(this.ventas[i].Monedas.mon_nombre == "Dolares"){
 
@@ -113,7 +110,6 @@ export class ReporteDetalleVentasComponent implements OnInit {
             this.campoIgv = Number(this.ventas[i].ven_igv);
             this.subTotal1 += this.totalCambio;
             this.subTotalIgv1 += this.campoIgv;
-            // console.log('cuando es dolares '+ this.totalVentas);
           }else{
             this.totalFinal = Number(this.ventas[i].ven_total);
             this.campoIgv = Number(this.ventas[i].ven_igv);
@@ -123,11 +119,9 @@ export class ReporteDetalleVentasComponent implements OnInit {
         }
         this.totalVentas = Number(this.subTotal1 + this.subTotal2).toFixed(2);
         this.totalIgv = Number(this.subTotalIgv1 + this.subTotalIgv2).toFixed(2);
-        // console.log(this.totalVentas);
 
       }else{
         Swal.fire('Error', 'No se encontraron Registros', 'error');
-        console.log(resp);
       }
 
     });

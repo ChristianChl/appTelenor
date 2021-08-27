@@ -27,8 +27,6 @@ export class ListMedidaComponent implements OnInit {
 
   idMedida = "";
   modalEditMedida(id:string){
-
-    console.log("Este es el id _-----" + id);
     this.isVisibleMedida = true;
     this.idMedida = id;
   }
@@ -43,7 +41,6 @@ export class ListMedidaComponent implements OnInit {
       res => {
         this.medida = res;
         this.medida = this.medida.medida;
-        console.log(this.medida.medida);
       },
       err => console.error(err)
     );
@@ -52,7 +49,6 @@ export class ListMedidaComponent implements OnInit {
   deleteMedida(id: string){
     this.medidaService.deleteMedida(id).subscribe(
       res=> {
-        console.log(res)
         this.getMedidas();
       },
       err => console.log(err)

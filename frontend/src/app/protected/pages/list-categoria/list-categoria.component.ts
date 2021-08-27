@@ -42,23 +42,18 @@ export class ListCategoriaComponent implements OnInit {
   
   
   showModalCategoria(): void {
-    console.log(this.isVisibleCategoria);
     this.isVisibleCategoria = true;  
     
     this.idCategoria = "";
-    console.log(this.idCategoria);
   }
   
   idCategoria = "";
   showModalEditarCategoria(id:string){
     this.isVisibleCategoria = true;  
-    console.log("Editar Categoria");
     this.idCategoria = id;
-    console.log(id);
   }
 
   nuevoDato(){
-    console.log("prueba regresando");
     this.ngOnInit();
     this.isVisibleCategoria = false;
   }
@@ -69,12 +64,10 @@ export class ListCategoriaComponent implements OnInit {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
   
@@ -91,7 +84,6 @@ export class ListCategoriaComponent implements OnInit {
         this.categorias = res;
       
         this.categorias = this.categorias.categoria;
-        console.log(this.categorias.categoria);
       },
       err => console.error(err)
     );
@@ -100,7 +92,6 @@ export class ListCategoriaComponent implements OnInit {
   deleteCategoria(id: string){
     this.categoriaService.deleteCategoria(id).subscribe(
       res=> {
-        console.log(res)
         this.getCategorias();
       },
       err => console.log(err)
