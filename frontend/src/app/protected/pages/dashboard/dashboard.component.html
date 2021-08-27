@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="example-app-name">TELENOR PERÚ S.R.L</h1>
-    <div class="miUsuario" fxLayoutAlign="end" fxLayout="row wrap" fxLayout.xs="column">
+    <div class="miUsuario"  fxLayoutAlign="end" fxLayout="row wrap" fxLayout.xs="column">
       <button mat-icon-button class="miBotonUsuario">
         <mat-icon class="miBotonUsuario">person</mat-icon>
       </button>
@@ -16,50 +16,47 @@
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
     (mouseleave)="mouseleave()" style="background: rgb(16, 15, 15);">
     <mat-nav-list>
-      <mat-list-item class="separator">
-        <span class="full-width1" *ngIf="isExpanded || isShowing">{{usuario.surnames}} <br>
+      <mat-list-item class="separator" style="height: 43px; margin-top: 0px;">
+        <span class="full-width1" *ngIf="isExpanded || isShowing" style="margin-bottom: 10px;">{{usuario.surnames}} <br>
           {{usuario.name}}
         </span>
-        <mat-icon mat-list-icon>account_circle</mat-icon>
-        <mat-icon class="menu-button">
-        </mat-icon>
+        <mat-icon style="margin-bottom: 10px;" mat-list-icon>account_circle</mat-icon>
       </mat-list-item>
-      <mat-list-item class="parent" routerLink="/dashboard/graficas">
-        <span class="full-width" *ngIf="isExpanded || isShowing">Home</span>
+      <mat-list-item style="height: 33px;" class="parent" routerLink="/dashboard/graficas">
+        <span style="padding-top: 0px; margin-top: 0px;" class="full-width" *ngIf="isExpanded || isShowing">Home</span>
         <mat-icon mat-list-icon>home</mat-icon>
-        <mat-icon class="menu-button">
-        </mat-icon>
+        <mat-icon class="menu-button"></mat-icon>
       </mat-list-item>
-      <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+      <mat-list-item style="height: 33px;" (click)="showSubmenu = !showSubmenu" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Configuración</span>
         <mat-icon mat-list-icon>manage_accounts</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" mat-list-item routerLink="/dashboard/listaPerfil">Perfiles
+         <a style="height: 30px;" style="height: 30px;" class="full-width" mat-list-item routerLink="/dashboard/listaPerfil">Perfiles
           <mat-icon mat-list-icon>switch_account</mat-icon>
         </a>
-        <a class="full-width" mat-list-item routerLink="/dashboard/listaPermiso">Permisos
+         <a style="height: 30px;" style="height: 30px;" class="full-width" mat-list-item routerLink="/dashboard/listaPermiso">Permisos
           <mat-icon mat-list-icon>settings_applications</mat-icon>
         </a>
-        <a class="full-width" mat-list-item routerLink="/dashboard/listaUsuarios">Usuarios
+         <a style="height: 30px;" style="height: 30px;" class="full-width" mat-list-item routerLink="/dashboard/listaUsuarios">Usuarios
           <mat-icon mat-list-icon>group</mat-icon>
         </a>
       </div>
-      <mat-list-item (click)="showSubmenu1 = !showSubmenu1" class="parent">
+      <mat-list-item style="height: 33px;" (click)="showSubmenu1 = !showSubmenu1" class="parent newPrueba">
         <span class="full-width" *ngIf="isExpanded || isShowing">Almacén</span>
         <mat-icon mat-list-icon>view_module</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu1}" *ngIf="isExpanded || isShowing">expand_more
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu1}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" routerLink="/dashboard/listaProducto" mat-list-item ><mat-icon mat-list-icon>inventory_2</mat-icon>Productos</a>
-        <a class="full-width" routerLink="/dashboard/kardex" mat-list-item ><mat-icon mat-list-icon>content_paste</mat-icon>Kardex</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaProducto" mat-list-item ><mat-icon mat-list-icon>inventory_2</mat-icon>Productos</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/kardex" mat-list-item ><mat-icon mat-list-icon>content_paste</mat-icon>Kardex</a>
       </div>
 
       <!--Nuevo sub menu - Maestro -->
-      <mat-list-item (click)="showSubmenuMaestro = !showSubmenuMaestro" class="parent">
+      <mat-list-item style="height: 33px;" (click)="showSubmenuMaestro = !showSubmenuMaestro" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Maestro</span>
         <mat-icon mat-list-icon>storage</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenuMaestro}" *ngIf="isExpanded || isShowing">expand_more
@@ -67,15 +64,15 @@
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenuMaestro}" *ngIf="isShowing || isExpanded">
         
-        <a class="full-width" routerLink="/dashboard/listaMarca" mat-list-item ><mat-icon mat-list-icon>label</mat-icon>Marca</a>
-        <a class="full-width" routerLink="/dashboard/listaCategoria" mat-list-item ><mat-icon mat-list-icon>bookmark_border</mat-icon>Categoria</a>
-        <a class="full-width" routerLink="/dashboard/listaMedida" mat-list-item ><mat-icon mat-list-icon>local_library</mat-icon>Unidad Medida</a>
-        <a class="full-width" routerLink="/dashboard/listaTipoDocumento" mat-list-item ><mat-icon mat-list-icon>credit_card</mat-icon>Tipo Documento</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaMarca" mat-list-item ><mat-icon mat-list-icon>label</mat-icon>Marca</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaCategoria" mat-list-item ><mat-icon mat-list-icon>bookmark_border</mat-icon>Categoria</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaMedida" mat-list-item ><mat-icon mat-list-icon>local_library</mat-icon>Unidad Medida</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaTipoDocumento" mat-list-item ><mat-icon mat-list-icon>credit_card</mat-icon>Tipo Documento</a>
       </div>
 
       <!-- Sub Menu Compras -->
 
-      <mat-list-item (click)="showSubmenuCompras = !showSubmenuCompras" class="parent">
+      <mat-list-item style="height: 33px;" (click)="showSubmenuCompras = !showSubmenuCompras" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Compras</span>
         <mat-icon mat-list-icon>shopping_cart</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenuCompras}" *ngIf="isExpanded || isShowing">expand_more
@@ -83,24 +80,24 @@
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenuCompras}" *ngIf="isShowing || isExpanded">
         
-        <a class="full-width" routerLink="/dashboard/listaIngreso" mat-list-item ><mat-icon mat-list-icon>shopping_cart</mat-icon>Registro de Compras</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaIngreso" mat-list-item ><mat-icon mat-list-icon>shopping_cart</mat-icon>Registro de Compras</a>
         
       </div>
 
 
-      <mat-list-item (click)="showSubmenu2 = !showSubmenu2" class="parent">
+      <mat-list-item style="height: 33px;" (click)="showSubmenu2 = !showSubmenu2" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Ventas</span>
         <mat-icon mat-list-icon>shopping_cart</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu2}" *ngIf="isExpanded || isShowing">expand_more
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu2}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" routerLink="/dashboard/listaVentas" mat-list-item ><mat-icon mat-list-icon>add_shopping_cart</mat-icon>Ventas</a>
-        <a class="full-width" routerLink="/dashboard/listaCotizaciones" mat-list-item ><mat-icon mat-list-icon>assignment</mat-icon>Cotizaciones</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaVentas" mat-list-item ><mat-icon mat-list-icon>add_shopping_cart</mat-icon>Ventas</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaCotizaciones" mat-list-item ><mat-icon mat-list-icon>assignment</mat-icon>Cotizaciones</a>
       </div>
 
       
-      <mat-list-item (click)="showSubmenu3 = !showSubmenu3" class="parent">
+      <mat-list-item style="height: 33px;" (click)="showSubmenu3 = !showSubmenu3" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Precios</span>
         <mat-icon mat-list-icon>list</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu3}" *ngIf="isExpanded || isShowing">expand_more
@@ -108,9 +105,9 @@
       </mat-list-item>
 
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu3}" *ngIf="isShowing || isExpanded">
-        <a class="full-width" routerLink="/dashboard/precioProductos" mat-list-item ><mat-icon mat-list-icon>attach_money</mat-icon>Precios Venta</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/precioProductos" mat-list-item ><mat-icon mat-list-icon>attach_money</mat-icon>Precios Venta</a>
       </div>
-      <mat-list-item (click)="showSubmenu4 = !showSubmenu4" class="parent">
+      <mat-list-item style="height: 33px;" (click)="showSubmenu4 = !showSubmenu4" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Client-Prov.</span>
         <mat-icon mat-list-icon>groups</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu4}" *ngIf="isExpanded || isShowing">expand_more
@@ -118,12 +115,12 @@
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu4}" *ngIf="isShowing || isExpanded">
         
-        <a class="full-width" routerLink="/dashboard/listaCliente" mat-list-item href="...">
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaCliente" mat-list-item href="...">
           <mat-icon mat-list-icon>perm_identity</mat-icon>Clientes</a>
-        <a class="full-width" routerLink="/dashboard/listaProveedor"  mat-list-item href="...">
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/listaProveedor"  mat-list-item href="...">
           <mat-icon mat-list-icon>portrait</mat-icon>Proveedores</a>
       </div>
-      <mat-list-item (click)="showSubmenu5 = !showSubmenu5" class="parent">
+      <mat-list-item style="height: 33px;" (click)="showSubmenu5 = !showSubmenu5" class="parent">
         <span class="full-width" *ngIf="isExpanded || isShowing">Reportes</span>
         <mat-icon mat-list-icon>assessment</mat-icon>
         <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu5}" *ngIf="isExpanded || isShowing">expand_more
@@ -131,11 +128,11 @@
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu5}" *ngIf="isShowing || isExpanded">
 
-        <a class="full-width" routerLink="/dashboard/reporteVenta" mat-list-item ><mat-icon mat-list-icon>point_of_sale</mat-icon>Reporte Ven.</a>
-        <a class="full-width" routerLink="/dashboard/reporteProducto" mat-list-item ><mat-icon mat-list-icon>window</mat-icon>Reporte Prod.</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/reporteVenta" mat-list-item ><mat-icon mat-list-icon>point_of_sale</mat-icon>Reporte Ven.</a>
+         <a style="height: 30px;" class="full-width" routerLink="/dashboard/reporteProducto" mat-list-item ><mat-icon mat-list-icon>window</mat-icon>Reporte Prod.</a>
 
       </div>
-      <mat-list-item class="parent" (click)="logout()">
+      <mat-list-item style="height: 33px;" class="parent" (click)="logout()">
         <span class="full-width" *ngIf="isExpanded || isShowing">Logout</span>
         <mat-icon mat-list-icon>power_settings_new</mat-icon>
         <mat-icon class="menu-button">

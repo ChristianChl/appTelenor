@@ -86,22 +86,18 @@ export class FormProductoComponent implements OnInit {
   idMarca = "";
   isVisibleMarca = false;
   showModalMarca(){
-    console.log(this.isVisibleMarca);
     this.isVisibleMarca = true;  
     
     this.idMarca = "";
-    console.log(this.idMarca);
   }
 
   nuevoDatoMarca(){
-    console.log("prueba regresando");
     this.ngOnInit();
     this.isVisibleMarca = false;
   }
 
   showModalEditarMarca(id:string){
     this.isVisibleMarca = true;  
-    console.log("Editar Categoria");
     this.idMarca = id;
   }
 
@@ -123,12 +119,10 @@ export class FormProductoComponent implements OnInit {
   }
 
   handleCancelCategoria(): void {
-    console.log('Button cancel clicked!');
     this.isVisibleCategoria = false;
   }
 
   handleCancelMarca(): void {
-    console.log('Button cancel clicked!');
     this.isVisibleMarca = false;
   }
 
@@ -167,28 +161,23 @@ export class FormProductoComponent implements OnInit {
 
     this.edit = false;
     this.producto.prod_activo = "true";
-    console.log(this.cambioTiempo);
     if(this.cambioTiempo == true){
       this.historialProducto.hist_cambioTiempo = "Precio Editado por Falta de Ventas";
     }
     else{
       this.historialProducto.hist_cambioTiempo = "Editado";
     }
-    console.log(this.cambioTiempo);
     if(this.idProducto != ""){
       this.productoService.getProducto(this.idProducto)
       .subscribe(
         res => {
-          console.log(res);
           this.producto = res;
-          console.log(this.producto);
           this.precioActual = this.producto.prod_precioVenta
           this.edit = true;
         },
         err => console.log(err)
       )
     }
-      console.log("prueba de oninit");
       this.edit = false;
 
     this.getCategoria();
@@ -199,14 +188,12 @@ export class FormProductoComponent implements OnInit {
 
   get usuario(){
     return this.authService.usuario;
-    console.log(this.usuario);
   } 
 
   getCategoria(){
       this.categoriaService.getCategorias().subscribe(
         res=>{
           this.categoria = res;
-          console.log(this.categoria);
           this.categoria = this.categoria.categoria;
         }
       )
@@ -264,7 +251,6 @@ export class FormProductoComponent implements OnInit {
       debounceTime(500)
     )
     .subscribe(value => {
-      console.log(value);
     });
   }
 
@@ -282,13 +268,10 @@ export class FormProductoComponent implements OnInit {
       res => {
         this.productos = res;
         this.productos = this.productos.producto;
-        
-        console.log(this.productos);
         let tamaño = this.productos.length; 
 
         
         this.producto = this.productos[tamaño-1];
-        console.log(this.producto);
         
         this.historialProducto.id_producto = this.producto.id_Producto;
         this.historialProducto.hist_modelo = this.producto.prod_modelo;
@@ -305,8 +288,6 @@ export class FormProductoComponent implements OnInit {
         this.historialProducto.fk_id_tipo = this.producto.fk_id_tipo;
         this.historialProducto.hist_cambioTiempo = "Creado";
         this.historialProducto.fk_id_usuario = this.usuario.uid;
-        
-        console.log(this.historialProducto);
 
         this.historialProductoService.saveHistorialProducto(this.historialProducto)
         .subscribe(ok =>{
@@ -350,15 +331,12 @@ export class FormProductoComponent implements OnInit {
       }else{
         this.formProducto.markAllAsTouched();
         Swal.fire('Error', ok, 'error');
-        console.log(ok);
       }
       
     });
   }
 
   updateProducto(){
-
-    console.log(this.producto);
     const params = this.activatedRoute.snapshot.params;
     if(this.cambioTiempo = true){
       if(this.precioActual != this.producto.prod_precioVenta){
@@ -394,10 +372,8 @@ export class FormProductoComponent implements OnInit {
             this.historialProductoService.saveHistorialProducto(this.historialProducto)
             .subscribe(ok =>{
               if( ok == true ) {
-                console.log("Historial guardado")
               }
               else{
-                console.log("Error - Historial no guardado")
               }
             })
 
@@ -409,7 +385,6 @@ export class FormProductoComponent implements OnInit {
           else{
             this.formProducto.markAllAsTouched();
             Swal.fire('Error', ok, 'error');
-            console.log(ok);
           }
           
         });
@@ -471,7 +446,6 @@ export class FormProductoComponent implements OnInit {
           else{
             this.formProducto.markAllAsTouched();
             Swal.fire('Error', ok, 'error');
-            console.log(ok);
           }
           
     });
@@ -482,8 +456,6 @@ export class FormProductoComponent implements OnInit {
   
 
   handleCancelProducto(){
-    console.log('Button cancel clicked!');
-    
     
     this.isVisibleProducto = false;
     this.formProducto.reset();
@@ -498,9 +470,6 @@ export class FormProductoComponent implements OnInit {
     this.producto.fk_id_medida = "";
     this.producto.fk_id_tipo = "";
     this.newVisibleProducto.emit(this.isVisibleProducto);
-    //this.producto.prod_modelo="";
-
-    console.log("el id" + this.producto.id_Producto);
   }
 
 }

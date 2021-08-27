@@ -54,15 +54,11 @@ export class ListCotizacionComponent implements OnInit {
   idCotizacionVenta = "";
   isVisibleCotizacionVenta = false;
   showModalCotizacionVenta(id:string){
-    console.log(this.isVisibleCotizacionVenta);
-    console.log(id);
     this.isVisibleCotizacionVenta = true;  
     this.idCotizacionVenta = id;
     
   }
   nuevoDatoCotizacionVenta(){
-    console.log("prueba regresando");
-    //this.ngOnInit();
     this.isVisibleCotizacionVenta = false;
   }
 
@@ -71,21 +67,18 @@ export class ListCotizacionComponent implements OnInit {
   idCotizacion = "";
   isVisibleCotizacion = false;
   showModalCotizacion(){
-    console.log(this.isVisibleCotizacion);
     this.isVisibleCotizacion = true;  
     this.idCotizacion = "";
     
   }
 
   nuevoDatoCotizacion(){
-    console.log("prueba regresando");
     this.ngOnInit();
     this.isVisibleCotizacion = false;
   }
 
   showModalEditarCotizacion(id:string){
     this.isVisibleCotizacion = true;  
-    console.log("Editar Categoria");
     this.idCotizacion = id;
   }
 
@@ -140,11 +133,6 @@ export class ListCotizacionComponent implements OnInit {
           }
 
           this.siguienteCoti = numCoti;
-          console.log("siguiente cotizacion");
-          console.log(this.siguienteCoti = numCoti)
-        //this.numCotiz = this.cotizacion.length
-
-        console.log(this.cotizacion);
       },
       err => console.error(err)
     );
@@ -153,7 +141,6 @@ export class ListCotizacionComponent implements OnInit {
   deleteCotizacion(id: string){
     this.cotizacionService.deleteCotizacion(id).subscribe(
       res=> {
-        console.log(res)
         this.getCotizaciones();
 
         Swal.fire({

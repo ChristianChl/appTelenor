@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log(this.miFormulario.value);
+    
     const {us_login, us_clave} = this.miFormulario.value;
     this.authService.login(us_login, us_clave)
     .subscribe(ok =>{

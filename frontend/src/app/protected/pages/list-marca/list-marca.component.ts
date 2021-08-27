@@ -30,22 +30,18 @@ export class ListMarcaComponent implements OnInit {
   idMarca = "";
   isVisibleMarca = false;
   showModalMarca(){
-    console.log(this.isVisibleMarca);
     this.isVisibleMarca = true;  
     
     this.idMarca = "";
-    console.log(this.idMarca);
   }
 
   nuevoDatoMarca(){
-    console.log("prueba regresando");
     this.ngOnInit();
     this.isVisibleMarca = false;
   }
 
   showModalEditarMarca(id:string){
     this.isVisibleMarca = true;  
-    console.log("Editar Categoria");
     this.idMarca = id;
   }
 
@@ -54,7 +50,6 @@ export class ListMarcaComponent implements OnInit {
       res => {
         this.marca = res;
         this.marca = this.marca.marca;
-        console.log(this.marca.marca);
       },
       err => console.error(err)
     );
@@ -63,7 +58,6 @@ export class ListMarcaComponent implements OnInit {
   deleteMarca(id: string){
     this.marcaService.deleteMarca(id).subscribe(
       res=> {
-        console.log(res)
         this.getMarcas();
       },
       err => console.log(err)

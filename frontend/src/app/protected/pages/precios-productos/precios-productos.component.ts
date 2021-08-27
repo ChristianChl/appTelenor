@@ -34,9 +34,6 @@ export class PreciosProductosComponent implements OnInit {
       res => {
         this.producto = res;
         this.producto = this.producto.producto;
-        
-        console.log(this.producto);
-        console.log("this.producto.producto");
       },
       err => console.error(err)
     );

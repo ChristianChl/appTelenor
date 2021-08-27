@@ -46,7 +46,6 @@ export class ReporteProductosComponent implements OnInit {
     };
 
     html2canvas(element, options).then((canvas) =>{
-      console.log(canvas)
 
       var imgData = canvas.toDataURL('image/PNG')
 
@@ -100,7 +99,6 @@ export class ReporteProductosComponent implements OnInit {
         res => {
           var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             
-          console.log(res);
           this.historialProducto = res;
           this.historialProducto= this.historialProducto.historialProducto;
           var date = new Date();
@@ -116,7 +114,6 @@ export class ReporteProductosComponent implements OnInit {
                 numMes =  mesPrueba;
             }
           let formattedAyer = date.getDate() + '-' + numMes + '-' + date.getFullYear();
-          console.log(formattedAyer);
 
           for(let i=0; i<this.historialProducto.length; i++){
             const now = new Date(this.historialProducto[i].createdAt);
@@ -137,11 +134,9 @@ export class ReporteProductosComponent implements OnInit {
           for(let i=0; i<this.producto.length; i++){
             let cantidadVentas = 0;
             let id = this.producto[i].id_Producto;
-            console.log(formattedAyer);
             this.historialProductoFilter = this.historialProducto.filter(function(ele: any){
               return ele.id_producto == id && ele.createdAt == formattedAyer;
             });
-            console.log(this.historialProductoFilter);
             let cant = this.historialProductoFilter.length;
 
             //Sacar Sttock inicial y final de cada Producto
@@ -196,9 +191,6 @@ export class ReporteProductosComponent implements OnInit {
             else{
               rotacion = (cantidadVentas/stockPromDiaAyer).toFixed(2);
             }
-            
-
-            console.log(rotacion);
             this.producto[i].prod_imagen = rotacion;
             
           }
@@ -206,8 +198,6 @@ export class ReporteProductosComponent implements OnInit {
         },
         err => console.log(err)
       )
-
-        console.log(this.producto);
 
       },
       err => console.error(err)
@@ -217,8 +207,6 @@ export class ReporteProductosComponent implements OnInit {
   
 
   onChangeTipoCambio(newValue:any){
-    console.log(newValue);
-
     var date = new Date();
     date ; 
     date.setDate(date.getDate() - 1);
@@ -245,7 +233,6 @@ export class ReporteProductosComponent implements OnInit {
         this.historialProductoFilter = this.historialProductoFilter.filter(function(ele: any){
           return ele.createdAt <= formattedAyer ;
         });
-        console.log(this.historialProductoFilter);
         let cant = this.historialProductoFilter.length;
 
         //Sacar Sttock inicial y final de cada Producto
@@ -300,9 +287,6 @@ export class ReporteProductosComponent implements OnInit {
         else{
           rotacion = (cantidadVentas/stockPromDiaAyer).toFixed(2);
         }
-        
-
-        console.log(rotacion);
         this.producto[i].prod_imagen = rotacion;
         
       }
@@ -311,11 +295,9 @@ export class ReporteProductosComponent implements OnInit {
       for(let i=0; i<this.producto.length; i++){
         let cantidadVentas = 0;
         let id = this.producto[i].id_Producto;
-        console.log(formattedAyer);
         this.historialProductoFilter = this.historialProducto.filter(function(ele: any){
           return ele.id_producto == id && ele.createdAt == formattedAyer;
         });
-        console.log(this.historialProductoFilter);
         let cant = this.historialProductoFilter.length;
 
         //Sacar Sttock inicial y final de cada Producto
@@ -370,9 +352,6 @@ export class ReporteProductosComponent implements OnInit {
         else{
           rotacion = (cantidadVentas/stockPromDiaAyer).toFixed(2);
         }
-        
-
-        console.log(rotacion);
         this.producto[i].prod_imagen = rotacion;
         
       }

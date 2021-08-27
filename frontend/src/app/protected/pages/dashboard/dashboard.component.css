@@ -5,7 +5,7 @@
   }
   .example-sidenav-content {
     display: flex;
-    height: 100%;
+    height: 20%;
     align-items: center;
     justify-content: center;
   }
@@ -14,14 +14,14 @@
   }
   .full-width {
     width: 100%;
-    font-size: 1vw;
+    font-size: 11px;
     color: rgb(253, 253, 253) !important;
   }
   .full-width1 {
     /* width:50%; */
     /* white-space:pre; */
     text-align: center;
-    font-size: 1vw;
+    font-size: 11px;
     color: rgb(253, 253, 253) !important;
     /* text-indent: 1em; */
     padding-left: 15px;
@@ -50,10 +50,11 @@
     display: block;
   }
   .mat-icon{
-    transform: scale(0.8);
+    transform: scale(0.7);
     color: rgb(253, 253, 253) !important;
   }
   .miUsuario{
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,3 +74,8 @@
   .mat-sidenav-container .mat-list-item:hover {
     background: rgb(96, 169, 242);
   }
+
+  mat-list-item{
+    height: 40px;
+  }
+  

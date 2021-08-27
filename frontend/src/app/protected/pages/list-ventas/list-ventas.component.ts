@@ -98,8 +98,6 @@ export class ListVentasComponent implements OnInit {
 
             this.detalleVenta[i].createdAt = formatted;
         }
-
-        console.log(this.detalleVenta)
       },
       err => console.error(err)
     );
@@ -110,19 +108,12 @@ export class ListVentasComponent implements OnInit {
     this.personaService.getPersonas().subscribe(
       res => {
         this.persona = res;
-        console.log(this.persona);
         this.persona = this.persona.persona;
-        console.log(this.persona);
-        //const personasFiltradas = this.persona.filter((x: { TipoPersonas: { tipoper_descripcion: string; }; }) => x.TipoPersonas.tipoper_descripcion == 'Proveedor');
-        
          this.persona = this.persona.filter(function(ele: any){
 
           return ele.TipoPersonas.tipoper_descripcion == 'Cliente';
 
         });
-        
-
-        console.log(this.persona);
       },
       err => console.error(err)
     );
@@ -185,7 +176,6 @@ export class ListVentasComponent implements OnInit {
         var pdf = new jsPDF();
         this.arrayPdf =[]
         this.arrayP=[]
-        console.log(this.arrayPdf);
 
         //Filtrar Venta
 
@@ -194,8 +184,6 @@ export class ListVentasComponent implements OnInit {
         this.filterVenta = this.ventas.filter(function(ele: any){
           return ele.id_venta == nuevoNumero;
         });
-
-        console.log(this.filterVenta);
 
         this.getProductos(numeroComprobante);
         
@@ -317,9 +305,6 @@ export class ListVentasComponent implements OnInit {
 
     //Obtener datos para la tabla detalle 
     this.getProductos(numeroComprobante);
-    console.log(this.arrayPdf);
-    console.log(this.tablaVenta);
-    console.log(this.dataSourcePro);
     
     for(let i=0 ; i<this.dataSourcePro.length; i++){
       this.dataSourceDetalle.push({ 

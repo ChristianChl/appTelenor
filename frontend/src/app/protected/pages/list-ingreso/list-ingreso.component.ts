@@ -81,7 +81,6 @@ export class ListIngresoComponent implements OnInit {
   generatePdf(numeroComprobante:string){
         this.arrayPdf =[]
         this.arrayP=[]
-        console.log(this.arrayPdf);
         this.getDetalleIngreso();
         
         const nuevoNumero = Number(numeroComprobante);
@@ -193,7 +192,6 @@ export class ListIngresoComponent implements OnInit {
       res => {
         this.detalleIngreso = res;
         this.detalleIngreso = this.detalleIngreso.detalleIngreso;
-        console.log(this.detalleIngreso)
 
       },
       err => console.error(err)
@@ -205,15 +203,12 @@ export class ListIngresoComponent implements OnInit {
     this.personaService.getPersonas().subscribe(
       res => {
         this.persona = res;
-        console.log(this.persona);
         this.persona = this.persona.persona;
-        console.log(this.persona);
         //const personasFiltradas = this.persona.filter((x: { TipoPersonas: { tipoper_descripcion: string; }; }) => x.TipoPersonas.tipoper_descripcion == 'Proveedor');
         
          this.persona = this.persona.filter(function(ele: any){
           return ele.TipoPersonas.tipoper_descripcion == 'Proveedor';
         });
-        console.log(this.persona);
       },
       err => console.error(err)
     );

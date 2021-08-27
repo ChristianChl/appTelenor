@@ -72,7 +72,6 @@ export class FormProveedorComponent implements OnInit {
       debounceTime(500)
     )
     .subscribe(value => {
-      console.log(value);
     });
   }
 
@@ -81,12 +80,10 @@ export class FormProveedorComponent implements OnInit {
     this.edit = false;
     this.proveedor.per_activo = "true";
     if(this.idProveedor != ""){
-      console.log("edit es true");
 
       this.personaService.getPersona(this.idProveedor)
       .subscribe(
         res => {
-          console.log(res);
           this.proveedor = res;
           this.edit = true;
         },
@@ -124,16 +121,12 @@ export class FormProveedorComponent implements OnInit {
   saveNewProveedor(){
 
       this.proveedor.id_Persona = 0;
-      console.log(this.proveedor.id_Persona);
-      console.log(this.proveedor);
       this.proveedor.fk_id_tipoPersona = this.idTipoPersona;
       const value = this.formProveedor.value;
       
       this.personaService.savePersona(this.proveedor)
       .subscribe(ok => {
         if(ok == true && this.formProveedor.valid){
-          console.log(ok)
-            console.log("Entro a guardar");
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -150,7 +143,6 @@ export class FormProveedorComponent implements OnInit {
         else{
           this.formProveedor.markAllAsTouched();
           Swal.fire('Error', ok, 'error');
-          console.log(ok);
         }
 
           });
@@ -159,7 +151,6 @@ export class FormProveedorComponent implements OnInit {
   }
 
   updateProveedor(){
-    console.log("Entro a editar");
     this.personaService.updatePersona(this.idProveedor, this.proveedor)
       .subscribe(
         res => {
@@ -192,19 +183,14 @@ export class FormProveedorComponent implements OnInit {
     this.tipoPersonaService.getTipoPersonas().subscribe(
       res=>{
         this.tipoPersona = res;
-        console.log(this.tipoPersona);
         this.tipoPersona = this.tipoPersona.tipoPersona;
-        
-        console.log(this.tipoPersona);
         this.tipoPersona = this.tipoPersona.filter(function(ele: any){
 
           return ele.tipoper_descripcion == 'Proveedor';
 
         });
 
-        console.log(this.tipoPersona);
         this.idTipoPersona = this.tipoPersona[0].id_tipoPersona;
-        console.log(this.idTipoPersona);
         
       }
     )
@@ -216,7 +202,6 @@ export class FormProveedorComponent implements OnInit {
     this.tipoDocumentoService.getDocumentos().subscribe(
       res=>{
         this.tipoDocumento = res;
-        console.log(this.tipoDocumento);
         
         this.tipoDocumento = this.tipoDocumento.tiposDocumentos;
       }

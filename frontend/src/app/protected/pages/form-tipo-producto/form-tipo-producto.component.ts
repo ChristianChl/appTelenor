@@ -40,7 +40,6 @@ export class FormTipoProductoComponent implements OnInit {
   }
 
   handleCancelTipoProducto(): void {
-    console.log('Button cancel clicked!');
     this.isVisibleTipoProducto = false;
     this.newVisibleTipoProducto.emit(this.isVisibleTipoProducto);
   }
@@ -53,7 +52,6 @@ export class FormTipoProductoComponent implements OnInit {
       this.tipoProductoService.getTipoProducto(this.idTipoProducto)
       .subscribe(
         res => {
-          console.log(res);
           this.tipoProducto = res;
           this.edit = true;
         },
@@ -79,20 +77,15 @@ export class FormTipoProductoComponent implements OnInit {
       debounceTime(500)
     )
     .subscribe(value => {
-      console.log(value);
     });
   }
 
   saveNewTipoProducto(){
-
-    console.log("nuevo");
     if (this.formTipoProducto.valid) {
       const value = this.formTipoProducto.value;
-      console.log(value);
         this.tipoProductoService.saveTipoProducto(this.tipoProducto)
       .subscribe(
         res=>{
-          console.log(res);
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -109,7 +102,6 @@ export class FormTipoProductoComponent implements OnInit {
       )
     } 
     else {
-      console.log("error");
       this.formTipoProducto.markAllAsTouched();
     }
   }
@@ -119,9 +111,6 @@ export class FormTipoProductoComponent implements OnInit {
     this.tipoProductoService.updatedTipoProducto(this.idTipoProducto, this.tipoProducto)
       .subscribe(
         res => {
-          console.log(res);
-          console.log(this.tipoProducto);
-
           Swal.fire({
             position: 'center',
             icon: 'success',
