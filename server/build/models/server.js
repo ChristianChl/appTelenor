@@ -36,6 +36,7 @@ const usuarioPermiso_1 = __importDefault(require("../routes/usuarioPermiso"));
 const moneda_1 = __importDefault(require("../routes/moneda"));
 const cors_1 = __importDefault(require("cors"));
 const connection_1 = __importDefault(require("../database/connection"));
+const path_1 = __importDefault(require("path"));
 class Server {
     constructor() {
         this.apiPaths = {
@@ -67,6 +68,7 @@ class Server {
         this.dbConnnection();
         this.middlewares();
         this.routes();
+        this.getRoutes();
     }
     //TODO: Conectar base de datos
     dbConnnection() {
@@ -85,6 +87,8 @@ class Server {
         this.app.use(cors_1.default());
         //Lectura del body
         this.app.use(express_1.default.json());
+        //Carpeta pública
+        this.app.use(express_1.default.static('public'));
     }
     routes() {
         this.app.use(this.apiPaths.usuario, usuario_1.default);
@@ -108,6 +112,12 @@ class Server {
         this.app.use(this.apiPaths.Cotizacion, cotizacion_1.default);
         this.app.use(this.apiPaths.DetalleCotizacion, detalleCotizacion_1.default);
         this.app.use(this.apiPaths.historialProducto, historialProducto_1.default);
+    }
+    //Manejar demas rutas
+    getRoutes() {
+        this.app.get('*', (req, res) => {
+            res.sendFile(path_1.default.resolve(__dirname, '../public/index.html'));
+        });
     }
     listen() {
         this.app.listen(this.port, () => {

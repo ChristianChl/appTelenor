@@ -22,6 +22,8 @@ import usuarioPermiso from '../routes/usuarioPermiso';
 import moneda from '../routes/moneda';
 import cors from 'cors';
 import db from '../database/connection';
+import path from 'path';
+import { Request, Response } from "express";
 
 class Server {
     private app: Application;
@@ -61,6 +63,7 @@ class Server {
         this.dbConnnection();
         this.middlewares();
         this.routes();
+        this.getRoutes();
     }
     //TODO: Conectar base de datos
 
@@ -83,6 +86,9 @@ class Server {
 
         //Lectura del body
         this.app.use(express.json());
+
+        //Carpeta pública
+        this.app.use(express.static('public'));
 
     }
 
@@ -109,6 +115,13 @@ class Server {
         this.app.use(this.apiPaths.DetalleCotizacion, DetalleCotizacion );
         this.app.use(this.apiPaths.historialProducto, historialProducto );
 
+    }
+
+    //Manejar demas rutas
+    getRoutes(){
+        this.app.get('*', (req: Request, res: Response) => {
+            res.sendFile(path.resolve(__dirname, '../public/index.html'));
+        })
     }
     
     listen(){

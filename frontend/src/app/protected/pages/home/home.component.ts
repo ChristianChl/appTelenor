@@ -471,11 +471,4 @@ export class HomeComponent implements OnInit {
       err => console.log(err)
     )
   }
-<<<<<<< HEAD
 }
-=======
-
-}
-
-
->>>>>>> 4e7f2f53828355db78a62253cc67564d2386f86a
