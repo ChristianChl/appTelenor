@@ -108,10 +108,16 @@ export class HomeComponent implements OnInit {
     this.getHistorial();
   }
   historialProducto:any = [];
+  historialProductoFilter:any=[];
+  stockInicialDiaAyer:number = 0;
+  stockFinalDiaAyer:number = 0;
   getHistorial(){
     this.historialProductoService.getHistorialProductos()
       .subscribe(
         res => {
+
+
+          // PRODUCTOS SIN SALIDA
           let id = this.idProducto;
           this.historialProducto = res;
           this.historialProducto= this.historialProducto.historialProducto;
@@ -121,25 +127,112 @@ export class HomeComponent implements OnInit {
             let idProducto = this.todosProductos[i].id_Producto;
   
             this.ventasProducto = this.historialProducto.filter(function(ele: any){
-              return ele.id_producto == idProducto && ele.hist_cambioTiempo != "Compra";
+              return ele.id_producto == idProducto && ele.hist_cambioTiempo != "Compra" && ele.hist_cambioTiempo != "Editado";
             });
             let ultimoMovimiento = this.ventasProducto.length;
-            var f = new Date();
-            var xy = new Date(this.ventasProducto[ultimoMovimiento-1].createdAt);
-            let milisegundosTranscurridos = Math.abs(f.getTime() - xy.getTime());
-            let diasTranscurridos = Math.round(milisegundosTranscurridos/milisegundos);
-            
-            if(diasTranscurridos >= 90){
-              this.productoSinMoviento.push(this.todosProductos[i]);
+            if(ultimoMovimiento > 0){
+              var f = new Date();
+              var xy = new Date(this.ventasProducto[ultimoMovimiento-1].createdAt);
+              let milisegundosTranscurridos = Math.abs(f.getTime() - xy.getTime());
+              
+              let diasTranscurridos = Math.round(milisegundosTranscurridos/milisegundos);
+              
+              if(diasTranscurridos >= 90){
+                this.productoSinMoviento.push(this.todosProductos[i]);
+              }
             }
             
+            
           }
-
-
-
+          /*
           this.historialProducto = this.historialProducto.filter(function(ele: any){
             return ele.id_producto == id;
           });
+          */
+
+          //iNDICE DE ROTACION
+          var date = new Date();
+          date ; 
+          date.setDate(date.getDate() - 1);
+          date ;
+          let numMes:any = "";
+            let mesPrueba =  Number([date.getMonth()+1]);
+            if( mesPrueba <= 9){
+                numMes = "0"+ mesPrueba;
+            }
+            else{
+                numMes =  mesPrueba;
+            }
+          let formattedAyer = date.getDate() + '-' + numMes + '-' + date.getFullYear();
+          let primerDiaMes = '01-'+numMes+'-'+date.getFullYear();
+
+          for(let i=0; i<this.todosProductos.length; i++){
+            let cantidadVentas = 0;
+            let id = this.todosProductos[i].id_Producto;
+    
+            this.historialProductoFilter = this.historialProducto.filter(function(ele: any){
+              return ele.id_producto == id && ele.createdAt >= primerDiaMes ;
+            });
+            this.historialProductoFilter = this.historialProductoFilter.filter(function(ele: any){
+              return ele.createdAt <= formattedAyer ;
+            });
+            let cant = this.historialProductoFilter.length;
+    
+            //Sacar Sttock inicial y final de cada Producto
+            if(this.historialProductoFilter.length > 0){
+    
+              if(this.historialProductoFilter.length == 1){
+                if(this.historialProductoFilter[0].hist_cambioTiempo == "Venta"){
+                   this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
+                   this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
+                }
+                else{
+                  this.stockInicialDiaAyer = 0;
+                  this.stockFinalDiaAyer = 0;
+                }
+                
+              }
+              else{
+                if(this.historialProductoFilter[0].hist_cambioTiempo == "Venta"){
+                  this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
+                }
+                else if(this.historialProductoFilter[0].hist_cambioTiempo == "Compra"){
+                  this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock;
+                }
+                
+    
+                if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Venta"){
+                  this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
+                }
+                else if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Compra"){
+                  this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock - this.historialProductoFilter[0].hist_cantCompra;;
+                }
+              }
+              
+            }
+            else{
+              this.stockInicialDiaAyer = 0;
+              this.stockFinalDiaAyer = 0;
+            }
+    
+            //Obtener la cantidad de productos que se vendieron
+    
+            for(let j=0;j<this.historialProductoFilter.length; j++){
+              cantidadVentas = this.historialProductoFilter[j].hist_cantVenta + cantidadVentas
+            }
+    
+            // Realizar la formula 
+            let stockPromDiaAyer = (this.stockFinalDiaAyer + this.stockInicialDiaAyer)/2;
+            let rotacion;
+            if(stockPromDiaAyer == 0){
+               rotacion = 0;
+            } 
+            else{
+              rotacion = (cantidadVentas/stockPromDiaAyer).toFixed(2);
+            }
+            this.todosProductos[i].prod_imagen = rotacion;
+            console.log(this.todosProductos);
+          }
         },
         err => console.log(err)
       )
@@ -472,9 +565,6 @@ export class HomeComponent implements OnInit {
         for(let i = 0; i <this.barChartLabels.length ; i++){
     
           this.filterDetalleCotizacion = this.filterMes(this.barChartLabels[i],this.cotizacion);
-
-          
-          
           for(let i=0; i<this.filterDetalleCotizacion.length; i++){
               if(this.filterDetalleCotizacion[i].coti_hechoVenta == true){
                 totalCotiVenta = totalCotiVenta + 1;

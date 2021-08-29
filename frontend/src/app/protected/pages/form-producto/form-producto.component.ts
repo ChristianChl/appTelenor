@@ -337,8 +337,9 @@ export class FormProductoComponent implements OnInit {
   }
 
   updateProducto(){
+    console.log("prueba");
     const params = this.activatedRoute.snapshot.params;
-    if(this.cambioTiempo = true){
+    if(this.cambioTiempo == true){
       if(this.precioActual != this.producto.prod_precioVenta){
         this.producto.createdAt = (new Date()).toString();
         this.productoService.updateProducto(this.idProducto, this.producto)
