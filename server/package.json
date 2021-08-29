@@ -4,12 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-<<<<<<< HEAD
     "start": "node build/app.js",
-=======
-    "start": "node index.js",
-    "dev":"nodemon index.js",
->>>>>>> 61845ae2b9c0b03a25891728fe936c2e32f1cfeb
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

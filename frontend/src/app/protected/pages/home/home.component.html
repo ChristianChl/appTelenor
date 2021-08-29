@@ -127,7 +127,7 @@
     <div class="row" >
         <div class="row">
             <div class="col-10">
-                <div class="row" style="background: #f8f6f6;margin-top: 10px;margin-left: 10px;margin-right: 5px; border: rgb(112, 110, 110) solid 2px;border-radius: 5px; text-align: center;">
+                <div class="row" style="background: #f8f6f6;margin-top: 10px;margin-left: 10px;margin-right: 0px; border: rgb(112, 110, 110) solid 2px;border-radius: 5px; text-align: center;">
                     <h1><strong>Ventas</strong></h1>
                     <div class="col-7" style="text-align: center;">
                             <h2 >Ventas Mensuales</h2>
@@ -158,7 +158,7 @@
                    
                 </div>
 
-                <div class="row" style="text-align: center;margin-top: 10px;margin-left: 10px;margin-right: 5px;background: #f8f6f6;border: rgb(112, 110, 110) solid 2px;  border-radius: 5px;">
+                <div class="row" style="text-align: center;margin-top: 10px;margin-left: 10px;margin-right: 0px;background: #f8f6f6;border: rgb(112, 110, 110) solid 2px;  border-radius: 5px;">
                     <h1><strong>Compras</strong></h1>
                     <div class="col-7" style="text-align: center;">
                             <h2 >Compras Mensuales</h2>
@@ -189,9 +189,9 @@
                    
                 </div>
             </div>
-            <div class="col-2" style="margin-top: 10px;">
-                <div>
-                    <h2 > Productos Sin Salida</h2>
+            <div class="col-2" style="margin-top: 10px; padding:0px;">
+                <div style="text-align: center;border: rgb(112, 110, 110) 1px solid;margin-right: 0px;" >
+                    <h3 > <strong>Productos Sin Salida</strong></h3>
                    
                     <nz-list nzBordered >
                        <nz-list-item *ngFor="let item of productoSinMoviento">
@@ -199,6 +199,16 @@
                          <a (click)="modalEditProducto(item.id_Producto)"> edit</a>
                        </nz-list-item>
                      </nz-list>
+               </div>
+
+               <div  style=" text-align: center;border: rgb(112, 110, 110) 1px solid; margin-top: 10px; margin-right: 0px;">
+                    <h3 ><strong> Indice de rotacion - Mes</strong></h3>
+                    <nz-list nzBordered >
+                        <nz-list-item *ngFor="let item of todosProductos">
+                          {{ item.prod_modelo }}
+                          <span>{{ item.prod_imagen }} </span>
+                        </nz-list-item>
+                      </nz-list>
                </div>
             </div>
         </div>

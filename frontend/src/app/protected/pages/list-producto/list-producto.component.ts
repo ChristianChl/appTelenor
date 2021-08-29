@@ -68,13 +68,13 @@ export class ListProductoComponent implements OnInit {
 
   deleteProducto(id: string){
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Esta seguro de eliminar el producto?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText:'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
 
@@ -83,8 +83,8 @@ export class ListProductoComponent implements OnInit {
             this.getProductos();
 
             Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
+              'Eliminado!',
+              'Usted ha eliminado el producto',
               'success'
             )
 

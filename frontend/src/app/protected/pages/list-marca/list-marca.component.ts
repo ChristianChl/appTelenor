@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 import { MarcaService } from '../../services/marca.service';
 
 @Component({
@@ -56,12 +57,33 @@ export class ListMarcaComponent implements OnInit {
   }
 
   deleteMarca(id: string){
-    this.marcaService.deleteMarca(id).subscribe(
-      res=> {
-        this.getMarcas();
-      },
-      err => console.log(err)
-    );
+
+    Swal.fire({
+      title: 'Esta seguro de eliminar la Marca?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText:'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.marcaService.deleteMarca(id).subscribe(
+          res=> {
+            this.getMarcas();
+            Swal.fire(
+              'Eliminado!',
+              'Usted ha eliminado la marca',
+              'success'
+            )
+          },
+          err => console.log(err)
+        );
+      }
+    })
+
+    
   }
 
 }

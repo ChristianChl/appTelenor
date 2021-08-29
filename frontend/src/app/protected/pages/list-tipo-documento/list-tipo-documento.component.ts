@@ -31,19 +31,36 @@ export class ListTipoDocumentoComponent implements OnInit {
     );
   }
   deleteDocumento(id: string){
-    this.documentoService.deleteDocumento(id).subscribe(
-      res=>{
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Se Elimino el Documento con Exito!',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.getDocumento();
-      },
-      err => console.log(err)
-    );
+    Swal.fire({
+      title: 'Esta seguro de eliminar el producto?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText:'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.documentoService.deleteDocumento(id).subscribe(
+          res=>{
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se Elimino el Documento con Exito!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.getDocumento();
+          },
+          err => console.log(err)
+        );
+
+        
+      }
+    })
+
+    
   }
   openModalDocumento() : void{
     this.idTipoDocumento = "";
