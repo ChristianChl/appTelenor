@@ -59,7 +59,13 @@ export class FormUsuarioComponent implements OnInit {
 
   selected: any = [
     {id: 1, text:"Configuracion", value:"false"},
-    {id: 2,text:"Maestro", value:"false"}
+    {id: 2, text:"Maestro", value:"false"},
+    {id: 3, text:"Almacen", value:"false"},
+    {id: 4, text:"Compras", value:"false"},
+    {id: 5, text:"Ventas", value:"false"},
+    {id: 6, text:"Precios", value:"false"},
+    {id: 7, text:"ClientProv", value:"false"},
+    {id: 8, text:"Reportes", value:"false"},
   ];
   
 
@@ -81,6 +87,12 @@ export class FormUsuarioComponent implements OnInit {
     us_clave: [, [Validators.required, Validators.minLength(6)]],
     Configuracion: [,[]],
     Maestro: [,[]],
+    Almacen: [,[]],
+    Compras: [,[]],
+    Ventas: [,[]],
+    Precios: [,[]],
+    ClientProv: [,[]],
+    Reportes: [,[]],
   });
 
   constructor(private fb: FormBuilder,
@@ -213,7 +225,7 @@ export class FormUsuarioComponent implements OnInit {
       res => {
         this.usuarioService.updateUsuario(this.idUsuario, this.usuarios)
         .subscribe(resp =>{
-        if( this.formUsuarios.valid ) {
+        if( resp.ok == true && this.formUsuarios.valid ) {
 
           for(let i=0; i<this.selected.length; i++){
   

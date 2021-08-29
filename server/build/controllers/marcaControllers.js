@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteMarca = exports.putMarca = exports.postMarca = exports.getMarca = exports.getMarcas = void 0;
 const marca_1 = __importDefault(require("../models/marca"));
+const sequelize_1 = require("sequelize");
 const getMarcas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const marca = yield marca_1.default.findAll();
     res.json({ marca });
@@ -72,10 +73,26 @@ const putMarca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 msg: 'No existe marca con el id ' + id
             });
         }
+        const actualizarMarca = yield marca_1.default.findOne({
+            where: {
+                id_marca: {
+                    [sequelize_1.Op.ne]: id
+                },
+                mar_nombre: body.mar_nombre
+            }
+        });
+        if (actualizarMarca) {
+            return res.status(400).json({
+                msg: 'Ya existe una Marca con el nombre ' + body.mar_nombre
+            });
+        }
+        // await marca.update(body);
+        // res.json(marca);
         yield marca.update(body);
-        res.json(marca);
-        //res.json(usuario);
-        // res.json(token);
+        return res.status(201).json({
+            ok: true,
+            marca
+        });
     }
     catch (error) {
         console.log(error);

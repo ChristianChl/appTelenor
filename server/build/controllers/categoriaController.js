@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCategoria = exports.putCategoria = exports.postCategoria = exports.getCategoria = exports.getCategorias = void 0;
 //import bcrypt from "bcrypt";
 const categoria_1 = __importDefault(require("../models/categoria"));
+const sequelize_1 = require("sequelize");
 const getCategorias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const categoria = yield categoria_1.default.findAll();
     res.json({ categoria });
@@ -73,10 +74,26 @@ const putCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 msg: 'No existe categoria con el id ' + id
             });
         }
+        const actualizarCategoria = yield categoria_1.default.findOne({
+            where: {
+                id_categoria: {
+                    [sequelize_1.Op.ne]: id
+                },
+                cat_nombre: body.cat_nombre
+            }
+        });
+        if (actualizarCategoria) {
+            return res.status(400).json({
+                msg: 'Ya existe una Categoria con el nombre ' + body.cat_nombre
+            });
+        }
+        // await categoria.update(body);
+        // res.json(categoria);
         yield categoria.update(body);
-        res.json(categoria);
-        //res.json(usuario);
-        // res.json(token);
+        return res.status(201).json({
+            ok: true,
+            categoria
+        });
     }
     catch (error) {
         console.log(error);

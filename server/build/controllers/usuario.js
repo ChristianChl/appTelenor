@@ -18,6 +18,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt_1 = require("../helpers/jwt");
 const perfil_1 = __importDefault(require("../models/perfil"));
 const tipoDocumento_1 = __importDefault(require("../models/tipoDocumento"));
+const sequelize_1 = require("sequelize");
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuario_1.default.findAll({
         // where:{
@@ -110,9 +111,22 @@ const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 msg: 'No existe un usuario con el id ' + id
             });
         }
+        const actualizarLogin = yield usuario_1.default.findOne({
+            where: {
+                id_usuario: {
+                    [sequelize_1.Op.ne]: id
+                },
+                us_login: body.us_login
+            }
+        });
+        if (actualizarLogin) {
+            return res.status(400).json({
+                msg: 'Ya existe un usuario con el login ' + body.us_login
+            });
+        }
         const actualizaClave = yield usuario_1.default.findOne({
             where: {
-                us_login: body.us_login,
+                // us_login: body.us_login,
                 us_clave: body.us_clave
             }
         });
@@ -120,8 +134,13 @@ const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             const salt = bcrypt_1.default.genSaltSync(10);
             body.us_clave = bcrypt_1.default.hashSync(body.us_clave, salt);
         }
+        // await usuario.update(body);
+        // res.json(usuario);
         yield usuario.update(body);
-        res.json(usuario);
+        return res.status(201).json({
+            ok: true,
+            usuario
+        });
     }
     catch (error) {
         console.log(error);

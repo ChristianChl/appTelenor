@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTiposDocumentos = exports.putTiposDocumentos = exports.postTiposDocumentos = exports.getTiposDocumento = exports.getTiposDocumentos = void 0;
 const tipoDocumento_1 = __importDefault(require("../models/tipoDocumento"));
+const sequelize_1 = require("sequelize");
 const getTiposDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tiposDocumentos = yield tipoDocumento_1.default.findAll();
     res.json({ tiposDocumentos });
@@ -72,10 +73,26 @@ const putTiposDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, funct
                 msg: 'No existe tipo documento con el id ' + id
             });
         }
+        const actualizarTipoDocumento = yield tipoDocumento_1.default.findOne({
+            where: {
+                id_tipoDocumento: {
+                    [sequelize_1.Op.ne]: id
+                },
+                tipodoc_descripcion: body.tipodoc_descripcion
+            }
+        });
+        if (actualizarTipoDocumento) {
+            return res.status(400).json({
+                msg: 'Ya existe un tipo de documento con el nombre ' + body.tipodoc_descripcion
+            });
+        }
+        // await tiposDocumentos.update(body);
+        // res.json(tiposDocumentos);
         yield tiposDocumentos.update(body);
-        res.json(tiposDocumentos);
-        //res.json(usuario);
-        // res.json(token);
+        return res.status(201).json({
+            ok: true,
+            tiposDocumentos
+        });
     }
     catch (error) {
         console.log(error);

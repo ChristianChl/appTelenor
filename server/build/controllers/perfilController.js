@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePerfil = exports.putPerfil = exports.postPerfil = exports.getPerfil = exports.getPerfiles = void 0;
 const perfil_1 = __importDefault(require("../models/perfil"));
+const sequelize_1 = require("sequelize");
 const getPerfiles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const perfil = yield perfil_1.default.findAll();
     res.json({ perfil });
@@ -72,10 +73,26 @@ const putPerfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 msg: 'No existe perfil con el id ' + id
             });
         }
+        const actualizarPerfil = yield perfil_1.default.findOne({
+            where: {
+                id_perfil: {
+                    [sequelize_1.Op.ne]: id
+                },
+                perf_nombre: body.perf_nombre
+            }
+        });
+        if (actualizarPerfil) {
+            return res.status(400).json({
+                msg: 'Ya existe un perfil con el nombre ' + body.perf_nombre
+            });
+        }
+        // await perfil.update(body);
+        // res.json(perfil);
         yield perfil.update(body);
-        res.json(perfil);
-        //res.json(usuario);
-        // res.json(token);
+        return res.status(201).json({
+            ok: true,
+            perfil
+        });
     }
     catch (error) {
         console.log(error);

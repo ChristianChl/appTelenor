@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { Response } from "express";
 import TiposDocumentos from "../models/tipoDocumento";
+import {Op} from 'sequelize';
 
 export const getTiposDocumentos  = async (req:Request, res:Response) =>{
     const tiposDocumentos = await TiposDocumentos.findAll();
@@ -74,10 +75,29 @@ export const putTiposDocumentos  = async(req:Request, res:Response) =>{
             });
         }
 
+        const actualizarTipoDocumento = await TiposDocumentos.findOne({
+            where: {
+                id_tipoDocumento: {
+                    [Op.ne]: id
+                },
+                tipodoc_descripcion: body.tipodoc_descripcion
+            }
+        });
+        if ( actualizarTipoDocumento ) {
+            return res.status(400).json({
+                msg: 'Ya existe un tipo de documento con el nombre ' + body.tipodoc_descripcion
+            });
+        }
+
+        // await tiposDocumentos.update(body);
+        // res.json(tiposDocumentos);
+
         await tiposDocumentos.update(body);
-        res.json(tiposDocumentos);
-        //res.json(usuario);
-        // res.json(token);
+
+        return res.status(201).json({
+            ok: true,
+            tiposDocumentos
+        });
 
     } catch (error) {
         console.log(error);

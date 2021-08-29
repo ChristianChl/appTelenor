@@ -75,6 +75,9 @@ export class ProductoService {
       }),
       map(resp => resp.ok),
       catchError(err =>{
+          if(err.error?.msg){
+            return of(err.error.msg)
+          }
           if(err.error.errors.prod_modelo?.msg){
             return of(err.error.errors.prod_modelo.msg);
           }

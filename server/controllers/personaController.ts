@@ -3,6 +3,7 @@ import { Response } from "express";
 import Persona from "../models/persona";
 import TipoDocumento from "../models/tipoDocumento";
 import TipoPersona from "../models/tipoPersona";
+import {Op} from 'sequelize';
 
 export const getPersonas  = async (req:Request, res:Response) =>{
     const persona = await Persona.findAll({
@@ -58,8 +59,20 @@ export const postPersona  = async (req:Request, res:Response) =>{
     const{body} = req;
 
     try {
-        
-        
+
+        const existePersona = await Persona.findOne({
+            where: {
+                fk_id_tipoPersona: {
+                    [Op.eq]: body.fk_id_tipoPersona
+                },
+                per_razonSocial: body.per_razonSocial
+            }
+        });
+        if (existePersona) {
+            return res.status(400).json({
+                msg: 'Ya existe una Persona con el nombre ' + body.per_razonSocial
+            });
+        }
         
         const persona: any =  Persona.build(body);
 
@@ -91,6 +104,22 @@ export const putPersona  = async(req:Request, res:Response) =>{
         if(!persona){
             return res.status(404).json({
                 msg: 'No existe persona con el id ' + id
+            });
+        }
+        const actualizarPersona = await Persona.findOne({
+            where: {
+                fk_id_tipoPersona: {
+                    [Op.eq]: body.fk_id_tipoPersona
+                },
+                id_Persona: {
+                    [Op.ne]: id
+                },
+                per_razonSocial: body.per_razonSocial
+            }
+        });
+        if (actualizarPersona) {
+            return res.status(400).json({
+                msg: 'Ya existe una Persona con el nombre ' + body.per_razonSocial
             });
         }
 

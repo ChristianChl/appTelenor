@@ -24,7 +24,7 @@
     font-size: 11px;
     color: rgb(253, 253, 253) !important;
     /* text-indent: 1em; */
-    padding-left: 15px;
+    padding-left: 5px;
     
   }
   .separator{
@@ -77,5 +77,9 @@
 
   mat-list-item{
     height: 40px;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;   
+    height: 8px;  
   }
   

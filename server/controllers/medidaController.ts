@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { Response } from "express";
 import Medida from "../models/medida";
+import {Op} from 'sequelize';
 
 export const getMedidas  = async (req:Request, res:Response) =>{
     const medida = await Medida.findAll();
@@ -72,11 +73,29 @@ export const putMedida  = async(req:Request, res:Response) =>{
                 msg: 'No existe medida con el id ' + id
             });
         }
+        const actualizarMedida = await Medida.findOne({
+            where: {
+                id_medida: {
+                    [Op.ne]: id
+                },
+                med_unidad: body.med_unidad
+            }
+        });
+        if ( actualizarMedida ) {
+            return res.status(400).json({
+                msg: 'Ya existe una Unidad Medida con el nombre ' + body.med_unidad
+            });
+        }
+
+        // await medida.update(body);
+        // res.json(medida);
 
         await medida.update(body);
-        res.json(medida);
-        //res.json(usuario);
-        // res.json(token);
+
+        return res.status(201).json({
+            ok: true,
+            medida
+        });
 
     } catch (error) {
         console.log(error);

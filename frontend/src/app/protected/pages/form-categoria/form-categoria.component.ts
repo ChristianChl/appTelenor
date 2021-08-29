@@ -130,7 +130,7 @@ export class FormCategoriaComponent implements OnInit {
       .subscribe(
         ok => {
           
-          if (this.formCategoria.valid) {
+          if (ok == true && this.formCategoria.valid) {
             Swal.fire({
               position: 'center',
               icon: 'success',

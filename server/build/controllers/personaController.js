@@ -16,6 +16,7 @@ exports.deletePersona = exports.putPersona = exports.postPersona = exports.getPe
 const persona_1 = __importDefault(require("../models/persona"));
 const tipoDocumento_1 = __importDefault(require("../models/tipoDocumento"));
 const tipoPersona_1 = __importDefault(require("../models/tipoPersona"));
+const sequelize_1 = require("sequelize");
 const getPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const persona = yield persona_1.default.findAll({
         include: [
@@ -63,6 +64,19 @@ exports.getPersona = getPersona;
 const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
+        const existePersona = yield persona_1.default.findOne({
+            where: {
+                fk_id_tipoPersona: {
+                    [sequelize_1.Op.eq]: body.fk_id_tipoPersona
+                },
+                per_razonSocial: body.per_razonSocial
+            }
+        });
+        if (existePersona) {
+            return res.status(400).json({
+                msg: 'Ya existe una Persona con el nombre ' + body.per_razonSocial
+            });
+        }
         const persona = persona_1.default.build(body);
         yield persona.save();
         return res.status(201).json({
@@ -88,6 +102,22 @@ const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (!persona) {
             return res.status(404).json({
                 msg: 'No existe persona con el id ' + id
+            });
+        }
+        const actualizarPersona = yield persona_1.default.findOne({
+            where: {
+                fk_id_tipoPersona: {
+                    [sequelize_1.Op.eq]: body.fk_id_tipoPersona
+                },
+                id_Persona: {
+                    [sequelize_1.Op.ne]: id
+                },
+                per_razonSocial: body.per_razonSocial
+            }
+        });
+        if (actualizarPersona) {
+            return res.status(400).json({
+                msg: 'Ya existe una Persona con el nombre ' + body.per_razonSocial
             });
         }
         yield persona.update(body);

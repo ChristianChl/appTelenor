@@ -153,18 +153,24 @@ export class FormProveedorComponent implements OnInit {
   updateProveedor(){
     this.personaService.updatePersona(this.idProveedor, this.proveedor)
       .subscribe(
-        res => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se Edito   con Exito',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          this.formProveedor.reset();
-          this.ngOnInit();
-          this.isVisibleProveedor = false;
-          this.newVisibleProveedor.emit(this.isVisibleProveedor);
+        ok => {
+          if(ok == true && this.formProveedor.valid){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se Edito   con Exito',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.formProveedor.reset();
+            this.ngOnInit();
+            this.isVisibleProveedor = false;
+            this.newVisibleProveedor.emit(this.isVisibleProveedor);
+          }
+          else{
+            this.formProveedor.markAllAsTouched();
+            Swal.fire('Error', ok, 'error');
+          }
         },
         err => console.log(err)
       )

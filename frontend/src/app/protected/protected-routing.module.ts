@@ -29,6 +29,12 @@ import { ReporteProductosComponent } from './pages/reporte-productos/reporte-pro
 import { ReporteVentasComponent } from './pages/reporte-ventas/reporte-ventas.component';
 import { KardexComponent } from './pages/kardex/kardex.component';
 import { PreciosProductosComponent } from './pages/precios-productos/precios-productos.component';
+import { ValidarPermisoAlmacenGuard } from '../guards/validar-permiso-almacen.guard';
+import { ValidarPermisoComprasGuard } from '../guards/validar-permiso-compras.guard';
+import { ValidarPermisoVentasGuard } from '../guards/validar-permiso-ventas.guard';
+import { ValidarPermisoPreciosGuard } from '../guards/validar-permiso-precios.guard';
+import { ValidarPermisoClientProvGuard } from '../guards/validar-permiso-client-prov.guard';
+import { ValidarPermisoReportesGuard } from '../guards/validar-permiso-reportes.guard';
 
 const routes: Routes = [
   {
@@ -76,39 +82,58 @@ const routes: Routes = [
       },
       {
         path: 'listaTipoProducto',
+        canActivate: [ValidarPermisoAlmacenGuard],
         component: ListTipoProductoComponent
       },
       {
         path: 'listaProducto',
+        canActivate: [ValidarPermisoAlmacenGuard],
         component: ListProductoComponent
       },
       {
-        path: 'listaProveedor',
-        component: ListProveedorComponent
-      },
-      {
-        path: 'listaCliente',
-        component: ListClienteComponent
-      },
-      {
-        path: 'agregarIngreso',
-        component: FormIngresoComponent
+        path: 'kardex',
+        canActivate: [ValidarPermisoAlmacenGuard],
+        component: KardexComponent
       },
       {
         path: 'listaIngreso',
+        canActivate: [ValidarPermisoComprasGuard],
         component: ListIngresoComponent
       },
       {
-        path: 'agregarVenta',
-        component: FormVentasComponent
+        path: 'agregarIngreso',
+        canActivate: [ValidarPermisoComprasGuard],
+        component: FormIngresoComponent
       },
       {
         path: 'listaVentas',
+        canActivate: [ValidarPermisoVentasGuard],
         component: ListVentasComponent
       },
       {
+        path: 'agregarVenta',
+        canActivate: [ValidarPermisoVentasGuard],
+        component: FormVentasComponent
+      },
+      {
         path: 'listaCotizaciones',
+        canActivate: [ValidarPermisoVentasGuard],
         component: ListCotizacionComponent
+      },
+      {
+        path: 'precioProductos',
+        canActivate: [ValidarPermisoPreciosGuard],
+        component: PreciosProductosComponent
+      },
+      {
+        path: 'listaCliente',
+        canActivate: [ValidarPermisoClientProvGuard],
+        component: ListClienteComponent
+      },
+      {
+        path: 'listaProveedor',
+        canActivate: [ValidarPermisoClientProvGuard],
+        component: ListProveedorComponent
       },
       {
         path: 'graficas',
@@ -116,19 +141,13 @@ const routes: Routes = [
       },
       {
         path: 'reporteProducto',
+        canActivate: [ValidarPermisoReportesGuard],
         component: ReporteProductosComponent
       },
       {
         path: 'reporteVenta',
+        canActivate: [ValidarPermisoReportesGuard],
         component: ReporteVentasComponent
-      },
-      {
-        path: 'kardex',
-        component: KardexComponent
-      },
-      {
-        path: 'precioProductos',
-        component: PreciosProductosComponent
       },
       {
         path: '**',

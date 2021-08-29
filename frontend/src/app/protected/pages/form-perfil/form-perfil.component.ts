@@ -83,7 +83,7 @@ export class FormPerfilComponent implements OnInit {
     const params = this.activatedRoute.snapshot.params;
     this.perfilService.updatePerfil(this.idPerfil, this.perfil)
     .subscribe(ok =>{
-      if(ok == true || this.formPerfil.valid){
+      if(ok == true && this.formPerfil.valid){
         Swal.fire({
           position: 'center',
           icon: 'success',

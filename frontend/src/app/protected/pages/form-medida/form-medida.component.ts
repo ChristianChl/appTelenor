@@ -110,7 +110,7 @@ export class FormMedidaComponent implements OnInit {
     this.medidaService.updateMedida(this.idMedida, this.medida)
       .subscribe(
         ok => {
-          if (this.formMedida.valid) {
+          if (ok==true && this.formMedida.valid) {
             Swal.fire({
               position: 'center',
               icon: 'success',

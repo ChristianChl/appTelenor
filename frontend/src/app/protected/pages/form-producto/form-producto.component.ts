@@ -344,7 +344,7 @@ export class FormProductoComponent implements OnInit {
         this.productoService.updateProducto(this.idProducto, this.producto)
         .subscribe(
         ok => {
-          if (this.formProducto.valid) {
+          if (ok == true && this.formProducto.valid) {
             Swal.fire({
               position: 'center',
               icon: 'success',

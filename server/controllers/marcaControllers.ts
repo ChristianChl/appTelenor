@@ -4,6 +4,7 @@ import { Response } from "express";
 import bcrypt from "bcrypt";
 import { generarJwt } from '../helpers/jwt';
 import Marca from "../models/marca";
+import {Op} from 'sequelize';
 
 export const getMarcas  = async (req:Request, res:Response) =>{
     const marca = await Marca.findAll();
@@ -76,10 +77,30 @@ export const putMarca  = async(req:Request, res:Response) =>{
             });
         }
 
+        const actualizarMarca = await Marca.findOne({
+            where: {
+                id_marca: {
+                    [Op.ne]: id
+                },
+                mar_nombre: body.mar_nombre
+            }
+        });
+        if ( actualizarMarca ) {
+            return res.status(400).json({
+                msg: 'Ya existe una Marca con el nombre ' + body.mar_nombre
+            });
+        }
+
+        // await marca.update(body);
+        // res.json(marca);
+
         await marca.update(body);
-        res.json(marca);
-        //res.json(usuario);
-        // res.json(token);
+
+        return res.status(201).json({
+            ok: true,
+            marca
+        });
+
 
     } catch (error) {
         console.log(error);

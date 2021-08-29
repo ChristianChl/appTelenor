@@ -78,7 +78,7 @@ export class FormTipoDocumentoComponent implements OnInit {
     const params = this.activatedRoute.snapshot.params;
     this.tipoDocumentoService.updateDocumento(this.idTipoDocumento, this.tipoDocumento)
     .subscribe(ok => {
-      if(ok == true || this.formTipoDocumento.valid){
+      if(ok == true && this.formTipoDocumento.valid){
         Swal.fire({
           position: 'center',
           icon: 'success',

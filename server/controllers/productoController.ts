@@ -5,6 +5,7 @@ import Marca from "../models/marca";
 import Medida from "../models/medida";
 import Producto from "../models/producto";
 import Tipo from "../models/tipoProducto";
+import {Op} from 'sequelize';
 
 export const getProductos  = async (req:Request, res:Response) =>{
     const producto = await Producto.findAll({
@@ -128,11 +129,28 @@ export const putProducto  = async(req:Request, res:Response) =>{
                 msg: 'No existe el producto con el id ' + id
             });
         }
+        const actualizarProducto = await Producto.findOne({
+            where: {
+                id_Producto: {
+                    [Op.ne]: id
+                },
+                prod_modelo: body.prod_modelo
+            }
+        });
+        if ( actualizarProducto ) {
+            return res.status(400).json({
+                msg: 'Ya existe un Producto con el modelo ' + body.prod_modelo
+            });
+        }
+
+        // await producto.update(body);
+        // res.json(producto);
 
         await producto.update(body);
-        res.json(producto);
-        //res.json(usuario);
-        // res.json(token);
+        return res.status(201).json({
+            ok: true,
+            producto
+        });
 
     } catch (error) {
         console.log(error);

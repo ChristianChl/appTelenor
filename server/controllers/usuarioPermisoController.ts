@@ -23,6 +23,45 @@ export const getUsuarioPermisos  = async (req:Request, res:Response) =>{
     res.json({usuarioPermiso});
 
 }
+export const getUsuarioByIdPer =  async (req:Request, res:Response) =>{
+    const{body} = req;
+    const usuarioPermisos = await UsuarioPermiso.findAll(
+        {
+            where: {
+                fk_id_usuario: body.fk_id_usuario
+                
+            },
+            include: [
+                {
+                    model: Usuario,
+                    as: 'Usuarios',
+                    attributes: ["id_usuario", "us_apellidos", "us_nombres", "us_numeroDocumento", "us_direccion", "us_telefono", "us_email", "us_fechaRegistro", "us_login", "us_clave", "us_activo", "fk_id_perfil", "fk_id_tipoDocumento"]
+                },
+                {
+                    model: Permiso,
+                    as: 'Permisos',
+                    where:{
+                        perm_nombre: body.perm_nombre
+                    },
+                    attributes: ["id_permiso", "perm_nombre"]
+                }
+            ]
+        }
+    );
+    if (usuarioPermisos.length > 0){
+        return res.status(201).json({
+         ok:true,
+         usuarioPermisos
+        });
+    }else{
+        return res.status(201).json({
+            ok:false,
+            msg: 'No se encontraron Permisos'
+            
+           });
+    }
+
+}
 
 export const getUsuarioPermiso =  async (req:Request, res:Response) =>{
     const{id} = req.params;

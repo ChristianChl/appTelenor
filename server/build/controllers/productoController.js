@@ -18,6 +18,7 @@ const marca_1 = __importDefault(require("../models/marca"));
 const medida_1 = __importDefault(require("../models/medida"));
 const producto_1 = __importDefault(require("../models/producto"));
 const tipoProducto_1 = __importDefault(require("../models/tipoProducto"));
+const sequelize_1 = require("sequelize");
 const getProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const producto = yield producto_1.default.findAll({
         include: [
@@ -122,10 +123,26 @@ const putProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 msg: 'No existe el producto con el id ' + id
             });
         }
+        const actualizarProducto = yield producto_1.default.findOne({
+            where: {
+                id_Producto: {
+                    [sequelize_1.Op.ne]: id
+                },
+                prod_modelo: body.prod_modelo
+            }
+        });
+        if (actualizarProducto) {
+            return res.status(400).json({
+                msg: 'Ya existe un Producto con el modelo ' + body.prod_modelo
+            });
+        }
+        // await producto.update(body);
+        // res.json(producto);
         yield producto.update(body);
-        res.json(producto);
-        //res.json(usuario);
-        // res.json(token);
+        return res.status(201).json({
+            ok: true,
+            producto
+        });
     }
     catch (error) {
         console.log(error);

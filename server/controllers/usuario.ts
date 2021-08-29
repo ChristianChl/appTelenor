@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { generarJwt } from '../helpers/jwt';
 import Perfil from '../models/perfil';
 import TipoDocumento from "../models/tipoDocumento";
+import {Op} from 'sequelize';
 
 export const getUsuarios = async (req: Request, res: Response) => {
 
@@ -114,9 +115,23 @@ export const putUsuario = async (req: Request, res: Response) => {
                 msg: 'No existe un usuario con el id ' + id
             });
         }
+        const actualizarLogin = await Usuario.findOne({
+            where: {
+                id_usuario: {
+                    [Op.ne]: id
+                },
+                us_login: body.us_login
+            }
+        });
+        if ( actualizarLogin ) {
+            return res.status(400).json({
+                msg: 'Ya existe un usuario con el login ' + body.us_login
+            });
+        }
+
         const actualizaClave = await Usuario.findOne({
             where: {
-                us_login: body.us_login,
+                // us_login: body.us_login,
                 us_clave: body.us_clave
             }
         });
@@ -126,8 +141,15 @@ export const putUsuario = async (req: Request, res: Response) => {
             body.us_clave = bcrypt.hashSync(body.us_clave, salt);
         }
 
+        // await usuario.update(body);
+        // res.json(usuario);
+
         await usuario.update(body);
-        res.json(usuario);
+
+        return res.status(201).json({
+            ok: true,
+            usuario
+        });
 
 
     } catch (error) {

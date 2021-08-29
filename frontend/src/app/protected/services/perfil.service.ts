@@ -58,6 +58,9 @@ export class PerfilService {
       }),
       map(resp => resp.ok),
       catchError(err => {
+        if(err.error?.msg){
+          return of(err.error.msg)
+        }
         if(err.error.errors.perf_nombre?.msg){
           return of(err.error.errors.perf_nombre.msg)
         }

@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { Response } from "express";
 import Perfil from "../models/perfil";
+import {Op} from 'sequelize';
 
 export const getPerfiles  = async (req:Request, res:Response) =>{
     const perfil = await Perfil.findAll();
@@ -74,10 +75,30 @@ export const putPerfil  = async(req:Request, res:Response) =>{
             });
         }
 
+        const actualizarPerfil = await Perfil.findOne({
+            where: {
+                id_perfil: {
+                    [Op.ne]: id
+                },
+                perf_nombre: body.perf_nombre
+            }
+        });
+        if ( actualizarPerfil ) {
+            return res.status(400).json({
+                msg: 'Ya existe un perfil con el nombre ' + body.perf_nombre
+            });
+        }
+
+
+
+        // await perfil.update(body);
+        // res.json(perfil);
+
         await perfil.update(body);
-        res.json(perfil);
-        //res.json(usuario);
-        // res.json(token);
+        return res.status(201).json({
+            ok: true,
+            perfil
+        });
 
     } catch (error) {
         console.log(error);

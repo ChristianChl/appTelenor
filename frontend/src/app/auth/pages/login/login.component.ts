@@ -33,10 +33,11 @@ export class LoginComponent implements OnInit {
 
       if( ok == true ) {
         
-        this.router.navigateByUrl('/dashboard/graficas')
-        .then(() => {
-          window.location.reload();
-        });
+        // this.router.navigateByUrl('/dashboard/graficas')
+        // .then(() => {
+        //   window.location.reload();
+        // });
+        this.router.navigateByUrl('/dashboard/graficas');
 
       }else{
         Swal.fire('Error', ok, 'error');

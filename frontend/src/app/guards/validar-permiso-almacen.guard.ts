@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import {CanActivate, CanLoad, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap, timeout } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth/services/auth.service';
 import { UsuarioPermisoService } from '../protected/services/usuario-permiso.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ValidarPermisoConfiguracionGuard implements CanActivate {
+export class ValidarPermisoAlmacenGuard implements CanActivate {
 
   constructor(private authService: AuthService,
               private usuarioPermisoService: UsuarioPermisoService,
@@ -19,7 +19,7 @@ export class ValidarPermisoConfiguracionGuard implements CanActivate {
   }
 
   canActivate(): Observable<boolean> | boolean {
-    return this.usuarioPermisoService.getUsuarioByPerId(this.usuario.uid, "Configuracion")
+    return this.usuarioPermisoService.getUsuarioByPerId(this.usuario.uid, "Almacen")
     .pipe(
       tap(valid =>{
         if(!valid){
@@ -28,5 +28,5 @@ export class ValidarPermisoConfiguracionGuard implements CanActivate {
       })
     );
   }
+  
 }
-

@@ -36,6 +36,9 @@ export class PersonaService {
       }),
       map(resp => resp.ok),
       catchError(err =>{
+          if(err.error?.msg){
+            return of(err.error.msg)
+          }
           if(err.error.errors.fk_id_tipoDocumento?.msg){
             return of(err.error.errors.fk_id_tipoDocumento.msg);
           }
@@ -73,6 +76,9 @@ export class PersonaService {
       }),
       map(resp => resp.ok),
       catchError(err =>{
+          if(err.error?.msg){
+            return of(err.error.msg)
+          }
           if(err.error.errors.fk_id_tipoDocumento?.msg){
             return of(err.error.errors.fk_id_tipoDocumento.msg);
           }

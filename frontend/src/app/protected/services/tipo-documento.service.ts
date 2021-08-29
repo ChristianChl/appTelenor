@@ -54,6 +54,9 @@ export class TipoDocumentoService {
       }),
       map(resp => resp.ok),
       catchError(err => {
+        if(err.error?.msg){
+          return of(err.error.msg)
+        }
         if(err.error.errors.tipodoc_descripcion?.msg){
           return of(err.error.errors.tipodoc_descripcion.msg)
         }

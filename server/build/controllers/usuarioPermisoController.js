@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUsuarioPermiso = exports.putUsuarioPermiso = exports.postUsuarioPermiso = exports.getUsuarioPermiso = exports.getUsuarioPermisos = void 0;
+exports.deleteUsuarioPermiso = exports.putUsuarioPermiso = exports.postUsuarioPermiso = exports.getUsuarioPermiso = exports.getUsuarioByIdPer = exports.getUsuarioPermisos = void 0;
 const usuarioPermiso_1 = __importDefault(require("../models/usuarioPermiso"));
 const usuario_1 = __importDefault(require("../models/usuario"));
 const permiso_1 = __importDefault(require("../models/permiso"));
@@ -34,6 +34,42 @@ const getUsuarioPermisos = (req, res) => __awaiter(void 0, void 0, void 0, funct
     res.json({ usuarioPermiso });
 });
 exports.getUsuarioPermisos = getUsuarioPermisos;
+const getUsuarioByIdPer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    const usuarioPermisos = yield usuarioPermiso_1.default.findAll({
+        where: {
+            fk_id_usuario: body.fk_id_usuario
+        },
+        include: [
+            {
+                model: usuario_1.default,
+                as: 'Usuarios',
+                attributes: ["id_usuario", "us_apellidos", "us_nombres", "us_numeroDocumento", "us_direccion", "us_telefono", "us_email", "us_fechaRegistro", "us_login", "us_clave", "us_activo", "fk_id_perfil", "fk_id_tipoDocumento"]
+            },
+            {
+                model: permiso_1.default,
+                as: 'Permisos',
+                where: {
+                    perm_nombre: body.perm_nombre
+                },
+                attributes: ["id_permiso", "perm_nombre"]
+            }
+        ]
+    });
+    if (usuarioPermisos.length > 0) {
+        return res.status(201).json({
+            ok: true,
+            usuarioPermisos
+        });
+    }
+    else {
+        return res.status(201).json({
+            ok: false,
+            msg: 'No se encontraron Permisos'
+        });
+    }
+});
+exports.getUsuarioByIdPer = getUsuarioByIdPer;
 const getUsuarioPermiso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     // const usuarioPermiso = await UsuarioPermiso.findByPk(id, {

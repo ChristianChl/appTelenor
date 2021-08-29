@@ -492,9 +492,3 @@ export class HomeComponent implements OnInit {
     )
   }
 }
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 61845ae2b9c0b03a25891728fe936c2e32f1cfeb

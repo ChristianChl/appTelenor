@@ -128,7 +128,7 @@ export class FormMarcaComponent implements OnInit {
     this.marcaService.updateMarca(this.idMarca, this.marca)
       .subscribe(
         ok => {
-          if (this.formMarca.valid) {
+          if (ok== true && this.formMarca.valid) {
             Swal.fire({
               position: 'center',
               icon: 'success',

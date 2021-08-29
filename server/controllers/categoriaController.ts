@@ -2,6 +2,7 @@ import { Request } from "express";
 import { Response } from "express";
 //import bcrypt from "bcrypt";
 import Categoria from "../models/categoria";
+import {Op} from 'sequelize';
 
 export const getCategorias  = async (req:Request, res:Response) =>{
     const categoria = await Categoria.findAll();
@@ -76,10 +77,30 @@ export const putCategoria  = async(req:Request, res:Response) =>{
             });
         }
 
+        const actualizarCategoria = await Categoria.findOne({
+            where: {
+                id_categoria: {
+                    [Op.ne]: id
+                },
+                cat_nombre: body.cat_nombre
+            }
+        });
+        if ( actualizarCategoria ) {
+            return res.status(400).json({
+                msg: 'Ya existe una Categoria con el nombre ' + body.cat_nombre
+            });
+        }
+
+        // await categoria.update(body);
+        // res.json(categoria);
+
         await categoria.update(body);
-        res.json(categoria);
-        //res.json(usuario);
-        // res.json(token);
+
+        return res.status(201).json({
+            ok: true,
+            categoria
+        });
+        
 
     } catch (error) {
         console.log(error);
