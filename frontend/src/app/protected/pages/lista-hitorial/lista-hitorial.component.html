@@ -12,7 +12,7 @@
 
   <ng-template #modalContent >
     
-    <nz-table nzBordered #basicTable id="print-me" [nzData]="historialProducto" style=" margin-left: 3px; margin-right: 3px;">
+    <nz-table [nzFrontPagination]="false" [nzShowPagination]="false" nzBordered #basicTable id="print-me" [nzData]="historialProducto" style=" margin-left: 3px; margin-right: 3px;">
         <thead>
           <tr>
             <th style="text-align: center;"><strong>#</strong> </th>
