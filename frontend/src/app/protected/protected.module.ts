@@ -61,7 +61,7 @@ import { KardexComponent } from './pages/kardex/kardex.component'
 
 import { PreciosProductosComponent } from './pages/precios-productos/precios-productos.component';
 import { ListaHitorialComponent } from './pages/lista-hitorial/lista-hitorial.component';
-
+import { NgxPrintModule } from 'ngx-print';
 
 
 @NgModule({
@@ -133,7 +133,8 @@ import { ListaHitorialComponent } from './pages/lista-hitorial/lista-hitorial.co
     FormsModule,
     ClipboardModule,
     ProtectedRoutingModule,
-    ChartsModule
+    ChartsModule,
+    NgxPrintModule
   ],
   entryComponents: [
     FormUsuarioComponent

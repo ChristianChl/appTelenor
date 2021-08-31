@@ -31,6 +31,7 @@
     "jspdf-autotable": "^3.5.15",
     "ng-zorro-antd": "^11.4.2",
     "ng2-charts": "^2.4.3",
+    "ngx-print": "^1.2.1",
     "pdfmake": "^0.1.72",
     "pdfmake-wrapper": "^2.1.2",
     "rxjs": "~6.6.0",
