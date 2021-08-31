@@ -11,7 +11,7 @@ import { registerLocaleData, DatePipe } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgxPrintModule } from 'ngx-print';
 registerLocaleData(es);
 
 @NgModule({
@@ -24,7 +24,8 @@ registerLocaleData(es);
     BrowserAnimationsModule,
     FormsModule,
     ProtectedModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPrintModule
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }, DatePipe],
   bootstrap: [AppComponent]
