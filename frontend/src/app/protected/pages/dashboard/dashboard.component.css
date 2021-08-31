@@ -78,8 +78,7 @@
   mat-list-item{
     height: 40px;
   }
-  *::-webkit-scrollbar {
-    width: 8px;   
-    height: 8px;  
-  }
+  
+  
+  
   

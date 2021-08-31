@@ -72,8 +72,9 @@ export class HomeComponent implements OnInit {
   public doughnutChartLabelsProvee: Label[] = [];
   public doughnutChartDataProvee: MultiDataSet = [[]];
 
-  public doughnutChartLabelsCoti: Label[] = ['Coti - Ventas', 'Coti - No Venta'];
-  public doughnutChartDataCoti: MultiDataSet = [[350, 450]];
+  public doughnutChartLabelsCoti: Label[] = ['Cotización - Ventas', 'Cotización - No Ventas'];
+  // public doughnutChartDataCoti: MultiDataSet = [[350, 450]];
+  public doughnutChartDataCoti: MultiDataSet = [];
 
   public colors: Color[] = [
     {
@@ -231,7 +232,7 @@ export class HomeComponent implements OnInit {
               rotacion = (cantidadVentas/stockPromDiaAyer).toFixed(2);
             }
             this.todosProductos[i].prod_imagen = rotacion;
-            console.log(this.todosProductos);
+            // console.log(this.todosProductos);
           }
         },
         err => console.log(err)
@@ -255,6 +256,7 @@ export class HomeComponent implements OnInit {
         this.filterDetalleSer = this.detalleVenta.filter(function(ele: any){
           return ele.Productos.fk_id_tipo == 3;
         });
+        
         this.doughnutChartData[0].splice(0, 1, this.filterDetallePro.length);
         this.doughnutChartData[0].splice(1, 1, this.filterDetalleSer.length);
 
@@ -369,8 +371,8 @@ export class HomeComponent implements OnInit {
           ventasArraySol.push(ventaMesSol);
         }
           
-          this.barChartData.push({data:ventasArrayDol, label:"Ventas - Dol",backgroundColor:'#ea8013', hoverBackgroundColor:'#e1913e'});
-          this.barChartData.push({data:ventasArraySol, label:"Ventas - Sol",backgroundColor:'#a3e542', hoverBackgroundColor:'#b5e56e'});
+          this.barChartData.push({data:ventasArrayDol, label:"Ventas - Dolares",backgroundColor:'#ea8013', hoverBackgroundColor:'#e1913e'});
+          this.barChartData.push({data:ventasArraySol, label:"Ventas - Soles",backgroundColor:'#a3e542', hoverBackgroundColor:'#b5e56e'});
           
 
       },
@@ -398,7 +400,7 @@ export class HomeComponent implements OnInit {
           }
           IngresoArray.push(ingresoMes);
         }
-          this.barChartDataCompra.push({data:IngresoArray, label:"Compras - Sol", backgroundColor:'#6cb6d6', hoverBackgroundColor:'#8bc4dd'});
+          this.barChartDataCompra.push({data:IngresoArray, label:"Compras - Soles", backgroundColor:'#6cb6d6', hoverBackgroundColor:'#8bc4dd'});
           
       },
       err => console.error(err)
@@ -553,30 +555,36 @@ export class HomeComponent implements OnInit {
 
   cotizacion:any = [];
   filterDetalleCotizacion:any = [];
+  totalCotiVenta: any = 0;
+  totalCotiNoVenta: any = 0;
   getCotizaciones(){
     this.cotizacionService.getCotizacions().subscribe(
       res =>{
             
         this.cotizacion = res;
         this.cotizacion = this.cotizacion.cotizacion;
-        let totalCotiVenta = 0;
-        let totalCotiNoVenta = 0;
+        // let totalCotiVenta = 0;
+        // let totalCotiNoVenta = 0;
+        this.totalCotiVenta = 0;
+        this.totalCotiNoVenta =0;
 
         for(let i = 0; i <this.barChartLabels.length ; i++){
     
           this.filterDetalleCotizacion = this.filterMes(this.barChartLabels[i],this.cotizacion);
           for(let i=0; i<this.filterDetalleCotizacion.length; i++){
               if(this.filterDetalleCotizacion[i].coti_hechoVenta == true){
-                totalCotiVenta = totalCotiVenta + 1;
+                this.totalCotiVenta = this.totalCotiVenta + 1;
               }else{
-                totalCotiNoVenta = totalCotiNoVenta + 1;
+                this.totalCotiNoVenta = this.totalCotiNoVenta + 1;
               }
               
           }
 
         }
-        this.doughnutChartDataCoti[0].splice(0, 1, totalCotiVenta);
-        this.doughnutChartDataCoti[0].splice(1, 1, totalCotiNoVenta);
+        // this.doughnutChartDataCoti[0].splice(0, 1, totalCotiVenta);
+        // this.doughnutChartDataCoti[0].splice(1, 1, totalCotiNoVenta);
+        this.doughnutChartDataCoti.push(this.totalCotiVenta);
+        this.doughnutChartDataCoti.push(this.totalCotiNoVenta);
       },
       err => console.log(err)
     )

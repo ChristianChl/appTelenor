@@ -11,15 +11,27 @@ export const loginUsuario = async (req: Request, res: Response) => {
 
         const usuario: any = await Usuario.findOne({
             where: {
-                us_login: body.us_login,
+                us_login: body.us_login
             }
         });
+        const usuarioInactivo: any = await Usuario.findOne({
+            where: {
+                us_login: body.us_login,
+                us_activo: 1
+            }
+        });
+
         console.log(usuario);
         if (!usuario) {
             return res.status(400).json({
-                msg: 'El usuario no existe ' + body.us_login
+                msg: 'El usuario no existe: ' + body.us_login
             });
 
+        }
+        if (!usuarioInactivo) {
+            return res.status(400).json({
+                msg: 'El usuario se encuentra inactivo: ' + body.us_login
+            });
         }
 
         const validPassword = bcrypt.compareSync(body.us_clave, usuario.us_clave);

@@ -21,13 +21,24 @@ const loginUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const usuario = yield usuario_1.default.findOne({
             where: {
+                us_login: body.us_login
+            }
+        });
+        const usuarioInactivo = yield usuario_1.default.findOne({
+            where: {
                 us_login: body.us_login,
+                us_activo: 1
             }
         });
         console.log(usuario);
         if (!usuario) {
             return res.status(400).json({
-                msg: 'El usuario no existe ' + body.us_login
+                msg: 'El usuario no existe: ' + body.us_login
+            });
+        }
+        if (!usuarioInactivo) {
+            return res.status(400).json({
+                msg: 'El usuario se encuentra inactivo: ' + body.us_login
             });
         }
         const validPassword = bcrypt_1.default.compareSync(body.us_clave, usuario.us_clave);

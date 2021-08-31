@@ -16,7 +16,6 @@ const db = new Sequelize('bdtelenor' , 'root', '', {
 //     // port: 3307,
 // });
 
-<<<<<<< HEAD
 //DEV ÑAÑO
 
 // const db = new Sequelize(process.env.DB_DATABASE || 'bd_new_segunda' ,process.env.DB_USER || 'root', '', {
@@ -24,13 +23,5 @@ const db = new Sequelize('bdtelenor' , 'root', '', {
 //     dialect:'mysql',
 //     port: 3307,
 // });
-=======
-
-const db = new Sequelize(process.env.DB_DATABASE || 'bd_new_segunda' ,process.env.DB_USER || 'root', '', {
-    host: process.env.DB_HOST ||'localhost',
-    dialect:'mysql',
-    port: 3307,
-});
->>>>>>> 83f89c76673068361ba11fe30f83e4c26633e840
 
 export default db;
