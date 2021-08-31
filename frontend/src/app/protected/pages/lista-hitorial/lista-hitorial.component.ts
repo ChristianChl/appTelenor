@@ -28,6 +28,24 @@ export class ListaHitorialComponent implements OnInit {
           this.historialProducto = this.historialProducto.filter(function(ele: any){
             return ele.id_producto == id;
           });
+
+          for(let i=0; i<this.historialProducto.length; i++){
+            const now = new Date(this.historialProducto[i].createdAt);
+            var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          
+              let numMes:any = "";
+              let mesPrueba =  Number([now.getMonth()+1]);
+              if( mesPrueba <= 9){
+                  numMes = "0"+ mesPrueba;
+              }
+              else{
+                  numMes =  mesPrueba;
+              }
+
+            let formatted = now.getDate() + '/' + numMes  + '/' + now.getFullYear();
+
+            this.historialProducto[i].createdAt = formatted;
+        }
         },
         err => console.log(err)
       )
