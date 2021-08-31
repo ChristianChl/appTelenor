@@ -13,23 +13,11 @@ import { Sequelize } from "sequelize";
 //     // port: 3307,
 // });
 
-<<<<<<< HEAD
-//DEV ÑAÑO
-
-// const db = new Sequelize(process.env.DB_DATABASE || 'bd_new_segunda' ,process.env.DB_USER || 'root', '', {
-//     host: process.env.DB_HOST ||'localhost',
-//     dialect:'mysql',
-//     port: 3307,
-// });
-=======
-
-
-const db = new Sequelize('bd_new_segunda' , 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql',
-    port: 3307,
-    // logggin: false,
+const db = new Sequelize(process.env.DB_DATABASE || 'bd_new_segunda' ,'root', '', {
+ host: process.env.DB_HOST ||'localhost',
+dialect:'mysql',
+port: 3307,
 });
->>>>>>> 3bd09da7e5b74d9244a8d60a84662c9234b64799
+
 
 export default db;
