@@ -59,9 +59,9 @@
       <tbody>
         <tr *ngFor="let data of basicTable.data|filterProveedor:filterEmail|filterProveedor:filterRazon|filterProveedor:filterTipoDoc|filterProveedor:filterNumDoc|filterProveedor:filterCelular|filterProveedor:filterEstado; let indice = index" [ngClass]="{'resaltado': data.per_activo == '0'}">
           <td>{{ indice+1}}</td>
-          <td>{{ data.TipoDocumentos.tipodoc_descripcion }}</td>
+          <td>{{ data.TipoDocumentos.tipodoc_descripcion|titlecase}}</td>
           <td>{{ data.per_numeroDocumento }}</td>
-          <td>{{ data.per_razonSocial }}</td>
+          <td>{{ data.per_razonSocial|titlecase }}</td>
           <td>{{ data.per_email}}</td>
           <td>{{ data.per_celular}}</td>
           <td> 

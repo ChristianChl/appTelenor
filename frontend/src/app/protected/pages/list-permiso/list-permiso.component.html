@@ -33,7 +33,7 @@
     <tbody>
         <tr *ngFor="let data of basicTable.data|filterPermiso:filterNombre; let indice = index">
             <td>{{ indice+1}}</td>
-            <td>{{ data.perm_nombre }}</td>
+            <td>{{ data.perm_nombre|titlecase }}</td>
         </tr>
     </tbody>
 </nz-table>

@@ -36,7 +36,7 @@
     <tbody>
       <tr *ngFor="let data of basicTable.data|filterTipoDocumento:filterDescripcion; let indice = index">
         <td>{{ indice+1}}</td>
-        <td>{{ data.tipodoc_descripcion }}</td>
+        <td>{{ data.tipodoc_descripcion|titlecase }}</td>
 
         <td style="text-align: center;">
           <nz-button-group>

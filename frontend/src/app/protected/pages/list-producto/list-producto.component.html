@@ -65,11 +65,11 @@
       <tbody>
         <tr *ngFor="let data of basicTable.data|filterProducto:filterModelo|filterProducto:filterCaracteristica|filterProducto:filterTipo|filterProducto:filterCategoria|filterProducto:filterMedida|filterProducto:filterStock|filterProducto:filterEstado; let indice = index" [ngClass]="{'resaltado': data.prod_activo == '0'}">
           <td>{{ indice+1}}</td>
-          <td>{{ data.prod_modelo }}</td>
-          <td>{{ data.prod_caracteristica }}</td>
-          <td>{{ data.Tipos.tip_nombre }}</td>
-          <td>{{ data.Categorias.cat_nombre }}</td>
-          <td>{{ data.Medidas.med_unidad}}</td>
+          <td>{{ data.prod_modelo|titlecase }}</td>
+          <td>{{ data.prod_caracteristica|titlecase }}</td>
+          <td>{{ data.Tipos.tip_nombre|titlecase }}</td>
+          <td>{{ data.Categorias.cat_nombre|titlecase }}</td>
+          <td>{{ data.Medidas.med_unidad|titlecase}}</td>
           <td>{{ data.prod_stock}}</td>
           <td> 
             <div id="label">

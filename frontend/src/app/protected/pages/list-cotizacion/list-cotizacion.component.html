@@ -59,9 +59,9 @@
         <tr *ngFor="let data of basicTable.data|filterCotizacion:filterCliente|filterCotizacion:filterNumDoc|filterCotizacion:filterMoneda|filterCotizacion:filterTotal|filterCotizacion:filterFecha; let indice = index">
           
             <td>{{ indice+1}}</td> 
-            <td>{{ data.Personas.per_razonSocial }}</td>
+            <td>{{ data.Personas.per_razonSocial|titlecase }}</td>
             <td>{{ data.Personas.per_numeroDocumento }}</td>
-            <td>{{ data.Monedas.mon_nombre }}</td>
+            <td>{{ data.Monedas.mon_nombre|titlecase }}</td>
             <td>{{ data.coti_total }}</td>
             <td>{{ data.createdAt }}</td>
             <td>

@@ -48,8 +48,8 @@
         <tr  *ngFor="let data of basicTable.data|filterMarca:filterNombre|filterMarca:filterDescripcion|filterMarca:filterEstado; let indice = index"  [ngClass]="{'resaltado': data.mar_activo == '0'}">
           
             <td>{{ indice+1}}</td> 
-            <td>{{ data.mar_nombre }}</td>
-            <td>{{ data.mar_descripcion }}</td>
+            <td>{{ data.mar_nombre|titlecase }}</td>
+            <td>{{ data.mar_descripcion|titlecase }}</td>
             <td> 
               <div id="label">
                 <label id="activo" *ngIf="data.mar_activo" for=""> Activo </label>

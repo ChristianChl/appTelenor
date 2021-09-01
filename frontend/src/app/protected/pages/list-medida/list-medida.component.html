@@ -36,7 +36,7 @@
       <tbody>
         <tr *ngFor="let data of basicTable.data|filterMedida:filterNombre; let indice = index">
           <td>{{ indice+1}}</td> 
-          <td>{{ data.med_unidad}}</td>
+          <td>{{ data.med_unidad|titlecase}}</td>
           
           <td style="text-align: center;">
             <nz-button-group>

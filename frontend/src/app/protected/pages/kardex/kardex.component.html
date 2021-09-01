@@ -85,9 +85,9 @@
           <tr   *ngFor="let data of basicTable.data; let indice = index">
             <td style="text-align: center;">{{ indice+1}}</td> 
             <td style="text-align: center;">{{ data.fecha }}</td>
-            <td style="text-align: center;">{{ data.tipoDoc }}</td>
+            <td style="text-align: center;">{{ data.tipoDoc|titlecase }}</td>
             <td style="text-align: center;">{{ data.numDoc }}</td>
-            <td style="text-align: center;">{{ data.moneda }}</td>
+            <td style="text-align: center;">{{ data.moneda|titlecase }}</td>
             <td style="text-align: center;">{{ data.precio }}</td>
             <td style="text-align: center;">{{ data.cantidad }}</td>
           </tr>

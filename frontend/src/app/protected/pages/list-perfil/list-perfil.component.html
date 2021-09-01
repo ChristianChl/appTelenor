@@ -42,8 +42,8 @@
     <tbody>
       <tr *ngFor="let data of basicTable.data|filterPerfil:filterNombre|filterPerfil:filterDescripcion; let indice = index">
         <td>{{ indice+1}}</td>
-        <td>{{ data.perf_nombre }}</td>
-        <td>{{ data.perf_descripcion }}</td>
+        <td>{{ data.perf_nombre |titlecase }}</td>
+        <td>{{ data.perf_descripcion |titlecase }}</td>
 
         <td style="text-align: center;">
           <nz-button-group>

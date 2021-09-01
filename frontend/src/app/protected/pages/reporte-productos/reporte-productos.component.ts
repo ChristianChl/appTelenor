@@ -69,7 +69,7 @@ export class ReporteProductosComponent implements OnInit {
       return doc;
     })
     .then((docResult)=>{
-      docResult.save('tutorial.pdf')
+      docResult.save('Reporte Productos.pdf')
     })
   }
 
