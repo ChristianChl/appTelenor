@@ -1,10 +1,11 @@
 import {Router } from 'express';
 import { check } from 'express-validator';
-import { deleteHistorialProducto, getHistorialProducto, getHistorialProductos, postHistorialProducto, putHistorialProducto } from '../controllers/historialProducto';
+import { deleteHistorialProducto, getHistorialProducto, getHistorialProductos, getHistorialProductosByDates, postHistorialProducto, putHistorialProducto } from '../controllers/historialProducto';
 import { validarCampos } from '../middlewares/validar-campos';
 const router = Router();
 
 router.get('/',         getHistorialProductos);
+router.post('/dates', [validarCampos],   getHistorialProductosByDates);
 router.get('/:id',      getHistorialProducto);
 router.post('/', [
     check('fk_id_categoria', 'La Categoria del producto es obligatorio').not().isEmpty(),

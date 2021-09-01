@@ -47,6 +47,9 @@ const HistorialProducto = db.define('HistorialProducto', {
     hist_cantCompra: {
         type: DataTypes.INTEGER
     },
+    endDate: {
+        type: DataTypes.DATE
+    },
     fk_id_categoria: {
         type: DataTypes.INTEGER,
         references: {

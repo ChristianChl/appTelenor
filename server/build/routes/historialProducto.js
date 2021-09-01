@@ -6,6 +6,7 @@ const historialProducto_1 = require("../controllers/historialProducto");
 const validar_campos_1 = require("../middlewares/validar-campos");
 const router = express_1.Router();
 router.get('/', historialProducto_1.getHistorialProductos);
+router.post('/dates', [validar_campos_1.validarCampos], historialProducto_1.getHistorialProductosByDates);
 router.get('/:id', historialProducto_1.getHistorialProducto);
 router.post('/', [
     express_validator_1.check('fk_id_categoria', 'La Categoria del producto es obligatorio').not().isEmpty(),

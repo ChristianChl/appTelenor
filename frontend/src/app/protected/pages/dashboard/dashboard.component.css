@@ -1,11 +1,12 @@
 .example-container {
-    height: 90%;
-    /* position:fixed; */
-    /* border: 2px solid rgba(0, 0, 0, 0.5);  */
+    /* height: 90%; */
+    /* position:fixed; 
+    border: 2px solid rgba(0, 0, 0, 0.5);  */
+    height: calc(150vh - 64px);
+    overflow: auto; 
   }
-  .example-sidenav-content {
+  .example-sidenav {
     display: flex;
-    height: 20%;
     align-items: center;
     justify-content: center;
   }

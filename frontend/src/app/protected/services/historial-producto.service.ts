@@ -23,6 +23,28 @@ export class HistorialProductoService {
     return this.http.get(`${this.baseUrl}/historialProducto/${id}`);
   }
 
+  getHistorialByDates(createdAt: Date, endDate: Date, id_producto: string) : Observable<any>{
+    const url = `${this.baseUrl}/historialProducto/dates`;
+    const body = {createdAt, endDate, id_producto};
+    return this.http.post<HistorialProducto>(url, body)
+    .pipe(
+      tap(resp =>{
+        if(resp.ok){
+          console.log('Historial Obtenido')
+        }
+      }),
+      map(resp => resp),
+      catchError(err =>{
+        if(err.error?.msg){
+          return of(err.error.msg)
+        }
+        return of('Hable con el Administrador')
+      })
+
+    );
+
+  }
+
   deleteHistorialProducto(id: string){
     return this.http.delete(`${this.baseUrl}/historialProducto/${id}`);
   }

@@ -12,10 +12,11 @@
     </div>
   </mat-toolbar>
 </div>
-<mat-sidenav-container class="example-container" autosize style="position: fixed; width: 100%;">
-  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
+<mat-sidenav-container class="example-container" autosize>
+  <!-- <mat-sidenav-container class="example-container" autosize style="position: fixed; width: 100%;"> -->
+  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" [autoFocus]="false" (mouseenter)="mouseenter()"
     (mouseleave)="mouseleave()" style="background: rgb(16, 15, 15);">
-    <mat-nav-list>
+    <mat-nav-list class="hola">
       <mat-list-item class="separator" style="height: 43px; margin-top: 0px;">
         <span class="full-width1" *ngIf="isExpanded || isShowing" style="margin-bottom: 10px;">{{usuario.surnames}} <br>
           {{usuario.name}}

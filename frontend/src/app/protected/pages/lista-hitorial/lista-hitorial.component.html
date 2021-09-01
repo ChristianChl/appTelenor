@@ -8,56 +8,75 @@
   nzWidth = 1200px
   
 >
-  <ng-template #modalTitle >Historial</ng-template>
+  <ng-template #modalTitle >Historial de Productos</ng-template>
 
   <ng-template #modalContent >
-    
-    <nz-table [nzFrontPagination]="false" [nzShowPagination]="false" nzBordered #basicTable id="print-me" [nzData]="historialProducto" style=" margin-left: 3px; margin-right: 3px;">
-        <thead>
-          <tr>
-            <th style="text-align: center;"><strong>#</strong> </th>
-            <th  style="text-align: center;"><strong>Modelo</strong></th>
-            <th style="text-align: center;"><strong>Caracteristica</strong></th>
-            <th style="text-align: center;"><strong>Tipo</strong></th>
-            <th style="text-align: center;"><strong>Categoria</strong></th>
-            <th style="text-align: center;"><strong>U.Medida</strong></th>
-            <th  style="text-align: center;"><strong>Stock</strong></th>
-            <th  style="text-align: center;"><strong>Estado</strong></th>
-            <th  style="text-align: center;"><strong>Precio Ven.</strong></th>
-            <th  style="text-align: center;"><strong>Cant. Ven.</strong></th>
-            <th  style="text-align: center;"><strong>Cant. Comp.</strong></th>
-            <th  style="text-align: center;"><strong>Usuario</strong></th>
-            <th  style="text-align: center;"><strong>Raz. Edit.</strong></th>
-            <th  style="text-align: center;"><strong>Fecha</strong></th>
+    <form autocomplete="off" [formGroup]="formHistorial">
+      
+      <div class="row" class="textInputs" style="margin: auto; text-align: center;"  >
+        <div class="col-12" style="margin: auto;  text-align: center;">
+  
+          <label for="" style="margin-right: 10px;">Desde</label>
+          <input type="date" nz-input formControlName="startDate" style="width:15%;" />
+          
+          <label for="" style="margin-right: 10px; margin-left: 40px;">Hasta</label>
+          <input type="date" nz-input formControlName="endDate" style="width:15%;" />
+          
+          <button (click)="buscar()" style="margin-left: 20px;" nz-button nzType="primary"><i
+            style="vertical-align:1px;" nz-icon nzType="search"></i>Buscar</button>
+            
+          <button (click)="buscarPorDia()" style="margin-left: 20px;" nz-button nzType="primary"><i
+            style="vertical-align:1px;" nz-icon nzType="shopping-cart"></i>Cambios del Dia</button>
+                    
+        </div>
+    </div><br>
+      
+      <nz-table [nzFrontPagination]="false" [nzShowPagination]="false" nzBordered #basicTable id="print-me" [nzData]="historialProducto" style=" margin-left: 3px; margin-right: 3px;">
+          <thead>
+            <tr>
+              <th style="text-align: center;"><strong>#</strong> </th>
+              <th  style="text-align: center;"><strong>Modelo</strong></th>
+              <th style="text-align: center;"><strong>Caracteristica</strong></th>
+              <th style="text-align: center;"><strong>Tipo</strong></th>
+              <th style="text-align: center;"><strong>Categoria</strong></th>
+              <th style="text-align: center;"><strong>U.Medida</strong></th>
+              <th  style="text-align: center;"><strong>Stock</strong></th>
+              <th  style="text-align: center;"><strong>Estado</strong></th>
+              <th  style="text-align: center;"><strong>Precio Ven.</strong></th>
+              <th  style="text-align: center;"><strong>Cant. Ven.</strong></th>
+              <th  style="text-align: center;"><strong>Cant. Comp.</strong></th>
+              <th  style="text-align: center;"><strong>Usuario</strong></th>
+              <th  style="text-align: center;"><strong>Raz. Edit.</strong></th>
+              <th  style="text-align: center;"><strong>Fecha</strong></th>
+  
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of basicTable.data; let indice = index">
+              <td>{{ indice+1}}</td>
+              <td>{{ data.hist_modelo }}</td>
+              <td>{{ data.hist_caracteristica }}</td>
+              <td>{{ data.Tipos.tip_nombre }}</td>
+              <td>{{ data.Categorias.cat_nombre }}</td>
+              <td>{{ data.Medidas.med_unidad}}</td>
+              <td>{{ data.hist_stock}}</td>
+              <td> 
+                <div id="label">
+                  <label id="activo" *ngIf="data.hist_activo" for=""> Activo </label>
+                  <label id="inactivo" *ngIf="!data.hist_activo" for=""> Inactivo </label>
+                </div>
+              </td>
+              <td>{{ data.hist_precioVenta}}</td>
+              <td>{{ data.hist_cantVenta}}</td>
+              <td>{{ data.hist_cantCompra}}</td>
+              <td>{{ data.Usuarios.us_nombres}}</td>
+              <td>{{ data.hist_cambioTiempo}}</td>
+              <td>{{ data.createdAt}}</td>
+            </tr>
+          </tbody>
+      </nz-table>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of basicTable.data; let indice = index">
-            <td>{{ indice+1}}</td>
-            <td>{{ data.hist_modelo }}</td>
-            <td>{{ data.hist_caracteristica }}</td>
-            <td>{{ data.Tipos.tip_nombre }}</td>
-            <td>{{ data.Categorias.cat_nombre }}</td>
-            <td>{{ data.Medidas.med_unidad}}</td>
-            <td>{{ data.hist_stock}}</td>
-            <td> 
-              <div id="label">
-                <label id="activo" *ngIf="data.hist_activo" for=""> Activo </label>
-                <label id="inactivo" *ngIf="!data.hist_activo" for=""> Inactivo </label>
-              </div>
-            </td>
-            <td>{{ data.hist_precioVenta}}</td>
-            <td>{{ data.hist_cantVenta}}</td>
-            <td>{{ data.hist_cantCompra}}</td>
-            <td>{{ data.Usuarios.us_nombres}}</td>
-            <td>{{ data.hist_cambioTiempo}}</td>
-            <td>{{ data.createdAt}}</td>
-          </tr>
-        </tbody>
-    </nz-table>
-      
-      
+    </form>
   </ng-template>
   
 
