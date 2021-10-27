@@ -69,7 +69,7 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 fk_id_tipoPersona: {
                     [sequelize_1.Op.eq]: body.fk_id_tipoPersona
                 },
-                per_razonSocial: body.per_razonSocial
+                per_razonSocial: body.per_razonSocial.trim()
             }
         });
         if (existePersona) {
@@ -112,7 +112,7 @@ const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 id_Persona: {
                     [sequelize_1.Op.ne]: id
                 },
-                per_razonSocial: body.per_razonSocial
+                per_razonSocial: body.per_razonSocial.trim()
             }
         });
         if (actualizarPersona) {

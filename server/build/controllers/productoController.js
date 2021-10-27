@@ -88,7 +88,7 @@ const postProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const existeProducto = yield producto_1.default.findOne({
             where: {
-                prod_modelo: body.prod_modelo
+                prod_modelo: body.prod_modelo.trim()
             }
         });
         if (existeProducto) {
@@ -128,7 +128,7 @@ const putProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 id_Producto: {
                     [sequelize_1.Op.ne]: id
                 },
-                prod_modelo: body.prod_modelo
+                prod_modelo: body.prod_modelo.trim()
             }
         });
         if (actualizarProducto) {

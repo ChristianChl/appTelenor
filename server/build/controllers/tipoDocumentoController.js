@@ -38,7 +38,7 @@ const postTiposDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, func
     try {
         const existeDocumento = yield tipoDocumento_1.default.findOne({
             where: {
-                tipodoc_descripcion: body.tipodoc_descripcion
+                tipodoc_descripcion: body.tipodoc_descripcion.trim()
             }
         });
         if (existeDocumento) {
@@ -78,7 +78,7 @@ const putTiposDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, funct
                 id_tipoDocumento: {
                     [sequelize_1.Op.ne]: id
                 },
-                tipodoc_descripcion: body.tipodoc_descripcion
+                tipodoc_descripcion: body.tipodoc_descripcion.trim()
             }
         });
         if (actualizarTipoDocumento) {

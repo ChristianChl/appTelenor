@@ -52,6 +52,7 @@ export const loginUsuario = async (req: Request, res: Response) => {
             uid: usuario.id_usuario,
             name: usuario.us_nombres,
             surnames: usuario.us_apellidos,
+            avatar: usuario.avatar,
             email: usuario.us_email,
             token
         })
@@ -84,6 +85,7 @@ export const revalidarToken = async (req: Request, res: Response) => {
         uid: usuario.id_usuario,
         name: usuario.us_nombres,
         surnames: usuario.us_apellidos,
+        avatar: usuario.avatar,
         email: usuario.us_email,
         token
     });

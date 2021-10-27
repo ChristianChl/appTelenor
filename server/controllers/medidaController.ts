@@ -32,7 +32,7 @@ export const postMedida  = async (req:Request, res:Response) =>{
         
         const existeMedida = await Medida.findOne({
             where: {
-                med_unidad: body.med_unidad
+                med_unidad: body.med_unidad.trim()
             }
         });
         if (existeMedida) {
@@ -78,7 +78,7 @@ export const putMedida  = async(req:Request, res:Response) =>{
                 id_medida: {
                     [Op.ne]: id
                 },
-                med_unidad: body.med_unidad
+                med_unidad: body.med_unidad.trim()
             }
         });
         if ( actualizarMedida ) {

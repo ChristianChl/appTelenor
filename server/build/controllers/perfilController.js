@@ -38,7 +38,7 @@ const postPerfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const existePerfil = yield perfil_1.default.findOne({
             where: {
-                perf_nombre: body.perf_nombre
+                perf_nombre: body.perf_nombre.trim()
             }
         });
         if (existePerfil) {
@@ -78,7 +78,7 @@ const putPerfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 id_perfil: {
                     [sequelize_1.Op.ne]: id
                 },
-                perf_nombre: body.perf_nombre
+                perf_nombre: body.perf_nombre.trim()
             }
         });
         if (actualizarPerfil) {

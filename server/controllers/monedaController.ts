@@ -31,7 +31,7 @@ export const postMoneda = async (req:Request, res:Response) =>{
     try {
         const existeMonedas = await Moneda.findOne({
             where: {
-                cat_nombre: body.cat_nombre
+                cat_nombre: body.cat_nombre.trim()
             }
         });
         if (existeMonedas) {

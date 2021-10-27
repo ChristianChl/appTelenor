@@ -65,7 +65,7 @@ export const postPersona  = async (req:Request, res:Response) =>{
                 fk_id_tipoPersona: {
                     [Op.eq]: body.fk_id_tipoPersona
                 },
-                per_razonSocial: body.per_razonSocial
+                per_razonSocial: body.per_razonSocial.trim()
             }
         });
         if (existePersona) {
@@ -114,7 +114,7 @@ export const putPersona  = async(req:Request, res:Response) =>{
                 id_Persona: {
                     [Op.ne]: id
                 },
-                per_razonSocial: body.per_razonSocial
+                per_razonSocial: body.per_razonSocial.trim()
             }
         });
         if (actualizarPersona) {

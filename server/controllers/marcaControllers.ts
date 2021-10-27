@@ -35,7 +35,7 @@ export const postMarca  = async (req:Request, res:Response) =>{
         
         const existeMarca = await Marca.findOne({
             where: {
-                mar_nombre: body.mar_nombre
+                mar_nombre: body.mar_nombre.trim()
             }
         });
         if (existeMarca) {
@@ -82,7 +82,7 @@ export const putMarca  = async(req:Request, res:Response) =>{
                 id_marca: {
                     [Op.ne]: id
                 },
-                mar_nombre: body.mar_nombre
+                mar_nombre: body.mar_nombre.trim()
             }
         });
         if ( actualizarMarca ) {

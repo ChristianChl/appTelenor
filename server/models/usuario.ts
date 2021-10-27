@@ -49,6 +49,10 @@ const Usuario = db.define('Usuario', {
     us_activo: {
         type: DataTypes.BOOLEAN
     },
+    avatar: {
+        type: DataTypes.STRING,
+        defaultValue: 'av-1.png'
+    },
     fk_id_perfil: {
         type: DataTypes.INTEGER,
         references: {

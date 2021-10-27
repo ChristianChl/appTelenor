@@ -71,7 +71,7 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const existeLogin = yield usuario_1.default.findOne({
             where: {
-                us_login: body.us_login
+                us_login: body.us_login.trim()
             }
         });
         if (existeLogin) {
@@ -116,7 +116,7 @@ const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 id_usuario: {
                     [sequelize_1.Op.ne]: id
                 },
-                us_login: body.us_login
+                us_login: body.us_login.trim()
             }
         });
         if (actualizarLogin) {

@@ -88,7 +88,7 @@ export const postProducto  = async (req:Request, res:Response) =>{
         
         const existeProducto = await Producto.findOne({
             where: {
-                prod_modelo: body.prod_modelo
+                prod_modelo: body.prod_modelo.trim()
             }
         });
         if (existeProducto) {
@@ -134,7 +134,7 @@ export const putProducto  = async(req:Request, res:Response) =>{
                 id_Producto: {
                     [Op.ne]: id
                 },
-                prod_modelo: body.prod_modelo
+                prod_modelo: body.prod_modelo.trim()
             }
         });
         if ( actualizarProducto ) {

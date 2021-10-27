@@ -43,6 +43,10 @@ const Usuario = connection_1.default.define('Usuario', {
     us_activo: {
         type: sequelize_1.DataTypes.BOOLEAN
     },
+    avatar: {
+        type: sequelize_1.DataTypes.STRING,
+        defaultValue: 'av-1.png'
+    },
     fk_id_perfil: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {

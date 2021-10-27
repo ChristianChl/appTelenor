@@ -39,7 +39,7 @@ const postCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const existeCategoria = yield categoria_1.default.findOne({
             where: {
-                cat_nombre: body.cat_nombre
+                cat_nombre: body.cat_nombre.trim()
             }
         });
         if (existeCategoria) {
@@ -79,7 +79,7 @@ const putCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 id_categoria: {
                     [sequelize_1.Op.ne]: id
                 },
-                cat_nombre: body.cat_nombre
+                cat_nombre: body.cat_nombre.trim()
             }
         });
         if (actualizarCategoria) {

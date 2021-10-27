@@ -38,7 +38,7 @@ const postMedida = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const existeMedida = yield medida_1.default.findOne({
             where: {
-                med_unidad: body.med_unidad
+                med_unidad: body.med_unidad.trim()
             }
         });
         if (existeMedida) {
@@ -78,7 +78,7 @@ const putMedida = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 id_medida: {
                     [sequelize_1.Op.ne]: id
                 },
-                med_unidad: body.med_unidad
+                med_unidad: body.med_unidad.trim()
             }
         });
         if (actualizarMedida) {

@@ -55,6 +55,7 @@ const loginUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             uid: usuario.id_usuario,
             name: usuario.us_nombres,
             surnames: usuario.us_apellidos,
+            avatar: usuario.avatar,
             email: usuario.us_email,
             token
         });
@@ -81,6 +82,7 @@ const revalidarToken = (req, res) => __awaiter(void 0, void 0, void 0, function*
         uid: usuario.id_usuario,
         name: usuario.us_nombres,
         surnames: usuario.us_apellidos,
+        avatar: usuario.avatar,
         email: usuario.us_email,
         token
     });

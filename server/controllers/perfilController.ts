@@ -32,7 +32,7 @@ export const postPerfil  = async (req:Request, res:Response) =>{
 
         const existePerfil = await Perfil.findOne({
             where: {
-                perf_nombre: body.perf_nombre
+                perf_nombre: body.perf_nombre.trim()
             }
         });
         if (existePerfil) {
@@ -80,7 +80,7 @@ export const putPerfil  = async(req:Request, res:Response) =>{
                 id_perfil: {
                     [Op.ne]: id
                 },
-                perf_nombre: body.perf_nombre
+                perf_nombre: body.perf_nombre.trim()
             }
         });
         if ( actualizarPerfil ) {

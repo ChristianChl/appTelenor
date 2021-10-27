@@ -32,7 +32,7 @@ export const postTiposDocumentos  = async (req:Request, res:Response) =>{
 
         const existeDocumento = await TiposDocumentos.findOne({
             where: {
-                tipodoc_descripcion: body.tipodoc_descripcion
+                tipodoc_descripcion: body.tipodoc_descripcion.trim()
             }
         });
         if (existeDocumento) {
@@ -80,7 +80,7 @@ export const putTiposDocumentos  = async(req:Request, res:Response) =>{
                 id_tipoDocumento: {
                     [Op.ne]: id
                 },
-                tipodoc_descripcion: body.tipodoc_descripcion
+                tipodoc_descripcion: body.tipodoc_descripcion.trim()
             }
         });
         if ( actualizarTipoDocumento ) {

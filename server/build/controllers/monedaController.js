@@ -39,7 +39,7 @@ const postMoneda = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const existeMonedas = yield moneda_1.default.findOne({
             where: {
-                cat_nombre: body.cat_nombre
+                cat_nombre: body.cat_nombre.trim()
             }
         });
         if (existeMonedas) {

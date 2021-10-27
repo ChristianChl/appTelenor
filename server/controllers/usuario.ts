@@ -68,7 +68,7 @@ export const postUsuario = async (req: Request, res: Response) => {
 
         const existeLogin = await Usuario.findOne({
             where: {
-                us_login: body.us_login
+                us_login: body.us_login.trim()
             }
         });
         if (existeLogin) {
@@ -120,7 +120,7 @@ export const putUsuario = async (req: Request, res: Response) => {
                 id_usuario: {
                     [Op.ne]: id
                 },
-                us_login: body.us_login
+                us_login: body.us_login.trim()
             }
         });
         if ( actualizarLogin ) {

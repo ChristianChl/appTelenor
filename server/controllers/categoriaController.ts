@@ -33,7 +33,7 @@ export const postCategoria = async (req:Request, res:Response) =>{
         
         const existeCategoria = await Categoria.findOne({
             where: {
-                cat_nombre: body.cat_nombre
+                cat_nombre: body.cat_nombre.trim()
             }
         });
         if (existeCategoria) {
@@ -82,7 +82,7 @@ export const putCategoria  = async(req:Request, res:Response) =>{
                 id_categoria: {
                     [Op.ne]: id
                 },
-                cat_nombre: body.cat_nombre
+                cat_nombre: body.cat_nombre.trim()
             }
         });
         if ( actualizarCategoria ) {

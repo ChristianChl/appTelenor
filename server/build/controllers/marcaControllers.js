@@ -38,7 +38,7 @@ const postMarca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const existeMarca = yield marca_1.default.findOne({
             where: {
-                mar_nombre: body.mar_nombre
+                mar_nombre: body.mar_nombre.trim()
             }
         });
         if (existeMarca) {
@@ -78,7 +78,7 @@ const putMarca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 id_marca: {
                     [sequelize_1.Op.ne]: id
                 },
-                mar_nombre: body.mar_nombre
+                mar_nombre: body.mar_nombre.trim()
             }
         });
         if (actualizarMarca) {
