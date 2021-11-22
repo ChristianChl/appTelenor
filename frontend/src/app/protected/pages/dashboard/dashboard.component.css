@@ -73,11 +73,16 @@
   }
 
   .mat-sidenav-container .mat-list-item:hover {
-    background: rgb(96, 169, 242);
+    background: #066192;
   }
 
   mat-list-item{
     height: 40px;
+  }
+
+  .mat-toolbar.mat-primary {
+    background: #066192;
+    color: #fff;
   }
   
   
