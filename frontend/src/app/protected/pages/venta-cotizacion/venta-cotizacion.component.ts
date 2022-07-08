@@ -14,6 +14,7 @@ import { PersonaService } from '../../services/persona.service';
 import { ProductoService } from '../../services/producto.service';
 import { VentasService } from '../../services/ventas.service';
 import { CotizacionService } from '../../services/cotizacion.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-venta-cotizacion',
@@ -113,13 +114,15 @@ export class VentaCotizacionComponent implements OnInit {
     private authService:AuthService,
     private detallVentaService:DetallVentaService,
     private cotizacionService:CotizacionService,
-    private router: Router) { 
+    private router: Router,
+    private datePipe: DatePipe) { 
 
     this.skillsForm = this.fb.group({
       skills: this.fb.array([]) ,
     });
   }
   romover = false;
+  fechaActual: any = "";
   ngOnInit(): void {
     if(this.idCotizacionVenta != ""){
       this.getMoneda();
@@ -140,7 +143,8 @@ export class VentaCotizacionComponent implements OnInit {
       
       this.formDatosVentas.controls["tipoDocIngreso"].reset();
 
-      
+      this.fechaActual = this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
+      this.venta.ven_fechaHora = this.fechaActual;
       
       this.formDatosVentas.controls.tipoDocIngreso.valueChanges.subscribe(changes => {
         this.Opciones(changes);

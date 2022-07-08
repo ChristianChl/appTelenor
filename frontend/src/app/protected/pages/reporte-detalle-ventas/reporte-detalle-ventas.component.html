@@ -16,10 +16,10 @@
             <div class="col-12" style="margin: auto;  text-align: center;">
     
                 <label for="" style="margin-right: 10px;">Desde</label>
-                <input type="date" nz-input [(ngModel)]="fechaInicio" formControlName = "startDate"  style="width:15%;" />
+                <input type="date" nz-input [(ngModel)]="fechaChange1" formControlName = "startDate"  style="width:15%;" />
     
                 <label for="" style="margin-right: 10px; margin-left: 40px;">Hasta</label>
-                <input type="date" nz-input [(ngModel)]="fechaFinal" formControlName = "endDate"  style="width:15%;" />
+                <input type="date" nz-input [(ngModel)]="fechaChange2" formControlName = "endDate"  style="width:15%;" />
     
                 <button (click)="getVentas()" style="margin-left: 20px;" nz-button nzType="primary"><i
                         style="vertical-align:1px;" nz-icon nzType="search"></i>Buscar</button>
@@ -91,7 +91,7 @@
             <td class="cabeceras">{{ data.ven_total}}</td>
             </tr>
         </tbody>
-        <tbody>
+        <tbody *ngIf="ventas.length > 0">
             <tr>
                 <td class="cabeceras">
                     <button (click)="descargar()" style="margin-left: 20px;" nz-button nzType="primary" nzDanger><i style="vertical-align:1px;" nz-icon

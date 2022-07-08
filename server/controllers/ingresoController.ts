@@ -3,7 +3,7 @@ import { Response } from "express";
 import Ingreso from "../models/ingreso";
 import Persona from "../models/persona";
 import Usuario from "../models/usuario";
-import {Op} from 'sequelize';
+import {Op, or} from 'sequelize';
 
 export const getIngresos  = async (req:Request, res:Response) =>{
     const ingreso = await Ingreso.findAll({
@@ -50,6 +50,45 @@ export const getIngresosByDates  = async (req:Request, res:Response) =>{
             }
         ]
     });
+
+    res.json({ingreso});
+
+}
+
+//Metodo para buscar por numero comprobante
+
+export const getIngresosForDocuments  = async (req:Request, res:Response) =>{
+    const{body} = req;
+    const ingreso = await Ingreso.findAll({
+        where: {
+            ing_numeroComprobante: body.ing_numeroComprobante
+        },
+        include:[
+            {
+                model: Persona,
+                as: 'Personas',
+                attributes: ["id_Persona", "per_razonSocial", "per_numeroDocumento", "per_direccion", "per_celular", "per_telefonoFijo", "per_email", "fk_id_tipoDocumento", "fk_id_tipoPersona"],
+            },
+            {
+                model: Usuario,
+                as: 'Usuarios',
+                attributes: ["id_usuario", "us_apellidos", "us_nombres", "us_numeroDocumento", "us_direccion", "us_telefono", "us_email", "us_fechaRegistro", "us_login", "us_clave", "us_activo", "fk_id_perfil", "fk_id_tipoDocumento"],
+
+            }
+        ]
+    });
+    // if (ingreso.length > 0){
+    //     return res.status(201).json({
+    //      ok:true,
+    //      ingreso
+    //     });
+    // }else{
+    //     return res.status(201).json({
+    //         ok:false,
+    //         msg: 'No se encontraron compras con el valor ingresado'
+            
+    //        });
+    // }
 
     res.json({ingreso});
 

@@ -26,6 +26,11 @@ export class IngresoService {
     return this.http.post<Ingreso>(url, body);
 
   }
+  getIngresosForDocuments(ing_numeroComprobante: string){
+    const url = `${this.baseUrl}/ingreso/document`;
+    const body = {ing_numeroComprobante};
+    return this.http.post<Ingreso>(url, body);
+  }
 
   deleteIngreso(id: string){
     return this.http.delete(`${this.baseUrl}/ingreso/${id}`);

@@ -48,9 +48,10 @@ const getVentasByDates = (req, res) => __awaiter(void 0, void 0, void 0, functio
     try {
         const venta = yield venta_1.default.findAll({
             where: {
-                createdAt: {
+                ven_fechaHora: {
                     //   [Op.between]: ["2021-07-14T00:00:00.000Z", "2021-07-19T21:03:41.000Z"]
-                    [sequelize_1.Op.between]: [body.createdAt, body.endDate]
+                    // [Op.between]: [body.createdAt, body.endDate]
+                    [sequelize_1.Op.between]: [body.ven_fechaHora, body.endDate]
                 }
             },
             include: [

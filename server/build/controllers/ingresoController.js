@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteIngreso = exports.putIngreso = exports.postIngreso = exports.getIngreso = exports.getIngresosByDates = exports.getIngresos = void 0;
+exports.deleteIngreso = exports.putIngreso = exports.postIngreso = exports.getIngreso = exports.getIngresosForDocuments = exports.getIngresosByDates = exports.getIngresos = void 0;
 const ingreso_1 = __importDefault(require("../models/ingreso"));
 const persona_1 = __importDefault(require("../models/persona"));
 const usuario_1 = __importDefault(require("../models/usuario"));
@@ -60,6 +60,40 @@ const getIngresosByDates = (req, res) => __awaiter(void 0, void 0, void 0, funct
     res.json({ ingreso });
 });
 exports.getIngresosByDates = getIngresosByDates;
+//Metodo para buscar por numero comprobante
+const getIngresosForDocuments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    const ingreso = yield ingreso_1.default.findAll({
+        where: {
+            ing_numeroComprobante: body.ing_numeroComprobante
+        },
+        include: [
+            {
+                model: persona_1.default,
+                as: 'Personas',
+                attributes: ["id_Persona", "per_razonSocial", "per_numeroDocumento", "per_direccion", "per_celular", "per_telefonoFijo", "per_email", "fk_id_tipoDocumento", "fk_id_tipoPersona"],
+            },
+            {
+                model: usuario_1.default,
+                as: 'Usuarios',
+                attributes: ["id_usuario", "us_apellidos", "us_nombres", "us_numeroDocumento", "us_direccion", "us_telefono", "us_email", "us_fechaRegistro", "us_login", "us_clave", "us_activo", "fk_id_perfil", "fk_id_tipoDocumento"],
+            }
+        ]
+    });
+    // if (ingreso.length > 0){
+    //     return res.status(201).json({
+    //      ok:true,
+    //      ingreso
+    //     });
+    // }else{
+    //     return res.status(201).json({
+    //         ok:false,
+    //         msg: 'No se encontraron compras con el valor ingresado'
+    //        });
+    // }
+    res.json({ ingreso });
+});
+exports.getIngresosForDocuments = getIngresosForDocuments;
 const getIngreso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const ingreso = yield ingreso_1.default.findByPk(id, {

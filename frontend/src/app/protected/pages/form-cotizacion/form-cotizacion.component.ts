@@ -195,7 +195,7 @@ export class FormCotizacionComponent implements OnInit {
         input2?.setAttribute("disabled", "true");
         this.cotizacion.coti_tipoCambio = "1";
         for(let i=0; i<this.skillsForm.value.skills.length; i++){
-
+          this.info = this.skillsForm.value;
           if(this.info.skills[i].producto !=""){
             this.skillsForm.value.skills[i].num2 = ((Number(this.skillsForm.value.skills[i].precioOriginal)/Number(this.cotizacion.coti_tipoCambio)).toFixed(2)).toString();
           }
@@ -274,7 +274,8 @@ export class FormCotizacionComponent implements OnInit {
     if(this.formCotizacion.valid){
       if(this.skillsForm.controls.skills.value.length != 0){
         if(this.skillsForm.valid){
-
+          console.log('cotizacion2', this.siguienteCoti);
+          
           this.cotizacion.id_cotizacion = this.siguienteCoti;
           this.cotizacion.fk_id_usuario = this.usuario.uid;
           const arrayProductos = this.skillsForm.value.skills;
@@ -287,6 +288,37 @@ export class FormCotizacionComponent implements OnInit {
                 icon: 'success',
                 title: 'Venta Registrada Exitosamente!',
               });
+              for(let i=0; i<arrayProductos.length; i++){
+
+                this.detalleCotizacion.decoti_cantidad= Number(arrayProductos[i].num1);
+                this.detalleCotizacion.decoti_precioVenta= Number(arrayProductos[i].num2);
+                this.detalleCotizacion.decoti_total= Number(arrayProductos[i].total);
+                this.detalleCotizacion.fk_id_cotizacion= this.siguienteCoti;
+                this.detalleCotizacion.fk_id_producto= Number(arrayProductos[i].producto);
+                console.log('detallecotizacion', this.detalleCotizacion);
+                
+                this.detalleCotizacionService.saveDetalleCotizacion(this.detalleCotizacion)
+                .subscribe(
+                  ok=>{
+                    if (ok== true) {
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Cotizacion realizada Exitosamente!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                      this.skillsForm.reset();
+                      //this.router.navigateByUrl('/dashboard/listaVentas');
+                      this.handleCancelCotizacion();
+    
+                    }
+                    else{
+                      this.formCotizacion.markAllAsTouched();
+                      Swal.fire('Error', ok, 'error');
+                    }
+                  });
+              }
 
               this.formCotizacion.reset();
       
@@ -297,36 +329,7 @@ export class FormCotizacionComponent implements OnInit {
             
           });
           
-          for(let i=0; i<arrayProductos.length; i++){
-
-            this.detalleCotizacion.decoti_cantidad= Number(arrayProductos[i].num1);
-            this.detalleCotizacion.decoti_precioVenta= Number(arrayProductos[i].num2);
-            this.detalleCotizacion.decoti_total= Number(arrayProductos[i].total);
-            this.detalleCotizacion.fk_id_cotizacion= this.siguienteCoti;
-            this.detalleCotizacion.fk_id_producto= Number(arrayProductos[i].producto);
-            
-            this.detalleCotizacionService.saveDetalleCotizacion(this.detalleCotizacion)
-            .subscribe(
-              ok=>{
-                if (ok== true) {
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Cotizacion realizada Exitosamente!',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                  this.skillsForm.reset();
-                  //this.router.navigateByUrl('/dashboard/listaVentas');
-                  this.handleCancelCotizacion();
-
-                }
-                else{
-                  this.formCotizacion.markAllAsTouched();
-                  Swal.fire('Error', ok, 'error');
-                }
-              });
-          }
+         
         }
         else{
           Swal.fire('Error', "Complete los datos de los productos", 'error');
@@ -552,54 +555,55 @@ export class FormCotizacionComponent implements OnInit {
     this.filterProducto = this.producto.filter(function(ele: any){
       return ele.id_Producto == idProducto;
     });
-
-    if(this.filterProducto[0].prod_stock == 0){
-      Swal.fire({
-        icon: 'warning',
-        title: 'Alerta',
-        text: 'No hay stock para el producto seleccionado',
-      });
-
-      this.refenciaProducto = this.skillsForm.controls.skills.value[indice].producto;
-      this.stockPro = true;
-      this.skillsForm.controls.skills.value[indice].producto = 0;
-
-      this.skillsForm.controls.skills.value[indice].num1 = 0;
-      this.skillsForm.controls.skills.value[indice].num2 = 0;
-      this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
-       
-
-      this.info = this.skillsForm.value;
-        const linesFormArray = this.skillsForm.get("skills") as FormArray;
-        this.info.skills.forEach((a: { skills: any[]; },index: number) => {
-          
-          linesFormArray.at(index).setValue(a);
-          
+    if(this.filterProducto.length != 0){
+      if(this.filterProducto[0].prod_stock == 0){
+        Swal.fire({
+          icon: 'warning',
+          title: 'Alerta',
+          text: 'No hay stock para el producto seleccionado',
         });
-        this.onKeyUp(indice);
-    }
-    else{
-        this.stockPro = false;
-        this.skillsForm.controls.skills.value[indice].num1 = 1;
-        this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
-        this.skillsForm.controls.skills.value[indice].continuaStockCero = 0;
-        this.skillsForm.controls.skills.value[indice].precioOriginal = this.filterProducto[0].prod_precioVenta;
-
-        if(this.cotizacion.fk_id_moneda == "2"){
-          this.skillsForm.controls.skills.value[indice].num2 = (this.filterProducto[0].prod_precioVenta / Number(this.cotizacion.coti_tipoCambio)).toFixed(2);
-        }
-        else{
-          this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
-        }
-
+  
+        this.refenciaProducto = this.skillsForm.controls.skills.value[indice].producto;
+        this.stockPro = true;
+        this.skillsForm.controls.skills.value[indice].producto = 0;
+  
+        this.skillsForm.controls.skills.value[indice].num1 = 0;
+        this.skillsForm.controls.skills.value[indice].num2 = 0;
+        this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
+         
+  
         this.info = this.skillsForm.value;
-        const linesFormArray = this.skillsForm.get("skills") as FormArray;
-        this.info.skills.forEach((a: { skills: any[]; },index: number) => {
-          
-          linesFormArray.at(index).setValue(a);
-          
-        });
-        this.onKeyUp(indice);
+          const linesFormArray = this.skillsForm.get("skills") as FormArray;
+          this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+            
+            linesFormArray.at(index).setValue(a);
+            
+          });
+          this.onKeyUp(indice);
+      }
+      else{
+          this.stockPro = false;
+          this.skillsForm.controls.skills.value[indice].num1 = 1;
+          this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
+          this.skillsForm.controls.skills.value[indice].continuaStockCero = 0;
+          this.skillsForm.controls.skills.value[indice].precioOriginal = this.filterProducto[0].prod_precioVenta;
+  
+          if(this.cotizacion.fk_id_moneda == "2"){
+            this.skillsForm.controls.skills.value[indice].num2 = (this.filterProducto[0].prod_precioVenta / Number(this.cotizacion.coti_tipoCambio)).toFixed(2);
+          }
+          else{
+            this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
+          }
+  
+          this.info = this.skillsForm.value;
+          const linesFormArray = this.skillsForm.get("skills") as FormArray;
+          this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+            
+            linesFormArray.at(index).setValue(a);
+            
+          });
+          this.onKeyUp(indice);
+      }
     }
     
     

@@ -35,6 +35,7 @@ import { ValidarPermisoVentasGuard } from '../guards/validar-permiso-ventas.guar
 import { ValidarPermisoPreciosGuard } from '../guards/validar-permiso-precios.guard';
 import { ValidarPermisoClientProvGuard } from '../guards/validar-permiso-client-prov.guard';
 import { ValidarPermisoReportesGuard } from '../guards/validar-permiso-reportes.guard';
+import { BuscarIngresosComponent } from './pages/buscar-ingresos/buscar-ingresos.component';
 
 const routes: Routes = [
   {
@@ -96,6 +97,11 @@ const routes: Routes = [
         component: KardexComponent
       },
       {
+        path: 'buscarCompras',
+        canActivate: [ValidarPermisoAlmacenGuard],
+        component: BuscarIngresosComponent
+      },
+      {
         path: 'listaIngreso',
         canActivate: [ValidarPermisoComprasGuard],
         component: ListIngresoComponent
@@ -151,7 +157,7 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: ''
+        redirectTo: 'dashboard/graficas'
       },
     ]
   }

@@ -288,6 +288,7 @@ export class FormProductoComponent implements OnInit {
         this.historialProducto.fk_id_tipo = this.producto.fk_id_tipo;
         this.historialProducto.hist_cambioTiempo = "Creado";
         this.historialProducto.fk_id_usuario = this.usuario.uid;
+        
 
         this.historialProductoService.saveHistorialProducto(this.historialProducto)
         .subscribe(ok =>{
@@ -299,6 +300,7 @@ export class FormProductoComponent implements OnInit {
 
             console.log("Error - Historial no guardado")
           }
+          this.handleCancelProducto();
         })
 
 
@@ -337,7 +339,7 @@ export class FormProductoComponent implements OnInit {
   }
 
   updateProducto(){
-    console.log("prueba");
+    // console.log("prueba");
     const params = this.activatedRoute.snapshot.params;
     if(this.cambioTiempo == true){
       if(this.precioActual != this.producto.prod_precioVenta){
@@ -428,6 +430,7 @@ export class FormProductoComponent implements OnInit {
             this.historialProducto.fk_id_marca = this.producto.fk_id_marca;
             this.historialProducto.fk_id_medida = this.producto.fk_id_medida;
             this.historialProducto.fk_id_tipo = this.producto.fk_id_tipo;
+            this.historialProducto.fk_id_usuario = this.usuario.uid
 
             this.historialProductoService.saveHistorialProducto(this.historialProducto)
             .subscribe(ok =>{

@@ -29,9 +29,12 @@ export class ReporteVentasComponent implements OnInit {
 
   fechaInicio:any ="";
   fechaFinal:any="";
+  fechaActual: any = "";
 
 
   ventas:any = [];
+  splitFecha1: any = [];
+  splitFecha2: any = [];
 
   miFormulario: FormGroup = this.fb.group({
     startDate: ['', []],
@@ -58,6 +61,9 @@ export class ReporteVentasComponent implements OnInit {
               private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.fechaActual = this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
+    this.miFormulario.controls['startDate'].setValue(this.fechaActual);
+    this.miFormulario.controls['endDate'].setValue(this.fechaActual);
 
   }
 
@@ -71,10 +77,11 @@ export class ReporteVentasComponent implements OnInit {
       this.fechaDesde = new Date(startDate);
       this.fechaHasta = new Date(endDate);
       this.fechaDesde.setDate(this.fechaDesde.getDate() + 1);
-      this.fechaHasta.setDate(this.fechaHasta.getDate() + 2);
+      this.fechaHasta.setDate(this.fechaHasta.getDate() + 1);
       this.fechaFormateada1 = this.datePipe.transform(this.fechaDesde.toISOString(), 'yyyy-MM-dd');
       this.fechaFormateada2 = this.datePipe.transform(this.fechaHasta.toISOString(), 'yyyy-MM-dd');
-      
+
+      // console.log('fecha1', this.fechaFormateada1, 'fecha2', this.fechaFormateada2);
       
       this.ventasService.getVentasByDates(this.fechaFormateada1, this.fechaFormateada2)
       .subscribe(resp =>{
@@ -109,16 +116,22 @@ export class ReporteVentasComponent implements OnInit {
     }
   }
   buscarPorDia(){
+
     this.resetar();
+    this.miFormulario.controls['startDate'].setValue(this.fechaActual);
+    this.miFormulario.controls['endDate'].setValue(this.fechaActual);
     this.fechaDesde = new Date();
     this.fechaHasta = new Date();
     this.fechaInicio = this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
     this.fechaFinal =  this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
-    this.fechaDesde.setDate(this.fechaDesde.getDate() );
-    this.fechaHasta.setDate(this.fechaHasta.getDate() + 1);
+    this.fechaDesde.setDate(this.fechaDesde.getDate());
+    this.fechaHasta.setDate(this.fechaHasta.getDate());
     this.fechaFormateada1 = this.datePipe.transform(this.fechaDesde.toISOString(), 'yyyy-MM-dd');
     this.fechaFormateada2 = this.datePipe.transform(this.fechaHasta.toISOString(), 'yyyy-MM-dd');
-    
+
+    // console.log('fecha1', this.fechaFormateada1, 'fecha2', this.fechaFormateada2);
+
+ 
     
     this.ventasService.getVentasByDates(this.fechaFormateada1, this.fechaFormateada2)
     .subscribe(resp =>{
@@ -156,11 +169,16 @@ export class ReporteVentasComponent implements OnInit {
     this.subTotal1 = 0;
     this.subTotal2 = 0;
     this.totalVentas = 0;
+    this.splitFecha1 = [];
+    this.splitFecha2=[];
   }
   showModalDetalleVentas(){
     this.isVisibleDetalleVentas = true;
     this.fechaFormateada1 = this.fechaFormateada1;
     this.fechaFormateada2 = this.fechaFormateada2;
+    this.fechaInicio = this.fechaInicio;
+    this.fechaFinal = this.fechaFinal;
+    
   }
   nuevoDato(){
     this.ngOnInit();

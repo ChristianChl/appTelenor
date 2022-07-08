@@ -33,6 +33,10 @@ export class ReporteDetalleVentasComponent implements OnInit {
   fechaFormateada2: any = "";
 
   ventas:any = [];
+  fechaChange1 : any;
+  fechaChange2: any;
+  splitFecha1: any = [];
+  splitFecha2: any = [];
 
 
   formVentas:FormGroup = this.fb.group({
@@ -45,6 +49,10 @@ export class ReporteDetalleVentasComponent implements OnInit {
               private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+
+    this.fechaChange1 = this.fechaInicio;
+    this.fechaChange2 = this.fechaFinal;
+  
 
     if(this.fechaInicio != "" && this.fechaFinal != ""){
       this.getVentas();
@@ -85,19 +93,25 @@ export class ReporteDetalleVentasComponent implements OnInit {
       return doc;
     })
     .then((docResult)=>{
-      docResult.save('Reporte Contable del ' + this.fechaInicio + ' hasta ' + this.fechaFinal)
+      docResult.save('Reporte Contable del ' + this.fechaChange1 + ' hasta ' + this.fechaChange2)
     })
   }
 
 
   getVentas(){
+
     this.resetar();
-    this.fechaDesde = new Date(this.fechaInicio);
-    this.fechaHasta = new Date(this.fechaFinal);
+    this.fechaDesde = new Date(this.fechaChange1);
+    this.fechaHasta = new Date(this.fechaChange2);
     this.fechaDesde.setDate(this.fechaDesde.getDate() + 1);
-    this.fechaHasta.setDate(this.fechaHasta.getDate() + 2);
+    this.fechaHasta.setDate(this.fechaHasta.getDate() + 1);
     this.fechaFormateada1 = this.datePipe.transform(this.fechaDesde.toISOString(), 'yyyy-MM-dd');
     this.fechaFormateada2 = this.datePipe.transform(this.fechaHasta.toISOString(), 'yyyy-MM-dd');
+
+
+    // console.log('fecha1', this.fechaFormateada1, 'fecha2', this.fechaFormateada2);
+
+
     this.ventasService.getVentasByDates(this.fechaFormateada1, this.fechaFormateada2)
     .subscribe(resp =>{
       if(resp.ok == true){
@@ -122,6 +136,8 @@ export class ReporteDetalleVentasComponent implements OnInit {
 
       }else{
         Swal.fire('Error', 'No se encontraron Registros', 'error');
+        this.ventas = [];
+        
       }
 
     });
@@ -136,6 +152,9 @@ export class ReporteDetalleVentasComponent implements OnInit {
     this.totalIgv =0;
     this.subTotalIgv1 = 0;
     this.subTotalIgv2 =0;
+    this.ventas = [];
+    this.splitFecha1 = [];
+    this.splitFecha2 = [];
   }
   handleCancelVentas(): void{
     this.isVisibleDetalleVentas = false;

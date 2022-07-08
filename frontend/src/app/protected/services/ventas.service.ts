@@ -20,9 +20,9 @@ export class VentasService {
   getVenta(id: string){
     return this.http.get(`${this.baseUrl}/venta/${id}`);
   }
-  getVentasByDates(createdAt: Date, endDate: Date){
+  getVentasByDates(ven_fechaHora: Date, endDate: Date){
     const url = `${this.baseUrl}/venta/dates`;
-    const body = {createdAt, endDate};
+    const body = {ven_fechaHora, endDate};
     return this.http.post<Venta>(url, body)
     .pipe(
       tap(resp =>{

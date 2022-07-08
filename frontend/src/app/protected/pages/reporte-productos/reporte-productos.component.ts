@@ -158,15 +158,15 @@ export class ReporteProductosComponent implements OnInit {
                   this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
                 }
                 else if(this.historialProductoFilter[0].hist_cambioTiempo == "Compra"){
-                  this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock;
+                  this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock  - this.historialProductoFilter[0].hist_cantCompra;;
                 }
                 
 
                 if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Venta"){
-                  this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
+                  this.stockFinalDiaAyer = this.historialProductoFilter[cant-1].hist_stock;
                 }
                 else if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Compra"){
-                  this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock - this.historialProductoFilter[0].hist_cantCompra;;
+                  this.stockFinalDiaAyer = this.historialProductoFilter[cant-1].hist_stock;
                 }
               }
               
@@ -221,7 +221,8 @@ export class ReporteProductosComponent implements OnInit {
       }
     let formattedAyer = date.getDate() + '-' + numMes + '-' + date.getFullYear();
     let primerDiaMes = '01-'+numMes+'-'+date.getFullYear();
-
+          
+      console.log("prueba")
     if(newValue == 1){
       for(let i=0; i<this.producto.length; i++){
         let cantidadVentas = 0;
@@ -254,15 +255,15 @@ export class ReporteProductosComponent implements OnInit {
               this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
             }
             else if(this.historialProductoFilter[0].hist_cambioTiempo == "Compra"){
-              this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock;
+              this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock  - this.historialProductoFilter[0].hist_cantCompra;;
             }
             
 
             if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Venta"){
-              this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
+              this.stockFinalDiaAyer = this.historialProductoFilter[cant-1].hist_stock;
             }
             else if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Compra"){
-              this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock - this.historialProductoFilter[0].hist_cantCompra;;
+              this.stockFinalDiaAyer = this.historialProductoFilter[cant-1].hist_stock;
             }
           }
           
@@ -319,15 +320,15 @@ export class ReporteProductosComponent implements OnInit {
               this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
             }
             else if(this.historialProductoFilter[0].hist_cambioTiempo == "Compra"){
-              this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock;
+              this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock  - this.historialProductoFilter[0].hist_cantCompra;;
             }
             
 
             if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Venta"){
-              this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
+              this.stockFinalDiaAyer = this.historialProductoFilter[cant-1].hist_stock;
             }
             else if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Compra"){
-              this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock - this.historialProductoFilter[0].hist_cantCompra;;
+              this.stockFinalDiaAyer = this.historialProductoFilter[cant-1].hist_stock;
             }
           }
           

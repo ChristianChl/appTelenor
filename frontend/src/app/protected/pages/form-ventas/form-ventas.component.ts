@@ -164,7 +164,7 @@ export class FormVentasComponent implements OnInit {
         input2?.setAttribute("disabled", "true");
         this.venta.ven_tipoCambio = 1;
         for(let i=0; i<this.skillsForm.value.skills.length; i++){
-
+          this.info = this.skillsForm.value;
           if(this.info.skills[i].producto !=""){
             this.skillsForm.value.skills[i].num2 = ((Number(this.skillsForm.value.skills[i].precioOriginal)/Number(this.venta.ven_tipoCambio)).toFixed(2)).toString();
           }
@@ -373,65 +373,66 @@ export class FormVentasComponent implements OnInit {
     this.filterProducto = this.producto.filter(function(ele: any){
       return ele.id_Producto == idProducto;
     });
-    
-    if(this.filterProducto[0].prod_stock == 0){
-      Swal.fire({
-        icon: 'warning',
-        title: 'Alerta',
-        text: 'No hay stock para el producto seleccionado',
-        confirmButtonText:
-        ' <a routerLink="/dashboard/agregarIngreso"> <i  class="fa fa-thumbs-up"></i> Ir a Compras! </a>',
-        showCancelButton: true,
-        cancelButtonText:
-        'OK!',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.router.navigateByUrl('/dashboard/agregarIngreso');
-        }
-      });
-
-      
-      this.refenciaProducto = this.skillsForm.controls.skills.value[indice].producto;
-      this.stockPro = true;
-      this.skillsForm.controls.skills.value[indice].producto = 0;
-
-      this.skillsForm.controls.skills.value[indice].num1 = 0;
-      this.skillsForm.controls.skills.value[indice].num2 = 0;
-      this.skillsForm.controls.skills.value[indice].subTotal  = ((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)/1.18).toFixed(2);
-      this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
-       
-
-      this.info = this.skillsForm.value;
-        const linesFormArray = this.skillsForm.get("skills") as FormArray;
-        this.info.skills.forEach((a: { skills: any[]; },index: number) => {
-          
-          linesFormArray.at(index).setValue(a);
-          
+    if(this.filterProducto.length != 0){
+      if(this.filterProducto[0].prod_stock == 0){
+        Swal.fire({
+          icon: 'warning',
+          title: 'Alerta',
+          text: 'No hay stock para el producto seleccionado',
+          confirmButtonText:
+          ' <a routerLink="/dashboard/agregarIngreso"> <i  class="fa fa-thumbs-up"></i> Ir a Compras! </a>',
+          showCancelButton: true,
+          cancelButtonText:
+          'OK!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigateByUrl('/dashboard/agregarIngreso');
+          }
         });
-        this.onKeyUp(indice);
-    }
-    else{
-        this.stockPro = false;
-        this.skillsForm.controls.skills.value[indice].num1 = 1;
-        this.skillsForm.controls.skills.value[indice].precioOriginal = this.filterProducto[0].prod_precioVenta;
-
-        if(this.venta.fk_id_moneda == 2){
-          this.skillsForm.controls.skills.value[indice].num2 = (this.filterProducto[0].prod_precioVenta / Number(this.venta.ven_tipoCambio)).toFixed(2);
-        }
-        else{
-          this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
-        }
+  
         
-
+        this.refenciaProducto = this.skillsForm.controls.skills.value[indice].producto;
+        this.stockPro = true;
+        this.skillsForm.controls.skills.value[indice].producto = 0;
+  
+        this.skillsForm.controls.skills.value[indice].num1 = 0;
+        this.skillsForm.controls.skills.value[indice].num2 = 0;
+        this.skillsForm.controls.skills.value[indice].subTotal  = ((this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2)/1.18).toFixed(2);
+        this.skillsForm.controls.skills.value[indice].total = (this.skillsForm.controls.skills.value[indice].num1 *  this.skillsForm.controls.skills.value[indice].num2).toFixed(2);
+         
+  
         this.info = this.skillsForm.value;
-        const linesFormArray = this.skillsForm.get("skills") as FormArray;
-        this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+          const linesFormArray = this.skillsForm.get("skills") as FormArray;
+          this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+            
+            linesFormArray.at(index).setValue(a);
+            
+          });
+          this.onKeyUp(indice);
+      }
+      else{
+          this.stockPro = false;
+          this.skillsForm.controls.skills.value[indice].num1 = 1;
+          this.skillsForm.controls.skills.value[indice].precioOriginal = this.filterProducto[0].prod_precioVenta;
+  
+          if(this.venta.fk_id_moneda == 2){
+            this.skillsForm.controls.skills.value[indice].num2 = (this.filterProducto[0].prod_precioVenta / Number(this.venta.ven_tipoCambio)).toFixed(2);
+          }
+          else{
+            this.skillsForm.controls.skills.value[indice].num2 = this.filterProducto[0].prod_precioVenta
+          }
           
-          linesFormArray.at(index).setValue(a);
+  
+          this.info = this.skillsForm.value;
+          const linesFormArray = this.skillsForm.get("skills") as FormArray;
+          this.info.skills.forEach((a: { skills: any[]; },index: number) => {
+            
+            linesFormArray.at(index).setValue(a);
+            
+          });
           
-        });
-        
-        this.onKeyUp(indice);
+          this.onKeyUp(indice);
+      }
     }
 
     
@@ -596,7 +597,49 @@ export class FormVentasComponent implements OnInit {
           this.ventasService.saveVenta(this.venta).subscribe(resp =>{
             if( resp === true && this.formDatosVentas.valid ) {
       
-              
+              for(let i=0; i<arrayProductos.length; i++){
+            
+                this.detalleVenta.id_detalleVenta = 0;
+                this.detalleVenta.detv_cantidad= Number(arrayProductos[i].num1);
+                this.detalleVenta.detv_precioVenta=Number(arrayProductos[i].num2);
+                this.detalleVenta.detv_subTotal=Number(arrayProductos[i].subTotal);
+                this.detalleVenta.detv_total=Number(arrayProductos[i].total);
+                this.detalleVenta.fk_id_producto = Number(arrayProductos[i].producto);
+                console.log('numcomprobante', this.numComprobante);
+                
+                this.detalleVenta.fk_id_venta = Number(this.numComprobante);
+                this.id = Number(this.detalleVenta.fk_id_producto)
+                
+                const productoIndi =  this.getProductoIndividual(this.producto,  this.id);
+                const cantidadIngresada = Number(arrayProductos[i].num1);
+                productoIndi[0].prod_stock = productoIndi[0].prod_stock - cantidadIngresada;
+                this.actualizaProducto(this.id, productoIndi[0],this.detalleVenta);
+    
+                this.detallVentaService.saveDetalleVenta(this.detalleVenta)
+                .subscribe(
+                  ok=>{
+                    if (ok== true) {
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Venta Registrada Exitosamente!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                      this.skillsForm.reset();
+                      this.router.navigateByUrl('/dashboard/listaVentas');
+                      
+    
+                    }
+                    else{
+                      this.formDatosVentas.markAllAsTouched();
+                      Swal.fire('Error', ok, 'error');
+                      
+                    }
+                  });
+    
+    
+              }
               Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -612,47 +655,7 @@ export class FormVentasComponent implements OnInit {
           });
 
 
-          for(let i=0; i<arrayProductos.length; i++){
-            
-            this.detalleVenta.id_detalleVenta = 0;
-            this.detalleVenta.detv_cantidad= Number(arrayProductos[i].num1);
-            this.detalleVenta.detv_precioVenta=Number(arrayProductos[i].num2);
-            this.detalleVenta.detv_subTotal=Number(arrayProductos[i].subTotal);
-            this.detalleVenta.detv_total=Number(arrayProductos[i].total);
-            this.detalleVenta.fk_id_producto = Number(arrayProductos[i].producto);
-            this.detalleVenta.fk_id_venta = Number(this.numComprobante.toString());
-            this.id = Number(this.detalleVenta.fk_id_producto)
-            
-            const productoIndi =  this.getProductoIndividual(this.producto,  this.id);
-            const cantidadIngresada = Number(arrayProductos[i].num1);
-            productoIndi[0].prod_stock = productoIndi[0].prod_stock - cantidadIngresada;
-            this.actualizaProducto(this.id, productoIndi[0],this.detalleVenta);
 
-            this.detallVentaService.saveDetalleVenta(this.detalleVenta)
-            .subscribe(
-              ok=>{
-                if (ok== true) {
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Venta Registrada Exitosamente!',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                  this.skillsForm.reset();
-                  this.router.navigateByUrl('/dashboard/listaVentas');
-                  
-
-                }
-                else{
-                  this.formDatosVentas.markAllAsTouched();
-                  Swal.fire('Error', ok, 'error');
-                  
-                }
-              });
-
-
-          }
         }
         else{
           Swal.fire('Error', "Complete los datos de los productos", 'error');

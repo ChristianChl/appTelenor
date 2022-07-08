@@ -152,6 +152,33 @@ export class HomeComponent implements OnInit {
           */
 
           //iNDICE DE ROTACION
+          for(let i=0; i<this.historialProducto.length; i++){
+            const now = new Date(this.historialProducto[i].createdAt);
+            var months = ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          
+              let numMes:any = "";
+              let mesPrueba =  Number([now.getMonth()+1]);
+              if( mesPrueba <= 9){
+                  numMes = "0"+ mesPrueba;
+              }
+              else{
+                  numMes =  mesPrueba;
+              }
+
+              let numDia:any = "";
+              let diaPrueba =  Number([now.getDate()]);
+              if( diaPrueba <= 9){
+                numDia = "0"+ diaPrueba;
+              }
+              else{
+                numDia =  diaPrueba;
+              }
+
+
+            
+            let formatted = numDia + '-' + numMes + '-' + now.getFullYear()
+            this.historialProducto[i].createdAt = formatted;
+          }
           var date = new Date();
           date ; 
           date.setDate(date.getDate() - 1);
@@ -164,76 +191,78 @@ export class HomeComponent implements OnInit {
             else{
                 numMes =  mesPrueba;
             }
-          let formattedAyer = date.getDate() + '-' + numMes + '-' + date.getFullYear();
-          let primerDiaMes = '01-'+numMes+'-'+date.getFullYear();
-
-          for(let i=0; i<this.todosProductos.length; i++){
-            let cantidadVentas = 0;
-            let id = this.todosProductos[i].id_Producto;
-    
-            this.historialProductoFilter = this.historialProducto.filter(function(ele: any){
-              return ele.id_producto == id && ele.createdAt >= primerDiaMes ;
-            });
-            this.historialProductoFilter = this.historialProductoFilter.filter(function(ele: any){
-              return ele.createdAt <= formattedAyer ;
-            });
-            let cant = this.historialProductoFilter.length;
-    
-            //Sacar Sttock inicial y final de cada Producto
-            if(this.historialProductoFilter.length > 0){
-    
-              if(this.historialProductoFilter.length == 1){
-                if(this.historialProductoFilter[0].hist_cambioTiempo == "Venta"){
-                   this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
-                   this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
+            let formattedAyer = date.getDate() + '-' + numMes + '-' + date.getFullYear();
+            let primerDiaMes = '01-'+numMes+'-'+date.getFullYear();
+            for(let i=0; i<this.todosProductos.length; i++){
+              let cantidadVentas = 0;
+              let id = this.todosProductos[i].id_Producto;
+      
+              this.historialProductoFilter = this.historialProducto.filter(function(ele: any){
+                return ele.id_producto == id && ele.createdAt >= primerDiaMes;
+              });
+  
+              this.historialProductoFilter = this.historialProductoFilter.filter(function(ele: any){
+                return ele.createdAt <= formattedAyer ;
+              });
+              
+              let cant = this.historialProductoFilter.length;
+      
+              //Sacar Sttock inicial y final de cada Producto
+              if(this.historialProductoFilter.length > 0){
+      
+                if(this.historialProductoFilter.length == 1){
+                  if(this.historialProductoFilter[0].hist_cambioTiempo == "Venta"){
+                     this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
+                     this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
+                  }
+                  else{
+                    this.stockInicialDiaAyer = 0;
+                    this.stockFinalDiaAyer = 0;
+                  }
+                  
                 }
                 else{
-                  this.stockInicialDiaAyer = 0;
-                  this.stockFinalDiaAyer = 0;
+                  if(this.historialProductoFilter[0].hist_cambioTiempo == "Venta"){
+                    this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
+                  }
+                  else if(this.historialProductoFilter[0].hist_cambioTiempo == "Compra"){
+                    this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock  - this.historialProductoFilter[0].hist_cantCompra;;
+                  }
+                  
+      
+                  if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Venta"){
+                    this.stockFinalDiaAyer = this.historialProductoFilter[cant-1].hist_stock;
+                  }
+                  else if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Compra"){
+                    this.stockFinalDiaAyer = this.historialProductoFilter[cant-1].hist_stock;
+                  }
                 }
                 
               }
               else{
-                if(this.historialProductoFilter[0].hist_cambioTiempo == "Venta"){
-                  this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock + this.historialProductoFilter[0].hist_cantVenta;
-                }
-                else if(this.historialProductoFilter[0].hist_cambioTiempo == "Compra"){
-                  this.stockInicialDiaAyer = this.historialProductoFilter[0].hist_stock;
-                }
-                
-    
-                if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Venta"){
-                  this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock;
-                }
-                else if(this.historialProductoFilter[cant-1].hist_cambioTiempo == "Compra"){
-                  this.stockFinalDiaAyer = this.historialProductoFilter[0].hist_stock - this.historialProductoFilter[0].hist_cantCompra;;
-                }
+                this.stockInicialDiaAyer = 0;
+                this.stockFinalDiaAyer = 0;
+              }
+      
+              //Obtener la cantidad de productos que se vendieron
+      
+              for(let j=0;j<this.historialProductoFilter.length; j++){
+                cantidadVentas = this.historialProductoFilter[j].hist_cantVenta + cantidadVentas
+              }
+      
+              // Realizar la formula 
+              let stockPromDiaAyer = (this.stockFinalDiaAyer + this.stockInicialDiaAyer)/2;
+              let rotacion;
+              if(stockPromDiaAyer == 0){
+                 rotacion = 0;
+              } 
+              else{
+                rotacion = (cantidadVentas/stockPromDiaAyer).toFixed(2);
               }
               
+              this.todosProductos[i].prod_imagen = rotacion;
+              // console.log(this.todosProductos);
             }
-            else{
-              this.stockInicialDiaAyer = 0;
-              this.stockFinalDiaAyer = 0;
-            }
-    
-            //Obtener la cantidad de productos que se vendieron
-    
-            for(let j=0;j<this.historialProductoFilter.length; j++){
-              cantidadVentas = this.historialProductoFilter[j].hist_cantVenta + cantidadVentas
-            }
-    
-            // Realizar la formula 
-            let stockPromDiaAyer = (this.stockFinalDiaAyer + this.stockInicialDiaAyer)/2;
-            let rotacion;
-            if(stockPromDiaAyer == 0){
-               rotacion = 0;
-            } 
-            else{
-              rotacion = (cantidadVentas/stockPromDiaAyer).toFixed(2);
-            }
-            this.todosProductos[i].prod_imagen = rotacion;
-            // console.log(this.todosProductos);
-          }
         },
         err => console.log(err)
       )
@@ -495,7 +524,7 @@ export class HomeComponent implements OnInit {
 }
 
   //Obtener Compras Del Mes y el anterior
-  getMonthsValues(){
+  getMonthsValues (){
     this.resetear();
     const fechaInicial  = new Date();
     const fechaFinal  = new Date(); 
@@ -509,34 +538,47 @@ export class HomeComponent implements OnInit {
       resp => { 
         this.ingreso = resp;
         this.ingreso = this.ingreso.ingreso;
-        for(let i = 0; i< this.ingreso.length; i++ ){
-          const elemento = this.ingreso[i].Personas.per_razonSocial.toLowerCase();
-          if(!this.unicos.includes(this.ingreso[i].Personas.per_razonSocial.toLowerCase())){
-            this.unicos.push(elemento);
-          }
-        }
-        for(let i=0; i<this.unicos.length; i++){
+        if(this.ingreso.length > 0){
           
-          this.count = 0;
-          this.totalAcumulado = 0;
-
-          for(let j=0; j<this.ingreso.length; j++){
-
-            if(this.unicos[i].toLowerCase() == this.ingreso[j].Personas.per_razonSocial.toLowerCase()){
-              
-              this.count = Number(this.ingreso[j].ing_totalCompra);
-              this.totalAcumulado += this.count;
+          for(let i = 0; i< this.ingreso.length; i++ ){
+            const elemento = this.ingreso[i].Personas.per_razonSocial.toLowerCase();
+            if(!this.unicos.includes(this.ingreso[i].Personas.per_razonSocial.toLowerCase())){
+              this.unicos.push(elemento);
             }
-
           }
-          this.totalCompras.push({total: this.totalAcumulado, nombreProveedor: this.unicos[i]});
+          for(let i=0; i<this.unicos.length; i++){
+            
+            this.count = 0;
+            this.totalAcumulado = 0;
+  
+            for(let j=0; j<this.ingreso.length; j++){
+  
+              if(this.unicos[i].toLowerCase() == this.ingreso[j].Personas.per_razonSocial.toLowerCase()){
+                
+                this.count = Number(this.ingreso[j].ing_totalCompra);
+                this.totalAcumulado += this.count;
+              }
+  
+            }
+            this.totalCompras.push({total: this.totalAcumulado, nombreProveedor: this.unicos[i]});
+          }
+          this.totalCompras.sort(function(a: any, b: any){
+            return b.total - a.total;
+          });
+          for(let k = 0; k < this.totalCompras.length; k ++){
+
+            if(k < 3){
+              
+              this.doughnutChartLabels1.push(this.totalCompras[k].nombreProveedor);
+              this.doughnutChartData1.push(this.totalCompras[k].total);
+            }
+          }
         }
-        this.totalCompras.sort(function(a: any, b: any){
-          return b.total - a.total;
-        });
-        for(let k = 0; k < 3; k ++){
-          this.doughnutChartLabels1.push(this.totalCompras[k].nombreProveedor);
-          this.doughnutChartData1.push(this.totalCompras[k].total);
+        else{
+          this.totalAcumulado = 0;
+          this.doughnutChartLabels1.push('Sin datos');
+          this.doughnutChartData1.push(this.totalAcumulado);
+
         }
 
       },

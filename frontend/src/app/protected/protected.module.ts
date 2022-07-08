@@ -62,6 +62,7 @@ import { KardexComponent } from './pages/kardex/kardex.component'
 import { PreciosProductosComponent } from './pages/precios-productos/precios-productos.component';
 import { ListaHitorialComponent } from './pages/lista-hitorial/lista-hitorial.component';
 import { NgxPrintModule } from 'ngx-print';
+import { BuscarIngresosComponent } from './pages/buscar-ingresos/buscar-ingresos.component';
 
 
 @NgModule({
@@ -122,7 +123,8 @@ import { NgxPrintModule } from 'ngx-print';
     VentaCotizacionComponent,
     KardexComponent,
     PreciosProductosComponent,
-    ListaHitorialComponent
+    ListaHitorialComponent,
+    BuscarIngresosComponent
   ],
   imports: [
     CommonModule,

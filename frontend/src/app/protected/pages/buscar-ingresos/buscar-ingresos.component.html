@@ -1,0 +1,99 @@
+<div style="background: #ECECEC;padding:2px; margin-left: 5px; margin-right: 5px; margin-top: 10px;">
+    <div class="row">
+      <div class="col-4" id="pointer1" style="margin-left: 22px; margin-right: 10px;">
+        <i nz-icon nzType="home" nzTheme="outline" style="color: rgb(250, 250, 250);position: relative;right: -23px;top: 7px; transform: scale(1.5)"></i>
+      </div>
+      <div class="col-4" id="pointer2" style="margin-left: 10px; margin-right: 10px;" >
+        <p style="color: rgb(250, 250, 250);position: relative;right: -18px;top: 10px; transform: scale(1)">Almacén</p>
+      </div>
+      <div class="col-4" id="pointer3" style="margin-left: 10px; margin-right: 10px;" >
+        <p style="color: rgb(250, 250, 250);position: relative;right: -20px;top: 10px; transform: scale(1)">Compras</p>
+      </div>
+    </div>
+    <!-- <hr style="position: relative;top: -10px;margin-left: 10px; margin-right: 10px;"> -->
+    <p></p>
+    <div class="row" style="margin-left: 10px; margin-right: 10px;">
+      <div class="col-12" style="background-color: rgb(40, 23, 114);">
+            <span style="color: floralwhite;">Consultas de las compras realizadas para almacén.</span>
+      </div>
+    </div>
+    <br><br>
+
+    <form autocomplete="off" [formGroup]="formBuscarIngresos">
+    
+    <div class="row">
+        <div class="col-6" style="margin-inline: 10px auto;">
+          <nz-form-item >
+            <label class="letras" style="margin-right: 10px; margin-top: 5px;">Tipo Documento:</label>
+            <nz-form-control nzHasFeedback>
+              <nz-select [nzSuffixIcon]="'exclamation-circle'" nzShowSearch formControlName="us_documento" name="tipodocumento"  nzAllowClear nzPlaceHolder="Seleccione">
+                <nz-option *ngFor="let option of tipoDoc" [nzLabel]="option.text" [nzValue]="option.value">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+            <label class="letras" style="margin-left: 20px; margin-top: 5px;">Número:</label>
+            <input style="margin-left: 10px;width: 180px;" type="number" nz-input placeholder="Ingrese valor a buscar" formControlName="documentNumber" />
+            <button (click)="buscarCompra()" style="margin-left: 20px;" nz-button nzType="primary"><i
+              style="vertical-align:1px;" nz-icon nzType="search"></i>Buscar</button>
+          </nz-form-item>          
+        </div>
+    </div>
+    <br>
+
+
+    <div id="table" *ngIf="ingreso.length>0">
+        <div class="row">
+          <div class="col-10" style="margin-inline: 10px auto;">
+              <strong><h2>Listado de Compras</h2></strong>
+          </div>
+        </div>
+
+        <div class="row" style="width: 1486px;margin-inline: 10px auto;">
+          <div class="col-12" style="background-color:rgb(48, 52, 84);">
+              <span style="color: floralwhite;">Compras Realizadas</span>
+          </div>
+        </div>
+        <nz-table  #basicTable [nzData]="ingreso" [nzFrontPagination]="false" style="margin-left: 10px; margin-right: 10px;" >
+          <thead>
+              <tr>
+                  <th style="text-align: center;"><strong>#</strong> </th>
+                  <th style="text-align: center;"><strong >Num. Comp.</strong></th>
+                  <th style="text-align: center;"><strong >Num. Doc.</strong></th>
+                  <th style="text-align: center;"><strong >Razón Social</strong></th>
+                  <th style="text-align: center;"><strong >Total</strong></th>
+                  <th style="text-align: center;"><strong >Fecha Emision</strong></th>
+                  <th style="text-align: center;"><strong >Acciones</strong></th>
+              </tr>
+            </thead>
+          <tbody>
+                <tr *ngFor="let data of basicTable.data; let indice = index">
+                  <td>{{ indice+1}}</td> 
+                  <td>{{ data.ing_numeroComprobante }}</td>
+                  <td>{{ data.Personas.per_numeroDocumento }}</td>
+                  <td>{{ data.Personas.per_razonSocial|titlecase }}</td>
+                  <td>{{ data.ing_totalCompra }}</td>
+                  <td>{{ data.createdAt }}</td>
+                  <td style="text-align: center;">
+                    <nz-button-group>
+                        <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                          <i nz-icon nzType="setting"></i>
+                        </button>
+                    </nz-button-group>
+                    <nz-dropdown-menu #menu2="nzDropdownMenu">
+                        <ul nz-menu>
+                          <li nz-menu-item>
+                            <button nz-button nzType="primary" nzTooltipTitle="Visualizar PDF" nzTooltipPlacement="left" nz-tooltip   ntype="button" (click)="generatePdf(data.ing_numeroComprobante)"  >
+                              <i nz-icon nzType="eye" nzTheme="outline"></i>
+                            </button>
+                          </li>
+                        </ul>
+                      </nz-dropdown-menu>
+                  </td>
+                </tr>
+          </tbody>
+        </nz-table>
+    </div>
+  </form>
+
+
+</div>
